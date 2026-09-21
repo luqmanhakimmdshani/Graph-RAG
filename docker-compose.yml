@@ -1,0 +1,59 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: idp
+      POSTGRES_PASSWORD: idp
+      POSTGRES_DB: idp
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  vector-db:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - vector-data:/qdrant/storage
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8081:8080"
+
+  api:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://idp:idp@db:5432/idp
+      VECTOR_DB_URL: http://vector-db:6333
+      OIDC_ISSUER: http://keycloak:8080/realms/idp
+    volumes:
+      - ./backend:/app
+      - uploads:/data/uploads
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - vector-db
+      - keycloak
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  db-data:
+  vector-data:
+  uploads:
