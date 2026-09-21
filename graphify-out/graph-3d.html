@@ -27,8 +27,15 @@
     border-radius: 10px; font-size: 11px; border: 1px solid rgba(255,255,255,0.08);
     max-height: 70vh; overflow-y: auto;
   }
-  #legend div { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
+  #legend div, #edge-legend div { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
   #legend span.sw { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  #edge-legend {
+    position: fixed; bottom: 16px; right: 16px; max-width: 220px;
+    background: rgba(20,22,30,0.9); color: #cfd3da; padding: 10px 14px;
+    border-radius: 10px; font-size: 11px; border: 1px solid rgba(255,255,255,0.08);
+  }
+  #edge-legend h2 { font-size: 11px; margin: 0 0 6px; color: #9aa0ab; font-weight: 600; }
+  #edge-legend span.sw.line { width: 16px; height: 2px; border-radius: 0; }
 </style>
 </head>
 <body>
@@ -39,6 +46,7 @@
 </div>
 <div id="info"></div>
 <div id="legend"></div>
+<div id="edge-legend"><h2>Relations</h2></div>
 
 <script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1/dist/3d-force-graph.min.js"></script>
 <script>
@@ -56,6 +64,26 @@ function colorFor(community) {
   return palette[community % palette.length];
 }
 
+// Structural noise (contains/imports) gets a dim, thin line; semantic
+// relations (inherits/extends/uses/...) get a distinct, brighter color
+// so the graph reads as "what depends on what" rather than a hairball.
+const relationStyle = {
+  contains:      { color: "#3a4150", width: 0.35 },
+  imports:       { color: "#4fc3f7", width: 0.8  },
+  imports_from:  { color: "#29b6f6", width: 0.8  },
+  references:    { color: "#ffca28", width: 1.0  },
+  uses:          { color: "#66bb6a", width: 1.3  },
+  inherits:      { color: "#ef5350", width: 1.8  },
+  extends:       { color: "#ff7043", width: 1.8  },
+  re_exports:    { color: "#ab47bc", width: 1.2  },
+  rationale_for: { color: "#8d6e63", width: 1.2  },
+};
+const defaultRelationStyle = { color: "rgba(255,255,255,0.25)", width: 0.6 };
+
+function styleFor(relation) {
+  return relationStyle[relation] || defaultRelationStyle;
+}
+
 const legendEl = document.getElementById("legend");
 Object.entries(DATA.labels).slice(0, 12).forEach(([idx, name]) => {
   const row = document.createElement("div");
@@ -69,6 +97,24 @@ Object.entries(DATA.labels).slice(0, 12).forEach(([idx, name]) => {
   legendEl.appendChild(row);
 });
 
+const edgeLegendEl = document.getElementById("edge-legend");
+const relationCounts = {};
+DATA.links.forEach(l => { relationCounts[l.relation] = (relationCounts[l.relation] || 0) + 1; });
+Object.keys(relationStyle)
+  .filter(rel => relationCounts[rel])
+  .sort((a, b) => relationCounts[b] - relationCounts[a])
+  .forEach(rel => {
+    const row = document.createElement("div");
+    const sw = document.createElement("span");
+    sw.className = "sw line";
+    sw.style.background = relationStyle[rel].color;
+    row.appendChild(sw);
+    const label = document.createElement("span");
+    label.textContent = `${rel} (${relationCounts[rel]})`;
+    row.appendChild(label);
+    edgeLegendEl.appendChild(row);
+  });
+
 const infoEl = document.getElementById("info");
 
 const Graph = ForceGraph3D()(document.getElementById("graph"))
@@ -79,12 +125,16 @@ const Graph = ForceGraph3D()(document.getElementById("graph"))
   .nodeColor(n => colorFor(n.community))
   .nodeVal(n => n.val)
   .nodeOpacity(0.95)
-  .linkColor(() => "rgba(255,255,255,0.18)")
-  .linkWidth(l => l.confidence === "EXTRACTED" ? 0.6 : 1.2)
-  .linkDirectionalParticles(l => l.confidence === "INFERRED" ? 1 : 0)
-  .linkDirectionalParticleWidth(1.4)
-  .linkDirectionalArrowLength(3)
+  .linkLabel(l => `${l.source.label || l.source} &rarr; ${l.target.label || l.target}<br><b>${l.relation}</b> (${l.confidence.toLowerCase()})`)
+  .linkColor(l => styleFor(l.relation).color)
+  .linkWidth(l => styleFor(l.relation).width * (l.confidence === "INFERRED" ? 1.4 : 1))
+  .linkOpacity(0.55)
+  .linkDirectionalParticles(l => l.confidence === "INFERRED" ? 2 : 0)
+  .linkDirectionalParticleWidth(1.6)
+  .linkDirectionalParticleColor(l => styleFor(l.relation).color)
+  .linkDirectionalArrowLength(l => ["inherits", "extends"].includes(l.relation) ? 4 : 2)
   .linkDirectionalArrowRelPos(1)
+  .linkDirectionalArrowColor(l => styleFor(l.relation).color)
   .onNodeClick(n => {
     infoEl.style.display = "block";
     infoEl.innerHTML = `<b>${n.label}</b><br>${n.community_name}<br><span style="color:#9aa0ab">${n.file || ""}</span><br>connections: ${n.val}`;
