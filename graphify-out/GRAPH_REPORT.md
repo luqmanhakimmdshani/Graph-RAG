@@ -1,7 +1,7 @@
 # Graph Report - RAG  (2026-09-21)
 
 ## Corpus Check
-- 27 files · ~5,960 words
+- 28 files · ~6,351 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `194a0922`
+- Built from commit: `7d76e1af`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -99,7 +99,7 @@ Nodes (9): exclude, include, **/*.mts, .next/dev/types/**/*.ts, next-env.d.ts, .
 
 ### Community 9 - "IDP Platform"
 Cohesion: 0.33
-Nodes (5): Backend dev (outside Docker), IDP Platform, Run it, Stack, Status: Phase 0 (scaffolding)
+Nodes (5): Backend dev (outside Docker), IDP Platform, Run it, Stack, Status: Phase 0 complete
 
 ### Community 10 - "layout.tsx"
 Cohesion: 0.40

@@ -14,7 +14,7 @@
       "file_type": "code",
       "norm_label": "config",
       "source_file": "backend/app/config.py",
-      "source_location": "L14"
+      "source_location": "L21"
     },
     {
       "id": "backend_app_config_settings",
@@ -193,7 +193,7 @@
       "file_type": "code",
       "norm_label": "require_role()",
       "source_file": "backend/app/auth.py",
-      "source_location": "L28"
+      "source_location": "L36"
     },
     {
       "id": "backend_app_database_get_db",
@@ -313,7 +313,7 @@
       "file_type": "code",
       "norm_label": "get_current_user()",
       "source_file": "backend/app/auth.py",
-      "source_location": "L21"
+      "source_location": "L29"
     },
     {
       "id": "backend_app_routers_documents_get_document",
@@ -1971,14 +1971,14 @@
       "source_location": "L5"
     },
     {
-      "id": "readme_status_phase_0_scaffolding",
-      "label": "Status: Phase 0 (scaffolding)",
+      "id": "readme_status_phase_0_complete",
+      "label": "Status: Phase 0 complete",
       "_origin": "ast",
       "community": 9,
       "community_name": "IDP Platform",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "status: phase 0 (scaffolding)",
+      "norm_label": "status: phase 0 complete",
       "source_file": "README.md",
       "source_location": "L37"
     }
@@ -2893,7 +2893,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "backend/app/auth.py",
-      "source_location": "L21",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -3176,7 +3176,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/auth.py",
-      "source_location": "L21",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -3187,7 +3187,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/auth.py",
-      "source_location": "L28",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -3209,7 +3209,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/config.py",
-      "source_location": "L14",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -4248,7 +4248,7 @@
     },
     {
       "source": "readme_idp_platform",
-      "target": "readme_status_phase_0_scaffolding",
+      "target": "readme_status_phase_0_complete",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4446,5 +4446,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "194a09220101461ea8b01053aa0869ed10a6ba3e"
+  "built_at_commit": "7d76e1afaa7a936168c005d5707dac73a533fc7b"
 }

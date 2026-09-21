@@ -18,15 +18,15 @@
     "semantic_hash": ""
   },
   "backend/app/auth.py": {
-    "mtime": 1790004099.157437,
-    "seen": 1790005302.4305186,
-    "ast_hash": "c6fa2dd0fb049d1d4e14f545587ea796",
+    "mtime": 1790005832.5603085,
+    "seen": 1790005960.1245372,
+    "ast_hash": "c8a8a90074782029caf093b837b5dd61",
     "semantic_hash": ""
   },
   "backend/app/config.py": {
-    "mtime": 1790004072.4581704,
-    "seen": 1790005302.4305198,
-    "ast_hash": "a40332954505d20ef343e3fea21fa2f8",
+    "mtime": 1790005827.5431821,
+    "seen": 1790005960.1245391,
+    "ast_hash": "6d0588e3612d0d6f350eac5771f7635b",
     "semantic_hash": ""
   },
   "backend/app/database.py": {
@@ -138,9 +138,9 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1790004547.2960076,
-    "seen": 1790005302.4305372,
-    "ast_hash": "fa0c543a9f230bf51b8e7f116961ea74",
+    "mtime": 1790005923.0807512,
+    "seen": 1790005960.124575,
+    "ast_hash": "ba9a5eb2e252cad53637a85926941d75",
     "semantic_hash": ""
   },
   "backend/requirements.txt": {
@@ -150,9 +150,9 @@
     "semantic_hash": ""
   },
   "docker-compose.yml": {
-    "mtime": 1790004330.601154,
-    "seen": 1790005302.430539,
-    "ast_hash": "1672a18331b27cac1b6eb87dd7699792",
+    "mtime": 1790005821.4803517,
+    "seen": 1790005960.1245797,
+    "ast_hash": "b5c1750067e1cbbefe7f0060740cfa85",
     "semantic_hash": ""
   },
   "frontend/AGENTS.md": {
@@ -201,6 +201,12 @@
     "mtime": 1790004160.430191,
     "seen": 1790005302.4305463,
     "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": ""
+  },
+  "keycloak/realm-export.json": {
+    "mtime": 1790005824.0395632,
+    "seen": 1790005960.1245704,
+    "ast_hash": "373539daf4a1d66ceb01c1f66307ea88",
     "semantic_hash": ""
   }
 }
