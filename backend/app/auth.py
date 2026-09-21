@@ -11,9 +11,17 @@ from app.config import settings
 oauth = OAuth()
 oauth.register(
     name="oidc",
-    server_metadata_url=f"{settings.oidc_issuer}/.well-known/openid-configuration",
     client_id=settings.oidc_client_id,
     client_secret=settings.oidc_client_secret,
+    # Explicit endpoints instead of server_metadata_url: the browser-facing
+    # authorize redirect and the API's own token/jwks/userinfo calls need
+    # different hostnames (public vs. docker-internal), which single-URL
+    # discovery can't express. `issuer` drives `iss` claim validation.
+    authorize_url=f"{settings.oidc_public_base}/protocol/openid-connect/auth",
+    access_token_url=f"{settings.oidc_internal_base}/protocol/openid-connect/token",
+    userinfo_endpoint=f"{settings.oidc_internal_base}/protocol/openid-connect/userinfo",
+    jwks_uri=f"{settings.oidc_internal_base}/protocol/openid-connect/certs",
+    issuer=settings.oidc_issuer,
     client_kwargs={"scope": "openid email profile"},
 )
 

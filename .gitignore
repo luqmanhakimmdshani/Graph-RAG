@@ -13,3 +13,4 @@ frontend/.next/
 .DS_Store
 *.pyc
 .claude/
+graphify-out/cache/

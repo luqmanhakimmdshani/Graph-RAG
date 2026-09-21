@@ -1,0 +1,42 @@
+{
+  "realm": "idp",
+  "enabled": true,
+  "sslRequired": "none",
+  "clients": [
+    {
+      "clientId": "idp-backend",
+      "enabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "secret": "changeme",
+      "redirectUris": ["http://localhost:8000/auth/callback"],
+      "webOrigins": ["http://localhost:8000", "http://localhost:3000"]
+    }
+  ],
+  "users": [
+    {
+      "username": "reviewer",
+      "email": "reviewer@example.com",
+      "firstName": "Test",
+      "lastName": "Reviewer",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "reviewer123", "temporary": false }
+      ]
+    },
+    {
+      "username": "admin.user",
+      "email": "admin@example.com",
+      "firstName": "Test",
+      "lastName": "Admin",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "admin123", "temporary": false }
+      ]
+    }
+  ]
+}

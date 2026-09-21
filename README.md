@@ -8,7 +8,7 @@ Production-shaped successor to FYP-1. See `PRD-IDP-Platform.md` for the full spe
 - **Backend**: FastAPI + SQLAlchemy + Alembic (`backend/`)
 - **DB**: Postgres (schema in `backend/alembic/versions/`)
 - **Vector DB**: Qdrant
-- **Auth**: OIDC (Keycloak `start-dev` stub locally)
+- **Auth**: OIDC (Keycloak `start-dev` stub locally, realm auto-imported from `keycloak/realm-export.json`)
 
 ## Run it
 
@@ -34,7 +34,7 @@ alembic upgrade head
 uvicorn app.main:app --reload
 ```
 
-## Status: Phase 0 (scaffolding)
+## Status: Phase 0 complete
 
 Done:
 - Repo structure, Docker Compose (API, Postgres, Qdrant, Keycloak, frontend)
@@ -42,9 +42,20 @@ Done:
 - FastAPI skeleton with the route shape from the PRD's API table; document upload/get and
   audit-log listing are real, the rest (`extract`, corrections, confirm, benchmark, RAG query)
   return `501` until their phase lands
+- OIDC wired end-to-end against the Keycloak stub: `GET /auth/login` → Keycloak login →
+  `GET /auth/callback` creates/loads the `User` row and starts a session; role-based
+  authorization (`require_role`) verified against `/audit-log` (403 for non-admins).
+  Test users: `reviewer` / `reviewer123` (role `reviewer`), `admin.user` / `admin123`
+  (created in Keycloak but starts as `reviewer` in the app DB until promoted — there's no
+  admin UI yet, so promote by hand: `UPDATE users SET role='admin' WHERE email='admin@example.com';`
+  after their first login).
+
+Known local-dev quirk: the API container talks to Keycloak over the docker network
+(`keycloak:8080`), but the browser needs `localhost:8081` — `auth.py` registers explicit
+`authorize_url`/`access_token_url`/`jwks_uri`/`issuer` instead of single-URL OIDC discovery
+to make both work. `host.docker.internal` was tried first and rejected: it resolves on paper
+but Windows Firewall was blocking the actual connection, so it's not the fix here.
 
 Not done yet (see PRD §12 for phasing):
-- Keycloak realm/client is not pre-configured — `start-dev` runs but no `idp` realm exists yet.
-  Create it in the admin console (or script it) before wiring real login.
 - Extraction service (OCR/LLM/Hybrid), review/correction workflow, benchmark metrics, RAG —
   all Phase 1-2 work, intentionally stubbed with `501` rather than faked.

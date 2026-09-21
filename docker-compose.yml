@@ -19,12 +19,22 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:25.0
-    command: start-dev
+    command: start-dev --import-realm
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      # Pinned so the `iss` claim in issued tokens is stable and matches
+      # what the browser uses. The API container talks to Keycloak over
+      # the internal docker network ("keycloak:8080") instead, configured
+      # explicitly in auth.py -- see OIDC_INTERNAL_BASE below.
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: "8081"
+      KC_HTTP_ENABLED: "true"
     ports:
       - "8081:8080"
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
 
   api:
     build: ./backend
@@ -32,7 +42,13 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://idp:idp@db:5432/idp
       VECTOR_DB_URL: http://vector-db:6333
-      OIDC_ISSUER: http://keycloak:8080/realms/idp
+      # Canonical issuer (matches KC_HOSTNAME, used for `iss` validation and
+      # the browser-facing authorize redirect) vs. the internal docker
+      # network address the API container actually calls Keycloak on for
+      # token exchange / JWKS / userinfo.
+      OIDC_ISSUER: http://localhost:8081/realms/idp
+      OIDC_PUBLIC_BASE: http://localhost:8081/realms/idp
+      OIDC_INTERNAL_BASE: http://keycloak:8080/realms/idp
     volumes:
       - ./backend:/app
       - uploads:/data/uploads
@@ -57,3 +73,4 @@ volumes:
   db-data:
   vector-data:
   uploads:
+  keycloak-data:
