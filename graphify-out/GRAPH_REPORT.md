@@ -1,4 +1,4 @@
-# Graph Report - RAG  (2026-09-22)
+# Graph Report - RAG  (2026-09-23)
 
 ## Corpus Check
 - 46 files · ~498,437 words
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3be76e4e`
+- Built from commit: `35bf6742`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -37,7 +37,7 @@
 3. `compilerOptions` - 15 edges
 4. `query_graph_rag()` - 12 edges
 5. `_session()` - 12 edges
-6. `query_vanilla_rag()` - 11 edges
+6. `query_generic_rag()` - 11 edges
 7. `ingest_articles()` - 11 edges
 8. `react` - 11 edges
 9. `run_eval()` - 10 edges
@@ -52,7 +52,7 @@
   backend/app/routers/query.py → backend/app/services/graphdb.py
 - `query_graph_rag()` --calls--> `query_subgraph()`  [EXTRACTED]
   backend/app/routers/query.py → backend/app/services/graphdb.py
-- `query_vanilla_rag()` --calls--> `embed()`  [EXTRACTED]
+- `query_generic_rag()` --calls--> `embed()`  [EXTRACTED]
   backend/app/routers/query.py → backend/app/services/embeddings.py
 
 ## Import Cycles

@@ -173,6 +173,19 @@
       "source_location": "L36"
     },
     {
+      "id": "frontend_src_pages_comparepage_genericanswer",
+      "label": "GenericAnswer",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "genericanswer",
+      "source_file": "frontend/src/pages/ComparePage.tsx",
+      "source_location": "L31"
+    },
+    {
       "id": "frontend_src_pages_comparepage_graphanswer",
       "label": "GraphAnswer",
       "_callable": true,
@@ -210,19 +223,6 @@
       "norm_label": "graphnode",
       "source_file": "frontend/src/pages/ComparePage.tsx",
       "source_location": "L13"
-    },
-    {
-      "id": "frontend_src_pages_comparepage_vanillaanswer",
-      "label": "VanillaAnswer",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "App.tsx",
-      "file_type": "code",
-      "norm_label": "vanillaanswer",
-      "source_file": "frontend/src/pages/ComparePage.tsx",
-      "source_location": "L31"
     },
     {
       "id": "frontend_src_pages_evalpage_categorysummary",
@@ -714,6 +714,18 @@
       "source_location": "L125"
     },
     {
+      "id": "backend_app_routers_query_query_generic_rag",
+      "label": "query_generic_rag()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "query_generic_rag()",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L115"
+    },
+    {
       "id": "backend_app_routers_query_query_global",
       "label": "query_global()",
       "_callable": true,
@@ -736,18 +748,6 @@
       "norm_label": "query_graph_rag()",
       "source_file": "backend/app/routers/query.py",
       "source_location": "L97"
-    },
-    {
-      "id": "backend_app_routers_query_query_vanilla_rag",
-      "label": "query_vanilla_rag()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "query.py",
-      "file_type": "code",
-      "norm_label": "query_vanilla_rag()",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L115"
     },
     {
       "id": "backend_app_services_eval_score",
@@ -3749,7 +3749,7 @@
     },
     {
       "source": "backend_app_routers_eval_run_eval",
-      "target": "backend_app_routers_query_query_vanilla_rag",
+      "target": "backend_app_routers_query_query_generic_rag",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3893,7 +3893,7 @@
     },
     {
       "source": "backend_app_routers_query_query_compare",
-      "target": "backend_app_routers_query_query_vanilla_rag",
+      "target": "backend_app_routers_query_query_generic_rag",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3901,6 +3901,66 @@
       "context": "call",
       "source_file": "backend/app/routers/query.py",
       "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_generic_rag",
+      "target": "backend_app_services_embeddings_embed",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_generic_rag",
+      "target": "backend_app_services_vectorstore_query",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_generic_rag",
+      "target": "backend_app_routers_query_build_prompt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_generic_rag",
+      "target": "backend_app_services_llm_generate",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_generic_rag",
+      "target": "backend_app_routers_query_citations",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L121",
       "weight": 1.0
     },
     {
@@ -4009,66 +4069,6 @@
       "context": "call",
       "source_file": "backend/app/routers/query.py",
       "source_location": "L98",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_routers_query_query_vanilla_rag",
-      "target": "backend_app_services_embeddings_embed",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L116",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_routers_query_query_vanilla_rag",
-      "target": "backend_app_services_vectorstore_query",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L117",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_routers_query_query_vanilla_rag",
-      "target": "backend_app_routers_query_build_prompt",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L120",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_routers_query_query_vanilla_rag",
-      "target": "backend_app_services_llm_generate",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L120",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_routers_query_query_vanilla_rag",
-      "target": "backend_app_routers_query_citations",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L121",
       "weight": 1.0
     },
     {
@@ -4888,6 +4888,18 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_routers_query_query_generic_rag",
+      "target": "backend_app_routers_query_py_post",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "decorator",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_routers_query_query_global",
       "target": "backend_app_routers_query_py_post",
       "relation": "references",
@@ -4909,18 +4921,6 @@
       "context": "decorator",
       "source_file": "backend/app/routers/query.py",
       "source_location": "L96",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_routers_query_query_vanilla_rag",
-      "target": "backend_app_routers_query_py_post",
-      "relation": "references",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "decorator",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L114",
       "weight": 1.0
     },
     {
@@ -5081,6 +5081,18 @@
     },
     {
       "source": "backend_app_routers_eval",
+      "target": "backend_app_routers_query_query_generic_rag",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/routers/eval.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_eval",
       "target": "backend_app_routers_query_query_global",
       "relation": "imports",
       "_origin": "ast",
@@ -5094,18 +5106,6 @@
     {
       "source": "backend_app_routers_eval",
       "target": "backend_app_routers_query_query_graph_rag",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "backend/app/routers/eval.py",
-      "source_location": "L8",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_routers_eval",
-      "target": "backend_app_routers_query_query_vanilla_rag",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -6220,6 +6220,18 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_routers_query_query_generic_rag",
+      "target": "backend_app_routers_query_queryrequest",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_routers_query_query_global",
       "target": "backend_app_routers_query_queryrequest",
       "relation": "references",
@@ -6241,18 +6253,6 @@
       "context": "parameter_type",
       "source_file": "backend/app/routers/query.py",
       "source_location": "L97",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_routers_query_query_vanilla_rag",
-      "target": "backend_app_routers_query_queryrequest",
-      "relation": "references",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "parameter_type",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L115",
       "weight": 1.0
     },
     {
@@ -6667,7 +6667,7 @@
     },
     {
       "source": "backend_app_routers_query",
-      "target": "backend_app_routers_query_query_vanilla_rag",
+      "target": "backend_app_routers_query_query_generic_rag",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7965,7 +7965,7 @@
     },
     {
       "source": "frontend_src_pages_comparepage",
-      "target": "frontend_src_pages_comparepage_vanillaanswer",
+      "target": "frontend_src_pages_comparepage_genericanswer",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9266,5 +9266,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3be76e4ed0947690f06d868b65d39c9f2488a16e"
+  "built_at_commit": "35bf674206b55f90a72d219d917af770cfca4bdf"
 }
