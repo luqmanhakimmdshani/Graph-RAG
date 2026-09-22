@@ -71,6 +71,15 @@ export default function CodeGraphHero() {
     graph.d3Force("charge")?.strength(-21).distanceMax(240);
     graph.d3Force("center")?.strength(1.2);
 
+    // d3-force-3d always finishes its decay in exactly 300 ticks (alphaDecay
+    // is derived as 1 - alphaMin^(1/300)) regardless of the default value -
+    // at 60fps that's ~5s, but combined with these forces and d3's own tight
+    // spiral starting layout (radius ~10*cbrt(i), not a wide scatter), most
+    // of the motion completes within the first second. graph-3d.html doesn't
+    // notice because nobody watches it load; the hero's whole point is being
+    // watched settle, so it needs to actually take a few seconds.
+    graph.d3AlphaDecay(0.008);
+
     const controls = graph.controls();
     controls.autoRotate = !reduceMotion;
     controls.autoRotateSpeed = 0.6;
