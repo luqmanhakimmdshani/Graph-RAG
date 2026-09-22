@@ -49,10 +49,17 @@ export default function CodeGraphHero() {
       .width(el.clientWidth)
       .graphData(codeGraph);
 
+    // Tighter than the d3-force-3d defaults (link distance ~30, charge ~-30) -
+    // at 323 nodes those defaults spread the graph out wider than the hero
+    // frame comfortably shows. Shorter links + gentler repulsion pull it into
+    // a denser cluster instead of a sparse haze.
+    graph.d3Force("link")?.distance(14);
+    graph.d3Force("charge")?.strength(-14);
+
     const controls = graph.controls();
     controls.autoRotate = !reduceMotion;
     controls.autoRotateSpeed = 0.6;
-    graph.cameraPosition({ z: 420 });
+    graph.cameraPosition({ z: 320 });
 
     // Real glow, not a CSS filter - this is a WebGL scene, so bloom has to be
     // a postprocessing render pass over the composer 3d-force-graph already

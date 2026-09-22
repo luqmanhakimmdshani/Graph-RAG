@@ -300,9 +300,9 @@
     "semantic_hash": ""
   },
   "frontend/src/data/codeGraph.json": {
-    "mtime": 1790077959.0015235,
-    "seen": 1790078299.0465896,
-    "ast_hash": "10db6decd24483886485c3e4ebb55818",
+    "mtime": 1790092854.6645381,
+    "seen": 1790117371.6115246,
+    "ast_hash": "8a1d5cab9b259c5ba0f26cb4cbd1ca32",
     "semantic_hash": ""
   },
   "frontend/src/pages/LandingPage.tsx": {
