@@ -126,3 +126,30 @@ async def query_compare(req: QueryRequest):
     graph = await query_graph_rag(req)
     vanilla = await query_vanilla_rag(req)
     return {"graph_rag": graph, "vanilla_rag": vanilla}
+
+
+def _build_global_prompt(question: str, summaries: list[dict]) -> str:
+    context = "\n\n".join(f"[{i+1}] ({s['size']} entities) {s['summary']}" for i, s in enumerate(summaries))
+    return (
+        "Answer the question using ONLY the corpus-level cluster summaries below - each "
+        "describes one densely-connected cluster of entities in the knowledge graph. "
+        "Synthesize across clusters if needed. If the summaries don't contain the answer, "
+        "say so. Cite clusters inline using [1], [2], etc. Respond in plain text (no "
+        "markdown formatting).\n\n"
+        f"Cluster summaries:\n{context}\n\nQuestion: {question}\n\nAnswer:"
+    )
+
+
+@router.post("/global")
+async def query_global(req: QueryRequest):
+    """Corpus-wide synthesis questions (FR-8/Phase 5) - answered from Louvain community
+    summaries instead of a subgraph, since no single traversal covers a "what are the
+    main trends" question the way it covers a multi-hop one."""
+    summaries = graphdb.community_summaries()
+    if not summaries:
+        return {"answer": "No community summaries available yet - run scripts/detect_communities.py first.",
+                 "citations": []}
+
+    answer = llm.generate(_build_global_prompt(req.question, summaries))
+    citations = [{"community_id": s["id"], "size": s["size"], "summary": s["summary"]} for s in summaries]
+    return {"answer": answer, "citations": citations}

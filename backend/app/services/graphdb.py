@@ -77,9 +77,77 @@ def write_extraction(
             )
 
 
-def stats() -> dict:
+def all_nodes_and_edges() -> tuple[list[dict], list[dict]]:
+    """Pull the whole graph for the Phase 5 community-detection job. AuraDB Free has
+    no GDS/Louvain plugin, so Louvain runs in networkx in the backend instead - this
+    just hands it the node ids and edges to build that graph from."""
     with _session() as session:
-        entities = session.run("MATCH (n) RETURN count(n) AS c").single()["c"]
+        nodes = [
+            {"id": r["n"].element_id, "name": r["n"].get("name")}
+            for r in session.run("MATCH (n) WHERE NOT n:Community RETURN n")
+        ]
+        edges = [
+            {"source": r["a"].element_id, "target": r["b"].element_id}
+            for r in session.run("MATCH (a)-[r]->(b) WHERE NOT a:Community AND NOT b:Community RETURN a, b")
+        ]
+    return nodes, edges
+
+
+def write_communities(assignments: dict[str, int]) -> None:
+    rows = [{"id": node_id, "cid": cid} for node_id, cid in assignments.items()]
+    with _session() as session:
+        session.run(
+            "UNWIND $rows AS row MATCH (n) WHERE elementId(n) = row.id SET n.community_id = row.cid",
+            rows=rows,
+        )
+
+
+def community_members(community_id: int) -> list[dict]:
+    with _session() as session:
+        result = session.run(
+            "MATCH (n) WHERE n.community_id = $cid RETURN n.name AS name, labels(n)[0] AS type",
+            cid=community_id,
+        )
+        return [{"name": r["name"], "type": r["type"]} for r in result]
+
+
+def community_relationships(community_id: int, limit: int = 40) -> list[dict]:
+    with _session() as session:
+        result = session.run(
+            "MATCH (a)-[r]->(b) WHERE a.community_id = $cid AND b.community_id = $cid "
+            "RETURN a.name AS src, type(r) AS type, b.name AS tgt LIMIT $limit",
+            cid=community_id,
+            limit=limit,
+        )
+        return [{"source": r["src"], "type": r["type"], "target": r["tgt"]} for r in result]
+
+
+def write_community_summary(community_id: int, summary: str, size: int) -> None:
+    with _session() as session:
+        session.run(
+            "MERGE (c:Community {id: $id}) SET c.summary = $summary, c.size = $size",
+            id=community_id,
+            summary=summary,
+            size=size,
+        )
+
+
+def community_summaries() -> list[dict]:
+    # size >= 3 matches detect_communities.py's MIN_SIZE - 2-node pairs are entity-
+    # resolution noise (see graphdb.py's module docstring), not real topic clusters.
+    with _session() as session:
+        result = session.run(
+            "MATCH (c:Community) WHERE c.summary IS NOT NULL AND c.size >= 3 "
+            "RETURN c.id AS id, c.summary AS summary, c.size AS size ORDER BY c.size DESC"
+        )
+        return [{"id": r["id"], "summary": r["summary"], "size": r["size"]} for r in result]
+
+
+def stats() -> dict:
+    # :Community nodes are summary metadata (Phase 5), not extracted entities - exclude
+    # them here so this count matches what ingestion/extraction actually produced.
+    with _session() as session:
+        entities = session.run("MATCH (n) WHERE NOT n:Community RETURN count(n) AS c").single()["c"]
         relationships = session.run("MATCH ()-[r]->() RETURN count(r) AS c").single()["c"]
         communities = session.run(
             "MATCH (n) WHERE n.community_id IS NOT NULL RETURN count(DISTINCT n.community_id) AS c"
