@@ -903,7 +903,7 @@
       "file_type": "code",
       "norm_label": "codegraphhero()",
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L22"
+      "source_location": "L26"
     },
     {
       "id": "frontend_src_components_codegraphhero_communitycolor",
@@ -4670,7 +4670,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L40",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -7684,7 +7684,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L22",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -9221,5 +9221,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "f2296ee9a84813be0b89f88066b7412b26f853c3"
+  "built_at_commit": "8d587219f3091695b658867b87632cf49ffd8445"
 }

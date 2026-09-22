@@ -294,9 +294,9 @@
     "semantic_hash": ""
   },
   "frontend/src/components/CodeGraphHero.tsx": {
-    "mtime": 1790077971.5248682,
-    "seen": 1790078299.0464315,
-    "ast_hash": "91ef68212ee0ed384a0eb36020795dc0",
+    "mtime": 1790078581.6501606,
+    "seen": 1790078779.6866162,
+    "ast_hash": "2326e74834576b1df04ec0d6325b7549",
     "semantic_hash": ""
   },
   "frontend/src/data/codeGraph.json": {
@@ -306,9 +306,9 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/LandingPage.tsx": {
-    "mtime": 1790078030.8251092,
-    "seen": 1790078299.0476632,
-    "ast_hash": "2c420349d2a67afee3ff7c0ad53d28ae",
+    "mtime": 1790078686.8837674,
+    "seen": 1790078779.6877995,
+    "ast_hash": "fe5b9a977cc95876a54dc331ed1899f1",
     "semantic_hash": ""
   }
 }
