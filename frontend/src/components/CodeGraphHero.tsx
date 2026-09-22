@@ -71,11 +71,6 @@ export default function CodeGraphHero() {
     graph.d3Force("charge")?.strength(-21).distanceMax(240);
     graph.d3Force("center")?.strength(1.2);
 
-    // Slower alpha decay than the d3 default (~0.0228) stretches the settle-in
-    // out over several seconds instead of it snapping into place almost
-    // immediately, so the entrance animation actually reads as motion.
-    graph.d3AlphaDecay(0.008);
-
     const controls = graph.controls();
     controls.autoRotate = !reduceMotion;
     controls.autoRotateSpeed = 0.6;
