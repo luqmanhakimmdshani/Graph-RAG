@@ -294,9 +294,9 @@
     "semantic_hash": ""
   },
   "frontend/src/components/CodeGraphHero.tsx": {
-    "mtime": 1790119634.3762293,
-    "seen": 1790119840.8256524,
-    "ast_hash": "51db8cae93d2615a7d642c89b5e08c5e",
+    "mtime": 1790120456.9823923,
+    "seen": 1790120515.0498376,
+    "ast_hash": "ff2175a99bca52ce3d671266955ac9b3",
     "semantic_hash": ""
   },
   "frontend/src/data/codeGraph.json": {
@@ -309,12 +309,6 @@
     "mtime": 1790092231.9826386,
     "seen": 1790092848.8720655,
     "ast_hash": "962cc97901da1f91e8e804ea130f7e92",
-    "semantic_hash": ""
-  },
-  "frontend/src/data/codeGraphPositions.json": {
-    "mtime": 1790119611.1915298,
-    "seen": 1790119840.8259275,
-    "ast_hash": "eddd7898988d58de7ff3370dd4a5bc99",
     "semantic_hash": ""
   }
 }
