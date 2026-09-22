@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
+import { BarChart3, GitCompare, MessageSquare, Network, UploadCloud } from "lucide-react";
 import { apiGet } from "./lib/api";
 import AdminPage from "./pages/AdminPage";
 import ChatPage from "./pages/ChatPage";
@@ -7,12 +8,12 @@ import ComparePage from "./pages/ComparePage";
 import EvalPage from "./pages/EvalPage";
 import ExplorerPage from "./pages/ExplorerPage";
 
-const tabs = [
-  { to: "/", label: "Chat", end: true },
-  { to: "/compare", label: "Compare" },
-  { to: "/explorer", label: "Explorer" },
-  { to: "/admin", label: "Admin" },
-  { to: "/eval", label: "Eval" },
+const navItems = [
+  { to: "/", label: "Chat", end: true, icon: MessageSquare },
+  { to: "/compare", label: "Compare", icon: GitCompare },
+  { to: "/explorer", label: "Explorer", icon: Network },
+  { to: "/admin", label: "Admin", icon: UploadCloud },
+  { to: "/eval", label: "Eval", icon: BarChart3 },
 ];
 
 function BackendStatus() {
@@ -24,43 +25,97 @@ function BackendStatus() {
       .catch(() => setStatus("down"));
   }, []);
 
-  const color = status === "ok" ? "bg-green-500" : status === "down" ? "bg-red-500" : "bg-gray-400";
+  const color = status === "ok" ? "bg-emerald-500" : status === "down" ? "bg-[var(--danger)]" : "bg-[var(--text-faint)]";
   return (
-    <span className="flex items-center gap-2 text-sm text-gray-500">
-      <span className={`inline-block h-2 w-2 rounded-full ${color}`} />
-      backend: {status}
+    <span className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+      <span className={`inline-block h-1.5 w-1.5 rounded-full ${color}`} />
+      backend {status}
     </span>
   );
 }
 
 export default function App() {
   return (
-    <div className="min-h-full flex flex-col">
-      <header className="flex items-center justify-between border-b px-6 py-3">
-        <span className="font-semibold">Graph RAG Capstone</span>
-        <nav className="flex gap-4">
-          {tabs.map((t) => (
+    <div className="flex min-h-full">
+      <aside className="hidden lg:flex w-56 shrink-0 flex-col border-r border-[var(--border)] px-3 py-5">
+        <div className="mb-8 flex items-center gap-2.5 px-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-foreground)]">
+            <Network className="h-4 w-4" strokeWidth={2.25} />
+          </div>
+          <div>
+            <div className="text-sm font-semibold leading-tight">Graph RAG</div>
+            <div className="text-[11px] leading-tight text-[var(--text-faint)]">capstone</div>
+          </div>
+        </div>
+        <nav className="space-y-0.5">
+          {navItems.map((item) => (
             <NavLink
-              key={t.to}
-              to={t.to}
-              end={t.end}
-              className={({ isActive }) => (isActive ? "font-semibold" : "text-gray-500")}
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors ${
+                  isActive
+                    ? "bg-[var(--accent-soft)] text-[var(--text)] font-medium"
+                    : "text-[var(--text-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
+                }`
+              }
             >
-              {t.label}
+              {({ isActive }) => (
+                <>
+                  <item.icon
+                    className="h-4 w-4"
+                    strokeWidth={2}
+                    style={{ color: isActive ? "var(--accent)" : undefined }}
+                  />
+                  {item.label}
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
-        <BackendStatus />
-      </header>
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<ChatPage />} />
-          <Route path="/compare" element={<ComparePage />} />
-          <Route path="/explorer" element={<ExplorerPage />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/eval" element={<EvalPage />} />
-        </Routes>
-      </main>
+        <div className="mt-auto px-2">
+          <BackendStatus />
+        </div>
+      </aside>
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="scrim-header sticky top-0 z-10 flex h-14 items-center justify-between border-b border-[var(--border)] px-5 lg:hidden">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-foreground)]">
+              <Network className="h-3.5 w-3.5" strokeWidth={2.25} />
+            </div>
+            <span className="text-sm font-semibold">Graph RAG</span>
+          </div>
+          <BackendStatus />
+        </header>
+        <nav className="flex gap-1 overflow-x-auto border-b border-[var(--border)] px-3 py-2 lg:hidden">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                `flex shrink-0 items-center gap-1.5 rounded-md px-3 py-1.5 text-sm ${
+                  isActive ? "bg-[var(--accent-soft)] text-[var(--text)]" : "text-[var(--text-muted)]"
+                }`
+              }
+            >
+              <item.icon className="h-3.5 w-3.5" strokeWidth={2} />
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+        <main className="min-w-0 flex-1">
+          <Routes>
+            <Route path="/" element={<ChatPage />} />
+            <Route path="/compare" element={<ComparePage />} />
+            <Route path="/explorer" element={<ExplorerPage />} />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/eval" element={<EvalPage />} />
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 }

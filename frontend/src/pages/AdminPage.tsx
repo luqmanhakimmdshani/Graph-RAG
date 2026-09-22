@@ -1,9 +1,22 @@
 import { useEffect, useState } from "react";
+import { Database, GitBranch, Layers3, UploadCloud } from "lucide-react";
 import { apiGet, apiUpload } from "../lib/api";
 
 interface IngestStatus {
   chunks_indexed: number;
   graph: { entities: number | null; relationships: number | null; communities: number | null };
+}
+
+function StatCard({ label, value, icon: Icon }: { label: string; value: string | number; icon: typeof Database }) {
+  return (
+    <div className="card p-4">
+      <div className="mb-3 flex items-center justify-between">
+        <span className="label">{label}</span>
+        <Icon className="h-3.5 w-3.5 text-[var(--text-faint)]" />
+      </div>
+      <div className="text-2xl font-semibold tracking-tight">{value}</div>
+    </div>
+  );
 }
 
 export default function AdminPage() {
@@ -44,37 +57,35 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-xl font-semibold mb-1">Admin / Ingestion</h1>
-      <p className="text-gray-500 text-sm mb-6">
-        Upload .txt or .json (title/body/date/source) articles to chunk, embed, and extract
-        into the knowledge graph.
-      </p>
+    <div className="mx-auto max-w-2xl px-6 py-10">
+      <div className="mb-6">
+        <div className="label mb-2">Batch ingestion</div>
+        <h1 className="text-2xl font-semibold tracking-tight">Admin</h1>
+        <p className="mt-1.5 text-sm text-[var(--text-muted)]">
+          Upload .txt or .json (title/body/date/source) articles to chunk, embed, and extract into the knowledge
+          graph.
+        </p>
+      </div>
 
-      <label className="block border-2 border-dashed rounded p-6 text-center cursor-pointer mb-6">
+      <label className="card mb-6 flex cursor-pointer flex-col items-center gap-2 border-dashed p-8 text-center transition-colors hover:bg-[var(--surface-hover)]">
         <input type="file" multiple accept=".txt,.json" className="hidden" onChange={onUpload} disabled={uploading} />
-        <span className="text-sm text-gray-600">{uploading ? "Uploading..." : "Click to select files"}</span>
+        <UploadCloud className="h-5 w-5 text-[var(--text-faint)]" />
+        <span className="text-sm text-[var(--text-muted)]">{uploading ? "Uploading…" : "Click to select files"}</span>
       </label>
 
-      {result && <p className="text-sm mb-6">{result}</p>}
+      {result && <p className="mb-6 text-sm text-[var(--text-muted)]">{result}</p>}
 
-      <div className="border-t pt-4">
-        <h2 className="text-sm font-semibold text-gray-500 mb-2">Corpus stats</h2>
-        {status ? (
-          <dl className="grid grid-cols-2 gap-y-1 text-sm">
-            <dt className="text-gray-500">Chunks indexed</dt>
-            <dd>{status.chunks_indexed}</dd>
-            <dt className="text-gray-500">Entities</dt>
-            <dd>{status.graph.entities ?? "Neo4j not configured"}</dd>
-            <dt className="text-gray-500">Relationships</dt>
-            <dd>{status.graph.relationships ?? "—"}</dd>
-            <dt className="text-gray-500">Communities</dt>
-            <dd>{status.graph.communities ?? "—"}</dd>
-          </dl>
-        ) : (
-          <p className="text-sm text-gray-500">Loading...</p>
-        )}
-      </div>
+      <div className="label mb-3">Corpus stats</div>
+      {status ? (
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <StatCard label="Chunks" value={status.chunks_indexed} icon={Database} />
+          <StatCard label="Entities" value={status.graph.entities ?? "—"} icon={Layers3} />
+          <StatCard label="Relationships" value={status.graph.relationships ?? "—"} icon={GitBranch} />
+          <StatCard label="Communities" value={status.graph.communities ?? "—"} icon={Layers3} />
+        </div>
+      ) : (
+        <p className="text-sm text-[var(--text-faint)]">Loading…</p>
+      )}
     </div>
   );
 }

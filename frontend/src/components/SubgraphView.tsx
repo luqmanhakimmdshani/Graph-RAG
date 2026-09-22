@@ -11,9 +11,9 @@ interface GraphEdge {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  PERSON: "#2563eb",
-  ORG: "#16a34a",
-  PRODUCT: "#d97706",
+  PERSON: "#f0a860",
+  ORG: "var(--accent)",
+  PRODUCT: "#6ba3f0",
 };
 
 const MAX_NODES = 40;
@@ -29,7 +29,7 @@ export default function SubgraphView({
   edges: GraphEdge[];
   onNodeClick?: (name: string) => void;
 }) {
-  if (nodes.length === 0) return <p className="text-sm text-gray-500">No graph data.</p>;
+  if (nodes.length === 0) return <p className="text-sm text-[var(--text-faint)]">No graph data.</p>;
 
   const shown = nodes.slice(0, MAX_NODES);
   const shownIds = new Set(shown.map((n) => n.id));
@@ -47,12 +47,22 @@ export default function SubgraphView({
 
   return (
     <div>
-      <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-lg border rounded bg-white">
+      <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-lg">
         {visibleEdges.map((e, i) => {
           const a = positions.get(e.source);
           const b = positions.get(e.target);
           if (!a || !b) return null;
-          return <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#d1d5db" strokeWidth={1} />;
+          return (
+            <line
+              key={i}
+              x1={a.x}
+              y1={a.y}
+              x2={b.x}
+              y2={b.y}
+              style={{ stroke: "var(--border)" }}
+              strokeWidth={1}
+            />
+          );
         })}
         {shown.map((n) => {
           const p = positions.get(n.id)!;
@@ -63,19 +73,26 @@ export default function SubgraphView({
               className={onNodeClick ? "cursor-pointer" : undefined}
               onClick={() => onNodeClick?.(n.name)}
             >
-              <circle r={7} fill={TYPE_COLORS[n.type] ?? "#6b7280"} />
-              <text x={10} y={4} fontSize={10} fill="#374151">
+              <circle r={6.5} style={{ fill: TYPE_COLORS[n.type] ?? "var(--text-faint)" }} />
+              <text x={10} y={4} fontSize={10} style={{ fill: "var(--text-muted)" }}>
                 {n.name}
               </text>
             </g>
           );
         })}
       </svg>
-      {nodes.length > MAX_NODES && (
-        <p className="text-xs text-gray-400 mt-1">
-          showing {MAX_NODES} of {nodes.length} nodes
-        </p>
-      )}
+      <div className="mt-3 flex items-center gap-4 text-[11px] text-[var(--text-faint)]">
+        <span className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full" style={{ background: TYPE_COLORS.PERSON }} /> person
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full" style={{ background: "var(--accent)" }} /> organization
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full" style={{ background: TYPE_COLORS.PRODUCT }} /> product
+        </span>
+        {nodes.length > MAX_NODES && <span className="ml-auto">showing {MAX_NODES} of {nodes.length}</span>}
+      </div>
     </div>
   );
 }

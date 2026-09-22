@@ -1,5 +1,128 @@
 @import "tailwindcss";
 
-html, body, #root {
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --radius-sm: 0.4rem;
+  --radius-md: 0.65rem;
+  --radius-lg: 0.9rem;
+}
+
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface-hover: #f0f0ee;
+  --border: rgba(15, 18, 15, 0.09);
+  --text: #16181a;
+  --text-muted: #64696b;
+  --text-faint: #9a9fa0;
+  --accent: #6a8f1f;
+  --accent-foreground: #ffffff;
+  --accent-soft: rgba(106, 143, 31, 0.1);
+  --danger: #c9463a;
+  --danger-soft: rgba(201, 70, 58, 0.1);
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0d0e;
+  --surface: #16191b;
+  --surface-hover: #1d2123;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #f1f3f1;
+  --text-muted: #979d9c;
+  --text-faint: #676c6b;
+  --accent: #c3ef61;
+  --accent-foreground: #10140d;
+  --accent-soft: rgba(195, 239, 97, 0.12);
+  --danger: #ff7a6b;
+  --danger-soft: rgba(255, 122, 107, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d0e;
+    --surface: #16191b;
+    --surface-hover: #1d2123;
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #f1f3f1;
+    --text-muted: #979d9c;
+    --text-faint: #676c6b;
+    --accent: #c3ef61;
+    --accent-foreground: #10140d;
+    --accent-soft: rgba(195, 239, 97, 0.12);
+    --danger: #ff7a6b;
+    --danger-soft: rgba(255, 122, 107, 0.12);
+  }
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body,
+#root {
   height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease, border-color 140ms ease,
+    opacity 140ms ease;
+}
+button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.scrim-header {
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

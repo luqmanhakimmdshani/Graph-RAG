@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ChevronRight, RefreshCw } from "lucide-react";
 import { apiGet, apiPost } from "../lib/api";
 
 interface CategorySummary {
@@ -37,12 +38,12 @@ const CATEGORY_ORDER = ["local", "multi_hop", "global", "overall"];
 
 function Bar({ label, value, max, color }: { label: string; value: number; max: number; color: string }) {
   return (
-    <div className="flex items-center gap-2 text-xs">
-      <span className="w-24 text-gray-500 shrink-0">{label}</span>
-      <div className="flex-1 bg-gray-100 rounded h-3 overflow-hidden">
-        <div className="h-full rounded" style={{ width: `${(value / max) * 100}%`, backgroundColor: color }} />
+    <div className="flex items-center gap-2.5 text-xs">
+      <span className="w-20 shrink-0 text-[var(--text-faint)]">{label}</span>
+      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--surface-hover)]">
+        <div className="h-full rounded-full" style={{ width: `${(value / max) * 100}%`, backgroundColor: color }} />
       </div>
-      <span className="w-8 text-right shrink-0">{value.toFixed(1)}</span>
+      <span className="w-6 shrink-0 text-right text-[var(--text-muted)]">{value.toFixed(1)}</span>
     </div>
   );
 }
@@ -73,70 +74,94 @@ export default function EvalPage() {
   const categories = data ? CATEGORY_ORDER.filter((c) => data.summary[c]) : [];
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-xl font-semibold mb-1">Evaluation</h1>
-      <p className="text-gray-500 text-sm mb-4">
-        Benchmark scores per system, per question category (relevance / faithfulness, 0-5, LLM-as-judge).
-      </p>
+    <div className="mx-auto max-w-4xl px-6 py-10">
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <div className="label mb-2">Evaluation harness</div>
+          <h1 className="text-2xl font-semibold tracking-tight">Evaluation</h1>
+          <p className="mt-1.5 text-sm text-[var(--text-muted)]">
+            Benchmark scores per system, per category — relevance / faithfulness, 0-5, LLM-as-judge.
+          </p>
+        </div>
+        <button
+          onClick={run}
+          disabled={running}
+          className="flex h-9 shrink-0 items-center gap-1.5 rounded-md bg-[var(--accent)] px-3.5 text-sm font-medium text-[var(--accent-foreground)] disabled:opacity-40"
+        >
+          <RefreshCw className={`h-4 w-4 ${running ? "animate-spin" : ""}`} />
+          {running ? "Running…" : "Run benchmark"}
+        </button>
+      </div>
+      {error && <p className="mb-4 text-sm text-[var(--danger)]">{error}</p>}
 
-      <button
-        onClick={run}
-        disabled={running}
-        className="bg-black text-white px-4 py-2 rounded disabled:opacity-50 mb-2"
-      >
-        {running ? "Running benchmark (several minutes)..." : "Run benchmark"}
-      </button>
-      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-
-      {!data && !running && <p className="text-sm text-gray-500 mt-4">No results yet — run the benchmark.</p>}
+      {!data && !running && <p className="text-sm text-[var(--text-faint)]">No results yet — run the benchmark.</p>}
 
       {data && categories.length > 0 && (
-        <div className="mt-6 space-y-6">
-          {categories.map((cat) => {
-            const s = data.summary[cat];
-            return (
-              <div key={cat} className="border rounded p-4">
-                <h2 className="font-semibold mb-1">
-                  {CATEGORY_LABELS[cat] ?? cat} <span className="text-gray-400 font-normal text-sm">({s.n} questions)</span>
-                </h2>
-                <div className="grid grid-cols-2 gap-x-8 gap-y-1 mt-3">
-                  <div className="space-y-1">
-                    <p className="text-xs font-semibold text-gray-500 mb-1">Vanilla RAG</p>
-                    <Bar label="Relevance" value={s.vanilla_relevance} max={5} color="#9ca3af" />
-                    <Bar label="Faithfulness" value={s.vanilla_faithfulness} max={5} color="#9ca3af" />
+        <div className="space-y-6">
+          <div className="grid gap-3 sm:grid-cols-2">
+            {categories.map((cat) => {
+              const s = data.summary[cat];
+              return (
+                <div key={cat} className="card p-4">
+                  <div className="mb-3 flex items-center justify-between">
+                    <h2 className="text-sm font-semibold">{CATEGORY_LABELS[cat] ?? cat}</h2>
+                    <span className="text-xs text-[var(--text-faint)]">{s.n} questions</span>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-xs font-semibold text-gray-500 mb-1">Graph RAG</p>
-                    <Bar label="Relevance" value={s.graph_relevance} max={5} color="#2563eb" />
-                    <Bar label="Faithfulness" value={s.graph_faithfulness} max={5} color="#2563eb" />
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-1.5">
+                    <div className="space-y-1.5">
+                      <p className="mb-0.5 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">Vanilla</p>
+                      <Bar label="Relevance" value={s.vanilla_relevance} max={5} color="var(--text-faint)" />
+                      <Bar label="Faithfulness" value={s.vanilla_faithfulness} max={5} color="var(--text-faint)" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <p className="mb-0.5 text-[10px] uppercase tracking-wider" style={{ color: "var(--accent)" }}>
+                        Graph RAG
+                      </p>
+                      <Bar label="Relevance" value={s.graph_relevance} max={5} color="var(--accent)" />
+                      <Bar label="Faithfulness" value={s.graph_faithfulness} max={5} color="var(--accent)" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
 
           <div>
-            <h2 className="text-sm font-semibold text-gray-500 mb-2">Per-question results</h2>
-            <div className="space-y-2">
+            <div className="label mb-2.5">Per-question results</div>
+            <div className="card divide-y divide-[var(--border)] overflow-hidden p-0">
               {data.results.map((r) => (
-                <div key={r.id} className="border rounded">
+                <div key={r.id}>
                   <button
-                    className="w-full text-left px-3 py-2 text-sm flex items-center justify-between gap-2"
+                    className="flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm transition-colors hover:bg-[var(--surface-hover)]"
                     onClick={() => setExpanded(expanded === r.id ? null : r.id)}
                   >
-                    <span>
-                      <span className="text-gray-400 mr-2">[{CATEGORY_LABELS[r.category] ?? r.category}]</span>
-                      {r.question}
+                    <span className="flex min-w-0 items-center gap-2">
+                      <ChevronRight
+                        className={`h-3.5 w-3.5 shrink-0 text-[var(--text-faint)] transition-transform ${expanded === r.id ? "rotate-90" : ""}`}
+                      />
+                      <span className="shrink-0 text-xs text-[var(--text-faint)]">
+                        [{CATEGORY_LABELS[r.category] ?? r.category}]
+                      </span>
+                      <span className="truncate">{r.question}</span>
                     </span>
-                    <span className="text-gray-400 shrink-0">
+                    <span className="shrink-0 text-xs text-[var(--text-faint)]">
                       V {r.vanilla_relevance}/{r.vanilla_faithfulness} · G {r.graph_relevance}/{r.graph_faithfulness}
                     </span>
                   </button>
                   {expanded === r.id && (
-                    <div className="px-3 pb-3 text-sm space-y-2 border-t pt-2">
-                      <p><span className="text-gray-500">Reference:</span> {r.reference_answer}</p>
-                      <p><span className="text-gray-500">Vanilla:</span> {r.vanilla_answer}</p>
-                      <p><span className="text-gray-500">Graph RAG:</span> {r.graph_answer}</p>
+                    <div className="space-y-2 px-4 pb-4 pl-10 text-sm">
+                      <p>
+                        <span className="text-[var(--text-faint)]">Reference: </span>
+                        {r.reference_answer}
+                      </p>
+                      <p>
+                        <span className="text-[var(--text-faint)]">Vanilla: </span>
+                        {r.vanilla_answer}
+                      </p>
+                      <p>
+                        <span className="text-[var(--text-faint)]">Graph RAG: </span>
+                        {r.graph_answer}
+                      </p>
                     </div>
                   )}
                 </div>

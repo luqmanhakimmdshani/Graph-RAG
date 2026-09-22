@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FileText, RefreshCw, Send } from "lucide-react";
 import { apiPost } from "../lib/api";
 import SubgraphView from "../components/SubgraphView";
 
@@ -40,16 +41,21 @@ interface CompareResponse {
 function CitationList({ citations }: { citations: Citation[] }) {
   if (citations.length === 0) return null;
   return (
-    <ol className="text-sm space-y-1 list-decimal list-inside mt-3">
+    <div className="mt-5 space-y-1.5 border-t border-[var(--border)] pt-4">
       {citations.map((c) => (
-        <li key={c.article_id}>
-          <a href={c.url} target="_blank" rel="noreferrer" className="underline">
-            {c.title}
-          </a>{" "}
-          <span className="text-gray-500">— {c.source}</span>
-        </li>
+        <a
+          key={c.article_id}
+          href={c.url}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
+        >
+          <FileText className="h-3.5 w-3.5 shrink-0 text-[var(--text-faint)]" />
+          <span className="truncate">{c.title}</span>
+          <span className="ml-auto shrink-0 text-[var(--text-faint)]">{c.source}</span>
+        </a>
       ))}
-    </ol>
+    </div>
   );
 }
 
@@ -75,13 +81,18 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-xl font-semibold mb-1">Comparison</h1>
-      <p className="text-gray-500 text-sm mb-4">Vanilla RAG vs Graph RAG, side by side.</p>
+    <div className="mx-auto max-w-5xl px-6 py-10">
+      <div className="mb-6">
+        <div className="label mb-2">A / B retrieval</div>
+        <h1 className="text-2xl font-semibold tracking-tight">Comparison</h1>
+        <p className="mt-1.5 text-sm text-[var(--text-muted)]">
+          Same question, same corpus — only the retrieval strategy changes.
+        </p>
+      </div>
 
-      <form onSubmit={ask} className="flex gap-2 mb-6">
+      <form onSubmit={ask} className="card flex items-center gap-2 p-2">
         <input
-          className="flex-1 border rounded px-3 py-2"
+          className="flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-[var(--text-faint)]"
           placeholder="e.g. Which companies did Sam Altman work at before founding OpenAI?"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
@@ -89,28 +100,37 @@ export default function ComparePage() {
         <button
           type="submit"
           disabled={loading}
-          className="bg-black text-white px-4 py-2 rounded disabled:opacity-50"
+          className="flex h-9 items-center gap-1.5 rounded-md bg-[var(--accent)] px-3.5 text-sm font-medium text-[var(--accent-foreground)] disabled:opacity-40"
         >
-          {loading ? "Asking..." : "Ask"}
+          {loading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+          {loading ? "Asking" : "Ask"}
         </button>
       </form>
 
-      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+      {error && <p className="mt-4 text-sm text-[var(--danger)]">{error}</p>}
 
       {result && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="border rounded p-4">
-            <h2 className="font-semibold mb-2">Vanilla RAG</h2>
-            <p className="whitespace-pre-wrap text-sm">{result.vanilla_rag.answer}</p>
+        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <div className="card p-5">
+            <div className="label mb-1">Baseline · vector only</div>
+            <h2 className="text-base font-semibold">Vanilla RAG</h2>
+            <p className="mt-3 whitespace-pre-wrap text-sm leading-6.5 text-[var(--text-muted)]">
+              {result.vanilla_rag.answer}
+            </p>
             <CitationList citations={result.vanilla_rag.citations} />
           </div>
-          <div className="border rounded p-4">
-            <h2 className="font-semibold mb-2">Graph RAG</h2>
-            <p className="whitespace-pre-wrap text-sm">{result.graph_rag.answer}</p>
+          <div className="card border-[var(--accent)]/25 p-5" style={{ borderColor: "color-mix(in srgb, var(--accent) 25%, var(--border))" }}>
+            <div className="label mb-1" style={{ color: "var(--accent)" }}>
+              Hybrid · graph + vector
+            </div>
+            <h2 className="text-base font-semibold">Graph RAG</h2>
+            <p className="mt-3 whitespace-pre-wrap text-[15px] leading-7">{result.graph_rag.answer}</p>
             <CitationList citations={result.graph_rag.citations} />
             {result.graph_rag.subgraph.nodes.length > 0 && (
-              <div className="mt-4">
-                <h3 className="text-sm font-semibold text-gray-500 mb-2">Retrieval path</h3>
+              <div className="mt-5 border-t border-[var(--border)] pt-4">
+                <div className="label mb-3" style={{ color: "var(--accent)" }}>
+                  Subgraph used
+                </div>
                 <SubgraphView nodes={result.graph_rag.subgraph.nodes} edges={result.graph_rag.subgraph.edges} />
               </div>
             )}

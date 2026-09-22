@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Search } from "lucide-react";
 import { apiGet } from "../lib/api";
 import SubgraphView from "../components/SubgraphView";
 
@@ -59,19 +60,25 @@ export default function ExplorerPage() {
     : [];
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-xl font-semibold mb-1">Graph Explorer</h1>
-      <p className="text-gray-500 text-sm mb-4">Search an entity to see its neighbors in the knowledge graph.</p>
+    <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="mb-6">
+        <div className="label mb-2">Knowledge graph</div>
+        <h1 className="text-2xl font-semibold tracking-tight">Explorer</h1>
+        <p className="mt-1.5 text-sm text-[var(--text-muted)]">
+          Search an entity to see its neighbors in the knowledge graph.
+        </p>
+      </div>
 
-      <form onSubmit={(e) => search(query, e)} className="flex gap-2 mb-6">
+      <form onSubmit={(e) => search(query, e)} className="card flex items-center gap-2 p-2">
+        <Search className="ml-1.5 h-4 w-4 shrink-0 text-[var(--text-faint)]" />
         <input
-          className="flex-1 border rounded px-3 py-2"
+          className="flex-1 bg-transparent px-2 py-2 text-sm outline-none placeholder:text-[var(--text-faint)]"
           placeholder="e.g. OpenAI"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
         <select
-          className="border rounded px-2"
+          className="rounded-md border border-[var(--border)] bg-[var(--bg)] px-2 py-1.5 text-sm text-[var(--text-muted)] outline-none"
           value={hops}
           onChange={(e) => setHops(Number(e.target.value))}
         >
@@ -82,29 +89,31 @@ export default function ExplorerPage() {
         <button
           type="submit"
           disabled={loading}
-          className="bg-black text-white px-4 py-2 rounded disabled:opacity-50"
+          className="h-9 shrink-0 rounded-md bg-[var(--accent)] px-3.5 text-sm font-medium text-[var(--accent-foreground)] disabled:opacity-40"
         >
-          {loading ? "Searching..." : "Search"}
+          {loading ? "Searching" : "Search"}
         </button>
       </form>
 
-      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+      {error && <p className="mt-4 text-sm text-[var(--danger)]">{error}</p>}
 
       {data && (
-        <div>
-          <p className="text-sm text-gray-500 mb-2">
+        <div className="mt-6">
+          <p className="mb-3 text-xs text-[var(--text-faint)]">
             {data.nodes.length} nodes, {data.edges.length} edges around "{data.entity}"
           </p>
-          <SubgraphView nodes={data.nodes} edges={data.edges} onNodeClick={(name) => search(name)} />
+          <div className="card p-4">
+            <SubgraphView nodes={data.nodes} edges={data.edges} onNodeClick={(name) => search(name)} />
+          </div>
           {neighbors.length > 0 && (
-            <div className="mt-4">
-              <h2 className="text-sm font-semibold text-gray-500 mb-2">Neighbors</h2>
-              <div className="flex flex-wrap gap-2">
+            <div className="mt-5">
+              <div className="label mb-2.5">Neighbors</div>
+              <div className="flex flex-wrap gap-1.5">
                 {neighbors.map((n) => (
                   <button
                     key={n}
                     onClick={() => search(n)}
-                    className="text-sm border rounded-full px-3 py-1 hover:bg-gray-100"
+                    className="rounded-full border border-[var(--border)] px-3 py-1 text-xs text-[var(--text-muted)] transition-colors hover:border-[var(--accent)]/40 hover:text-[var(--text)]"
                   >
                     {n}
                   </button>
