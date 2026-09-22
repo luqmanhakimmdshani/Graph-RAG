@@ -56,6 +56,19 @@
       "source_location": "L9"
     },
     {
+      "id": "frontend_src_components_codegraphhero_codenode",
+      "label": "CodeNode",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "codenode",
+      "source_file": "frontend/src/components/CodeGraphHero.tsx",
+      "source_location": "L5"
+    },
+    {
       "id": "frontend_src_components_subgraphview_graphedge",
       "label": "GraphEdge",
       "_callable": true,
@@ -288,6 +301,19 @@
       "norm_label": "subgraphresponse",
       "source_file": "frontend/src/pages/ExplorerPage.tsx",
       "source_location": "L18"
+    },
+    {
+      "id": "frontend_src_pages_landingpage_graphstats",
+      "label": "GraphStats",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "graphstats",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L17"
     },
     {
       "id": "backend_app_config_settings",
@@ -841,7 +867,19 @@
       "file_type": "code",
       "norm_label": "app()",
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L37"
+      "source_location": "L121"
+    },
+    {
+      "id": "frontend_src_app_appshell",
+      "label": "AppShell()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "appshell()",
+      "source_file": "frontend/src/App.tsx",
+      "source_location": "L38"
     },
     {
       "id": "frontend_src_app_backendstatus",
@@ -853,7 +891,31 @@
       "file_type": "code",
       "norm_label": "backendstatus()",
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L19"
+      "source_location": "L20"
+    },
+    {
+      "id": "frontend_src_components_codegraphhero_codegraphhero",
+      "label": "CodeGraphHero()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "codegraphhero()",
+      "source_file": "frontend/src/components/CodeGraphHero.tsx",
+      "source_location": "L22"
+    },
+    {
+      "id": "frontend_src_components_codegraphhero_communitycolor",
+      "label": "communityColor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "communitycolor()",
+      "source_file": "frontend/src/components/CodeGraphHero.tsx",
+      "source_location": "L13"
     },
     {
       "id": "frontend_src_components_subgraphview_cssvar",
@@ -1108,64 +1170,28 @@
       "source_location": "L25"
     },
     {
-      "id": "backend_app_routers_ingest_ingest_status",
-      "label": "ingest_status()",
+      "id": "frontend_src_pages_landingpage_landingpage",
+      "label": "LandingPage()",
       "_callable": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "vectorstore.py",
+      "community": 4,
+      "community_name": "App.tsx",
       "file_type": "code",
-      "norm_label": "ingest_status()",
-      "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L30"
+      "norm_label": "landingpage()",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L47"
     },
     {
-      "id": "backend_app_services_vectorstore_add_chunks",
-      "label": "add_chunks()",
+      "id": "frontend_src_pages_landingpage_statreadout",
+      "label": "StatReadout()",
       "_callable": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "vectorstore.py",
+      "community": 4,
+      "community_name": "App.tsx",
       "file_type": "code",
-      "norm_label": "add_chunks()",
-      "source_file": "backend/app/services/vectorstore.py",
-      "source_location": "L14"
-    },
-    {
-      "id": "backend_app_services_vectorstore_chunk_count",
-      "label": "chunk_count()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "vectorstore.py",
-      "file_type": "code",
-      "norm_label": "chunk_count()",
-      "source_file": "backend/app/services/vectorstore.py",
-      "source_location": "L28"
-    },
-    {
-      "id": "backend_app_services_vectorstore_collection",
-      "label": "_collection()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "vectorstore.py",
-      "file_type": "code",
-      "norm_label": "_collection()",
-      "source_file": "backend/app/services/vectorstore.py",
-      "source_location": "L9"
-    },
-    {
-      "id": "backend_app_services_vectorstore_query",
-      "label": "query()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "vectorstore.py",
-      "file_type": "code",
-      "norm_label": "query()",
-      "source_file": "backend/app/services/vectorstore.py",
-      "source_location": "L18"
+      "norm_label": "statreadout()",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L37"
     },
     {
       "id": "backend_app_routers_ingest_ingest_documents",
@@ -1178,6 +1204,18 @@
       "norm_label": "ingest_documents()",
       "source_file": "backend/app/routers/ingest.py",
       "source_location": "L12"
+    },
+    {
+      "id": "backend_app_routers_ingest_ingest_status",
+      "label": "ingest_status()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "extraction.py",
+      "file_type": "code",
+      "norm_label": "ingest_status()",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L30"
     },
     {
       "id": "backend_app_services_chunking_chunk_text",
@@ -1274,6 +1312,54 @@
       "norm_label": "ingest_articles()",
       "source_file": "backend/app/services/ingestion.py",
       "source_location": "L9"
+    },
+    {
+      "id": "backend_app_services_vectorstore_add_chunks",
+      "label": "add_chunks()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "extraction.py",
+      "file_type": "code",
+      "norm_label": "add_chunks()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L14"
+    },
+    {
+      "id": "backend_app_services_vectorstore_chunk_count",
+      "label": "chunk_count()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "extraction.py",
+      "file_type": "code",
+      "norm_label": "chunk_count()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L28"
+    },
+    {
+      "id": "backend_app_services_vectorstore_collection",
+      "label": "_collection()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "extraction.py",
+      "file_type": "code",
+      "norm_label": "_collection()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_app_services_vectorstore_query",
+      "label": "query()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "extraction.py",
+      "file_type": "code",
+      "norm_label": "query()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L18"
     },
     {
       "id": "backend_scripts_build_graph_load_progress",
@@ -2870,7 +2956,18 @@
       "file_type": "code",
       "norm_label": "navitems",
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L11"
+      "source_location": "L12"
+    },
+    {
+      "id": "frontend_src_components_codegraphhero",
+      "label": "CodeGraphHero.tsx",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "codegraphhero.tsx",
+      "source_file": "frontend/src/components/CodeGraphHero.tsx",
+      "source_location": "L1"
     },
     {
       "id": "frontend_src_components_subgraphview",
@@ -2994,6 +3091,39 @@
       "source_location": "L1"
     },
     {
+      "id": "frontend_src_pages_landingpage",
+      "label": "LandingPage.tsx",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "landingpage.tsx",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_landingpage_features",
+      "label": "FEATURES",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "features",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L30"
+    },
+    {
+      "id": "frontend_src_pages_landingpage_steps",
+      "label": "STEPS",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "steps",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L23"
+    },
+    {
       "id": "ref_react",
       "label": "react",
       "_origin": "ast",
@@ -3003,28 +3133,6 @@
       "norm_label": "react",
       "source_file": "frontend/.oxlintrc.json",
       "source_location": "L3"
-    },
-    {
-      "id": "backend_app_routers_ingest_py_get",
-      "label": "get",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "vectorstore.py",
-      "file_type": "code",
-      "norm_label": "get",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "backend_app_services_vectorstore",
-      "label": "vectorstore.py",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "vectorstore.py",
-      "file_type": "code",
-      "norm_label": "vectorstore.py",
-      "source_file": "backend/app/services/vectorstore.py",
-      "source_location": "L1"
     },
     {
       "id": "frontend_package",
@@ -3346,6 +3454,17 @@
       "source_location": "L1"
     },
     {
+      "id": "backend_app_routers_ingest_py_get",
+      "label": "get",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "extraction.py",
+      "file_type": "code",
+      "norm_label": "get",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "backend_app_routers_ingest_py_post",
       "label": "post",
       "_origin": "ast",
@@ -3409,6 +3528,17 @@
       "file_type": "code",
       "norm_label": "ingestion.py",
       "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_services_vectorstore",
+      "label": "vectorstore.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "extraction.py",
+      "file_type": "code",
+      "norm_label": "vectorstore.py",
+      "source_file": "backend/app/services/vectorstore.py",
       "source_location": "L1"
     },
     {
@@ -4528,7 +4658,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L23",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_codegraphhero_codegraphhero",
+      "target": "frontend_src_components_codegraphhero_communitycolor",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/CodeGraphHero.tsx",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -4589,6 +4731,18 @@
       "context": "call",
       "source_file": "frontend/src/pages/ExplorerPage.tsx",
       "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage_landingpage",
+      "target": "frontend_src_lib_api_apiget",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -5205,6 +5359,18 @@
     },
     {
       "source": "frontend_src_app",
+      "target": "frontend_src_pages_landingpage_landingpage",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/App.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app",
       "target": "frontend_src_lib_api_apiget",
       "relation": "imports",
       "_origin": "ast",
@@ -5393,6 +5559,30 @@
       "context": "import",
       "source_file": "frontend/src/pages/ExplorerPage.tsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "frontend_src_lib_api_apiget",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "frontend_src_components_codegraphhero_codegraphhero",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -5673,6 +5863,18 @@
     },
     {
       "source": "frontend_src_app",
+      "target": "frontend_src_pages_landingpage",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/App.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app",
       "target": "frontend_src_lib_api",
       "relation": "imports_from",
       "_origin": "ast",
@@ -5741,6 +5943,18 @@
       "context": "import",
       "source_file": "frontend/src/App.tsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_codegraphhero",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/CodeGraphHero.tsx",
+      "source_location": "L1",
       "weight": 1.0
     },
     {
@@ -5921,6 +6135,42 @@
       "context": "import",
       "source_file": "frontend/src/pages/ExplorerPage.tsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "frontend_src_lib_api",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "frontend_src_components_codegraphhero",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -7379,18 +7629,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_app",
-      "target": "frontend_src_app_backendstatus",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/App.tsx",
-      "source_location": "L19",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -7401,7 +7640,62 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L37",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app",
+      "target": "frontend_src_app_backendstatus",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/App.tsx",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app",
+      "target": "frontend_src_app_appshell",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/App.tsx",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_codegraphhero",
+      "target": "frontend_src_components_codegraphhero_communitycolor",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/CodeGraphHero.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_codegraphhero",
+      "target": "frontend_src_components_codegraphhero_codegraphhero",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/CodeGraphHero.tsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_codegraphhero",
+      "target": "frontend_src_components_codegraphhero_codenode",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/CodeGraphHero.tsx",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -7831,6 +8125,61 @@
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/ExplorerPage.tsx",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "frontend_src_pages_landingpage_graphstats",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "frontend_src_pages_landingpage_steps",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "frontend_src_pages_landingpage_features",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "frontend_src_pages_landingpage_statreadout",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_landingpage",
+      "target": "frontend_src_pages_landingpage_landingpage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/LandingPage.tsx",
+      "source_location": "L47",
       "weight": 1.0
     },
     {
@@ -8872,5 +9221,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "f9ba0f44dd4f1acbc2e6bf3393a5c78e1fd913f8"
+  "built_at_commit": "f2296ee9a84813be0b89f88066b7412b26f853c3"
 }

@@ -66,9 +66,9 @@
     "semantic_hash": ""
   },
   "frontend/src/App.tsx": {
-    "mtime": 1790076194.1040094,
-    "seen": 1790076558.828363,
-    "ast_hash": "59127c583b2159deecb35a26f9698d71",
+    "mtime": 1790078057.8837414,
+    "seen": 1790078299.046428,
+    "ast_hash": "90889813be63ec2f4765e7f8fee569f3",
     "semantic_hash": ""
   },
   "frontend/src/lib/api.ts": {
@@ -132,8 +132,8 @@
     "semantic_hash": ""
   },
   "frontend/vite.config.ts": {
-    "mtime": 1790077414.8249025,
-    "seen": 1790077427.6809638,
+    "mtime": 1790078268.0056207,
+    "seen": 1790078299.0480769,
     "ast_hash": "00a628008d515489ae74baac3840ffa7",
     "semantic_hash": ""
   },
@@ -291,6 +291,24 @@
     "mtime": 1790074148.6153595,
     "seen": 1790074370.674548,
     "ast_hash": "7a0f3202c788e5d8456e0c32ac5484ab",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/CodeGraphHero.tsx": {
+    "mtime": 1790077971.5248682,
+    "seen": 1790078299.0464315,
+    "ast_hash": "91ef68212ee0ed384a0eb36020795dc0",
+    "semantic_hash": ""
+  },
+  "frontend/src/data/codeGraph.json": {
+    "mtime": 1790077959.0015235,
+    "seen": 1790078299.0465896,
+    "ast_hash": "10db6decd24483886485c3e4ebb55818",
+    "semantic_hash": ""
+  },
+  "frontend/src/pages/LandingPage.tsx": {
+    "mtime": 1790078030.8251092,
+    "seen": 1790078299.0476632,
+    "ast_hash": "2c420349d2a67afee3ff7c0ad53d28ae",
     "semantic_hash": ""
   }
 }
