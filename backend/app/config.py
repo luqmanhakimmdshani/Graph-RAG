@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     gemini_api_key: str = ""
+    gemini_model: str = "gemini-3.6-flash"
     neo4j_uri: str = ""
     neo4j_user: str = "neo4j"
     neo4j_password: str = ""
