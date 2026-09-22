@@ -294,9 +294,9 @@
     "semantic_hash": ""
   },
   "frontend/src/components/CodeGraphHero.tsx": {
-    "mtime": 1790120456.9823923,
-    "seen": 1790120515.0498376,
-    "ast_hash": "ff2175a99bca52ce3d671266955ac9b3",
+    "mtime": 1790120764.3628304,
+    "seen": 1790120814.7485926,
+    "ast_hash": "56aea2d102fbfdfc707f2f47f1267d57",
     "semantic_hash": ""
   },
   "frontend/src/data/codeGraph.json": {
