@@ -18,7 +18,8 @@ def _build_prompt(question: str, chunks: list[dict]) -> str:
     )
     return (
         "Answer the question using ONLY the context below. If the context doesn't "
-        "contain the answer, say so. Cite sources inline using [1], [2], etc.\n\n"
+        "contain the answer, say so. Cite sources inline using [1], [2], etc. "
+        "Respond in plain text (no markdown formatting).\n\n"
         f"Context:\n{context}\n\nQuestion: {question}\n\nAnswer:"
     )
 
