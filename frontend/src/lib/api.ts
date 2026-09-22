@@ -15,3 +15,11 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
   if (!res.ok) throw new Error(`${path} -> ${res.status}`);
   return res.json();
 }
+
+export async function apiUpload<T>(path: string, files: FileList): Promise<T> {
+  const form = new FormData();
+  for (const file of files) form.append("files", file);
+  const res = await fetch(`${BASE}${path}`, { method: "POST", body: form });
+  if (!res.ok) throw new Error(`${path} -> ${res.status}`);
+  return res.json();
+}

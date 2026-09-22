@@ -1,14 +1,21 @@
 from fastapi import APIRouter
 
+from app.services import graphdb
+
 router = APIRouter(prefix="/graph", tags=["graph"])
 
 
 @router.get("/stats")
 async def graph_stats():
-    # ponytail: stub, wire to Neo4j in Phase 2
-    return {"entities": 0, "relationships": 0, "communities": 0}
+    try:
+        return graphdb.stats()
+    except Exception:
+        return {"entities": None, "relationships": None, "communities": None, "error": "Neo4j not reachable"}
 
 
 @router.get("/subgraph")
-async def subgraph(entity: str):
-    return {"entity": entity, "nodes": [], "edges": []}
+async def subgraph(entity: str, hops: int = 2):
+    try:
+        return graphdb.subgraph(entity, hops)
+    except Exception:
+        return {"entity": entity, "nodes": [], "edges": [], "error": "Neo4j not reachable"}
