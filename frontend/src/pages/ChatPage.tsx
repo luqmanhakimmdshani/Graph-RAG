@@ -38,7 +38,7 @@ export default function ChatPage() {
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-xl font-semibold mb-1">Chat</h1>
       <p className="text-gray-500 text-sm mb-4">
-        Vanilla vector-RAG baseline (Phase 1). Graph RAG lands in Phase 3.
+        Vanilla vector-RAG baseline. See the Compare tab for Graph RAG side by side.
       </p>
 
       <form onSubmit={ask} className="flex gap-2 mb-6">
