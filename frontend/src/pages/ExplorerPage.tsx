@@ -22,6 +22,15 @@ interface SubgraphResponse {
   error?: string;
 }
 
+function mergeSubgraph(prev: SubgraphResponse, next: SubgraphResponse): SubgraphResponse {
+  const nodeMap = new Map(prev.nodes.map((n) => [n.id, n]));
+  for (const n of next.nodes) nodeMap.set(n.id, n);
+  const edgeKey = (e: GraphEdge) => `${e.source}>${e.target}:${e.type}`;
+  const edgeMap = new Map(prev.edges.map((e) => [edgeKey(e), e]));
+  for (const e of next.edges) edgeMap.set(edgeKey(e), e);
+  return { ...prev, nodes: [...nodeMap.values()], edges: [...edgeMap.values()] };
+}
+
 export default function ExplorerPage() {
   const [query, setQuery] = useState("");
   const [hops, setHops] = useState(2);
@@ -55,6 +64,24 @@ export default function ExplorerPage() {
     }
   }
 
+  // Grows the current 3D graph in place instead of replacing it - this is what
+  // makes the space "expandable": click a node, its neighborhood merges in.
+  async function expand(entity: string) {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const res = await apiGet<SubgraphResponse>(
+        `/graph/subgraph?entity=${encodeURIComponent(entity)}&hops=${hops}`
+      );
+      if (res.error || res.nodes.length === 0) return;
+      setData((prev) => (prev ? mergeSubgraph(prev, res) : res));
+    } catch {
+      // best-effort - leave the existing graph visible on failure
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const neighbors = data
     ? Array.from(new Set(data.nodes.filter((n) => n.name !== data.entity).map((n) => n.name)))
     : [];
@@ -65,7 +92,7 @@ export default function ExplorerPage() {
         <div className="label mb-2">Knowledge graph</div>
         <h1 className="text-2xl font-semibold tracking-tight">Explorer</h1>
         <p className="mt-1.5 text-sm text-[var(--text-muted)]">
-          Search an entity to see its neighbors in the knowledge graph.
+          Search an entity, then click any node in the 3D graph (or a neighbor pill) to expand it in place.
         </p>
       </div>
 
@@ -100,19 +127,19 @@ export default function ExplorerPage() {
       {data && (
         <div className="mt-6">
           <p className="mono mb-3 text-xs text-[var(--text-faint)]">
-            {data.nodes.length} nodes, {data.edges.length} edges around "{data.entity}"
+            {data.nodes.length} nodes, {data.edges.length} edges, seeded from "{data.entity}"
           </p>
           <div className="card p-4">
-            <SubgraphView nodes={data.nodes} edges={data.edges} onNodeClick={(name) => search(name)} />
+            <SubgraphView nodes={data.nodes} edges={data.edges} onNodeClick={(name) => expand(name)} />
           </div>
           {neighbors.length > 0 && (
             <div className="mt-5">
-              <div className="label mb-2.5">Neighbors</div>
+              <div className="label mb-2.5">Expand</div>
               <div className="flex flex-wrap gap-1.5">
                 {neighbors.map((n) => (
                   <button
                     key={n}
-                    onClick={() => search(n)}
+                    onClick={() => expand(n)}
                     className="mono rounded-full border border-[var(--border)] px-3 py-1 text-xs text-[var(--text-muted)] transition-colors hover:border-[var(--accent)]/40 hover:text-[var(--text)]"
                   >
                     {n}
