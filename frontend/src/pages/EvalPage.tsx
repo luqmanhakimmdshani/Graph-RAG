@@ -43,7 +43,7 @@ function Bar({ label, value, max, color }: { label: string; value: number; max: 
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[var(--surface-hover)]">
         <div className="h-full rounded-full" style={{ width: `${(value / max) * 100}%`, backgroundColor: color }} />
       </div>
-      <span className="w-6 shrink-0 text-right text-[var(--text-muted)]">{value.toFixed(1)}</span>
+      <span className="mono w-6 shrink-0 text-right text-[var(--text-muted)]">{value.toFixed(1)}</span>
     </div>
   );
 }
@@ -102,10 +102,10 @@ export default function EvalPage() {
             {categories.map((cat) => {
               const s = data.summary[cat];
               return (
-                <div key={cat} className="card p-4">
-                  <div className="mb-3 flex items-center justify-between">
+                <div key={cat} className="card p-3.5">
+                  <div className="mb-2.5 flex items-center justify-between">
                     <h2 className="text-sm font-semibold">{CATEGORY_LABELS[cat] ?? cat}</h2>
-                    <span className="text-xs text-[var(--text-faint)]">{s.n} questions</span>
+                    <span className="mono text-xs text-[var(--text-faint)]">{s.n} questions</span>
                   </div>
                   <div className="grid grid-cols-2 gap-x-6 gap-y-1.5">
                     <div className="space-y-1.5">
@@ -132,19 +132,19 @@ export default function EvalPage() {
               {data.results.map((r) => (
                 <div key={r.id}>
                   <button
-                    className="flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm transition-colors hover:bg-[var(--surface-hover)]"
+                    className="flex w-full items-center justify-between gap-3 px-4 py-2 text-left text-sm transition-colors hover:bg-[var(--surface-hover)]"
                     onClick={() => setExpanded(expanded === r.id ? null : r.id)}
                   >
                     <span className="flex min-w-0 items-center gap-2">
                       <ChevronRight
                         className={`h-3.5 w-3.5 shrink-0 text-[var(--text-faint)] transition-transform ${expanded === r.id ? "rotate-90" : ""}`}
                       />
-                      <span className="shrink-0 text-xs text-[var(--text-faint)]">
+                      <span className="mono shrink-0 text-[11px] text-[var(--text-faint)]">
                         [{CATEGORY_LABELS[r.category] ?? r.category}]
                       </span>
                       <span className="truncate">{r.question}</span>
                     </span>
-                    <span className="shrink-0 text-xs text-[var(--text-faint)]">
+                    <span className="mono shrink-0 text-xs text-[var(--text-faint)]">
                       V {r.vanilla_relevance}/{r.vanilla_faithfulness} · G {r.graph_relevance}/{r.graph_faithfulness}
                     </span>
                   </button>

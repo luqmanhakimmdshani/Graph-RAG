@@ -66,6 +66,7 @@ export default function SubgraphView({
         })}
         {shown.map((n) => {
           const p = positions.get(n.id)!;
+          const color = TYPE_COLORS[n.type] ?? "var(--text-faint)";
           return (
             <g
               key={n.id}
@@ -73,15 +74,15 @@ export default function SubgraphView({
               className={onNodeClick ? "cursor-pointer" : undefined}
               onClick={() => onNodeClick?.(n.name)}
             >
-              <circle r={6.5} style={{ fill: TYPE_COLORS[n.type] ?? "var(--text-faint)" }} />
-              <text x={10} y={4} fontSize={10} style={{ fill: "var(--text-muted)" }}>
+              <circle r={6.5} style={{ fill: color, filter: `drop-shadow(0 0 4px color-mix(in srgb, ${color} 60%, transparent))` }} />
+              <text x={10} y={4} fontSize={10} className="mono" style={{ fill: "var(--text-muted)" }}>
                 {n.name}
               </text>
             </g>
           );
         })}
       </svg>
-      <div className="mt-3 flex items-center gap-4 text-[11px] text-[var(--text-faint)]">
+      <div className="mono mt-3 flex items-center gap-4 text-[11px] text-[var(--text-faint)]">
         <span className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full" style={{ background: TYPE_COLORS.PERSON }} /> person
         </span>

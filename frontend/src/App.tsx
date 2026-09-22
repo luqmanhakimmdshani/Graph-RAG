@@ -27,9 +27,9 @@ function BackendStatus() {
 
   const color = status === "ok" ? "bg-emerald-500" : status === "down" ? "bg-[var(--danger)]" : "bg-[var(--text-faint)]";
   return (
-    <span className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
-      <span className={`inline-block h-1.5 w-1.5 rounded-full ${color}`} />
-      backend {status}
+    <span className="mono flex items-center gap-2 text-[11px] text-[var(--text-muted)]">
+      <span className={`inline-block h-1.5 w-1.5 rounded-full ${color}`} style={status === "ok" ? { boxShadow: "0 0 6px #10b981" } : undefined} />
+      backend:{status}
     </span>
   );
 }
@@ -37,14 +37,17 @@ function BackendStatus() {
 export default function App() {
   return (
     <div className="flex min-h-full">
-      <aside className="hidden lg:flex w-56 shrink-0 flex-col border-r border-[var(--border)] px-3 py-5">
+      <aside className="glass-strong hidden lg:flex w-56 shrink-0 flex-col border-r px-3 py-5" style={{ borderColor: "var(--glass-border)" }}>
         <div className="mb-8 flex items-center gap-2.5 px-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-foreground)]">
+          <div
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-foreground)]"
+            style={{ boxShadow: "0 0 20px color-mix(in srgb, var(--accent) 45%, transparent)" }}
+          >
             <Network className="h-4 w-4" strokeWidth={2.25} />
           </div>
           <div>
             <div className="text-sm font-semibold leading-tight">Graph RAG</div>
-            <div className="text-[11px] leading-tight text-[var(--text-faint)]">capstone</div>
+            <div className="mono text-[10px] leading-tight tracking-wide text-[var(--text-faint)]">capstone</div>
           </div>
         </div>
         <nav className="space-y-0.5">

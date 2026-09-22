@@ -13,30 +13,41 @@
   --color-accent-soft: var(--accent-soft);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --radius-sm: 0.4rem;
   --radius-md: 0.65rem;
   --radius-lg: 0.9rem;
 }
 
 :root {
-  --bg: #f7f7f5;
+  --bg: #f5f6f4;
   --surface: #ffffff;
   --surface-hover: #f0f0ee;
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(20, 24, 20, 0.08);
+  --glass-border-top: rgba(255, 255, 255, 0.6);
   --border: rgba(15, 18, 15, 0.09);
   --text: #16181a;
   --text-muted: #64696b;
   --text-faint: #9a9fa0;
-  --accent: #6a8f1f;
+  --accent: #5f8a17;
   --accent-foreground: #ffffff;
-  --accent-soft: rgba(106, 143, 31, 0.1);
+  --accent-soft: rgba(95, 138, 23, 0.1);
   --danger: #c9463a;
   --danger-soft: rgba(201, 70, 58, 0.1);
+  --glow-a: #c3ef61;
+  --glow-b: #61c9ef;
 }
 
 :root[data-theme="dark"] {
-  --bg: #0b0d0e;
+  --bg: #08090a;
   --surface: #16191b;
   --surface-hover: #1d2123;
+  --glass: rgba(24, 28, 27, 0.55);
+  --glass-strong: rgba(14, 17, 16, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-top: rgba(255, 255, 255, 0.16);
   --border: rgba(255, 255, 255, 0.08);
   --text: #f1f3f1;
   --text-muted: #979d9c;
@@ -46,13 +57,19 @@
   --accent-soft: rgba(195, 239, 97, 0.12);
   --danger: #ff7a6b;
   --danger-soft: rgba(255, 122, 107, 0.12);
+  --glow-a: #c3ef61;
+  --glow-b: #4f9fe0;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0b0d0e;
+    --bg: #08090a;
     --surface: #16191b;
     --surface-hover: #1d2123;
+    --glass: rgba(24, 28, 27, 0.55);
+    --glass-strong: rgba(14, 17, 16, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.09);
+    --glass-border-top: rgba(255, 255, 255, 0.16);
     --border: rgba(255, 255, 255, 0.08);
     --text: #f1f3f1;
     --text-muted: #979d9c;
@@ -62,6 +79,8 @@
     --accent-soft: rgba(195, 239, 97, 0.12);
     --danger: #ff7a6b;
     --danger-soft: rgba(255, 122, 107, 0.12);
+    --glow-a: #c3ef61;
+    --glow-b: #4f9fe0;
   }
 }
 
@@ -80,6 +99,20 @@ body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   font: 15px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  position: relative;
+}
+
+/* Ambient glow field - the "vibrant background" glass needs to actually refract.
+   Fixed, behind everything, never intercepts pointer events. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(600px circle at 8% 0%, color-mix(in srgb, var(--glow-a) 20%, transparent), transparent 60%),
+    radial-gradient(700px circle at 100% 20%, color-mix(in srgb, var(--glow-b) 16%, transparent), transparent 55%),
+    radial-gradient(900px circle at 50% 100%, color-mix(in srgb, var(--glow-a) 8%, transparent), transparent 60%);
 }
 
 button,
@@ -98,18 +131,35 @@ button:active:not(:disabled) {
   transform: scale(0.97);
 }
 
+.mono {
+  font-family: var(--font-mono);
+}
+
 .label {
-  font-size: 11px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-faint);
 }
 
+/* Glass material - the default surface for cards, panels and floating chrome.
+   Material weight (opacity/blur) should get heavier for larger/structural
+   surfaces and lighter for small interactive ones - see .glass-strong. */
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  border-top-color: var(--glass-border-top);
   border-radius: var(--radius-lg);
+}
+
+.glass-strong {
+  background: var(--glass-strong);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
 }
 
 .scrim-header {
@@ -124,5 +174,27 @@ button:active:not(:disabled) {
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+}
+
+/* Frostier, not glassier - honor a request for less transparency. */
+@media (prefers-reduced-transparency: reduce) {
+  .card {
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .glass-strong {
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .scrim-header {
+    background: var(--bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  body::before {
+    display: none;
   }
 }

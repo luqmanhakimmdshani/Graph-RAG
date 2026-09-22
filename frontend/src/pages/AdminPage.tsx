@@ -9,12 +9,12 @@ interface IngestStatus {
 
 function StatCard({ label, value, icon: Icon }: { label: string; value: string | number; icon: typeof Database }) {
   return (
-    <div className="card p-4">
-      <div className="mb-3 flex items-center justify-between">
+    <div className="card p-3.5">
+      <div className="mb-2.5 flex items-center justify-between">
         <span className="label">{label}</span>
         <Icon className="h-3.5 w-3.5 text-[var(--text-faint)]" />
       </div>
-      <div className="text-2xl font-semibold tracking-tight">{value}</div>
+      <div className="mono text-2xl font-semibold tracking-tight">{value}</div>
     </div>
   );
 }
@@ -77,7 +77,7 @@ export default function AdminPage() {
 
       <div className="label mb-3">Corpus stats</div>
       {status ? (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
           <StatCard label="Chunks" value={status.chunks_indexed} icon={Database} />
           <StatCard label="Entities" value={status.graph.entities ?? "—"} icon={Layers3} />
           <StatCard label="Relationships" value={status.graph.relationships ?? "—"} icon={GitBranch} />

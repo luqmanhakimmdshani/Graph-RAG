@@ -99,7 +99,7 @@ export default function ExplorerPage() {
 
       {data && (
         <div className="mt-6">
-          <p className="mb-3 text-xs text-[var(--text-faint)]">
+          <p className="mono mb-3 text-xs text-[var(--text-faint)]">
             {data.nodes.length} nodes, {data.edges.length} edges around "{data.entity}"
           </p>
           <div className="card p-4">
@@ -113,7 +113,7 @@ export default function ExplorerPage() {
                   <button
                     key={n}
                     onClick={() => search(n)}
-                    className="rounded-full border border-[var(--border)] px-3 py-1 text-xs text-[var(--text-muted)] transition-colors hover:border-[var(--accent)]/40 hover:text-[var(--text)]"
+                    className="mono rounded-full border border-[var(--border)] px-3 py-1 text-xs text-[var(--text-muted)] transition-colors hover:border-[var(--accent)]/40 hover:text-[var(--text)]"
                   >
                     {n}
                   </button>
