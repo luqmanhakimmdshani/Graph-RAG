@@ -78,7 +78,10 @@ export default function LandingPage() {
           className="pointer-events-none absolute inset-0"
           style={{ background: "linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 42%, transparent 70%)" }}
         />
-        <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-center px-6 lg:px-10">
+        {/* pointer-events-none all the way down except the two links themselves -
+            the graph underneath should be draggable from anywhere, including
+            over the headline, not just the empty margins around this column. */}
+        <div className="pointer-events-none relative mx-auto flex h-full max-w-6xl flex-col justify-center px-6 lg:px-10">
           <div className="max-w-xl">
             <div className="label mb-3">Knowledge-graph-augmented RAG</div>
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl">
@@ -91,13 +94,13 @@ export default function LandingPage() {
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <Link
                 to="/chat"
-                className="flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)]"
+                className="pointer-events-auto flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)]"
               >
                 Open Chat <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/compare"
-                className="flex items-center gap-2 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
+                className="pointer-events-auto flex items-center gap-2 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
               >
                 Vanilla vs Graph RAG
               </Link>

@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import ForceGraph3D from "3d-force-graph";
+import { Vector2 } from "three";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import codeGraph from "../data/codeGraph.json";
 
 interface CodeNode {
@@ -52,13 +54,22 @@ export default function CodeGraphHero() {
     controls.autoRotateSpeed = 0.6;
     graph.cameraPosition({ z: 420 });
 
+    // Real glow, not a CSS filter - this is a WebGL scene, so bloom has to be
+    // a postprocessing render pass over the composer 3d-force-graph already
+    // sets up, not a drop-shadow (which only affects the flat DOM element).
+    const bloom = new UnrealBloomPass(new Vector2(el.clientWidth, el.clientHeight), 1.5, 0.6, 0.1);
+    graph.postProcessingComposer().addPass(bloom);
+
     // Hand full control to the user the moment they grab the camera.
     const stopAutoRotate = () => {
       controls.autoRotate = false;
     };
     el.addEventListener("pointerdown", stopAutoRotate, { once: true });
 
-    const onResize = () => graph.width(el.clientWidth).height(el.clientHeight);
+    const onResize = () => {
+      graph.width(el.clientWidth).height(el.clientHeight);
+      bloom.setSize(el.clientWidth, el.clientHeight);
+    };
     window.addEventListener("resize", onResize);
 
     // Pause the render loop entirely while the hero is scrolled out of view.
