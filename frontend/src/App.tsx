@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, Route, Routes } from "react-router-dom";
+import { NavLink, Outlet, Route, Routes } from "react-router-dom";
 import { BarChart3, GitCompare, MessageSquare, Network, UploadCloud } from "lucide-react";
 import { apiGet } from "./lib/api";
 import AdminPage from "./pages/AdminPage";
@@ -7,9 +7,10 @@ import ChatPage from "./pages/ChatPage";
 import ComparePage from "./pages/ComparePage";
 import EvalPage from "./pages/EvalPage";
 import ExplorerPage from "./pages/ExplorerPage";
+import LandingPage from "./pages/LandingPage";
 
 const navItems = [
-  { to: "/", label: "Chat", end: true, icon: MessageSquare },
+  { to: "/chat", label: "Chat", end: true, icon: MessageSquare },
   { to: "/compare", label: "Compare", icon: GitCompare },
   { to: "/explorer", label: "Explorer", icon: Network },
   { to: "/admin", label: "Admin", icon: UploadCloud },
@@ -34,7 +35,7 @@ function BackendStatus() {
   );
 }
 
-export default function App() {
+function AppShell() {
   return (
     <div className="flex min-h-full">
       <aside className="glass-strong hidden lg:flex w-56 shrink-0 flex-col border-r px-3 py-5" style={{ borderColor: "var(--glass-border)" }}>
@@ -110,15 +111,24 @@ export default function App() {
           ))}
         </nav>
         <main className="min-w-0 flex-1">
-          <Routes>
-            <Route path="/" element={<ChatPage />} />
-            <Route path="/compare" element={<ComparePage />} />
-            <Route path="/explorer" element={<ExplorerPage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/eval" element={<EvalPage />} />
-          </Routes>
+          <Outlet />
         </main>
       </div>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route element={<AppShell />}>
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/compare" element={<ComparePage />} />
+        <Route path="/explorer" element={<ExplorerPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/eval" element={<EvalPage />} />
+      </Route>
+    </Routes>
   );
 }
