@@ -53,8 +53,16 @@ export default function CodeGraphHero() {
     // at 323 nodes those defaults spread the graph out wider than the hero
     // frame comfortably shows. Shorter links + gentler repulsion pull it into
     // a denser cluster instead of a sparse haze.
+    //
+    // Uncapped repulsion (the default) still flings low-degree/leaf nodes -
+    // the ones with nothing but the link force to pull them back - out into
+    // empty space once they clear the dense core, so the result reads as one
+    // cluster plus stray outliers "in the void" instead of one consistent
+    // shape. Capping distanceMax stops charge from acting past local range,
+    // and a slightly stronger center pull reins in anything still drifting.
     graph.d3Force("link")?.distance(14);
-    graph.d3Force("charge")?.strength(-14);
+    graph.d3Force("charge")?.strength(-14).distanceMax(160);
+    graph.d3Force("center")?.strength(1.2);
 
     const controls = graph.controls();
     controls.autoRotate = !reduceMotion;
