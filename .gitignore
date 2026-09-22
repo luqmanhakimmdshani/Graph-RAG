@@ -6,6 +6,7 @@ backend/chroma_data/
 backend/data/data.csv
 backend/data/rating.csv
 backend/data/raw-data.csv
+backend/data/graph_progress.json
 
 frontend/node_modules/
 frontend/dist/
