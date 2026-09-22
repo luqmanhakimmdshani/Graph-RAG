@@ -6,7 +6,7 @@
   "4": "App.tsx",
   "6": "package.json",
   "7": "plugins",
-  "8": "ingest_articles",
+  "8": "extraction.py",
   "9": "Graph RAG Capstone",
   "10": "graphdb.py",
   "11": "React + TypeScript + Vite",
@@ -15,5 +15,5 @@
   "14": "tsconfig.json",
   "15": "app/__init__.py",
   "16": "vite.config.ts",
-  "17": "services/__init__.py"
+  "17": "detect_communities.py"
 }
