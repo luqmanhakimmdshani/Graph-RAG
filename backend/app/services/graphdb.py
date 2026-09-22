@@ -30,6 +30,10 @@ def _driver():
     return GraphDatabase.driver(settings.neo4j_uri, auth=(settings.neo4j_user, settings.neo4j_password))
 
 
+def _session():
+    return _driver().session(database=settings.neo4j_database)
+
+
 def write_extraction(
     entities: list[Entity],
     relationships: list[Relationship],
@@ -40,7 +44,7 @@ def write_extraction(
 ) -> None:
     name_to_type = {e.name: e.type for e in entities}
 
-    with _driver().session() as session:
+    with _session() as session:
         for e in entities:
             session.run(
                 f"MERGE (n:{e.type} {{norm_name: $norm_name}}) "
@@ -74,7 +78,7 @@ def write_extraction(
 
 
 def stats() -> dict:
-    with _driver().session() as session:
+    with _session() as session:
         entities = session.run("MATCH (n) RETURN count(n) AS c").single()["c"]
         relationships = session.run("MATCH ()-[r]->() RETURN count(r) AS c").single()["c"]
         communities = session.run(
@@ -85,7 +89,7 @@ def stats() -> dict:
 
 def subgraph(entity_name: str, hops: int = 2) -> dict:
     norm = normalize_name(entity_name)
-    with _driver().session() as session:
+    with _session() as session:
         result = session.run(
             f"MATCH (start {{norm_name: $norm}}) "
             f"OPTIONAL MATCH path = (start)-[*1..{hops}]-(other) "
