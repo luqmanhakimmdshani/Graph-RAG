@@ -108,9 +108,13 @@
       "frontend_src_lib_api",
       "frontend_src_lib_api_apiget",
       "frontend_src_lib_api_apipost",
+      "frontend_src_lib_api_apiupload",
       "frontend_src_main",
       "frontend_src_pages_adminpage",
       "frontend_src_pages_adminpage_adminpage",
+      "frontend_src_pages_adminpage_adminpage_onupload",
+      "frontend_src_pages_adminpage_adminpage_refresh",
+      "frontend_src_pages_adminpage_ingeststatus",
       "frontend_src_pages_chatpage",
       "frontend_src_pages_chatpage_chatpage",
       "frontend_src_pages_chatpage_chatpage_ask",
@@ -133,10 +137,6 @@
       "backend_app_routers_eval_py_get",
       "backend_app_routers_eval_py_post",
       "backend_app_routers_eval_run_eval",
-      "backend_app_routers_graph",
-      "backend_app_routers_graph_graph_stats",
-      "backend_app_routers_graph_py_get",
-      "backend_app_routers_graph_subgraph",
       "backend_app_routers_init"
     ],
     "6": [
@@ -178,7 +178,7 @@
       "backend_app_services_chunking_rationale_1",
       "backend_app_services_ingestion",
       "backend_app_services_ingestion_ingest_articles",
-      "backend_app_services_ingestion_rationale_6",
+      "backend_app_services_ingestion_rationale_10",
       "backend_app_services_init",
       "backend_app_services_vectorstore",
       "backend_app_services_vectorstore_add_chunks",
@@ -197,6 +197,39 @@
       "readme_stack",
       "readme_status"
     ],
+    "10": [
+      "backend_app_config",
+      "backend_app_config_settings",
+      "backend_app_routers_graph",
+      "backend_app_routers_graph_graph_stats",
+      "backend_app_routers_graph_py_get",
+      "backend_app_routers_graph_subgraph",
+      "backend_app_services_extraction",
+      "backend_app_services_extraction_client",
+      "backend_app_services_extraction_entity",
+      "backend_app_services_extraction_extract",
+      "backend_app_services_extraction_extractionresult",
+      "backend_app_services_extraction_py_basemodel",
+      "backend_app_services_extraction_rationale_1",
+      "backend_app_services_extraction_relationship",
+      "backend_app_services_extraction_retry_delay_s",
+      "backend_app_services_extraction_throttle",
+      "backend_app_services_graphdb",
+      "backend_app_services_graphdb_driver",
+      "backend_app_services_graphdb_normalize_name",
+      "backend_app_services_graphdb_rationale_1",
+      "backend_app_services_graphdb_session",
+      "backend_app_services_graphdb_stats",
+      "backend_app_services_graphdb_subgraph",
+      "backend_app_services_graphdb_write_extraction",
+      "backend_scripts_build_graph",
+      "backend_scripts_build_graph_load_progress",
+      "backend_scripts_build_graph_main",
+      "backend_scripts_build_graph_rationale_1",
+      "backend_scripts_build_graph_save_progress",
+      "basesettings",
+      "exception"
+    ],
     "11": [
       "frontend_readme",
       "frontend_readme_expanding_the_oxlint_configuration",
@@ -204,11 +237,10 @@
       "frontend_readme_react_typescript_vite"
     ],
     "12": [
-      "backend_app_config",
-      "backend_app_config_settings",
       "backend_app_routers_query",
       "backend_app_routers_query_build_prompt",
       "backend_app_routers_query_citations",
+      "backend_app_routers_query_py_basemodel",
       "backend_app_routers_query_py_post",
       "backend_app_routers_query_query_compare",
       "backend_app_routers_query_query_graph_rag",
@@ -220,8 +252,6 @@
       "backend_app_services_llm",
       "backend_app_services_llm_client",
       "backend_app_services_llm_generate",
-      "basemodel",
-      "basesettings",
       "sentencetransformer"
     ],
     "13": [
@@ -246,14 +276,15 @@
     "1": 0.08333333333333333,
     "2": 0.09523809523809523,
     "3": 0.1,
-    "4": 0.14285714285714285,
-    "5": 0.16666666666666666,
+    "4": 0.13230769230769232,
+    "5": 0.2222222222222222,
     "6": 0.13333333333333333,
     "7": 0.2222222222222222,
     "8": 0.15714285714285714,
     "9": 0.4,
+    "10": 0.12258064516129032,
     "11": 0.5,
-    "12": 0.1871345029239766,
+    "12": 0.23333333333333334,
     "13": 0.6666666666666666,
     "14": 0.6666666666666666,
     "15": 1.0,
@@ -276,14 +307,29 @@
       "degree": 15
     },
     {
+      "id": "backend_app_services_ingestion_ingest_articles",
+      "label": "ingest_articles()",
+      "degree": 11
+    },
+    {
       "id": "backend_app_routers_query_query_vanilla_rag",
       "label": "query_vanilla_rag()",
       "degree": 9
     },
     {
-      "id": "backend_app_services_ingestion_ingest_articles",
-      "label": "ingest_articles()",
-      "degree": 9
+      "id": "backend_app_services_extraction_extract",
+      "label": "extract()",
+      "degree": 8
+    },
+    {
+      "id": "backend_app_services_graphdb_write_extraction",
+      "label": "write_extraction()",
+      "degree": 7
+    },
+    {
+      "id": "backend_scripts_build_graph_main",
+      "label": "main()",
+      "degree": 7
     },
     {
       "id": "backend_app_routers_query_queryrequest",
@@ -291,33 +337,51 @@
       "degree": 5
     },
     {
-      "id": "backend_app_routers_query_query_compare",
-      "label": "query_compare()",
+      "id": "backend_app_services_graphdb_session",
+      "label": "_session()",
       "degree": 5
-    },
-    {
-      "id": "frontend_package_scripts",
-      "label": "scripts",
-      "degree": 5
-    },
-    {
-      "id": "backend_app_routers_query_query_graph_rag",
-      "label": "query_graph_rag()",
-      "degree": 4
-    },
-    {
-      "id": "backend_app_services_embeddings_embed",
-      "label": "embed()",
-      "degree": 4
     }
   ],
   "surprises": [
     {
-      "source": "query_vanilla_rag()",
-      "target": "query()",
+      "source": "write_extraction()",
+      "target": "Entity",
       "source_files": [
-        "backend/app/routers/query.py",
-        "backend/app/services/vectorstore.py"
+        "backend/app/services/graphdb.py",
+        "backend/app/services/extraction.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source"
+    },
+    {
+      "source": "write_extraction()",
+      "target": "Relationship",
+      "source_files": [
+        "backend/app/services/graphdb.py",
+        "backend/app/services/extraction.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source"
+    },
+    {
+      "source": "ingest_articles()",
+      "target": "extract()",
+      "source_files": [
+        "backend/app/services/ingestion.py",
+        "backend/app/services/extraction.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "ingest_status()",
+      "target": "stats()",
+      "source_files": [
+        "backend/app/routers/ingest.py",
+        "backend/app/services/graphdb.py"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
@@ -325,59 +389,31 @@
     },
     {
       "source": "ingest_articles()",
-      "target": "embed()",
+      "target": "write_extraction()",
       "source_files": [
         "backend/app/services/ingestion.py",
-        "backend/app/services/embeddings.py"
+        "backend/app/services/graphdb.py"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities"
-    },
-    {
-      "source": "main()",
-      "target": "ingest_articles()",
-      "source_files": [
-        "backend/scripts/ingest_corpus.py",
-        "backend/app/services/ingestion.py"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "peripheral node `main()` unexpectedly reaches hub `ingest_articles()`"
-    },
-    {
-      "source": "query_vanilla_rag()",
-      "target": "embed()",
-      "source_files": [
-        "backend/app/routers/query.py",
-        "backend/app/services/embeddings.py"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "query_vanilla_rag()",
-      "target": "generate()",
-      "source_files": [
-        "backend/app/routers/query.py",
-        "backend/app/services/llm.py"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
     }
   ],
   "questions": [
     {
       "type": "bridge_node",
       "question": "Why does `devDependencies` connect `devDependencies` to `package.json`?",
-      "why": "High betweenness centrality (0.023) - this node is a cross-community bridge."
+      "why": "High betweenness centrality (0.017) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `ingest_articles()` connect `ingest_articles` to `graphdb.py`, `query.py`?",
+      "why": "High betweenness centrality (0.017) - this node is a cross-community bridge."
     },
     {
       "type": "isolated_nodes",
-      "question": "What connects `Citation`, `QueryResponse`, `10. Non-Functional Requirements` to the rest of the system?",
-      "why": "90 weakly-connected nodes found - possible documentation gaps or missing edges."
+      "question": "What connects `IngestStatus`, `Citation`, `QueryResponse` to the rest of the system?",
+      "why": "91 weakly-connected nodes found - possible documentation gaps or missing edges."
     },
     {
       "type": "low_cohesion",
@@ -398,11 +434,6 @@
       "type": "low_cohesion",
       "question": "Should `compilerOptions` be split into smaller, more focused modules?",
       "why": "Cohesion score 0.1 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `App.tsx` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected."
     }
   ]
 }

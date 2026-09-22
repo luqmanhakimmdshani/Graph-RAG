@@ -9,12 +9,51 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 12,
-      "community_name": "query.py",
+      "community": 10,
+      "community_name": "graphdb.py",
       "file_type": "code",
       "norm_label": "settings",
       "source_file": "backend/app/config.py",
-      "source_location": "L4"
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_app_services_extraction_entity",
+      "label": "Entity",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "entity",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L34"
+    },
+    {
+      "id": "backend_app_services_extraction_extractionresult",
+      "label": "ExtractionResult",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "extractionresult",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L48"
+    },
+    {
+      "id": "backend_app_services_extraction_relationship",
+      "label": "Relationship",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "relationship",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L39"
     },
     {
       "id": "backend_app_routers_query_queryrequest",
@@ -28,6 +67,19 @@
       "norm_label": "queryrequest",
       "source_file": "backend/app/routers/query.py",
       "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_pages_adminpage_ingeststatus",
+      "label": "IngestStatus",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "ingeststatus",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L4"
     },
     {
       "id": "frontend_src_pages_chatpage_citation",
@@ -56,6 +108,186 @@
       "source_location": "L11"
     },
     {
+      "id": "backend_app_routers_graph_graph_stats",
+      "label": "graph_stats()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "graph_stats()",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_app_routers_graph_subgraph",
+      "label": "subgraph()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "subgraph()",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L17"
+    },
+    {
+      "id": "backend_app_services_extraction_client",
+      "label": "_client()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "_client()",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L70"
+    },
+    {
+      "id": "backend_app_services_extraction_extract",
+      "label": "extract()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "extract()",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L90"
+    },
+    {
+      "id": "backend_app_services_extraction_retry_delay_s",
+      "label": "_retry_delay_s()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "_retry_delay_s()",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L82"
+    },
+    {
+      "id": "backend_app_services_extraction_throttle",
+      "label": "_throttle()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "_throttle()",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L74"
+    },
+    {
+      "id": "backend_app_services_graphdb_driver",
+      "label": "_driver()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "_driver()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L29"
+    },
+    {
+      "id": "backend_app_services_graphdb_normalize_name",
+      "label": "normalize_name()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "normalize_name()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L21"
+    },
+    {
+      "id": "backend_app_services_graphdb_session",
+      "label": "_session()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "_session()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L33"
+    },
+    {
+      "id": "backend_app_services_graphdb_stats",
+      "label": "stats()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "stats()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L80"
+    },
+    {
+      "id": "backend_app_services_graphdb_subgraph",
+      "label": "subgraph()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "subgraph()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L90"
+    },
+    {
+      "id": "backend_app_services_graphdb_write_extraction",
+      "label": "write_extraction()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "write_extraction()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L37"
+    },
+    {
+      "id": "backend_scripts_build_graph_load_progress",
+      "label": "load_progress()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "load_progress()",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L25"
+    },
+    {
+      "id": "backend_scripts_build_graph_main",
+      "label": "main()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "main()",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L35"
+    },
+    {
+      "id": "backend_scripts_build_graph_save_progress",
+      "label": "save_progress()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "save_progress()",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L31"
+    },
+    {
       "id": "backend_app_routers_query_build_prompt",
       "label": "_build_prompt()",
       "_callable": true,
@@ -77,7 +309,7 @@
       "file_type": "code",
       "norm_label": "_citations()",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L26"
+      "source_location": "L27"
     },
     {
       "id": "backend_app_routers_query_query_compare",
@@ -89,7 +321,7 @@
       "file_type": "code",
       "norm_label": "query_compare()",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L55"
+      "source_location": "L56"
     },
     {
       "id": "backend_app_routers_query_query_graph_rag",
@@ -101,7 +333,7 @@
       "file_type": "code",
       "norm_label": "query_graph_rag()",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L39"
+      "source_location": "L40"
     },
     {
       "id": "backend_app_routers_query_query_vanilla_rag",
@@ -113,7 +345,7 @@
       "file_type": "code",
       "norm_label": "query_vanilla_rag()",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L45"
+      "source_location": "L46"
     },
     {
       "id": "backend_app_services_embeddings_embed",
@@ -224,6 +456,18 @@
       "source_location": "L9"
     },
     {
+      "id": "frontend_src_lib_api_apiupload",
+      "label": "apiUpload()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "apiupload()",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L19"
+    },
+    {
       "id": "frontend_src_pages_adminpage_adminpage",
       "label": "AdminPage()",
       "_callable": true,
@@ -233,7 +477,31 @@
       "file_type": "code",
       "norm_label": "adminpage()",
       "source_file": "frontend/src/pages/AdminPage.tsx",
-      "source_location": "L1"
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_pages_adminpage_adminpage_onupload",
+      "label": "onUpload()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "onupload()",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "frontend_src_pages_adminpage_adminpage_refresh",
+      "label": "refresh()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "refresh()",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L14"
     },
     {
       "id": "frontend_src_pages_chatpage_chatpage",
@@ -332,30 +600,6 @@
       "source_location": "L7"
     },
     {
-      "id": "backend_app_routers_graph_graph_stats",
-      "label": "graph_stats()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "main.py",
-      "file_type": "code",
-      "norm_label": "graph_stats()",
-      "source_file": "backend/app/routers/graph.py",
-      "source_location": "L7"
-    },
-    {
-      "id": "backend_app_routers_graph_subgraph",
-      "label": "subgraph()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "main.py",
-      "file_type": "code",
-      "norm_label": "subgraph()",
-      "source_file": "backend/app/routers/graph.py",
-      "source_location": "L13"
-    },
-    {
       "id": "backend_app_routers_ingest_ingest_documents",
       "label": "ingest_documents()",
       "_callable": true,
@@ -377,7 +621,7 @@
       "file_type": "code",
       "norm_label": "ingest_status()",
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L27"
+      "source_location": "L30"
     },
     {
       "id": "backend_app_services_chunking_chunk_text",
@@ -401,7 +645,7 @@
       "file_type": "code",
       "norm_label": "ingest_articles()",
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L5"
+      "source_location": "L9"
     },
     {
       "id": "backend_app_services_vectorstore_add_chunks",
@@ -1052,6 +1296,138 @@
       "source_location": "L7"
     },
     {
+      "id": "backend_app_config",
+      "label": "config.py",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "config.py",
+      "source_file": "backend/app/config.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_routers_graph",
+      "label": "graph.py",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "graph.py",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_routers_graph_py_get",
+      "label": "get",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "get",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "backend_app_services_extraction",
+      "label": "extraction.py",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "extraction.py",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_services_extraction_py_basemodel",
+      "label": "BaseModel",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "basemodel",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "backend_app_services_graphdb",
+      "label": "graphdb.py",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "graphdb.py",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_scripts_build_graph",
+      "label": "build_graph.py",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "build_graph.py",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "basesettings",
+      "label": "BaseSettings",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "basesettings",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "exception",
+      "label": "Exception",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "exception",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "backend_app_services_extraction_rationale_1",
+      "label": "LLM entity/relationship extraction per chunk (FR-4). Gemini's free tier is\u2026",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "rationale",
+      "norm_label": "llm entity/relationship extraction per chunk (fr-4). gemini's free tier is...",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_services_graphdb_rationale_1",
+      "label": "Neo4j writer + reader (FR-5, FR-6, graph stats/subgraph endpoints). Entity\u2026",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "rationale",
+      "norm_label": "neo4j writer + reader (fr-5, fr-6, graph stats/subgraph endpoints). entity...",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_scripts_build_graph_rationale_1",
+      "label": "Phase 2 batch: run entity/relationship extraction over every corpus chunk into\u2026",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "rationale",
+      "norm_label": "phase 2 batch: run entity/relationship extraction over every corpus chunk into...",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L1"
+    },
+    {
       "id": "frontend_readme",
       "label": "frontend/README.md",
       "_origin": "ast",
@@ -1100,17 +1476,6 @@
       "source_location": "L1"
     },
     {
-      "id": "backend_app_config",
-      "label": "config.py",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "query.py",
-      "file_type": "code",
-      "norm_label": "config.py",
-      "source_file": "backend/app/config.py",
-      "source_location": "L1"
-    },
-    {
       "id": "backend_app_routers_query",
       "label": "query.py",
       "_origin": "ast",
@@ -1120,6 +1485,17 @@
       "norm_label": "query.py",
       "source_file": "backend/app/routers/query.py",
       "source_location": "L1"
+    },
+    {
+      "id": "backend_app_routers_query_py_basemodel",
+      "label": "BaseModel",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "basemodel",
+      "source_file": "",
+      "source_location": ""
     },
     {
       "id": "backend_app_routers_query_py_post",
@@ -1153,28 +1529,6 @@
       "norm_label": "llm.py",
       "source_file": "backend/app/services/llm.py",
       "source_location": "L1"
-    },
-    {
-      "id": "basemodel",
-      "label": "BaseModel",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "query.py",
-      "file_type": "code",
-      "norm_label": "basemodel",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "basesettings",
-      "label": "BaseSettings",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "query.py",
-      "file_type": "code",
-      "norm_label": "basesettings",
-      "source_file": "",
-      "source_location": ""
     },
     {
       "id": "sentencetransformer",
@@ -1881,28 +2235,6 @@
       "source_location": ""
     },
     {
-      "id": "backend_app_routers_graph",
-      "label": "graph.py",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "main.py",
-      "file_type": "code",
-      "norm_label": "graph.py",
-      "source_file": "backend/app/routers/graph.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_app_routers_graph_py_get",
-      "label": "get",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "main.py",
-      "file_type": "code",
-      "norm_label": "get",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
       "id": "backend_app_routers_init",
       "label": "routers/__init__.py",
       "_origin": "ast",
@@ -2288,15 +2620,15 @@
       "source_location": "L1"
     },
     {
-      "id": "backend_app_services_ingestion_rationale_6",
-      "label": "articles: [{id, title, body, date, source, url}]. Chunks, embeds, and upserts\u2026",
+      "id": "backend_app_services_ingestion_rationale_10",
+      "label": "articles: [{id, title, body, date, source, url}]. Chunks + embeds into Chroma\u2026",
       "_origin": "ast",
       "community": 8,
       "community_name": "ingest_articles",
       "file_type": "rationale",
-      "norm_label": "articles: [{id, title, body, date, source, url}]. chunks, embeds, and upserts...",
+      "norm_label": "articles: [{id, title, body, date, source, url}]. chunks + embeds into chroma...",
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L6"
+      "source_location": "L10"
     },
     {
       "id": "backend_scripts_ingest_corpus_rationale_1",
@@ -2372,6 +2704,30 @@
   ],
   "links": [
     {
+      "source": "backend_app_routers_graph_graph_stats",
+      "target": "backend_app_services_graphdb_stats",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_graph_subgraph",
+      "target": "backend_app_services_graphdb_subgraph",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_routers_ingest_ingest_documents",
       "target": "backend_app_services_ingestion_ingest_articles",
       "relation": "calls",
@@ -2380,7 +2736,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L22",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_ingest_ingest_status",
+      "target": "backend_app_services_graphdb_stats",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -2392,7 +2760,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L28",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -2404,7 +2772,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L56",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -2416,7 +2784,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L57",
+      "source_location": "L58",
       "weight": 1.0
     },
     {
@@ -2428,7 +2796,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L46",
+      "source_location": "L47",
       "weight": 1.0
     },
     {
@@ -2440,7 +2808,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0
     },
     {
@@ -2452,7 +2820,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -2464,7 +2832,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -2476,7 +2844,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -2504,27 +2872,111 @@
       "weight": 1.0
     },
     {
-      "source": "backend_app_services_ingestion_ingest_articles",
-      "target": "backend_app_services_embeddings_embed",
+      "source": "backend_app_services_extraction_extract",
+      "target": "backend_app_services_extraction_retry_delay_s",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L26",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
-      "source": "backend_app_services_ingestion_ingest_articles",
-      "target": "backend_app_services_vectorstore_add_chunks",
+      "source": "backend_app_services_extraction_extract",
+      "target": "backend_app_services_extraction_throttle",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L27",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction_extract",
+      "target": "backend_app_services_extraction_client",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb_session",
+      "target": "backend_app_services_graphdb_driver",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb_stats",
+      "target": "backend_app_services_graphdb_session",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb_subgraph",
+      "target": "backend_app_services_graphdb_normalize_name",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb_subgraph",
+      "target": "backend_app_services_graphdb_session",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb_write_extraction",
+      "target": "backend_app_services_graphdb_session",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb_write_extraction",
+      "target": "backend_app_services_graphdb_normalize_name",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -2536,7 +2988,55 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L9",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion_ingest_articles",
+      "target": "backend_app_services_embeddings_embed",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion_ingest_articles",
+      "target": "backend_app_services_vectorstore_add_chunks",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion_ingest_articles",
+      "target": "backend_app_services_extraction_extract",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion_ingest_articles",
+      "target": "backend_app_services_graphdb_write_extraction",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -2588,6 +3088,78 @@
       "weight": 1.0
     },
     {
+      "source": "backend_scripts_build_graph_main",
+      "target": "backend_app_services_chunking_chunk_text",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph_main",
+      "target": "backend_scripts_build_graph_load_progress",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph_main",
+      "target": "backend_app_services_extraction_extract",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph_main",
+      "target": "backend_app_services_graphdb_write_extraction",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph_main",
+      "target": "backend_scripts_build_graph_save_progress",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph_main",
+      "target": "backend_app_services_graphdb_stats",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
       "source": "backend_scripts_ingest_corpus_main",
       "target": "backend_app_services_ingestion_ingest_articles",
       "relation": "calls",
@@ -2609,6 +3181,30 @@
       "context": "call",
       "source_file": "frontend/src/App.tsx",
       "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_adminpage_adminpage_onupload",
+      "target": "frontend_src_pages_adminpage_adminpage_refresh",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_adminpage_adminpage_refresh",
+      "target": "frontend_src_lib_api_apiget",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -2656,7 +3252,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/graph.py",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -2668,7 +3264,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/graph.py",
-      "source_location": "L12",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -2692,7 +3288,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L26",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -2704,7 +3300,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L54",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -2716,7 +3312,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -2728,7 +3324,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L44",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -2888,6 +3484,30 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_extraction_entity",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_extraction_relationship",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_services_ingestion",
       "target": "backend_app_services_chunking_chunk_text",
       "relation": "imports",
@@ -2896,7 +3516,31 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L2",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph",
+      "target": "backend_app_services_chunking_chunk_text",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph",
+      "target": "backend_app_services_extraction_extract",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -3140,6 +3784,30 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_pages_adminpage",
+      "target": "frontend_src_lib_api_apiget",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_adminpage",
+      "target": "frontend_src_lib_api_apiupload",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_pages_chatpage",
       "target": "frontend_src_lib_api_apipost",
       "relation": "imports",
@@ -3161,6 +3829,18 @@
       "context": "import",
       "source_file": "backend/app/main.py",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_graph",
+      "target": "backend_app_services_init",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -3212,6 +3892,42 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_services_extraction",
+      "target": "backend_app_config",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_config",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_extraction",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_services_ingestion",
       "target": "backend_app_services_init",
       "relation": "imports_from",
@@ -3220,7 +3936,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L1",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -3232,7 +3948,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L2",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -3257,6 +3973,42 @@
       "context": "import",
       "source_file": "backend/app/services/vectorstore.py",
       "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph",
+      "target": "backend_app_services_init",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph",
+      "target": "backend_app_services_chunking",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph",
+      "target": "backend_app_services_extraction",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -3380,6 +4132,30 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_pages_adminpage",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_adminpage",
+      "target": "frontend_src_lib_api",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_pages_chatpage",
       "target": "ref_react",
       "relation": "imports_from",
@@ -3412,7 +4188,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L55",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -3424,7 +4200,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -3436,7 +4212,31 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L45",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction_retry_delay_s",
+      "target": "exception",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction_extract",
+      "target": "backend_app_services_extraction_extractionresult",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "return_type",
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L90",
       "weight": 1.0
     },
     {
@@ -3485,6 +4285,30 @@
       "context": "submodule_import",
       "source_file": "backend/app/main.py",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_graph",
+      "target": "backend_app_services_graphdb",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_ingest",
+      "target": "backend_app_services_graphdb",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -3544,7 +4368,31 @@
       "confidence_score": 1.0,
       "context": "submodule_import",
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L1",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion",
+      "target": "backend_app_services_extraction",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion",
+      "target": "backend_app_services_graphdb",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -3556,7 +4404,19 @@
       "confidence_score": 1.0,
       "context": "submodule_import",
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L1",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph",
+      "target": "backend_app_services_graphdb",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -3567,7 +4427,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/config.py",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -3611,7 +4471,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/graph.py",
-      "source_location": "L13",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -3622,7 +4482,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/graph.py",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -3644,7 +4504,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L27",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -3666,7 +4526,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -3677,7 +4537,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -3688,7 +4548,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L45",
+      "source_location": "L46",
       "weight": 1.0
     },
     {
@@ -3699,7 +4559,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L55",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -3747,6 +4607,149 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_services_extraction",
+      "target": "backend_app_services_extraction_entity",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction",
+      "target": "backend_app_services_extraction_relationship",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction",
+      "target": "backend_app_services_extraction_extractionresult",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction",
+      "target": "backend_app_services_extraction_client",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction",
+      "target": "backend_app_services_extraction_throttle",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction",
+      "target": "backend_app_services_extraction_retry_delay_s",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction",
+      "target": "backend_app_services_extraction_extract",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_graphdb_normalize_name",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_graphdb_driver",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_graphdb_session",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_graphdb_write_extraction",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_graphdb_stats",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_graphdb_subgraph",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_services_ingestion",
       "target": "backend_app_services_ingestion_ingest_articles",
       "relation": "contains",
@@ -3754,7 +4757,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L5",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -3821,6 +4824,39 @@
       "confidence_score": 1.0,
       "source_file": "backend/app/services/vectorstore.py",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph",
+      "target": "backend_scripts_build_graph_load_progress",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph",
+      "target": "backend_scripts_build_graph_save_progress",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph",
+      "target": "backend_scripts_build_graph_main",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -4221,6 +5257,17 @@
     },
     {
       "source": "frontend_src_lib_api",
+      "target": "frontend_src_lib_api_apiupload",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_lib_api",
       "target": "frontend_src_lib_api_apiget",
       "relation": "contains",
       "_origin": "ast",
@@ -4243,13 +5290,35 @@
     },
     {
       "source": "frontend_src_pages_adminpage",
+      "target": "frontend_src_pages_adminpage_ingeststatus",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_adminpage",
       "target": "frontend_src_pages_adminpage_adminpage",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/AdminPage.tsx",
-      "source_location": "L1",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_adminpage_adminpage",
+      "target": "frontend_src_pages_adminpage_adminpage_onupload",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -5074,18 +6143,51 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/config.py",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
       "source": "backend_app_routers_query_queryrequest",
-      "target": "basemodel",
+      "target": "backend_app_routers_query_py_basemodel",
       "relation": "inherits",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction_entity",
+      "target": "backend_app_services_extraction_py_basemodel",
+      "relation": "inherits",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction_extractionresult",
+      "target": "backend_app_services_extraction_py_basemodel",
+      "relation": "inherits",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_extraction_relationship",
+      "target": "backend_app_services_extraction_py_basemodel",
+      "relation": "inherits",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -5100,14 +6202,47 @@
       "weight": 1.0
     },
     {
-      "source": "backend_app_services_ingestion_rationale_6",
+      "source": "backend_app_services_extraction_rationale_1",
+      "target": "backend_app_services_extraction",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/extraction.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb_rationale_1",
+      "target": "backend_app_services_graphdb",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion_rationale_10",
       "target": "backend_app_services_ingestion_ingest_articles",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L6",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_build_graph_rationale_1",
+      "target": "backend_scripts_build_graph",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/scripts/build_graph.py",
+      "source_location": "L1",
       "weight": 1.0
     },
     {
@@ -5131,8 +6266,44 @@
       "source_file": "backend/scripts/prepare_corpus.py",
       "source_location": "L1",
       "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_adminpage_adminpage",
+      "target": "frontend_src_pages_adminpage_adminpage_refresh",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "argument",
+      "source_file": "frontend/src/pages/AdminPage.tsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb_write_extraction",
+      "target": "backend_app_services_extraction_entity",
+      "relation": "uses",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "generic_arg",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L38",
+      "weight": 0.8
+    },
+    {
+      "source": "backend_app_services_graphdb_write_extraction",
+      "target": "backend_app_services_extraction_relationship",
+      "relation": "uses",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "generic_arg",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L39",
+      "weight": 0.8
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8fce42a22c9ece979cc285a20eda91ebb254e4cf"
+  "built_at_commit": "03cc5da3c746dde11c6d7639e48aae74d875123c"
 }

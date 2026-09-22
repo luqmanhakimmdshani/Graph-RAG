@@ -4,12 +4,12 @@
 - cluster-only mode — file stats not available
 
 ## Summary
-- 208 nodes · 242 edges · 16 communities (12 shown, 2 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- 236 nodes · 314 edges · 17 communities (13 shown, 2 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 3 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8fce42a2`
+- Built from commit: `03cc5da3`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -24,6 +24,7 @@
 - plugins
 - ingest_articles
 - Graph RAG Capstone
+- graphdb.py
 - React + TypeScript + Vite
 - query.py
 - prepare_corpus.py
@@ -33,30 +34,30 @@
 1. `compilerOptions` - 18 edges
 2. `Graph RAG Capstone — Product Requirements Document` - 16 edges
 3. `compilerOptions` - 15 edges
-4. `query_vanilla_rag()` - 9 edges
-5. `ingest_articles()` - 9 edges
-6. `QueryRequest` - 5 edges
-7. `query_compare()` - 5 edges
-8. `scripts` - 5 edges
-9. `query_graph_rag()` - 4 edges
-10. `embed()` - 4 edges
+4. `ingest_articles()` - 11 edges
+5. `query_vanilla_rag()` - 9 edges
+6. `extract()` - 8 edges
+7. `write_extraction()` - 7 edges
+8. `main()` - 7 edges
+9. `QueryRequest` - 5 edges
+10. `_session()` - 5 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `query_vanilla_rag()` --calls--> `query()`  [EXTRACTED]
-  backend/app/routers/query.py → backend/app/services/vectorstore.py
-- `ingest_articles()` --calls--> `embed()`  [EXTRACTED]
-  backend/app/services/ingestion.py → backend/app/services/embeddings.py
-- `main()` --calls--> `ingest_articles()`  [EXTRACTED]
-  backend/scripts/ingest_corpus.py → backend/app/services/ingestion.py
-- `query_vanilla_rag()` --calls--> `embed()`  [EXTRACTED]
-  backend/app/routers/query.py → backend/app/services/embeddings.py
-- `query_vanilla_rag()` --calls--> `generate()`  [EXTRACTED]
-  backend/app/routers/query.py → backend/app/services/llm.py
+- `write_extraction()` --uses--> `Entity`  [INFERRED]
+  backend/app/services/graphdb.py → backend/app/services/extraction.py
+- `write_extraction()` --uses--> `Relationship`  [INFERRED]
+  backend/app/services/graphdb.py → backend/app/services/extraction.py
+- `ingest_articles()` --calls--> `extract()`  [EXTRACTED]
+  backend/app/services/ingestion.py → backend/app/services/extraction.py
+- `ingest_status()` --calls--> `stats()`  [EXTRACTED]
+  backend/app/routers/ingest.py → backend/app/services/graphdb.py
+- `ingest_articles()` --calls--> `write_extraction()`  [EXTRACTED]
+  backend/app/services/ingestion.py → backend/app/services/graphdb.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (16 total, 2 thin omitted)
+## Communities (17 total, 2 thin omitted)
 
 ### Community 0 - "Graph RAG Capstone — Product Requirements Document"
 Cohesion: 0.07
@@ -75,12 +76,12 @@ Cohesion: 0.10
 Nodes (19): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, noEmit, noFallthroughCasesInSwitch (+11 more)
 
 ### Community 4 - "App.tsx"
-Cohesion: 0.14
-Nodes (13): App(), BackendStatus(), tabs, apiGet(), apiPost(), AdminPage(), ChatPage(), Citation (+5 more)
+Cohesion: 0.13
+Nodes (17): App(), BackendStatus(), tabs, apiGet(), apiPost(), apiUpload(), AdminPage(), onUpload() (+9 more)
 
 ### Community 5 - "main.py"
-Cohesion: 0.17
-Nodes (9): health(), get, eval_results(), get, post, run_eval(), graph_stats(), get (+1 more)
+Cohesion: 0.22
+Nodes (6): health(), get, eval_results(), get, post, run_eval()
 
 ### Community 6 - "package.json"
 Cohesion: 0.13
@@ -92,32 +93,38 @@ Nodes (8): plugins, rules, react/only-export-components, react/rules-of-hooks, $
 
 ### Community 8 - "ingest_articles"
 Cohesion: 0.16
-Nodes (15): ingest_documents(), ingest_status(), get, post, chunk_text(), Splits article bodies into overlapping word-count chunks. Token counts aren't…, ingest_articles(), articles: [{id, title, body, date, source, url}]. Chunks, embeds, and upserts… (+7 more)
+Nodes (15): ingest_documents(), ingest_status(), get, post, chunk_text(), Splits article bodies into overlapping word-count chunks. Token counts aren't…, ingest_articles(), articles: [{id, title, body, date, source, url}]. Chunks + embeds into Chroma… (+7 more)
 
 ### Community 9 - "Graph RAG Capstone"
 Cohesion: 0.40
 Nodes (4): Graph RAG Capstone, Run locally, Stack, Status
+
+### Community 10 - "graphdb.py"
+Cohesion: 0.12
+Nodes (26): Settings, graph_stats(), get, subgraph(), _client(), Entity, extract(), ExtractionResult (+18 more)
 
 ### Community 11 - "React + TypeScript + Vite"
 Cohesion: 0.50
 Nodes (3): Expanding the Oxlint configuration, React Compiler, React + TypeScript + Vite
 
 ### Community 12 - "query.py"
-Cohesion: 0.19
-Nodes (15): Settings, _build_prompt(), _citations(), post, query_compare(), query_graph_rag(), query_vanilla_rag(), QueryRequest (+7 more)
+Cohesion: 0.23
+Nodes (13): _build_prompt(), _citations(), BaseModel, post, query_compare(), query_graph_rag(), query_vanilla_rag(), QueryRequest (+5 more)
 
 ## Knowledge Gaps
-- **90 isolated node(s):** `Citation`, `QueryResponse`, `10. Non-Functional Requirements`, `11. Integrations & Dependencies`, `12. Milestones & Phased Rollout` (+85 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 111 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **91 isolated node(s):** `IngestStatus`, `Citation`, `QueryResponse`, `10. Non-Functional Requirements`, `11. Integrations & Dependencies` (+86 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 116 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `devDependencies` connect `devDependencies` to `package.json`?**
-  _High betweenness centrality (0.023) - this node is a cross-community bridge._
-- **What connects `Citation`, `QueryResponse`, `10. Non-Functional Requirements` to the rest of the system?**
-  _90 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _High betweenness centrality (0.017) - this node is a cross-community bridge._
+- **Why does `ingest_articles()` connect `ingest_articles` to `graphdb.py`, `query.py`?**
+  _High betweenness centrality (0.017) - this node is a cross-community bridge._
+- **What connects `IngestStatus`, `Citation`, `QueryResponse` to the rest of the system?**
+  _91 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Graph RAG Capstone — Product Requirements Document` be split into smaller, more focused modules?**
   _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
@@ -126,5 +133,3 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.1 - nodes in this community are weakly interconnected._
-- **Should `App.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._
