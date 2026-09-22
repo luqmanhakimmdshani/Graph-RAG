@@ -42,9 +42,9 @@
     "semantic_hash": ""
   },
   "backend/app/routers/query.py": {
-    "mtime": 1790045101.6647062,
-    "seen": 1790065314.6681988,
-    "ast_hash": "3b5def09159e3866f8d710b3b27f405b",
+    "mtime": 1790072667.5153284,
+    "seen": 1790072689.719816,
+    "ast_hash": "512e5ed06b697b862912c7fba707ec81",
     "semantic_hash": ""
   },
   "backend/scripts/prepare_corpus.py": {
@@ -90,15 +90,15 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/ChatPage.tsx": {
-    "mtime": 1790044777.0640604,
-    "seen": 1790044921.070204,
-    "ast_hash": "72a8403fd732358de1bc9eccf330b4a5",
+    "mtime": 1790066975.684264,
+    "seen": 1790067942.5100517,
+    "ast_hash": "45e0da2ce40c1069674ee4bc8605cb84",
     "semantic_hash": ""
   },
   "frontend/src/pages/ComparePage.tsx": {
-    "mtime": 1790041166.9166677,
-    "seen": 1790043269.022771,
-    "ast_hash": "f24c4c135f13bb059618813af994eaed",
+    "mtime": 1790066973.2367787,
+    "seen": 1790067942.5100555,
+    "ast_hash": "fd10838136695e1aa0b13df6e0eb3373",
     "semantic_hash": ""
   },
   "frontend/src/pages/EvalPage.tsx": {
@@ -108,9 +108,9 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/ExplorerPage.tsx": {
-    "mtime": 1790041160.9392624,
-    "seen": 1790043269.0227742,
-    "ast_hash": "fa1f3e5cbdb32ed8527d8f6b94db9baf",
+    "mtime": 1790066963.424838,
+    "seen": 1790067942.510251,
+    "ast_hash": "354cdf00283292246829749df8924679",
     "semantic_hash": ""
   },
   "frontend/tsconfig.app.json": {
@@ -132,15 +132,15 @@
     "semantic_hash": ""
   },
   "frontend/vite.config.ts": {
-    "mtime": 1790041141.6676967,
-    "seen": 1790043269.0227811,
+    "mtime": 1790067900.679058,
+    "seen": 1790067942.5108705,
     "ast_hash": "00a628008d515489ae74baac3840ffa7",
     "semantic_hash": ""
   },
   "PRD.md": {
-    "mtime": 1790041231.961106,
-    "seen": 1790043269.0227828,
-    "ast_hash": "653ef4f2c70cd16d265d4f375feaa948",
+    "mtime": 1790069440.2263744,
+    "seen": 1790069448.0917125,
+    "ast_hash": "c9b184d8391c7fa132512753d5cc85b0",
     "semantic_hash": ""
   },
   "README.md": {
@@ -246,15 +246,33 @@
     "semantic_hash": ""
   },
   "backend/app/services/graphdb.py": {
-    "mtime": 1790052475.0558484,
-    "seen": 1790065314.6688857,
-    "ast_hash": "0dbec361c76760e73701195f979d07e1",
+    "mtime": 1790072660.8897078,
+    "seen": 1790072689.720476,
+    "ast_hash": "1c4cd86f21d95cd1253067f42b8add86",
     "semantic_hash": ""
   },
   "backend/scripts/build_graph.py": {
     "mtime": 1790057721.3538082,
     "seen": 1790065314.6694305,
     "ast_hash": "f5b9cc70d1e4e8213e6b294a0e9555c4",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/SubgraphView.tsx": {
+    "mtime": 1790066953.489536,
+    "seen": 1790067942.5094314,
+    "ast_hash": "b7500c4857a168347339b361ff96124c",
+    "semantic_hash": ""
+  },
+  "backend/app/services/community.py": {
+    "mtime": 1790068333.3346927,
+    "seen": 1790068741.6050756,
+    "ast_hash": "02215aede159299b8ae50b4a548ff78b",
+    "semantic_hash": ""
+  },
+  "backend/scripts/detect_communities.py": {
+    "mtime": 1790068502.971692,
+    "seen": 1790068741.60607,
+    "ast_hash": "81f85f0dfac50e903b5aafd439c01f2c",
     "semantic_hash": ""
   }
 }

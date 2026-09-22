@@ -1,1 +1,20 @@
-{"0": "Graph RAG Capstone — Product Requirements Document", "1": "compilerOptions", "2": "devDependencies", "3": "compilerOptions", "4": "App.tsx", "5": "main.py", "6": "package.json", "7": "plugins", "8": "ingest_articles", "9": "Graph RAG Capstone", "10": "graphdb.py", "11": "React + TypeScript + Vite", "12": "query.py", "13": "prepare_corpus.py", "14": "tsconfig.json", "15": "app/__init__.py", "16": "vite.config.ts"}
+{
+  "0": "Graph RAG Capstone — Product Requirements Document",
+  "1": "compilerOptions",
+  "2": "devDependencies",
+  "3": "compilerOptions",
+  "4": "App.tsx",
+  "5": "main.py",
+  "6": "package.json",
+  "7": "plugins",
+  "8": "extraction.py",
+  "9": "Graph RAG Capstone",
+  "10": "graphdb.py",
+  "11": "React + TypeScript + Vite",
+  "12": "query.py",
+  "13": "prepare_corpus.py",
+  "14": "tsconfig.json",
+  "15": "app/__init__.py",
+  "16": "vite.config.ts",
+  "17": "detect_communities.py"
+}
