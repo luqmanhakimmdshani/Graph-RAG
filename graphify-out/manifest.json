@@ -60,9 +60,9 @@
     "semantic_hash": ""
   },
   "frontend/package.json": {
-    "mtime": 1790076817.6147938,
-    "seen": 1790077427.6786063,
-    "ast_hash": "5cac3b47bb99a701c3da563358c64cc3",
+    "mtime": 1790079034.4925518,
+    "seen": 1790079165.8460886,
+    "ast_hash": "3fd57990278b78b964ffe9450725cc7a",
     "semantic_hash": ""
   },
   "frontend/src/App.tsx": {
@@ -294,9 +294,9 @@
     "semantic_hash": ""
   },
   "frontend/src/components/CodeGraphHero.tsx": {
-    "mtime": 1790078581.6501606,
-    "seen": 1790078779.6866162,
-    "ast_hash": "2326e74834576b1df04ec0d6325b7549",
+    "mtime": 1790079000.994314,
+    "seen": 1790079165.8467054,
+    "ast_hash": "58b25181b20bc10635c17dac3a12026e",
     "semantic_hash": ""
   },
   "frontend/src/data/codeGraph.json": {
@@ -306,9 +306,9 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/LandingPage.tsx": {
-    "mtime": 1790078686.8837674,
-    "seen": 1790078779.6877995,
-    "ast_hash": "fe5b9a977cc95876a54dc331ed1899f1",
+    "mtime": 1790078981.5098813,
+    "seen": 1790079165.849382,
+    "ast_hash": "aa75b2b341ef10c1eafd5b5cb5128a54",
     "semantic_hash": ""
   }
 }

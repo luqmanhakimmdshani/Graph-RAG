@@ -66,7 +66,7 @@
       "file_type": "code",
       "norm_label": "codenode",
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L5"
+      "source_location": "L7"
     },
     {
       "id": "frontend_src_components_subgraphview_graphedge",
@@ -903,7 +903,7 @@
       "file_type": "code",
       "norm_label": "codegraphhero()",
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L26"
+      "source_location": "L28"
     },
     {
       "id": "frontend_src_components_codegraphhero_communitycolor",
@@ -915,7 +915,7 @@
       "file_type": "code",
       "norm_label": "communitycolor()",
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L13"
+      "source_location": "L15"
     },
     {
       "id": "frontend_src_components_subgraphview_cssvar",
@@ -2505,7 +2505,7 @@
       "file_type": "code",
       "norm_label": "oxlint",
       "source_file": "frontend/package.json",
-      "source_location": "L24"
+      "source_location": "L25"
     },
     {
       "id": "frontend_package_devdependencies_react_router_dom",
@@ -2516,7 +2516,7 @@
       "file_type": "code",
       "norm_label": "react-router-dom",
       "source_file": "frontend/package.json",
-      "source_location": "L25"
+      "source_location": "L26"
     },
     {
       "id": "frontend_package_devdependencies_tailwindcss",
@@ -2527,7 +2527,7 @@
       "file_type": "code",
       "norm_label": "tailwindcss",
       "source_file": "frontend/package.json",
-      "source_location": "L26"
+      "source_location": "L27"
     },
     {
       "id": "frontend_package_devdependencies_tailwindcss_vite",
@@ -2574,6 +2574,17 @@
       "source_location": "L22"
     },
     {
+      "id": "frontend_package_devdependencies_types_three",
+      "label": "@types/three",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "devDependencies",
+      "file_type": "code",
+      "norm_label": "@types/three",
+      "source_file": "frontend/package.json",
+      "source_location": "L23"
+    },
+    {
       "id": "frontend_package_devdependencies_typescript",
       "label": "typescript",
       "_origin": "ast",
@@ -2582,7 +2593,7 @@
       "file_type": "code",
       "norm_label": "typescript",
       "source_file": "frontend/package.json",
-      "source_location": "L27"
+      "source_location": "L28"
     },
     {
       "id": "frontend_package_devdependencies_vite",
@@ -2593,7 +2604,7 @@
       "file_type": "code",
       "norm_label": "vite",
       "source_file": "frontend/package.json",
-      "source_location": "L28"
+      "source_location": "L29"
     },
     {
       "id": "frontend_package_devdependencies_vitejs_plugin_react",
@@ -2604,7 +2615,7 @@
       "file_type": "code",
       "norm_label": "@vitejs/plugin-react",
       "source_file": "frontend/package.json",
-      "source_location": "L23"
+      "source_location": "L24"
     },
     {
       "id": "oxlint",
@@ -2615,7 +2626,7 @@
       "file_type": "concept",
       "norm_label": "oxlint",
       "source_file": "frontend/package.json",
-      "source_location": "L24"
+      "source_location": "L25"
     },
     {
       "id": "react_router_dom",
@@ -2626,7 +2637,7 @@
       "file_type": "concept",
       "norm_label": "react-router-dom",
       "source_file": "frontend/package.json",
-      "source_location": "L25"
+      "source_location": "L26"
     },
     {
       "id": "tailwindcss",
@@ -2637,7 +2648,7 @@
       "file_type": "concept",
       "norm_label": "tailwindcss",
       "source_file": "frontend/package.json",
-      "source_location": "L26"
+      "source_location": "L27"
     },
     {
       "id": "tailwindcss_vite",
@@ -2684,6 +2695,17 @@
       "source_location": "L22"
     },
     {
+      "id": "types_three",
+      "label": "@types/three",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "devDependencies",
+      "file_type": "concept",
+      "norm_label": "@types/three",
+      "source_file": "frontend/package.json",
+      "source_location": "L23"
+    },
+    {
       "id": "typescript",
       "label": "typescript",
       "_origin": "ast",
@@ -2692,7 +2714,7 @@
       "file_type": "concept",
       "norm_label": "typescript",
       "source_file": "frontend/package.json",
-      "source_location": "L27"
+      "source_location": "L28"
     },
     {
       "id": "vite",
@@ -2703,7 +2725,7 @@
       "file_type": "concept",
       "norm_label": "vite",
       "source_file": "frontend/package.json",
-      "source_location": "L28"
+      "source_location": "L29"
     },
     {
       "id": "vitejs_plugin_react",
@@ -2714,7 +2736,7 @@
       "file_type": "concept",
       "norm_label": "@vitejs/plugin-react",
       "source_file": "frontend/package.json",
-      "source_location": "L23"
+      "source_location": "L24"
     },
     {
       "id": "frontend_tsconfig_node",
@@ -4670,7 +4692,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L42",
+      "source_location": "L44",
       "weight": 1.0
     },
     {
@@ -5246,7 +5268,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -5258,7 +5280,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -5270,7 +5292,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -5322,6 +5344,18 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_package_devdependencies_types_three",
+      "target": "types_three",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/package.json",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_package_devdependencies_typescript",
       "target": "typescript",
       "relation": "imports",
@@ -5330,7 +5364,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -5342,7 +5376,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -5354,7 +5388,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -7480,7 +7514,7 @@
     },
     {
       "source": "frontend_package_devdependencies",
-      "target": "frontend_package_devdependencies_vitejs_plugin_react",
+      "target": "frontend_package_devdependencies_types_three",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7491,7 +7525,7 @@
     },
     {
       "source": "frontend_package_devdependencies",
-      "target": "frontend_package_devdependencies_oxlint",
+      "target": "frontend_package_devdependencies_vitejs_plugin_react",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7502,7 +7536,7 @@
     },
     {
       "source": "frontend_package_devdependencies",
-      "target": "frontend_package_devdependencies_react_router_dom",
+      "target": "frontend_package_devdependencies_oxlint",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7513,7 +7547,7 @@
     },
     {
       "source": "frontend_package_devdependencies",
-      "target": "frontend_package_devdependencies_tailwindcss",
+      "target": "frontend_package_devdependencies_react_router_dom",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7524,7 +7558,7 @@
     },
     {
       "source": "frontend_package_devdependencies",
-      "target": "frontend_package_devdependencies_typescript",
+      "target": "frontend_package_devdependencies_tailwindcss",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7535,13 +7569,24 @@
     },
     {
       "source": "frontend_package_devdependencies",
-      "target": "frontend_package_devdependencies_vite",
+      "target": "frontend_package_devdependencies_typescript",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
       "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_package_devdependencies",
+      "target": "frontend_package_devdependencies_vite",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/package.json",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -7673,7 +7718,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L13",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -7684,7 +7729,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L26",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -7695,7 +7740,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/CodeGraphHero.tsx",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -9221,5 +9266,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8d587219f3091695b658867b87632cf49ffd8445"
+  "built_at_commit": "3be76e4ed0947690f06d868b65d39c9f2488a16e"
 }
