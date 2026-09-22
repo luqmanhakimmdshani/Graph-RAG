@@ -1,0 +1,24 @@
+[
+  {"id": "L1", "category": "local", "question": "Which AI research lab did Google acquire?", "reference_answer": "Google acquired DeepMind."},
+  {"id": "L2", "category": "local", "question": "Which live-streaming platform did Amazon acquire?", "reference_answer": "Amazon acquired Twitch."},
+  {"id": "L3", "category": "local", "question": "Which grocery chain did Amazon acquire?", "reference_answer": "Amazon acquired Whole Foods."},
+  {"id": "L4", "category": "local", "question": "What company is Sultan Al Jaber employed by?", "reference_answer": "Sultan Al Jaber is employed by ADNOC."},
+  {"id": "L5", "category": "local", "question": "Besides Nvidia, which other chipmaker did Microsoft partner with?", "reference_answer": "Microsoft partnered with AMD."},
+  {"id": "L6", "category": "local", "question": "Who founded the ed-tech company Think & Learn?", "reference_answer": "Byju Raveendran founded Think & Learn."},
+  {"id": "L7", "category": "local", "question": "Who founded the company Pecan.ai?", "reference_answer": "Zohar Bronfman founded Pecan.ai."},
+  {"id": "L8", "category": "local", "question": "Which company did Google Chrome originate from?", "reference_answer": "Google founded/created Google Chrome."},
+
+  {"id": "M1", "category": "multi_hop", "question": "Which companies has Elon Musk been employed by, according to the corpus?", "reference_answer": "Elon Musk has been employed by OpenAI, X, Tesla, and SpaceX."},
+  {"id": "M2", "category": "multi_hop", "question": "Besides founding OpenAI, what other company or venture did Sam Altman found?", "reference_answer": "Sam Altman also founded Worldcoin, Loopt, and Hydrazine Capital."},
+  {"id": "M3", "category": "multi_hop", "question": "Which companies invested in OpenAI, according to the corpus?", "reference_answer": "Microsoft and Amazon Web Services invested in OpenAI."},
+  {"id": "M4", "category": "multi_hop", "question": "Which company both partnered with and invested in OpenAI?", "reference_answer": "Microsoft both partnered with and invested in OpenAI."},
+  {"id": "M5", "category": "multi_hop", "question": "Which companies has Douglas Merrill worked for, based on the corpus?", "reference_answer": "Douglas Merrill has worked for ZestFinance and Google."},
+  {"id": "M6", "category": "multi_hop", "question": "Which company did Adam Selipsky work for in the cloud computing space?", "reference_answer": "Adam Selipsky worked for Amazon Web Services (AWS)."},
+  {"id": "M7", "category": "multi_hop", "question": "Name two companies that compete with OpenAI, according to the corpus.", "reference_answer": "OpenAI competes with companies including Google, Meta, Anthropic, Stability AI, Amazon, xAI, Google DeepMind, Inflection AI, and Cohere."},
+  {"id": "M8", "category": "multi_hop", "question": "Which two companies invested in Anthropic, according to the corpus?", "reference_answer": "Google and Amazon both invested in Anthropic."},
+
+  {"id": "G1", "category": "global", "question": "What are the main clusters of activity around Amazon in this corpus?", "reference_answer": "Amazon-related coverage spans AWS/cloud computing, Twitch, Amazon Q, and executives like Adam Selipsky, alongside broader retail, logistics, and investment moves (e.g. investing in Anthropic)."},
+  {"id": "G2", "category": "global", "question": "What themes emerge around Sam Altman across the corpus?", "reference_answer": "Sam Altman's coverage centers on founding and leading OpenAI/ChatGPT, other ventures like Worldcoin and Loopt, his time at Y Combinator, and his broader investor network."},
+  {"id": "G3", "category": "global", "question": "What trends are visible in India's tech startup and venture capital ecosystem in this corpus?", "reference_answer": "The corpus covers venture capital firms such as Tiger Global backing Indian consumer, fintech, and enterprise startups (e.g. Zomato, CRED, Dealshare, PhonePe)."},
+  {"id": "G4", "category": "global", "question": "What is happening in the automotive and EV industry according to the corpus?", "reference_answer": "Coverage spans traditional manufacturers (Toyota, General Motors, Ford, Volkswagen) alongside EV leaders and investors navigating the shift to electric vehicles."}
+]

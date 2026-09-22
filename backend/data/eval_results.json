@@ -1,0 +1,274 @@
+{
+  "results": [
+    {
+      "id": "L1",
+      "category": "local",
+      "question": "Which AI research lab did Google acquire?",
+      "reference_answer": "Google acquired DeepMind.",
+      "vanilla_answer": "The context does not contain the answer to your question.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Google acquired DeepMind [36].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "L2",
+      "category": "local",
+      "question": "Which live-streaming platform did Amazon acquire?",
+      "reference_answer": "Amazon acquired Twitch.",
+      "vanilla_answer": "Twitch [5].",
+      "vanilla_relevance": 5,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Amazon acquired Twitch [26], [29] and TwitchTV [30].",
+      "graph_relevance": 4,
+      "graph_faithfulness": 4
+    },
+    {
+      "id": "L3",
+      "category": "local",
+      "question": "Which grocery chain did Amazon acquire?",
+      "reference_answer": "Amazon acquired Whole Foods.",
+      "vanilla_answer": "The provided context does not contain the answer to which grocery chain Amazon acquired.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Amazon acquired Whole Foods [31].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "L4",
+      "category": "local",
+      "question": "What company is Sultan Al Jaber employed by?",
+      "reference_answer": "Sultan Al Jaber is employed by ADNOC.",
+      "vanilla_answer": "The context does not contain the answer.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Based on the provided facts, Sultan Al Jaber is employed by ADNOC [1] and Masdar [2].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "L5",
+      "category": "local",
+      "question": "Besides Nvidia, which other chipmaker did Microsoft partner with?",
+      "reference_answer": "Microsoft partnered with AMD.",
+      "vanilla_answer": "Besides Nvidia, Microsoft partnered with AMD and Intel [1].",
+      "vanilla_relevance": 5,
+      "vanilla_faithfulness": 4,
+      "graph_answer": "Based on the provided facts, Microsoft partnered with AMD [21] and Intel [22].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "L6",
+      "category": "local",
+      "question": "Who founded the ed-tech company Think & Learn?",
+      "reference_answer": "Byju Raveendran founded Think & Learn.",
+      "vanilla_answer": "The context doesn't contain the answer.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Based on the provided facts, Byju Raveendran founded Think & Learn [1].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "L7",
+      "category": "local",
+      "question": "Who founded the company Pecan.ai?",
+      "reference_answer": "Zohar Bronfman founded Pecan.ai.",
+      "vanilla_answer": "The context does not contain the answer.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Zohar Bronfman founded the company Pecan.ai [2].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "L8",
+      "category": "local",
+      "question": "Which company did Google Chrome originate from?",
+      "reference_answer": "Google founded/created Google Chrome.",
+      "vanilla_answer": "The provided context does not contain the answer to this question.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Google founded Google Chrome [1].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "M1",
+      "category": "multi_hop",
+      "question": "Which companies has Elon Musk been employed by, according to the corpus?",
+      "reference_answer": "Elon Musk has been employed by OpenAI, X, Tesla, and SpaceX.",
+      "vanilla_answer": "According to the provided text, Elon Musk has been associated with Tesla [1], [3], Twitter (also referred to as X) [1], [3], [4], and OpenAI (as a former board member) [5].",
+      "vanilla_relevance": 5,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "According to the provided facts, Elon Musk has been employed by OpenAI [1], X [5, 8], Tesla [11], and SpaceX [12].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "M2",
+      "category": "multi_hop",
+      "question": "Besides founding OpenAI, what other company or venture did Sam Altman found?",
+      "reference_answer": "Sam Altman also founded Worldcoin, Loopt, and Hydrazine Capital.",
+      "vanilla_answer": "Based on the provided context, Sam Altman co-founded Loopt, a mobile social network [4].",
+      "vanilla_relevance": 3,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Based on the provided facts, Sam Altman founded ChatGPT [8], Worldcoin [9, 10], Loopt [11], Hydrazine Capital [12], and Tigris [13].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 4
+    },
+    {
+      "id": "M3",
+      "category": "multi_hop",
+      "question": "Which companies invested in OpenAI, according to the corpus?",
+      "reference_answer": "Microsoft and Amazon Web Services invested in OpenAI.",
+      "vanilla_answer": "According to the provided text, Microsoft is reported to have invested in OpenAI [2, 3, 5].",
+      "vanilla_relevance": 3,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Based on the provided facts, the companies and entities that invested in OpenAI are Amazon Web Services [1], Microsoft [2], Elon Musk [6], Infosys [10], Satya Nadella [11], Sequoia Capital [12], Vinod Khosla [13], Khosla Ventures [14], Air Street Capital [15], Thrive Capital [16], and UpMarket [17].",
+      "graph_relevance": 4,
+      "graph_faithfulness": 3
+    },
+    {
+      "id": "M4",
+      "category": "multi_hop",
+      "question": "Which company both partnered with and invested in OpenAI?",
+      "reference_answer": "Microsoft both partnered with and invested in OpenAI.",
+      "vanilla_answer": "Microsoft [1], [3], [5]",
+      "vanilla_relevance": 4,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Microsoft both partnered with and invested in OpenAI [2], [3], [4].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "M5",
+      "category": "multi_hop",
+      "question": "Which companies has Douglas Merrill worked for, based on the corpus?",
+      "reference_answer": "Douglas Merrill has worked for ZestFinance and Google.",
+      "vanilla_answer": "The provided context does not contain information about Douglas Merrill.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Based on the provided facts, Douglas Merrill has been employed by ZestFinance [1] and Google [2].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "M6",
+      "category": "multi_hop",
+      "question": "Which company did Adam Selipsky work for in the cloud computing space?",
+      "reference_answer": "Adam Selipsky worked for Amazon Web Services (AWS).",
+      "vanilla_answer": "The provided context does not contain information about Adam Selipsky or the company he worked for in the cloud computing space.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Based on the provided facts, Adam Selipsky was employed by Amazon Web Services [1] and AWS [2].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "M7",
+      "category": "multi_hop",
+      "question": "Name two companies that compete with OpenAI, according to the corpus.",
+      "reference_answer": "OpenAI competes with companies including Google, Meta, Anthropic, Stability AI, Amazon, xAI, Google DeepMind, Inflection AI, and Cohere.",
+      "vanilla_answer": "The provided context does not contain the names of companies that compete with OpenAI.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Two companies that compete with OpenAI are Google and Meta [18, 20].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "M8",
+      "category": "multi_hop",
+      "question": "Which two companies invested in Anthropic, according to the corpus?",
+      "reference_answer": "Google and Amazon both invested in Anthropic.",
+      "vanilla_answer": "The provided context does not contain information about which companies invested in Anthropic.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "According to the corpus, the two companies that invested in Anthropic are Google [2] and Amazon [3].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "G1",
+      "category": "global",
+      "question": "What are the main clusters of activity around Amazon in this corpus?",
+      "reference_answer": "Amazon-related coverage spans AWS/cloud computing, Twitch, Amazon Q, and executives like Adam Selipsky, alongside broader retail, logistics, and investment moves (e.g. investing in Anthropic).",
+      "vanilla_answer": "Based on the provided context, the main clusters of activity around Amazon are:\n\n1. Amazon Web Services (AWS) announcing Amazon Q, a new generative artificial intelligence (AI) chat tool and assistant designed for businesses, developers, and IT workers to build, deploy, and operate applications, generate web applications, and answer work-related queries [2].\n2. Whole Foods, the US-based grocery chain for Amazon Prime members, utilizing Amazon's digital assistant Alexa to enable voice-activated shopping [5].\n3. E-commerce book sales, as books are listed as available to buy on Amazon [3].",
+      "vanilla_relevance": 3,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "Based on the provided corpus summaries, Amazon is featured in several clusters detailing its corporate activities, business units, divisions, executives, and competitive landscape. Specifically:\n\nCluster [1] focuses on Amazon and its business units\u2014including AWS, Amazon Web Services, and Alexa\u2014alongside key executives like Adam Selipsky and Emmett Shear. It covers Amazon's corporate activities and competition with Walmart, Best Buy, and Twitch, as well as broader tech industry partnerships and investments [1].\n\nCluster [2] details Amazon and its divisions, such as Amazon Web Services (AWS) and Twitch, along with key executives like Adam Selipsky and developments like Amazon Q. It highlights retail and tech industry dynamics, including competition with Walmart and Best Buy, and partnerships involving brands like Peloton and Dyson [2].\n\nCluster [7] covers Amazon Studios alongside other major entertainment and media players like Netflix, Disney, and Snap, detailing key executives, investments, and competitive streaming projects such as Amazon's A Very Royal Scandal [7].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "G2",
+      "category": "global",
+      "question": "What themes emerge around Sam Altman across the corpus?",
+      "reference_answer": "Sam Altman's coverage centers on founding and leading OpenAI/ChatGPT, other ventures like Worldcoin and Loopt, his time at Y Combinator, and his broader investor network.",
+      "vanilla_answer": "The context does not contain the answer.",
+      "vanilla_relevance": 0,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "The summaries indicate that Sam Altman is a prominent tech entrepreneur and investor [5]. He is detailed as having founded several ventures, including ChatGPT, Worldcoin, Loopt, and Hydrazine Capital [5]. Additionally, the summaries highlight his early career associations with Y Combinator and Paul Graham, as well as the competitive and partnership landscape surrounding OpenAI's ChatGPT and GPT-4, which features rivals like Google Bard, Claude, Pi, and Gemini, alongside corporate connections with Airbnb, Instacart, and The Wall Street Journal [5].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "G3",
+      "category": "global",
+      "question": "What trends are visible in India's tech startup and venture capital ecosystem in this corpus?",
+      "reference_answer": "The corpus covers venture capital firms such as Tiger Global backing Indian consumer, fintech, and enterprise startups (e.g. Zomato, CRED, Dealshare, PhonePe).",
+      "vanilla_answer": "Based on the provided text, the trends visible in India's tech startup and venture capital ecosystem include explosive growth in the Indian AI startup space, with homegrown companies building indigenous large language models like BharatGPT that support multiple Indian languages [3]. Additionally, global tech companies are placing startups on their radar to expand their capabilities in the AI domain and diverse vernacular languages, as seen with Adobe acquiring the Bengaluru-based AI video creation platform Rephrase.ai and Google discussing a further equity investment in Corover.ai [3]. Other mentioned areas in the tech and startup space include the fast-growing truck telematics market where startups and OEMs are vying for a share [2], flexible workspace startups doing well [1], and cleantech plays involving partnerships such as Sanjay Nayar and Peak Ventures [5].",
+      "vanilla_relevance": 2,
+      "vanilla_faithfulness": 1,
+      "graph_answer": "Based on the provided summaries, the trends visible in India's tech startup and venture capital ecosystem include major venture capital firms like Tiger Global, SoftBank, Accel, Nexus Venture Partners, Insitor Partners, Aarin Capital, and Sorin Investments providing heavy funding and backing to prominent consumer platforms, fintech firms, and early-stage startups such as Zomato, CRED, Dealshare, PhonePe, Uniqus Consultech, and Venwiz [4, 25, 26]. Additionally, the ecosystem is characterized by strategic collaborations among fintech and lending firms like Liquiloans and LenDenClub, alongside active entrepreneurship and leadership figures driving innovation through ventures like Kunal Shah of CRED, Bhavin Patel of LenDenClub, Vineet Rao of Dealshare, and former KKR India head Sanjay Nayar [4, 26].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    },
+    {
+      "id": "G4",
+      "category": "global",
+      "question": "What is happening in the automotive and EV industry according to the corpus?",
+      "reference_answer": "Coverage spans traditional manufacturers (Toyota, General Motors, Ford, Volkswagen) alongside EV leaders and investors navigating the shift to electric vehicles.",
+      "vanilla_answer": "According to the corpus, electric vehicles (EVs) have faced an affordability problem with high prices, causing slumping demand, leading several automakers to slow down their EV plans, such as Ford postponing a $12 billion investment and General Motors abandoning its plan to build 500,000 EVs by the first half of 2024 [1]. At the same time, EV sales are rising, with more than 1 million electric vehicles expected to be sold in the US, and Tesla planning to put a 25,000 euro ($27,000) car into production next year [1]. Tesla is also willing to invest up to $2 billion to set up a local factory in India if the government approves a concessional duty of 15% on imported vehicles during its first two years of operations [4, 5]. Additionally, Goldman Sachs expects EVs to hit price parity with gas-powered cars by the middle of this decade due to factors like falling battery prices and technological developments such as sodium-ion and solid-state batteries [1]. Companies like Tesla have leveraged advances in battery technology and artificial intelligence to produce more energy-efficient, safer, and technologically advanced EVs, reshaping the traditional automotive market and driving product innovation [3].",
+      "vanilla_relevance": 3,
+      "vanilla_faithfulness": 5,
+      "graph_answer": "The global automotive and autonomous vehicle industry features traditional manufacturers like Toyota, General Motors, Ford, and Volkswagen alongside electric vehicle leaders and investors such as Tesla, Rivian, and Gerber Kawasaki [6]. It also maps out the competitive and leadership landscape of major autonomous driving ventures and ride-hailing services like Cruise, Waymo, Zoox, Uber, and Lyft, with key executives including Mary Barra, Dan Kan, and Mira Murati [6]. Additionally, the Tata Group\u2014driven by entities like Tata Motors, Tata Technologies, and Tata Elxsi\u2014engages in extensive automotive and aerospace collaborations with brands such as Honda, JLR, and the European Space Agency alongside industry partners and competitors like KPIT, L&T Technology Services, and Airbus [12]. In the smart electric vehicle sector, Huawei oversees automotive initiatives through strategic partnerships with automakers Changan Auto and Seres Group [83].",
+      "graph_relevance": 5,
+      "graph_faithfulness": 5
+    }
+  ],
+  "summary": {
+    "local": {
+      "n": 8,
+      "vanilla_relevance": 1.25,
+      "vanilla_faithfulness": 4.88,
+      "graph_relevance": 4.88,
+      "graph_faithfulness": 4.88
+    },
+    "overall": {
+      "n": 20,
+      "vanilla_relevance": 1.65,
+      "vanilla_faithfulness": 4.75,
+      "graph_relevance": 4.9,
+      "graph_faithfulness": 4.8
+    },
+    "multi_hop": {
+      "n": 8,
+      "vanilla_relevance": 1.88,
+      "vanilla_faithfulness": 5.0,
+      "graph_relevance": 4.88,
+      "graph_faithfulness": 4.62
+    },
+    "global": {
+      "n": 4,
+      "vanilla_relevance": 2.0,
+      "vanilla_faithfulness": 4.0,
+      "graph_relevance": 5.0,
+      "graph_faithfulness": 5.0
+    }
+  }
+}
