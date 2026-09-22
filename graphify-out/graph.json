@@ -66,7 +66,7 @@
       "file_type": "code",
       "norm_label": "graphedge",
       "source_file": "frontend/src/components/SubgraphView.tsx",
-      "source_location": "L7"
+      "source_location": "L10"
     },
     {
       "id": "frontend_src_components_subgraphview_graphnode",
@@ -79,7 +79,20 @@
       "file_type": "code",
       "norm_label": "graphnode",
       "source_file": "frontend/src/components/SubgraphView.tsx",
-      "source_location": "L1"
+      "source_location": "L4"
+    },
+    {
+      "id": "frontend_src_components_subgraphview_node3d",
+      "label": "Node3D",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "node3d",
+      "source_file": "frontend/src/components/SubgraphView.tsx",
+      "source_location": "L16"
     },
     {
       "id": "frontend_src_pages_adminpage_ingeststatus",
@@ -843,6 +856,18 @@
       "source_location": "L19"
     },
     {
+      "id": "frontend_src_components_subgraphview_cssvar",
+      "label": "cssVar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "cssvar()",
+      "source_file": "frontend/src/components/SubgraphView.tsx",
+      "source_location": "L27"
+    },
+    {
       "id": "frontend_src_components_subgraphview_subgraphview",
       "label": "SubgraphView()",
       "_callable": true,
@@ -852,7 +877,7 @@
       "file_type": "code",
       "norm_label": "subgraphview()",
       "source_file": "frontend/src/components/SubgraphView.tsx",
-      "source_location": "L23"
+      "source_location": "L35"
     },
     {
       "id": "frontend_src_lib_api_apiget",
@@ -1044,7 +1069,19 @@
       "file_type": "code",
       "norm_label": "explorerpage()",
       "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L25"
+      "source_location": "L34"
+    },
+    {
+      "id": "frontend_src_pages_explorerpage_explorerpage_expand",
+      "label": "expand()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "expand()",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L69"
     },
     {
       "id": "frontend_src_pages_explorerpage_explorerpage_search",
@@ -1056,7 +1093,79 @@
       "file_type": "code",
       "norm_label": "search()",
       "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L32"
+      "source_location": "L41"
+    },
+    {
+      "id": "frontend_src_pages_explorerpage_mergesubgraph",
+      "label": "mergeSubgraph()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "mergesubgraph()",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L25"
+    },
+    {
+      "id": "backend_app_routers_ingest_ingest_status",
+      "label": "ingest_status()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "vectorstore.py",
+      "file_type": "code",
+      "norm_label": "ingest_status()",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L30"
+    },
+    {
+      "id": "backend_app_services_vectorstore_add_chunks",
+      "label": "add_chunks()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "vectorstore.py",
+      "file_type": "code",
+      "norm_label": "add_chunks()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L14"
+    },
+    {
+      "id": "backend_app_services_vectorstore_chunk_count",
+      "label": "chunk_count()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "vectorstore.py",
+      "file_type": "code",
+      "norm_label": "chunk_count()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L28"
+    },
+    {
+      "id": "backend_app_services_vectorstore_collection",
+      "label": "_collection()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "vectorstore.py",
+      "file_type": "code",
+      "norm_label": "_collection()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_app_services_vectorstore_query",
+      "label": "query()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "vectorstore.py",
+      "file_type": "code",
+      "norm_label": "query()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L18"
     },
     {
       "id": "backend_app_routers_ingest_ingest_documents",
@@ -1069,18 +1178,6 @@
       "norm_label": "ingest_documents()",
       "source_file": "backend/app/routers/ingest.py",
       "source_location": "L12"
-    },
-    {
-      "id": "backend_app_routers_ingest_ingest_status",
-      "label": "ingest_status()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "ingest_status()",
-      "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L30"
     },
     {
       "id": "backend_app_services_chunking_chunk_text",
@@ -1177,54 +1274,6 @@
       "norm_label": "ingest_articles()",
       "source_file": "backend/app/services/ingestion.py",
       "source_location": "L9"
-    },
-    {
-      "id": "backend_app_services_vectorstore_add_chunks",
-      "label": "add_chunks()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "add_chunks()",
-      "source_file": "backend/app/services/vectorstore.py",
-      "source_location": "L14"
-    },
-    {
-      "id": "backend_app_services_vectorstore_chunk_count",
-      "label": "chunk_count()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "chunk_count()",
-      "source_file": "backend/app/services/vectorstore.py",
-      "source_location": "L28"
-    },
-    {
-      "id": "backend_app_services_vectorstore_collection",
-      "label": "_collection()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "_collection()",
-      "source_file": "backend/app/services/vectorstore.py",
-      "source_location": "L9"
-    },
-    {
-      "id": "backend_app_services_vectorstore_query",
-      "label": "query()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "query()",
-      "source_file": "backend/app/services/vectorstore.py",
-      "source_location": "L18"
     },
     {
       "id": "backend_scripts_build_graph_load_progress",
@@ -2076,6 +2125,17 @@
       "source_location": ""
     },
     {
+      "id": "backend_app_routers_ingest",
+      "label": "ingest.py",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "ingest.py",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L1"
+    },
+    {
       "id": "backend_app_routers_init",
       "label": "routers/__init__.py",
       "_origin": "ast",
@@ -2140,6 +2200,17 @@
       "norm_label": "basemodel",
       "source_file": "",
       "source_location": ""
+    },
+    {
+      "id": "backend_app_services_init",
+      "label": "services/__init__.py",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "services/__init__.py",
+      "source_file": "backend/app/services/__init__.py",
+      "source_location": "L1"
     },
     {
       "id": "backend_app_services_llm",
@@ -2337,7 +2408,7 @@
       "file_type": "code",
       "norm_label": "devdependencies",
       "source_file": "frontend/package.json",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
       "id": "frontend_package_devdependencies_oxlint",
@@ -2348,7 +2419,7 @@
       "file_type": "code",
       "norm_label": "oxlint",
       "source_file": "frontend/package.json",
-      "source_location": "L23"
+      "source_location": "L24"
     },
     {
       "id": "frontend_package_devdependencies_react_router_dom",
@@ -2359,7 +2430,7 @@
       "file_type": "code",
       "norm_label": "react-router-dom",
       "source_file": "frontend/package.json",
-      "source_location": "L24"
+      "source_location": "L25"
     },
     {
       "id": "frontend_package_devdependencies_tailwindcss",
@@ -2370,7 +2441,7 @@
       "file_type": "code",
       "norm_label": "tailwindcss",
       "source_file": "frontend/package.json",
-      "source_location": "L25"
+      "source_location": "L26"
     },
     {
       "id": "frontend_package_devdependencies_tailwindcss_vite",
@@ -2381,7 +2452,7 @@
       "file_type": "code",
       "norm_label": "@tailwindcss/vite",
       "source_file": "frontend/package.json",
-      "source_location": "L18"
+      "source_location": "L19"
     },
     {
       "id": "frontend_package_devdependencies_types_node",
@@ -2392,7 +2463,7 @@
       "file_type": "code",
       "norm_label": "@types/node",
       "source_file": "frontend/package.json",
-      "source_location": "L19"
+      "source_location": "L20"
     },
     {
       "id": "frontend_package_devdependencies_types_react",
@@ -2403,7 +2474,7 @@
       "file_type": "code",
       "norm_label": "@types/react",
       "source_file": "frontend/package.json",
-      "source_location": "L20"
+      "source_location": "L21"
     },
     {
       "id": "frontend_package_devdependencies_types_react_dom",
@@ -2414,7 +2485,7 @@
       "file_type": "code",
       "norm_label": "@types/react-dom",
       "source_file": "frontend/package.json",
-      "source_location": "L21"
+      "source_location": "L22"
     },
     {
       "id": "frontend_package_devdependencies_typescript",
@@ -2425,7 +2496,7 @@
       "file_type": "code",
       "norm_label": "typescript",
       "source_file": "frontend/package.json",
-      "source_location": "L26"
+      "source_location": "L27"
     },
     {
       "id": "frontend_package_devdependencies_vite",
@@ -2436,7 +2507,7 @@
       "file_type": "code",
       "norm_label": "vite",
       "source_file": "frontend/package.json",
-      "source_location": "L27"
+      "source_location": "L28"
     },
     {
       "id": "frontend_package_devdependencies_vitejs_plugin_react",
@@ -2447,7 +2518,7 @@
       "file_type": "code",
       "norm_label": "@vitejs/plugin-react",
       "source_file": "frontend/package.json",
-      "source_location": "L22"
+      "source_location": "L23"
     },
     {
       "id": "oxlint",
@@ -2458,7 +2529,7 @@
       "file_type": "concept",
       "norm_label": "oxlint",
       "source_file": "frontend/package.json",
-      "source_location": "L23"
+      "source_location": "L24"
     },
     {
       "id": "react_router_dom",
@@ -2469,7 +2540,7 @@
       "file_type": "concept",
       "norm_label": "react-router-dom",
       "source_file": "frontend/package.json",
-      "source_location": "L24"
+      "source_location": "L25"
     },
     {
       "id": "tailwindcss",
@@ -2480,7 +2551,7 @@
       "file_type": "concept",
       "norm_label": "tailwindcss",
       "source_file": "frontend/package.json",
-      "source_location": "L25"
+      "source_location": "L26"
     },
     {
       "id": "tailwindcss_vite",
@@ -2491,7 +2562,7 @@
       "file_type": "concept",
       "norm_label": "@tailwindcss/vite",
       "source_file": "frontend/package.json",
-      "source_location": "L18"
+      "source_location": "L19"
     },
     {
       "id": "types_node",
@@ -2502,7 +2573,7 @@
       "file_type": "concept",
       "norm_label": "@types/node",
       "source_file": "frontend/package.json",
-      "source_location": "L19"
+      "source_location": "L20"
     },
     {
       "id": "types_react",
@@ -2513,7 +2584,7 @@
       "file_type": "concept",
       "norm_label": "@types/react",
       "source_file": "frontend/package.json",
-      "source_location": "L20"
+      "source_location": "L21"
     },
     {
       "id": "types_react_dom",
@@ -2524,7 +2595,7 @@
       "file_type": "concept",
       "norm_label": "@types/react-dom",
       "source_file": "frontend/package.json",
-      "source_location": "L21"
+      "source_location": "L22"
     },
     {
       "id": "typescript",
@@ -2535,7 +2606,7 @@
       "file_type": "concept",
       "norm_label": "typescript",
       "source_file": "frontend/package.json",
-      "source_location": "L26"
+      "source_location": "L27"
     },
     {
       "id": "vite",
@@ -2546,7 +2617,7 @@
       "file_type": "concept",
       "norm_label": "vite",
       "source_file": "frontend/package.json",
-      "source_location": "L27"
+      "source_location": "L28"
     },
     {
       "id": "vitejs_plugin_react",
@@ -2557,7 +2628,7 @@
       "file_type": "concept",
       "norm_label": "@vitejs/plugin-react",
       "source_file": "frontend/package.json",
-      "source_location": "L22"
+      "source_location": "L23"
     },
     {
       "id": "frontend_tsconfig_node",
@@ -2821,7 +2892,7 @@
       "file_type": "code",
       "norm_label": "type_colors",
       "source_file": "frontend/src/components/SubgraphView.tsx",
-      "source_location": "L13"
+      "source_location": "L18"
     },
     {
       "id": "frontend_src_lib_api",
@@ -2934,6 +3005,28 @@
       "source_location": "L3"
     },
     {
+      "id": "backend_app_routers_ingest_py_get",
+      "label": "get",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "vectorstore.py",
+      "file_type": "code",
+      "norm_label": "get",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "backend_app_services_vectorstore",
+      "label": "vectorstore.py",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "vectorstore.py",
+      "file_type": "code",
+      "norm_label": "vectorstore.py",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L1"
+    },
+    {
       "id": "frontend_package",
       "label": "package.json",
       "_origin": "ast",
@@ -2956,6 +3049,17 @@
       "source_location": "L12"
     },
     {
+      "id": "frontend_package_dependencies_3d_force_graph",
+      "label": "3d-force-graph",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "3d-force-graph",
+      "source_file": "frontend/package.json",
+      "source_location": "L13"
+    },
+    {
       "id": "frontend_package_dependencies_lucide_react",
       "label": "lucide-react",
       "_origin": "ast",
@@ -2964,7 +3068,7 @@
       "file_type": "code",
       "norm_label": "lucide-react",
       "source_file": "frontend/package.json",
-      "source_location": "L13"
+      "source_location": "L14"
     },
     {
       "id": "frontend_package_dependencies_react",
@@ -2975,7 +3079,7 @@
       "file_type": "code",
       "norm_label": "react",
       "source_file": "frontend/package.json",
-      "source_location": "L14"
+      "source_location": "L15"
     },
     {
       "id": "frontend_package_dependencies_react_dom",
@@ -2986,7 +3090,7 @@
       "file_type": "code",
       "norm_label": "react-dom",
       "source_file": "frontend/package.json",
-      "source_location": "L15"
+      "source_location": "L16"
     },
     {
       "id": "frontend_package_name",
@@ -3088,6 +3192,17 @@
       "source_location": "L4"
     },
     {
+      "id": "3d_force_graph",
+      "label": "3d-force-graph",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "package.json",
+      "file_type": "concept",
+      "norm_label": "3d-force-graph",
+      "source_file": "frontend/package.json",
+      "source_location": "L13"
+    },
+    {
       "id": "lucide_react",
       "label": "lucide-react",
       "_origin": "ast",
@@ -3096,7 +3211,7 @@
       "file_type": "concept",
       "norm_label": "lucide-react",
       "source_file": "frontend/package.json",
-      "source_location": "L13"
+      "source_location": "L14"
     },
     {
       "id": "react",
@@ -3107,7 +3222,7 @@
       "file_type": "concept",
       "norm_label": "react",
       "source_file": "frontend/package.json",
-      "source_location": "L14"
+      "source_location": "L15"
     },
     {
       "id": "react_dom",
@@ -3118,7 +3233,7 @@
       "file_type": "concept",
       "norm_label": "react-dom",
       "source_file": "frontend/package.json",
-      "source_location": "L15"
+      "source_location": "L16"
     },
     {
       "id": "frontend_oxlintrc",
@@ -3231,28 +3346,6 @@
       "source_location": "L1"
     },
     {
-      "id": "backend_app_routers_ingest",
-      "label": "ingest.py",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "ingest.py",
-      "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_app_routers_ingest_py_get",
-      "label": "get",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "get",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
       "id": "backend_app_routers_ingest_py_post",
       "label": "post",
       "_origin": "ast",
@@ -3316,28 +3409,6 @@
       "file_type": "code",
       "norm_label": "ingestion.py",
       "source_file": "backend/app/services/ingestion.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_app_services_init",
-      "label": "services/__init__.py",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "services/__init__.py",
-      "source_file": "backend/app/services/__init__.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_app_services_vectorstore",
-      "label": "vectorstore.py",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "vectorstore.py",
-      "source_file": "backend/app/services/vectorstore.py",
       "source_location": "L1"
     },
     {
@@ -4461,6 +4532,18 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_components_subgraphview_subgraphview",
+      "target": "frontend_src_components_subgraphview_cssvar",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/SubgraphView.tsx",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_pages_adminpage_adminpage_onupload",
       "target": "frontend_src_pages_adminpage_adminpage_refresh",
       "relation": "calls",
@@ -4497,6 +4580,18 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_pages_explorerpage_explorerpage_expand",
+      "target": "frontend_src_pages_explorerpage_mergesubgraph",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_pages_explorerpage_explorerpage",
       "target": "frontend_src_pages_explorerpage_explorerpage_search",
       "relation": "contains",
@@ -4505,7 +4600,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L32",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_explorerpage_explorerpage",
+      "target": "frontend_src_pages_explorerpage_explorerpage_expand",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -4929,6 +5036,18 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_package_dependencies_3d_force_graph",
+      "target": "3d_force_graph",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/package.json",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_package_dependencies_lucide_react",
       "target": "lucide_react",
       "relation": "imports",
@@ -4937,7 +5056,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -4949,7 +5068,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -4961,7 +5080,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -4973,7 +5092,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -4985,7 +5104,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -4997,7 +5116,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -5009,7 +5128,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -5021,7 +5140,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -5033,7 +5152,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -5045,7 +5164,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -5057,7 +5176,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -5069,7 +5188,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -5081,7 +5200,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -5622,6 +5741,18 @@
       "context": "import",
       "source_file": "frontend/src/App.tsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_subgraphview",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/SubgraphView.tsx",
+      "source_location": "L1",
       "weight": 1.0
     },
     {
@@ -6951,7 +7082,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -7011,7 +7142,7 @@
     },
     {
       "source": "frontend_package_dependencies",
-      "target": "frontend_package_dependencies_lucide_react",
+      "target": "frontend_package_dependencies_3d_force_graph",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7022,7 +7153,7 @@
     },
     {
       "source": "frontend_package_dependencies",
-      "target": "frontend_package_dependencies_react",
+      "target": "frontend_package_dependencies_lucide_react",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7033,13 +7164,24 @@
     },
     {
       "source": "frontend_package_dependencies",
-      "target": "frontend_package_dependencies_react_dom",
+      "target": "frontend_package_dependencies_react",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
       "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_package_dependencies",
+      "target": "frontend_package_dependencies_react_dom",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/package.json",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -7050,7 +7192,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -7061,7 +7203,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -7072,7 +7214,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -7083,7 +7225,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -7094,7 +7236,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -7105,7 +7247,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -7116,7 +7258,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -7127,7 +7269,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -7138,7 +7280,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -7149,7 +7291,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/package.json",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -7264,13 +7406,24 @@
     },
     {
       "source": "frontend_src_components_subgraphview",
-      "target": "frontend_src_components_subgraphview_graphnode",
+      "target": "frontend_src_components_subgraphview_graphedge",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/SubgraphView.tsx",
-      "source_location": "L1",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_subgraphview",
+      "target": "frontend_src_components_subgraphview_node3d",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/SubgraphView.tsx",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -7281,7 +7434,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/SubgraphView.tsx",
-      "source_location": "L13",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_subgraphview",
+      "target": "frontend_src_components_subgraphview_cssvar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/SubgraphView.tsx",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -7292,18 +7456,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/SubgraphView.tsx",
-      "source_location": "L23",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
       "source": "frontend_src_components_subgraphview",
-      "target": "frontend_src_components_subgraphview_graphedge",
+      "target": "frontend_src_components_subgraphview_graphnode",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/SubgraphView.tsx",
-      "source_location": "L7",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -7638,13 +7802,24 @@
     },
     {
       "source": "frontend_src_pages_explorerpage",
-      "target": "frontend_src_pages_explorerpage_explorerpage",
+      "target": "frontend_src_pages_explorerpage_mergesubgraph",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/ExplorerPage.tsx",
       "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_explorerpage",
+      "target": "frontend_src_pages_explorerpage_explorerpage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -8697,5 +8872,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "e9eaa99d15009fae4fe0b63e9511bc7f286a0dd9"
+  "built_at_commit": "f9ba0f44dd4f1acbc2e6bf3393a5c78e1fd913f8"
 }
