@@ -1,6 +1,6 @@
 # Graph RAG Capstone
 
-Knowledge-graph-augmented RAG over a tech-news corpus, with a vanilla-RAG
+Knowledge-graph-augmented RAG over a tech-news corpus, with a generic-RAG
 baseline for side-by-side comparison. See `PRD.md` for full requirements
 (if present) — this repo currently implements **Phase 0: scaffolding**.
 
@@ -37,4 +37,4 @@ frontend never needs a hardcoded backend URL.
 ## Status
 Phase 0 done: FastAPI and React skeletons wired together (health check
 round-trips through the dev proxy). Endpoints under `backend/app/routers/`
-are stubs pending Phase 1 (vanilla RAG) onward.
+are stubs pending Phase 1 (generic RAG) onward.

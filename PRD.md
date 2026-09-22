@@ -14,7 +14,7 @@
 
 ## 2. Executive Summary
 
-This project builds a Graph RAG system that answers questions over a corpus of tech-industry business news by combining knowledge-graph traversal with vector search, and demonstrates — with a working UI and a live side-by-side comparison — why this beats standard vector-only RAG on questions that require connecting facts across multiple documents (multi-hop questions). The deliverable is a full-stack application: an ingestion pipeline that builds a knowledge graph from news articles, a hybrid retrieval engine, a chat interface, an interactive graph explorer, and a comparison mode that runs the same question through vanilla RAG and Graph RAG side by side so the difference is visible, not just claimed. The project is scoped to run entirely on free-tier infrastructure so cost is not a blocker to iterating.
+This project builds a Graph RAG system that answers questions over a corpus of tech-industry business news by combining knowledge-graph traversal with vector search, and demonstrates — with a working UI and a live side-by-side comparison — why this beats standard vector-only RAG on questions that require connecting facts across multiple documents (multi-hop questions). The deliverable is a full-stack application: an ingestion pipeline that builds a knowledge graph from news articles, a hybrid retrieval engine, a chat interface, an interactive graph explorer, and a comparison mode that runs the same question through generic RAG and Graph RAG side by side so the difference is visible, not just claimed. The project is scoped to run entirely on free-tier infrastructure so cost is not a blocker to iterating.
 
 ---
 
@@ -27,7 +27,7 @@ Standard RAG (embed chunks, retrieve by cosine similarity, stuff into a prompt) 
 
 A knowledge graph built from the same corpus makes entity relationships explicit and traversable, so multi-hop questions become graph-path queries instead of similarity-search guesses, and community detection over the graph enables corpus-level summarization that vector RAG structurally cannot do.
 
-This matters as a capstone specifically because the failure mode is demonstrable: the same question, run through both systems, produces a visibly worse answer from vanilla RAG and a correct, explainable answer from Graph RAG. That contrast is the project's evaluation story and its demo in one.
+This matters as a capstone specifically because the failure mode is demonstrable: the same question, run through both systems, produces a visibly worse answer from generic RAG and a correct, explainable answer from Graph RAG. That contrast is the project's evaluation story and its demo in one.
 
 ---
 
@@ -36,7 +36,7 @@ This matters as a capstone specifically because the failure mode is demonstrable
 ### Goals
 - Build a working knowledge graph automatically from a corpus of ~300–500 tech-industry news articles (entities: people, companies, products; relationships: acquired, invested in, partnered with, founded, employed by, competes with).
 - Build a hybrid retrieval pipeline that combines vector search and graph traversal, and a community-summarization path for global questions.
-- Build a vanilla vector-RAG baseline using the *same* corpus and *same* LLM, so comparisons are apples-to-apples.
+- Build a generic vector-RAG baseline using the *same* corpus and *same* LLM, so comparisons are apples-to-apples.
 - Ship a UI with: document ingestion/admin view, interactive graph explorer, chat interface with citations, and a side-by-side comparison mode showing the retrieval path (subgraph) used for each answer.
 - Build an evaluation harness with a benchmark set of local (single-fact), multi-hop, and global questions, scored for retrieval accuracy and faithfulness, so the "Graph RAG wins on multi-hop" claim is measured, not just asserted.
 - Run entirely on free-tier services (LLM API, vector store, graph database) so the team can iterate without a budget constraint.
@@ -55,7 +55,7 @@ This matters as a capstone specifically because the failure mode is demonstrable
 | Persona | Needs |
 |---|---|
 | **Capstone team member (builder)** | Needs to ingest documents, inspect the graph as it's built, debug extraction quality, and iterate on retrieval logic. |
-| **Capstone evaluator / defense audience** | Needs to ask questions live, see answers with visible reasoning (citations, graph paths), and see the vanilla-vs-graph comparison to understand *why* the approach is better, not just take it on faith. |
+| **Capstone evaluator / defense audience** | Needs to ask questions live, see answers with visible reasoning (citations, graph paths), and see the generic-vs-graph comparison to understand *why* the approach is better, not just take it on faith. |
 | **End demo user (grader, classmate, recruiter)** | Needs a clean, self-explanatory chat interface — shouldn't need the team to narrate every click to understand what's happening. |
 
 These three drive different requirements: the builder needs an admin/ingestion view and graph internals exposed; the evaluator needs the comparison mode and explainability; the demo user needs a polished, simple chat UI. All three are served by the same app, different screens.
@@ -68,7 +68,7 @@ These three drive different requirements: the builder needs an admin/ingestion v
 - As a builder, I want to upload a batch of news articles and watch them get processed into the graph, so I can verify extraction quality as I iterate.
 - As a builder, I want to see graph stats (entity count, relationship count, community count) after ingestion, so I know the pipeline actually worked.
 - As an evaluator, I want to ask a question in a chat box and get an answer with source citations, so I can trust the answer is grounded.
-- As an evaluator, I want to see the same question answered by vanilla RAG and Graph RAG side by side, so I can see the difference directly.
+- As an evaluator, I want to see the same question answered by generic RAG and Graph RAG side by side, so I can see the difference directly.
 - As an evaluator, I want to see the subgraph/path the system used to answer a multi-hop question, so the reasoning is inspectable, not a black box.
 - As a builder, I want an evaluation dashboard showing benchmark scores for both systems, so I have quantitative evidence for the defense, not just anecdotes.
 
@@ -97,10 +97,10 @@ These three drive different requirements: the builder needs an admin/ingestion v
 
 **Retrieval & query pipeline**
 - **FR-10**: System classifies an incoming question as local (specific-fact), multi-hop (needs graph traversal), or global (needs community summaries) — or, if classification proves unreliable, always runs all three retrieval paths and merges results (see Open Questions).
-- **FR-11 (vanilla RAG baseline)**: System embeds the query, retrieves top-k similar chunks from the vector store, and generates an answer from those chunks alone — no graph involvement. This is the comparison baseline.
+- **FR-11 (generic RAG baseline)**: System embeds the query, retrieves top-k similar chunks from the vector store, and generates an answer from those chunks alone — no graph involvement. This is the comparison baseline.
 - **FR-12 (Graph RAG)**: System extracts entities mentioned in the query, locates matching graph nodes, traverses the graph (configurable hop depth, default 2) to find connected entities/relationships relevant to the question, retrieves the source chunks referenced by those edges, and — for global questions — also retrieves relevant community summaries. All retrieved context (chunks + graph paths + summaries) is passed to the LLM for answer generation.
 - **FR-13**: Every Graph RAG answer returns, alongside the text answer: the list of source chunks used (for citation) and the subgraph (nodes/edges) traversed to produce it (for the graph visualization).
-- **FR-14**: Comparison mode runs FR-11 and FR-12 for the same question in parallel and displays both answers side by side with their respective evidence (chunks for vanilla, chunks + subgraph for graph).
+- **FR-14**: Comparison mode runs FR-11 and FR-12 for the same question in parallel and displays both answers side by side with their respective evidence (chunks for generic, chunks + subgraph for graph).
 
 **UI**
 - **FR-15**: Admin/Ingestion screen — upload documents, view processing status, view graph stats.
@@ -269,7 +269,7 @@ Each vector record: `chunk_id`, `embedding`, `text`, `article_id`, `article_titl
 | `GET /graph/stats` | Node/edge/community counts |
 | `GET /graph/subgraph?entity=X` | Fetch neighborhood for graph explorer |
 | `POST /query` | Ask a question, get Graph RAG answer + citations + subgraph |
-| `POST /query/vanilla` | Ask a question, get vanilla vector-RAG answer only |
+| `POST /query/generic` | Ask a question, get generic vector-RAG answer only |
 | `POST /query/compare` | Run both pipelines, return both answers |
 | `POST /eval/run` | Run the benchmark set against both pipelines |
 | `GET /eval/results` | Fetch latest benchmark scores |
@@ -280,7 +280,7 @@ Each vector record: `chunk_id`, `embedding`, `text`, `article_id`, `article_titl
 
 - **Cost**: $0 target. All chosen services have a free tier sufficient for a 300–500 document corpus; the team should monitor Gemini API daily quota usage during bulk extraction runs and batch ingestion to stay under free-tier rate limits (extraction is the highest-volume LLM usage — roughly one call per chunk).
 - **Scale**: Designed for hundreds of documents and low concurrent query volume (demo/defense scale, single-digit simultaneous users) — not a production load target.
-- **Latency**: Graph RAG query end-to-end under ~8 seconds is acceptable for a live demo (multi-hop traversal + generation is inherently slower than vanilla RAG; this is worth calling out explicitly in the defense as an honest tradeoff, not hidden).
+- **Latency**: Graph RAG query end-to-end under ~8 seconds is acceptable for a live demo (multi-hop traversal + generation is inherently slower than generic RAG; this is worth calling out explicitly in the defense as an honest tradeoff, not hidden).
 - **Explainability**: Every Graph RAG answer must be traceable to specific source chunks and, where applicable, a visible graph path — this is a core requirement, not a nice-to-have, since explainability is the project's central claim.
 - **Reliability for demo**: The system must run reliably during the capstone defense session; a local fallback (running everything on a laptop, no cloud dependency) should be kept as a backup if live cloud services are unreliable during the demo window.
 - **Accessibility**: Standard web accessibility basics (keyboard navigation, sufficient color contrast, alt text) for the chat and admin screens; the graph visualization itself is inherently visual and doesn't need a non-visual equivalent for this scope.
@@ -306,8 +306,8 @@ No hard deadline was set, but phasing keeps the "build as we go" approach from s
 **Phase 0 — Setup**
 Repo scaffolding, Neo4j AuraDB Free instance provisioned, Gemini API key obtained, corpus source finalized (see Open Questions), FastAPI + React skeletons wired together.
 
-**Phase 1 — Vanilla RAG baseline**
-Chunking + embedding + Chroma ingestion; vanilla vector-RAG query endpoint; minimal chat UI. *Demoable: ask a question, get an answer from plain vector RAG.* This also becomes the permanent comparison baseline, so building it first isn't wasted work.
+**Phase 1 — Generic RAG baseline**
+Chunking + embedding + Chroma ingestion; generic vector-RAG query endpoint; minimal chat UI. *Demoable: ask a question, get an answer from plain vector RAG.* This also becomes the permanent comparison baseline, so building it first isn't wasted work.
 
 **Phase 2 — Knowledge graph construction**
 LLM entity/relationship extraction, entity resolution, Neo4j ingestion, admin/ingestion UI with progress + stats. *Demoable: upload documents, watch the graph populate, inspect stats.*
@@ -319,7 +319,7 @@ Query entity extraction, graph traversal retriever, hybrid context assembly, Gra
 Side-by-side comparison UI, preset benchmark questions, interactive graph explorer screen. *Demoable: the core "why Graph RAG wins" narrative, live.*
 
 **Phase 5 — Community detection + global questions**
-Louvain community detection job, LLM community summarization, global-question retrieval path integrated into the router. *Demoable: ask a corpus-wide synthesis question, get an answer vanilla RAG structurally can't produce.*
+Louvain community detection job, LLM community summarization, global-question retrieval path integrated into the router. *Demoable: ask a corpus-wide synthesis question, get an answer generic RAG structurally can't produce.*
 
 **Phase 6 — Evaluation harness + polish**
 Benchmark question set curated, automated scoring (LLM-as-judge) implemented, evaluation dashboard built, UI polish pass, demo rehearsal. *Demoable: the full defense presentation.*
@@ -347,7 +347,7 @@ These need a team decision before or during the relevant phase — flagged here 
 
 1. **Corpus source not yet finalized.** The direction confirmed is a tech-industry news/company corpus, but the exact source is still open. Recommendation: use the **NewsAPI.org free developer tier** to pull ~300–500 recent articles on tech-industry M&A, funding rounds, partnerships, and executive moves — this is naturally entity/relationship-dense (people, companies, events) and produces good multi-hop questions ("which companies did this exec work at before this move," "which companies did this investor back that later got acquired by the same acquirer"). Alternative if API access is inconvenient: a static Kaggle business-news dataset filtered to tech-sector articles. **Needs team confirmation before Phase 0 closes.**
 2. **Query classification strategy (FR-10) is assumed, not confirmed.** The PRD assumes the router will attempt to classify a question as local/multi-hop/global, but this classification step is itself an open technical risk — it may be simpler and more robust to always run vector + graph traversal + relevant community summaries and let the LLM synthesize from whichever context is actually relevant, skipping explicit classification. Recommend deciding this in Phase 3 based on early results, not locking it in now.
-3. **Team role split not specified.** With 4 people, the natural split is: (a) ingestion/extraction pipeline, (b) graph retrieval + vanilla RAG baseline, (c) frontend (all 4 screens), (d) evaluation harness + entity resolution. Assumed here for planning purposes — confirm actual assignments with the team.
+3. **Team role split not specified.** With 4 people, the natural split is: (a) ingestion/extraction pipeline, (b) graph retrieval + generic RAG baseline, (c) frontend (all 4 screens), (d) evaluation harness + entity resolution. Assumed here for planning purposes — confirm actual assignments with the team.
 4. **Deployment for the defense demo is assumed optional-cloud, fallback-local.** No hosting requirement was stated; the PRD assumes local-machine demo is acceptable with optional free-tier cloud deployment (Vercel + Render/Railway) as a stretch goal, not a requirement.
 5. **Benchmark question authorship**: FR-20 assumes the team hand-writes the 20-question benchmark set from the actual ingested corpus after Phase 2, since questions need to reference real entities/relationships that exist in the data. This can't be finalized until after ingestion.
 6. **Embedding model choice** (`all-MiniLM-L6-v2` vs `bge-small-en-v1.5`) is a minor assumption — either works for this scale; pick based on whichever benchmarks slightly better on retrieval quality during Phase 1, not a decision that needs to block progress.

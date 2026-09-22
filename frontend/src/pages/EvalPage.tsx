@@ -4,8 +4,8 @@ import { apiGet, apiPost } from "../lib/api";
 
 interface CategorySummary {
   n: number;
-  vanilla_relevance: number;
-  vanilla_faithfulness: number;
+  generic_relevance: number;
+  generic_faithfulness: number;
   graph_relevance: number;
   graph_faithfulness: number;
 }
@@ -15,9 +15,9 @@ interface EvalRow {
   category: string;
   question: string;
   reference_answer: string;
-  vanilla_answer: string;
-  vanilla_relevance: number;
-  vanilla_faithfulness: number;
+  generic_answer: string;
+  generic_relevance: number;
+  generic_faithfulness: number;
   graph_answer: string;
   graph_relevance: number;
   graph_faithfulness: number;
@@ -109,9 +109,9 @@ export default function EvalPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-x-6 gap-y-1.5">
                     <div className="space-y-1.5">
-                      <p className="mb-0.5 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">Vanilla</p>
-                      <Bar label="Relevance" value={s.vanilla_relevance} max={5} color="var(--text-faint)" />
-                      <Bar label="Faithfulness" value={s.vanilla_faithfulness} max={5} color="var(--text-faint)" />
+                      <p className="mb-0.5 text-[10px] uppercase tracking-wider text-[var(--text-faint)]">Generic</p>
+                      <Bar label="Relevance" value={s.generic_relevance} max={5} color="var(--text-faint)" />
+                      <Bar label="Faithfulness" value={s.generic_faithfulness} max={5} color="var(--text-faint)" />
                     </div>
                     <div className="space-y-1.5">
                       <p className="mb-0.5 text-[10px] uppercase tracking-wider" style={{ color: "var(--accent)" }}>
@@ -145,7 +145,7 @@ export default function EvalPage() {
                       <span className="truncate">{r.question}</span>
                     </span>
                     <span className="mono shrink-0 text-xs text-[var(--text-faint)]">
-                      V {r.vanilla_relevance}/{r.vanilla_faithfulness} · G {r.graph_relevance}/{r.graph_faithfulness}
+                      Ge {r.generic_relevance}/{r.generic_faithfulness} · Gr {r.graph_relevance}/{r.graph_faithfulness}
                     </span>
                   </button>
                   {expanded === r.id && (
@@ -155,8 +155,8 @@ export default function EvalPage() {
                         {r.reference_answer}
                       </p>
                       <p>
-                        <span className="text-[var(--text-faint)]">Vanilla: </span>
-                        {r.vanilla_answer}
+                        <span className="text-[var(--text-faint)]">Generic: </span>
+                        {r.generic_answer}
                       </p>
                       <p>
                         <span className="text-[var(--text-faint)]">Graph RAG: </span>

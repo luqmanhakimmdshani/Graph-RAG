@@ -5,7 +5,7 @@ from pathlib import Path
 
 from fastapi import APIRouter
 
-from app.routers.query import QueryRequest, query_global, query_graph_rag, query_vanilla_rag
+from app.routers.query import QueryRequest, query_generic_rag, query_global, query_graph_rag
 from app.services import eval as judge
 
 router = APIRouter(prefix="/eval", tags=["eval"])
@@ -36,8 +36,8 @@ def _summarize(results: list[dict]) -> dict:
         n = len(rows)
         summary[group] = {
             "n": n,
-            "vanilla_relevance": round(sum(r["vanilla_relevance"] for r in rows) / n, 2),
-            "vanilla_faithfulness": round(sum(r["vanilla_faithfulness"] for r in rows) / n, 2),
+            "generic_relevance": round(sum(r["generic_relevance"] for r in rows) / n, 2),
+            "generic_faithfulness": round(sum(r["generic_faithfulness"] for r in rows) / n, 2),
             "graph_relevance": round(sum(r["graph_relevance"] for r in rows) / n, 2),
             "graph_faithfulness": round(sum(r["graph_faithfulness"] for r in rows) / n, 2),
         }
@@ -59,12 +59,12 @@ async def run_eval():
         req = QueryRequest(question=q["question"])
 
         _throttle()
-        vanilla = await query_vanilla_rag(req)
+        generic = await query_generic_rag(req)
         _throttle()
         graph = await query_global(req) if q["category"] == "global" else await query_graph_rag(req)
 
         _throttle()
-        vanilla_score = judge.score(q["question"], q["reference_answer"], vanilla["answer"])
+        generic_score = judge.score(q["question"], q["reference_answer"], generic["answer"])
         _throttle()
         graph_score = judge.score(q["question"], q["reference_answer"], graph["answer"])
 
@@ -73,9 +73,9 @@ async def run_eval():
             "category": q["category"],
             "question": q["question"],
             "reference_answer": q["reference_answer"],
-            "vanilla_answer": vanilla["answer"],
-            "vanilla_relevance": vanilla_score.relevance,
-            "vanilla_faithfulness": vanilla_score.faithfulness,
+            "generic_answer": generic["answer"],
+            "generic_relevance": generic_score.relevance,
+            "generic_faithfulness": generic_score.faithfulness,
             "graph_answer": graph["answer"],
             "graph_relevance": graph_score.relevance,
             "graph_faithfulness": graph_score.faithfulness,

@@ -28,14 +28,14 @@ interface GraphAnswer {
   subgraph: { nodes: GraphNode[]; edges: GraphEdge[] };
 }
 
-interface VanillaAnswer {
+interface GenericAnswer {
   answer: string;
   citations: Citation[];
 }
 
 interface CompareResponse {
   graph_rag: GraphAnswer;
-  vanilla_rag: VanillaAnswer;
+  generic_rag: GenericAnswer;
 }
 
 function CitationList({ citations }: { citations: Citation[] }) {
@@ -113,11 +113,11 @@ export default function ComparePage() {
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
           <div className="card p-5">
             <div className="label mb-1">Baseline · vector only</div>
-            <h2 className="text-base font-semibold">Vanilla RAG</h2>
+            <h2 className="text-base font-semibold">Generic RAG</h2>
             <p className="mt-3 whitespace-pre-wrap text-sm leading-6.5 text-[var(--text-muted)]">
-              {result.vanilla_rag.answer}
+              {result.generic_rag.answer}
             </p>
-            <CitationList citations={result.vanilla_rag.citations} />
+            <CitationList citations={result.generic_rag.citations} />
           </div>
           <div className="card border-[var(--accent)]/25 p-5" style={{ borderColor: "color-mix(in srgb, var(--accent) 25%, var(--border))" }}>
             <div className="label mb-1" style={{ color: "var(--accent)" }}>

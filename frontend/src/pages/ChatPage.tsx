@@ -26,7 +26,7 @@ export default function ChatPage() {
     setLoading(true);
     setError("");
     try {
-      const res = await apiPost<QueryResponse>("/query/vanilla", { question });
+      const res = await apiPost<QueryResponse>("/query/generic", { question });
       setResult(res);
     } catch {
       setError("Query failed — is the backend running and has the corpus been ingested?");
@@ -41,7 +41,7 @@ export default function ChatPage() {
         <div className="label mb-2">Baseline</div>
         <h1 className="text-2xl font-semibold tracking-tight">Chat</h1>
         <p className="mt-1.5 text-sm text-[var(--text-muted)]">
-          Vanilla vector-RAG. See <span className="text-[var(--text)]">Compare</span> for Graph RAG side by side.
+          Generic vector-RAG. See <span className="text-[var(--text)]">Compare</span> for Graph RAG side by side.
         </p>
       </div>
 

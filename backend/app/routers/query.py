@@ -111,8 +111,8 @@ async def query_graph_rag(req: QueryRequest):
     return {"answer": answer, "citations": _graph_citations(data["edges"]), "subgraph": subgraph}
 
 
-@router.post("/vanilla")
-async def query_vanilla_rag(req: QueryRequest):
+@router.post("/generic")
+async def query_generic_rag(req: QueryRequest):
     query_vector = embeddings.embed([req.question])[0]
     chunks = vectorstore.query(query_vector, top_k=req.top_k)
     if not chunks:
@@ -124,8 +124,8 @@ async def query_vanilla_rag(req: QueryRequest):
 @router.post("/compare")
 async def query_compare(req: QueryRequest):
     graph = await query_graph_rag(req)
-    vanilla = await query_vanilla_rag(req)
-    return {"graph_rag": graph, "vanilla_rag": vanilla}
+    generic = await query_generic_rag(req)
+    return {"graph_rag": graph, "generic_rag": generic}
 
 
 def _build_global_prompt(question: str, summaries: list[dict]) -> str:

@@ -29,7 +29,7 @@ const STEPS = [
 
 const FEATURES = [
   { to: "/chat", icon: MessageSquare, title: "Chat", body: "Ask a question, get an answer grounded in the graph." },
-  { to: "/compare", icon: GitCompare, title: "Compare", body: "The same question through vanilla RAG and Graph RAG, side by side." },
+  { to: "/compare", icon: GitCompare, title: "Compare", body: "The same question through generic RAG and Graph RAG, side by side." },
   { to: "/explorer", icon: Network, title: "Explorer", body: "Fly through the knowledge graph in 3D and expand any node." },
   { to: "/eval", icon: BarChart3, title: "Evaluation", body: "20 benchmark questions, scored for relevance and faithfulness." },
 ];
@@ -89,7 +89,7 @@ export default function LandingPage() {
             </h1>
             <p className="mt-4 text-[15px] leading-7 text-[var(--text-muted)]">
               A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal,
-              and community summarization, benchmarked head-to-head against vanilla vector RAG.
+              and community summarization, benchmarked head-to-head against generic vector RAG.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <Link
@@ -102,7 +102,7 @@ export default function LandingPage() {
                 to="/compare"
                 className="pointer-events-auto flex items-center gap-2 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
               >
-                Vanilla vs Graph RAG
+                Generic vs Graph RAG
               </Link>
             </div>
           </div>
