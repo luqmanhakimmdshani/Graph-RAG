@@ -36,15 +36,15 @@
     "semantic_hash": ""
   },
   "backend/app/routers/ingest.py": {
-    "mtime": 1790041033.5414345,
-    "seen": 1790043269.0227537,
-    "ast_hash": "7a3b69659f523d3e88abdf63a4402504",
+    "mtime": 1790043611.7072139,
+    "seen": 1790044921.069092,
+    "ast_hash": "03340f6d78b1f32f9aefa141209dbca0",
     "semantic_hash": ""
   },
   "backend/app/routers/query.py": {
-    "mtime": 1790041039.3778,
-    "seen": 1790043269.0227556,
-    "ast_hash": "e14265943a0b7acb6de32a97d48e682e",
+    "mtime": 1790043621.2358499,
+    "seen": 1790044921.0690944,
+    "ast_hash": "dd5549c01bb77763d94366d8fefb3284",
     "semantic_hash": ""
   },
   "backend/scripts/prepare_corpus.py": {
@@ -90,9 +90,9 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/ChatPage.tsx": {
-    "mtime": 1790041164.8601906,
-    "seen": 1790043269.0227695,
-    "ast_hash": "bd7f9a4fe2fb7b6129771f99b1655716",
+    "mtime": 1790044777.0640604,
+    "seen": 1790044921.070204,
+    "ast_hash": "72a8403fd732358de1bc9eccf330b4a5",
     "semantic_hash": ""
   },
   "frontend/src/pages/ComparePage.tsx": {
@@ -195,6 +195,48 @@
     "mtime": 1790041091.8778248,
     "seen": 1790043269.0228,
     "ast_hash": "9960a24288958394ac50e57ff638b036",
+    "semantic_hash": ""
+  },
+  "backend/app/services/__init__.py": {
+    "mtime": 1790043581.2054262,
+    "seen": 1790044921.0690966,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/app/services/chunking.py": {
+    "mtime": 1790043586.4880922,
+    "seen": 1790044921.0690985,
+    "ast_hash": "a225e4f99e7358521198845905b2f23b",
+    "semantic_hash": ""
+  },
+  "backend/app/services/embeddings.py": {
+    "mtime": 1790043588.972578,
+    "seen": 1790044921.0691006,
+    "ast_hash": "9fbb9841e7e482ef58fd3f12dbed6449",
+    "semantic_hash": ""
+  },
+  "backend/app/services/ingestion.py": {
+    "mtime": 1790043604.2481568,
+    "seen": 1790044921.069102,
+    "ast_hash": "43abd8ffe39e4d591400b8ca738a4b01",
+    "semantic_hash": ""
+  },
+  "backend/app/services/llm.py": {
+    "mtime": 1790043598.6219158,
+    "seen": 1790044921.0691032,
+    "ast_hash": "00ca6ca17082c73d9d59f12f0157b291",
+    "semantic_hash": ""
+  },
+  "backend/app/services/vectorstore.py": {
+    "mtime": 1790043595.4975004,
+    "seen": 1790044921.0691044,
+    "ast_hash": "61ae9550be2511e801ab1cbab1fd6ab0",
+    "semantic_hash": ""
+  },
+  "backend/scripts/ingest_corpus.py": {
+    "mtime": 1790043624.8806005,
+    "seen": 1790044921.0691059,
+    "ast_hash": "246bc6909931153ea1cba7fe0e61afcb",
     "semantic_hash": ""
   }
 }

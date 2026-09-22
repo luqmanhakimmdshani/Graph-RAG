@@ -10,7 +10,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "Settings",
+      "community_name": "query.py",
       "file_type": "code",
       "norm_label": "settings",
       "source_file": "backend/app/config.py",
@@ -22,35 +22,145 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "main.py",
+      "community": 12,
+      "community_name": "query.py",
       "file_type": "code",
       "norm_label": "queryrequest",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L7"
+      "source_location": "L9"
     },
     {
-      "id": "backend_app_routers_graph_graph_stats",
-      "label": "graph_stats()",
+      "id": "frontend_src_pages_chatpage_citation",
+      "label": "Citation",
       "_callable": true,
+      "_callable_class": true,
       "_origin": "ast",
-      "community": 10,
-      "community_name": "graph.py",
+      "community": 4,
+      "community_name": "App.tsx",
       "file_type": "code",
-      "norm_label": "graph_stats()",
-      "source_file": "backend/app/routers/graph.py",
-      "source_location": "L7"
+      "norm_label": "citation",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L4"
     },
     {
-      "id": "backend_app_routers_graph_subgraph",
-      "label": "subgraph()",
+      "id": "frontend_src_pages_chatpage_queryresponse",
+      "label": "QueryResponse",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "queryresponse",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "backend_app_routers_query_build_prompt",
+      "label": "_build_prompt()",
       "_callable": true,
       "_origin": "ast",
-      "community": 10,
-      "community_name": "graph.py",
+      "community": 12,
+      "community_name": "query.py",
       "file_type": "code",
-      "norm_label": "subgraph()",
-      "source_file": "backend/app/routers/graph.py",
+      "norm_label": "_build_prompt()",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L14"
+    },
+    {
+      "id": "backend_app_routers_query_citations",
+      "label": "_citations()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "_citations()",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L26"
+    },
+    {
+      "id": "backend_app_routers_query_query_compare",
+      "label": "query_compare()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "query_compare()",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L55"
+    },
+    {
+      "id": "backend_app_routers_query_query_graph_rag",
+      "label": "query_graph_rag()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "query_graph_rag()",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L39"
+    },
+    {
+      "id": "backend_app_routers_query_query_vanilla_rag",
+      "label": "query_vanilla_rag()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "query_vanilla_rag()",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L45"
+    },
+    {
+      "id": "backend_app_services_embeddings_embed",
+      "label": "embed()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "embed()",
+      "source_file": "backend/app/services/embeddings.py",
+      "source_location": "L13"
+    },
+    {
+      "id": "backend_app_services_embeddings_model",
+      "label": "_model()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "_model()",
+      "source_file": "backend/app/services/embeddings.py",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_app_services_llm_client",
+      "label": "_client()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "_client()",
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_app_services_llm_generate",
+      "label": "generate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "generate()",
+      "source_file": "backend/app/services/llm.py",
       "source_location": "L13"
     },
     {
@@ -135,7 +245,19 @@
       "file_type": "code",
       "norm_label": "chatpage()",
       "source_file": "frontend/src/pages/ChatPage.tsx",
-      "source_location": "L1"
+      "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_pages_chatpage_chatpage_ask",
+      "label": "ask()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "App.tsx",
+      "file_type": "code",
+      "norm_label": "ask()",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L22"
     },
     {
       "id": "frontend_src_pages_comparepage_comparepage",
@@ -210,40 +332,28 @@
       "source_location": "L7"
     },
     {
-      "id": "backend_app_routers_query_query_compare",
-      "label": "query_compare()",
+      "id": "backend_app_routers_graph_graph_stats",
+      "label": "graph_stats()",
       "_callable": true,
       "_origin": "ast",
       "community": 5,
       "community_name": "main.py",
       "file_type": "code",
-      "norm_label": "query_compare()",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L24"
+      "norm_label": "graph_stats()",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L7"
     },
     {
-      "id": "backend_app_routers_query_query_graph_rag",
-      "label": "query_graph_rag()",
+      "id": "backend_app_routers_graph_subgraph",
+      "label": "subgraph()",
       "_callable": true,
       "_origin": "ast",
       "community": 5,
       "community_name": "main.py",
       "file_type": "code",
-      "norm_label": "query_graph_rag()",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L12"
-    },
-    {
-      "id": "backend_app_routers_query_query_vanilla_rag",
-      "label": "query_vanilla_rag()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "main.py",
-      "file_type": "code",
-      "norm_label": "query_vanilla_rag()",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L18"
+      "norm_label": "subgraph()",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L13"
     },
     {
       "id": "backend_app_routers_ingest_ingest_documents",
@@ -251,11 +361,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "ingest.py",
+      "community_name": "ingest_articles",
       "file_type": "code",
       "norm_label": "ingest_documents()",
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L7"
+      "source_location": "L12"
     },
     {
       "id": "backend_app_routers_ingest_ingest_status",
@@ -263,10 +373,94 @@
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "ingest.py",
+      "community_name": "ingest_articles",
       "file_type": "code",
       "norm_label": "ingest_status()",
       "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L27"
+    },
+    {
+      "id": "backend_app_services_chunking_chunk_text",
+      "label": "chunk_text()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "chunk_text()",
+      "source_file": "backend/app/services/chunking.py",
+      "source_location": "L11"
+    },
+    {
+      "id": "backend_app_services_ingestion_ingest_articles",
+      "label": "ingest_articles()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "ingest_articles()",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_app_services_vectorstore_add_chunks",
+      "label": "add_chunks()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "add_chunks()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L14"
+    },
+    {
+      "id": "backend_app_services_vectorstore_chunk_count",
+      "label": "chunk_count()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "chunk_count()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L28"
+    },
+    {
+      "id": "backend_app_services_vectorstore_collection",
+      "label": "_collection()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "_collection()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_app_services_vectorstore_query",
+      "label": "query()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "query()",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L18"
+    },
+    {
+      "id": "backend_scripts_ingest_corpus_main",
+      "label": "main()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "main()",
+      "source_file": "backend/scripts/ingest_corpus.py",
       "source_location": "L13"
     },
     {
@@ -858,28 +1052,6 @@
       "source_location": "L7"
     },
     {
-      "id": "backend_app_routers_graph",
-      "label": "graph.py",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "graph.py",
-      "file_type": "code",
-      "norm_label": "graph.py",
-      "source_file": "backend/app/routers/graph.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_app_routers_graph_py_get",
-      "label": "get",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "graph.py",
-      "file_type": "code",
-      "norm_label": "get",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
       "id": "frontend_readme",
       "label": "frontend/README.md",
       "_origin": "ast",
@@ -932,20 +1104,86 @@
       "label": "config.py",
       "_origin": "ast",
       "community": 12,
-      "community_name": "Settings",
+      "community_name": "query.py",
       "file_type": "code",
       "norm_label": "config.py",
       "source_file": "backend/app/config.py",
       "source_location": "L1"
     },
     {
+      "id": "backend_app_routers_query",
+      "label": "query.py",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "query.py",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_routers_query_py_post",
+      "label": "post",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "post",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "backend_app_services_embeddings",
+      "label": "embeddings.py",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "embeddings.py",
+      "source_file": "backend/app/services/embeddings.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_services_llm",
+      "label": "llm.py",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "llm.py",
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "basemodel",
+      "label": "BaseModel",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "basemodel",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "basesettings",
       "label": "BaseSettings",
       "_origin": "ast",
       "community": 12,
-      "community_name": "Settings",
+      "community_name": "query.py",
       "file_type": "code",
       "norm_label": "basesettings",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "sentencetransformer",
+      "label": "SentenceTransformer",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "query.py",
+      "file_type": "code",
+      "norm_label": "sentencetransformer",
       "source_file": "",
       "source_location": ""
     },
@@ -1643,6 +1881,28 @@
       "source_location": ""
     },
     {
+      "id": "backend_app_routers_graph",
+      "label": "graph.py",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "main.py",
+      "file_type": "code",
+      "norm_label": "graph.py",
+      "source_file": "backend/app/routers/graph.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_routers_graph_py_get",
+      "label": "get",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "main.py",
+      "file_type": "code",
+      "norm_label": "get",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "backend_app_routers_init",
       "label": "routers/__init__.py",
       "_origin": "ast",
@@ -1652,39 +1912,6 @@
       "norm_label": "routers/__init__.py",
       "source_file": "backend/app/routers/__init__.py",
       "source_location": "L1"
-    },
-    {
-      "id": "backend_app_routers_query",
-      "label": "query.py",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "main.py",
-      "file_type": "code",
-      "norm_label": "query.py",
-      "source_file": "backend/app/routers/query.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_app_routers_query_py_post",
-      "label": "post",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "main.py",
-      "file_type": "code",
-      "norm_label": "post",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "basemodel",
-      "label": "BaseModel",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "main.py",
-      "file_type": "code",
-      "norm_label": "basemodel",
-      "source_file": "",
-      "source_location": ""
     },
     {
       "id": "frontend_package",
@@ -1955,7 +2182,7 @@
       "label": "ingest.py",
       "_origin": "ast",
       "community": 8,
-      "community_name": "ingest.py",
+      "community_name": "ingest_articles",
       "file_type": "code",
       "norm_label": "ingest.py",
       "source_file": "backend/app/routers/ingest.py",
@@ -1966,7 +2193,7 @@
       "label": "get",
       "_origin": "ast",
       "community": 8,
-      "community_name": "ingest.py",
+      "community_name": "ingest_articles",
       "file_type": "code",
       "norm_label": "get",
       "source_file": "",
@@ -1977,22 +2204,110 @@
       "label": "post",
       "_origin": "ast",
       "community": 8,
-      "community_name": "ingest.py",
+      "community_name": "ingest_articles",
       "file_type": "code",
       "norm_label": "post",
       "source_file": "",
       "source_location": ""
     },
     {
+      "id": "backend_app_services_chunking",
+      "label": "chunking.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "chunking.py",
+      "source_file": "backend/app/services/chunking.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_services_ingestion",
+      "label": "ingestion.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "ingestion.py",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_services_init",
+      "label": "services/__init__.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "services/__init__.py",
+      "source_file": "backend/app/services/__init__.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_services_vectorstore",
+      "label": "vectorstore.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "vectorstore.py",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_scripts_ingest_corpus",
+      "label": "ingest_corpus.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "ingest_corpus.py",
+      "source_file": "backend/scripts/ingest_corpus.py",
+      "source_location": "L1"
+    },
+    {
       "id": "uploadfile",
       "label": "UploadFile",
       "_origin": "ast",
       "community": 8,
-      "community_name": "ingest.py",
+      "community_name": "ingest_articles",
       "file_type": "code",
       "norm_label": "uploadfile",
       "source_file": "",
       "source_location": ""
+    },
+    {
+      "id": "backend_app_services_chunking_rationale_1",
+      "label": "Splits article bodies into overlapping word-count chunks. Token counts aren't\u2026",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "rationale",
+      "norm_label": "splits article bodies into overlapping word-count chunks. token counts aren't...",
+      "source_file": "backend/app/services/chunking.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_services_ingestion_rationale_6",
+      "label": "articles: [{id, title, body, date, source, url}]. Chunks, embeds, and upserts\u2026",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "rationale",
+      "norm_label": "articles: [{id, title, body, date, source, url}]. chunks, embeds, and upserts...",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L6"
+    },
+    {
+      "id": "backend_scripts_ingest_corpus_rationale_1",
+      "label": "One-off bulk load of backend/data/corpus.json into Chroma (Phase 1).",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "rationale",
+      "norm_label": "one-off bulk load of backend/data/corpus.json into chroma (phase 1).",
+      "source_file": "backend/scripts/ingest_corpus.py",
+      "source_location": "L1"
     },
     {
       "id": "readme",
@@ -2057,6 +2372,30 @@
   ],
   "links": [
     {
+      "source": "backend_app_routers_ingest_ingest_documents",
+      "target": "backend_app_services_ingestion_ingest_articles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_ingest_ingest_status",
+      "target": "backend_app_services_vectorstore_chunk_count",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_routers_query_query_compare",
       "target": "backend_app_routers_query_query_graph_rag",
       "relation": "calls",
@@ -2065,7 +2404,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L25",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -2077,7 +2416,187 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/routers/query.py",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_vanilla_rag",
+      "target": "backend_app_services_embeddings_embed",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_vanilla_rag",
+      "target": "backend_app_services_vectorstore_query",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_vanilla_rag",
+      "target": "backend_app_routers_query_build_prompt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_vanilla_rag",
+      "target": "backend_app_services_llm_generate",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query_query_vanilla_rag",
+      "target": "backend_app_routers_query_citations",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_embeddings_embed",
+      "target": "backend_app_services_embeddings_model",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/embeddings.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_embeddings_model",
+      "target": "sentencetransformer",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/embeddings.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion_ingest_articles",
+      "target": "backend_app_services_embeddings_embed",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/ingestion.py",
       "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion_ingest_articles",
+      "target": "backend_app_services_vectorstore_add_chunks",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion_ingest_articles",
+      "target": "backend_app_services_chunking_chunk_text",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_llm_generate",
+      "target": "backend_app_services_llm_client",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_vectorstore_add_chunks",
+      "target": "backend_app_services_vectorstore_collection",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_vectorstore_chunk_count",
+      "target": "backend_app_services_vectorstore_collection",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_vectorstore_query",
+      "target": "backend_app_services_vectorstore_collection",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_ingest_corpus_main",
+      "target": "backend_app_services_ingestion_ingest_articles",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/scripts/ingest_corpus.py",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -2161,7 +2680,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L6",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -2173,7 +2692,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L12",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -2185,7 +2704,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L23",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -2197,7 +2716,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L11",
+      "source_location": "L38",
       "weight": 1.0
     },
     {
@@ -2209,7 +2728,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L17",
+      "source_location": "L44",
       "weight": 1.0
     },
     {
@@ -2221,7 +2740,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L7",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -2354,6 +2873,42 @@
       "context": "import",
       "source_file": "frontend/tsconfig.node.json",
       "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_ingest",
+      "target": "backend_app_services_ingestion_ingest_articles",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion",
+      "target": "backend_app_services_chunking_chunk_text",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_ingest_corpus",
+      "target": "backend_app_services_ingestion_ingest_articles",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/scripts/ingest_corpus.py",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -2585,6 +3140,18 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_pages_chatpage",
+      "target": "frontend_src_lib_api_apipost",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_main",
       "target": "backend_app_routers_init",
       "relation": "imports_from",
@@ -2594,6 +3161,114 @@
       "context": "import",
       "source_file": "backend/app/main.py",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_ingest",
+      "target": "backend_app_services_init",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_ingest",
+      "target": "backend_app_services_ingestion",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query",
+      "target": "backend_app_services_init",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_embeddings",
+      "target": "backend_app_config",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/embeddings.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion",
+      "target": "backend_app_services_init",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion",
+      "target": "backend_app_services_chunking",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_llm",
+      "target": "backend_app_config",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_vectorstore",
+      "target": "backend_app_config",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_ingest_corpus",
+      "target": "backend_app_services_ingestion",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/scripts/ingest_corpus.py",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -2705,6 +3380,30 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_pages_chatpage",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage",
+      "target": "frontend_src_lib_api",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_routers_query_query_compare",
       "target": "backend_app_routers_query_queryrequest",
       "relation": "references",
@@ -2713,7 +3412,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L24",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -2725,7 +3424,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L12",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -2737,7 +3436,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L18",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -2786,6 +3485,78 @@
       "context": "submodule_import",
       "source_file": "backend/app/main.py",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_ingest",
+      "target": "backend_app_services_vectorstore",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query",
+      "target": "backend_app_services_embeddings",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query",
+      "target": "backend_app_services_llm",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query",
+      "target": "backend_app_services_vectorstore",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion",
+      "target": "backend_app_services_embeddings",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion",
+      "target": "backend_app_services_vectorstore",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L1",
       "weight": 1.0
     },
     {
@@ -2856,24 +3627,46 @@
     },
     {
       "source": "backend_app_routers_ingest",
-      "target": "backend_app_routers_ingest_ingest_status",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L13",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_routers_ingest",
       "target": "backend_app_routers_ingest_ingest_documents",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/ingest.py",
-      "source_location": "L7",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_ingest",
+      "target": "backend_app_routers_ingest_ingest_status",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/routers/ingest.py",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query",
+      "target": "backend_app_routers_query_build_prompt",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_query",
+      "target": "backend_app_routers_query_citations",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/routers/query.py",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -2884,7 +3677,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L12",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -2895,7 +3688,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L18",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -2906,7 +3699,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L24",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -2917,7 +3710,128 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L7",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_chunking",
+      "target": "backend_app_services_chunking_chunk_text",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/chunking.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_embeddings",
+      "target": "backend_app_services_embeddings_embed",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/embeddings.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_embeddings",
+      "target": "backend_app_services_embeddings_model",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/embeddings.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion",
+      "target": "backend_app_services_ingestion_ingest_articles",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_llm",
+      "target": "backend_app_services_llm_generate",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_llm",
+      "target": "backend_app_services_llm_client",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_vectorstore",
+      "target": "backend_app_services_vectorstore_add_chunks",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_vectorstore",
+      "target": "backend_app_services_vectorstore_query",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_vectorstore",
+      "target": "backend_app_services_vectorstore_chunk_count",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_vectorstore",
+      "target": "backend_app_services_vectorstore_collection",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/vectorstore.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_ingest_corpus",
+      "target": "backend_scripts_ingest_corpus_main",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/scripts/ingest_corpus.py",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -3340,13 +4254,46 @@
     },
     {
       "source": "frontend_src_pages_chatpage",
+      "target": "frontend_src_pages_chatpage_queryresponse",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage",
       "target": "frontend_src_pages_chatpage_chatpage",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/ChatPage.tsx",
-      "source_location": "L1",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage",
+      "target": "frontend_src_pages_chatpage_citation",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage_chatpage",
+      "target": "frontend_src_pages_chatpage_chatpage_ask",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -4138,7 +5085,40 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/routers/query.py",
-      "source_location": "L7",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_chunking_rationale_1",
+      "target": "backend_app_services_chunking",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/chunking.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_ingestion_rationale_6",
+      "target": "backend_app_services_ingestion_ingest_articles",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/ingestion.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_scripts_ingest_corpus_rationale_1",
+      "target": "backend_scripts_ingest_corpus",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/scripts/ingest_corpus.py",
+      "source_location": "L1",
       "weight": 1.0
     },
     {
@@ -4154,5 +5134,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "73c39f64d3830d51cede259dd34b95dda1b6252b"
+  "built_at_commit": "8fce42a22c9ece979cc285a20eda91ebb254e4cf"
 }
