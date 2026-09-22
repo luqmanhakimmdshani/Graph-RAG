@@ -87,12 +87,12 @@ def _retry_delay_s(error: Exception, default: float) -> float:
     return float(match.group(1)) + 2 if match else default
 
 
-def extract(text: str) -> ExtractionResult:
+def extract(text: str, model: str | None = None) -> ExtractionResult:
     for attempt in range(_MAX_RETRIES):
         _throttle()
         try:
             resp = _client().models.generate_content(
-                model=settings.gemini_model,
+                model=model or settings.gemini_model,
                 contents=PROMPT.format(text=text),
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",

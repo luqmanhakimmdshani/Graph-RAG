@@ -16,6 +16,10 @@ from app.services.extraction import extract  # noqa: E402
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 PROGRESS_FILE = DATA_DIR / "graph_progress.json"
+# Optional CLI override, e.g. `python build_graph.py gemini-3.1-flash-lite` -
+# lets a continuation run switch to a fresh per-model quota bucket after the
+# default model's daily cap is hit, without changing the app's live default.
+MODEL = sys.argv[1] if len(sys.argv) > 1 else None
 
 
 def load_progress() -> set[str]:
@@ -40,19 +44,24 @@ def main() -> None:
     todo = [c for c in chunks if c[0] not in done]
     print(f"{len(chunks)} chunks total, {len(done)} already done, {len(todo)} to process")
 
-    entities_total, failures, start = 0, 0, time.monotonic()
+    entities_total, failures, consecutive_failures, start = 0, 0, 0, time.monotonic()
     for n, (chunk_id, text, article) in enumerate(todo, 1):
         try:
-            result = extract(text)
+            result = extract(text, model=MODEL)
             graphdb.write_extraction(
                 result.entities, result.relationships, chunk_id,
                 str(article["id"]), article["title"], str(article.get("date", "")),
             )
             entities_total += len(result.entities)
+            done.add(chunk_id)  # only mark done on success - failures retry on resume
+            consecutive_failures = 0
         except Exception as e:
             failures += 1
+            consecutive_failures += 1
             print(f"  [{n}/{len(todo)}] FAILED {chunk_id}: {e}")
-        done.add(chunk_id)
+            if consecutive_failures >= 3:
+                print(f"  {consecutive_failures} failures in a row - likely quota exhausted, stopping early")
+                break
 
         if n % 20 == 0 or n == len(todo):
             save_progress(done)
