@@ -1,0 +1,10 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic-settings==2.7.1
+python-multipart==0.0.20
+neo4j==5.27.0
+chromadb==0.6.3
+sentence-transformers==3.3.1
+google-generativeai==0.8.3
+networkx==3.4.2
+python-louvain==0.16
