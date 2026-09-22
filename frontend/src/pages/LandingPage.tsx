@@ -70,7 +70,7 @@ export default function LandingPage() {
       </header>
 
       {/* Hero - the 3D visual IS graphify's own reading of this repo's code graph */}
-      <section className="relative h-[600px] overflow-hidden border-b border-[var(--border)]">
+      <section className="relative h-[600px] select-none overflow-hidden border-b border-[var(--border)]">
         <div className="absolute inset-0">
           <CodeGraphHero />
         </div>
@@ -104,8 +104,8 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-        <p className="mono absolute bottom-4 right-5 text-[10px] text-[var(--text-faint)]">
-          hero: this repo's own code graph, via graphify
+        <p className="mono pointer-events-none absolute bottom-4 right-5 text-[10px] text-[var(--text-faint)]">
+          this repo's own code graph, via graphify — drag to orbit · scroll to zoom
         </p>
       </section>
 

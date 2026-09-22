@@ -15,10 +15,14 @@ function communityColor(community: number): string {
   return `hsl(${hue} 70% 62%)`;
 }
 
-// Ambient/decorative - not interactive like SubgraphView. Auto-rotates,
-// pauses when scrolled offscreen or under prefers-reduced-motion (the
-// ui-ux-pro-max 3D-hero guidance: never spend GPU on an unseen or
-// motion-sensitive canvas), and has no click/expand behavior of its own.
+// Fully interactive, like SubgraphView (orbit, zoom, hover) - it just also
+// auto-rotates when idle, and has no click-to-expand since the code graph is
+// a static snapshot, not a live endpoint to traverse. Auto-rotate stops the
+// instant the user grabs the camera so it never fights their input (apple-
+// design's interruptibility principle). Still pauses its render loop when
+// scrolled offscreen, and skips auto-rotate under prefers-reduced-motion -
+// direct manipulation stays available either way, only the ambient motion
+// is gated.
 export default function CodeGraphHero() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -33,8 +37,6 @@ export default function CodeGraphHero() {
     graph
       .backgroundColor("rgba(0,0,0,0)")
       .showNavInfo(false)
-      .enableNodeDrag(false)
-      .enablePointerInteraction(!reduceMotion)
       .nodeRelSize(2.6)
       .nodeLabel((n: CodeNode) => n.label)
       .nodeColor((n: CodeNode) => communityColor(n.community))
@@ -45,9 +47,16 @@ export default function CodeGraphHero() {
       .width(el.clientWidth)
       .graphData(codeGraph);
 
-    graph.controls().autoRotate = !reduceMotion;
-    graph.controls().autoRotateSpeed = 0.6;
+    const controls = graph.controls();
+    controls.autoRotate = !reduceMotion;
+    controls.autoRotateSpeed = 0.6;
     graph.cameraPosition({ z: 420 });
+
+    // Hand full control to the user the moment they grab the camera.
+    const stopAutoRotate = () => {
+      controls.autoRotate = false;
+    };
+    el.addEventListener("pointerdown", stopAutoRotate, { once: true });
 
     const onResize = () => graph.width(el.clientWidth).height(el.clientHeight);
     window.addEventListener("resize", onResize);
@@ -60,6 +69,7 @@ export default function CodeGraphHero() {
     observer.observe(el);
 
     return () => {
+      el.removeEventListener("pointerdown", stopAutoRotate);
       window.removeEventListener("resize", onResize);
       observer.disconnect();
       graph._destructor();
@@ -67,5 +77,5 @@ export default function CodeGraphHero() {
     };
   }, []);
 
-  return <div ref={containerRef} className="h-full w-full" aria-hidden="true" />;
+  return <div ref={containerRef} className="h-full w-full cursor-grab active:cursor-grabbing" />;
 }
