@@ -82,11 +82,12 @@ export default function SubgraphView({
       .height(420);
     graph.width(el.clientWidth);
 
-    // Same postprocessing bloom and values as CodeGraphHero: a hub entity's
-    // subgraph zooms-to-fit a few hundred nodes, leaving each only a few
-    // pixels across - the same case the hero's stronger values were tuned for.
+    // Same postprocessing bloom as CodeGraphHero, dialled down (strength/radius
+    // 2.4/0.85 -> 1.3/0.6): at the hero's values a hub entity's dense core
+    // bloomed to white, washing out the person/org/product colours the legend
+    // relies on. Threshold stays low so small zoomed-out nodes still glow.
     if (isDarkTheme()) {
-      graph.postProcessingComposer().addPass(new UnrealBloomPass(new Vector2(el.clientWidth, 420), 2.4, 0.85, 0.04));
+      graph.postProcessingComposer().addPass(new UnrealBloomPass(new Vector2(el.clientWidth, 420), 1.3, 0.6, 0.04));
     }
 
     graphRef.current = graph;
