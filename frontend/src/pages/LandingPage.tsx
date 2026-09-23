@@ -74,30 +74,29 @@ export default function LandingPage() {
 
   return (
     <div>
-      <header className="scrim-header sticky top-0 z-20 flex h-14 items-center justify-between border-b border-[var(--border)] px-5 lg:px-8">
+      {/* Three columns - brand | links | status - so the links sit at the true
+          centre of the bar whatever the widths of the two sides. */}
+      <header className="scrim-header sticky top-0 z-20 grid h-14 grid-cols-[1fr_auto_1fr] items-center border-b border-[var(--border)] px-5 lg:px-8">
         <div className="flex items-center gap-2.5">
           <img src="/logo.svg" alt="" className="h-7 w-7 rounded-lg" />
           <span className="text-sm font-semibold">Graph RAG</span>
           <span className="mono text-[10px] text-[var(--text-faint)]">capstone</span>
         </div>
-        <div className="flex items-center gap-3">
-          {/* Quiet segmented group: grey text, a soft fill on hover, one thin
-              outline around the set - the hero's Open Chat stays the loudest
-              action. Hidden on phones, where the header keeps logo + status. */}
-          <nav
-            aria-label="App sections"
-            className="hidden items-center gap-0.5 rounded-lg border border-[var(--border)] p-1 sm:flex"
-          >
-            {HEADER_LINKS.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className="flex h-9 items-center rounded-md px-3 text-sm text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-[var(--accent)]"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
+        {/* Plain text links, no container or fill: grey, brightening on hover.
+            Keyboard focus still gets a visible ring. Hidden on phones, where
+            the header keeps logo + status. */}
+        <nav aria-label="App sections" className="hidden items-center gap-12 sm:flex">
+          {HEADER_LINKS.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              className="flex h-9 items-center rounded-sm text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="col-start-3 justify-self-end">
           <BackendStatus pill />
         </div>
       </header>

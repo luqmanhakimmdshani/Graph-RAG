@@ -7,7 +7,7 @@ type Status = "checking" | "ok" | "down";
 // terse developer-style readout.
 const PILL_LABEL: Record<Status, string> = { checking: "connecting", ok: "live", down: "offline" };
 
-/** One /health check on mount. `pill` = the landing header's outlined badge. */
+/** One /health check on mount. `pill` = the landing header's plain "live" label. */
 export default function BackendStatus({ pill = false }: { pill?: boolean }) {
   const [status, setStatus] = useState<Status>("checking");
 
@@ -29,7 +29,7 @@ export default function BackendStatus({ pill = false }: { pill?: boolean }) {
   if (pill) {
     return (
       <span
-        className="flex h-9 items-center gap-2 rounded-full border border-[var(--border)] px-3 text-xs text-[var(--text-muted)]"
+        className="flex h-9 items-center gap-2 text-xs text-[var(--text-muted)]"
         title={status === "ok" ? "The server is running" : status === "down" ? "The server isn't reachable" : "Checking the server"}
       >
         {dot}
