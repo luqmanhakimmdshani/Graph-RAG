@@ -71,3 +71,10 @@ def test_retry_delay_honours_server_hint():
     err = errors.ClientError(429, {"error": {"message": "quota", "details": [{"retryDelay": "26s"}]}})
     assert _retry_delay_s(err, default=5) == 28
     assert _retry_delay_s(ValueError("nope"), default=5) == 5
+
+
+def test_generate_strips_bold_but_keeps_words(monkeypatch):
+    from app.services import llm
+    monkeypatch.setattr(llm.settings, "llm_provider", "openai")
+    monkeypatch.setattr(llm, "_openai", lambda prompt: "It launched **Amazon Q** and **Bedrock**.")
+    assert llm.generate("x") == "It launched Amazon Q and Bedrock."

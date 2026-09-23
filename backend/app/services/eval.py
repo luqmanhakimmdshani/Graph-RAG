@@ -3,6 +3,7 @@ scored against the curated reference answers in data/benchmark.json. No team
 capacity for full human annotation at this scale, so an LLM judge substitutes."""
 from pydantic import BaseModel
 
+from app.config import settings
 from app.services import llm
 
 
@@ -25,4 +26,5 @@ Return your scores and a one-sentence reasoning."""
 
 
 def score(question: str, reference: str, answer: str) -> JudgeScore:
-    return llm.generate_json(PROMPT.format(question=question, reference=reference, answer=answer), JudgeScore)
+    return llm.generate_json(PROMPT.format(question=question, reference=reference, answer=answer), JudgeScore,
+                             model=settings.judge_model or None)

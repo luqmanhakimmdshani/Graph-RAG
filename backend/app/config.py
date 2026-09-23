@@ -33,6 +33,10 @@ class Settings(BaseSettings):
     openai_model: str = "auto/best-free"
     # Routers like OmniRoute fall back across providers inside one request.
     openai_timeout_s: float = 60.0
+    # Pin the eval judge to one model (openai provider only): a fallback combo
+    # would otherwise score different questions with different judges. Empty =
+    # use openai_model.
+    judge_model: str = ""
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "llama3.2:3b"
     ollama_timeout_s: float = 20.0

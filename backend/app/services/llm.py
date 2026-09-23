@@ -39,9 +39,9 @@ def _ollama(prompt: str, schema=None) -> str:
     return resp.json()["message"]["content"]
 
 
-def _openai(prompt: str, schema=None) -> str:
+def _openai(prompt: str, schema=None, model: str | None = None) -> str:
     # stream must be explicit: OmniRoute defaults to SSE when it's omitted.
-    body = {"model": settings.openai_model, "messages": [{"role": "user", "content": prompt}],
+    body = {"model": model or settings.openai_model, "messages": [{"role": "user", "content": prompt}],
             "temperature": 0, "stream": False}
     if schema:
         # Routers (OmniRoute) forward json_schema to some upstreams and downgrade it
@@ -66,20 +66,23 @@ def _strip_fences(text: str) -> str:
 
 def generate(prompt: str) -> str:
     if settings.llm_provider == "ollama":
-        return _ollama(prompt).strip()
-    if settings.llm_provider == "openai":
-        return _openai(prompt).strip()
-    resp = _client().models.generate_content(model=settings.gemini_model, contents=prompt)
-    return resp.text.strip()
+        text = _ollama(prompt)
+    elif settings.llm_provider == "openai":
+        text = _openai(prompt)
+    else:
+        text = _client().models.generate_content(model=settings.gemini_model, contents=prompt).text
+    # Prompts ask for plain text, but some models still bold key terms and the
+    # UI renders answers as plain text - drop the literal ** markers.
+    return re.sub(r"\*\*(.+?)\*\*", r"\1", text).strip()
 
 
-def generate_json(prompt: str, schema):
+def generate_json(prompt: str, schema, model: str | None = None):
     """Structured output (JSON mode) for callers that need a typed result, e.g. the
     eval harness's LLM-as-judge scoring (FR-21)."""
     if settings.llm_provider == "ollama":
         return schema.model_validate_json(_ollama(prompt, schema))
     if settings.llm_provider == "openai":
-        return schema.model_validate_json(_strip_fences(_openai(prompt, schema)))
+        return schema.model_validate_json(_strip_fences(_openai(prompt, schema, model)))
     resp = _client().models.generate_content(
         model=settings.gemini_model,
         contents=prompt,
