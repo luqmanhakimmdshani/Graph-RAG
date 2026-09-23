@@ -22,6 +22,20 @@ function useGrown() {
 
 const fmt = (n: number) => n.toLocaleString("en-US");
 
+// Hover/focus highlight, pure Tailwind - no React state. The list dims every
+// row while the pointer is anywhere over it (or focus is inside it), and the
+// row under the pointer stays full strength. Rows touch (padding, not gaps),
+// so moving between them never passes through an "un-hovered" moment - that
+// gap was what made the JS version flash. hover: only fires on real pointers
+// in Tailwind v4, so touch screens don't get a stuck dim.
+const LIST = "group/list";
+const ROW =
+  "group/row rounded-md outline-none transition-opacity duration-200 " +
+  "group-hover/list:opacity-40 group-focus-within/list:opacity-40 hover:opacity-100 focus-visible:opacity-100 " +
+  "focus-visible:ring-2 focus-visible:ring-[var(--accent)]";
+// Extra detail fades in over space that's always reserved, so nothing moves.
+const REVEAL = "opacity-0 transition-opacity duration-200 group-hover/row:opacity-100 group-focus-visible/row:opacity-100";
+
 export interface BarItem {
   label: string;
   value: number;
@@ -34,21 +48,15 @@ export interface BarItem {
  * and reveal its hint. */
 export function BarList({ items, color = "var(--chart-neutral)" }: { items: BarItem[]; color?: string }) {
   const grown = useGrown();
-  const [active, setActive] = useState<number | null>(null);
   const max = Math.max(...items.map((i) => i.value), 1);
 
   return (
-    <ul className="space-y-1">
+    <ul className={LIST}>
       {items.map((item, i) => (
         <li
           key={item.label}
           tabIndex={0}
-          onMouseEnter={() => setActive(i)}
-          onMouseLeave={() => setActive(null)}
-          onFocus={() => setActive(i)}
-          onBlur={() => setActive(null)}
-          className="grid grid-cols-[minmax(0,9rem)_1fr_auto] items-center gap-3 rounded-md px-2 py-1.5 outline-none transition-opacity focus-visible:ring-2 focus-visible:ring-[var(--accent)] sm:grid-cols-[minmax(0,11rem)_1fr_auto]"
-          style={{ opacity: active === null || active === i ? 1 : 0.4 }}
+          className={`${ROW} grid grid-cols-[minmax(0,9rem)_1fr_auto] items-center gap-3 px-2 py-2 sm:grid-cols-[minmax(0,11rem)_1fr_auto]`}
         >
           <span className="truncate text-sm text-[var(--text-muted)]" title={item.label}>
             {item.label}
@@ -64,8 +72,9 @@ export function BarList({ items, color = "var(--chart-neutral)" }: { items: BarI
               }}
             />
           </span>
-          <span className="mono min-w-10 text-right text-sm tabular-nums text-[var(--text)]">
-            {active === i && item.hint ? item.hint : fmt(item.value)}
+          <span className="flex items-baseline justify-end gap-2">
+            {item.hint && <span className={`${REVEAL} text-xs text-[var(--text-faint)]`}>{item.hint}</span>}
+            <span className="mono min-w-10 text-right text-sm tabular-nums text-[var(--text)]">{fmt(item.value)}</span>
           </span>
         </li>
       ))}
@@ -132,7 +141,6 @@ export function GroupedBars({
   max: number;
 }) {
   const grown = useGrown();
-  const [active, setActive] = useState<number | null>(null);
   const ticks = Array.from({ length: max + 1 }, (_, i) => i);
 
   return (
@@ -156,25 +164,18 @@ export function GroupedBars({
             />
           ))}
         </div>
-        <ul className="relative space-y-3">
+        <ul className={`relative ${LIST}`}>
           {groups.map((g, i) => (
             <li
               key={g.label}
               tabIndex={0}
-              onMouseEnter={() => setActive(i)}
-              onMouseLeave={() => setActive(null)}
-              onFocus={() => setActive(i)}
-              onBlur={() => setActive(null)}
-              className="grid grid-cols-[9rem_1fr] items-center rounded-md outline-none transition-opacity focus-visible:ring-2 focus-visible:ring-[var(--accent)] sm:grid-cols-[11rem_1fr]"
-              style={{ opacity: active === null || active === i ? 1 : 0.4 }}
+              className={`${ROW} grid grid-cols-[9rem_1fr] items-center py-1.5 sm:grid-cols-[11rem_1fr]`}
             >
               <span className="pr-3 text-sm leading-5 text-[var(--text-muted)]">
                 {g.label}
-                {active === i && (
-                  <span className="block text-xs text-[var(--text-faint)]">
-                    {(g.a - g.b).toFixed(2)} points {g.a >= g.b ? "higher" : "lower"}
-                  </span>
-                )}
+                <span className={`${REVEAL} block text-xs text-[var(--text-faint)]`}>
+                  {(g.a - g.b).toFixed(2)} points {g.a >= g.b ? "higher" : "lower"}
+                </span>
               </span>
               <span className="space-y-1.5 py-1">
                 {[
