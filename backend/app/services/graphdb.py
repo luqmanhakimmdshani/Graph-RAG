@@ -170,6 +170,13 @@ def _entity_patterns() -> tuple[tuple[str, re.Pattern], ...]:
         )
 
 
+def invalidate_entity_cache() -> None:
+    """Call after ingestion writes new entities - otherwise find_entities() keeps
+    matching against whatever was in the graph at first-call time until the process
+    restarts, so a just-uploaded entity is invisible to Chat/Compare until then."""
+    _entity_patterns.cache_clear()
+
+
 def find_entities(text: str) -> list[str]:
     """Match known graph entity names in free text (query-time entity linking for Phase
     3). Plain word-boundary matching on normalized text rather than an LLM call - the

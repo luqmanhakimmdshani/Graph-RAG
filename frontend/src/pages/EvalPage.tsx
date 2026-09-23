@@ -21,11 +21,15 @@ interface EvalRow {
   graph_answer: string;
   graph_relevance: number;
   graph_faithfulness: number;
+  error?: string;
 }
 
 interface EvalResponse {
   results: EvalRow[];
   summary: Record<string, CategorySummary>;
+  running: boolean;
+  completed: number;
+  total: number;
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -55,18 +59,45 @@ export default function EvalPage() {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
-    apiGet<EvalResponse>("/eval/results").then(setData).catch(() => {});
+    apiGet<EvalResponse>("/eval/results").then((res) => {
+      setData(res);
+      if (res.running) {
+        setRunning(true);
+        void poll();
+      }
+    }).catch(() => {});
+    // Only meant to pick up an already-in-progress run on page load/refresh -
+    // deliberately not depending on `poll` (defined below) or `running`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // /eval/run now kicks the ~20-question benchmark off as a background task
+  // and returns immediately (throttled Gemini calls make the full run take
+  // several minutes) - poll /eval/results, which writes partial results after
+  // every question, so the summary/per-question table fills in live instead
+  // of the button just spinning with no feedback for minutes.
+  async function poll() {
+    for (;;) {
+      const res = await apiGet<EvalResponse>("/eval/results").catch(() => null);
+      if (!res) {
+        setError("Lost contact with the backend mid-run — is it still running?");
+        break;
+      }
+      setData(res);
+      if (!res.running) break;
+      await new Promise((r) => setTimeout(r, 3000));
+    }
+    setRunning(false);
+  }
 
   async function run() {
     setRunning(true);
     setError("");
     try {
-      const res = await apiPost<EvalResponse>("/eval/run", {});
-      setData(res);
+      await apiPost<{ status: string; total?: number }>("/eval/run", {});
+      await poll();
     } catch {
       setError("Benchmark run failed — is the backend running?");
-    } finally {
       setRunning(false);
     }
   }
@@ -83,14 +114,21 @@ export default function EvalPage() {
             Benchmark scores per system, per category — relevance / faithfulness, 0-5, LLM-as-judge.
           </p>
         </div>
-        <button
-          onClick={run}
-          disabled={running}
-          className="flex h-9 shrink-0 items-center gap-1.5 rounded-md bg-[var(--accent)] px-3.5 text-sm font-medium text-[var(--accent-foreground)] disabled:opacity-40"
-        >
-          <RefreshCw className={`h-4 w-4 ${running ? "animate-spin" : ""}`} />
-          {running ? "Running…" : "Run benchmark"}
-        </button>
+        <div className="flex shrink-0 flex-col items-end gap-1.5">
+          <button
+            onClick={run}
+            disabled={running}
+            className="flex h-9 items-center gap-1.5 rounded-md bg-[var(--accent)] px-3.5 text-sm font-medium text-[var(--accent-foreground)] disabled:opacity-40"
+          >
+            <RefreshCw className={`h-4 w-4 ${running ? "animate-spin" : ""}`} />
+            {running ? "Running…" : "Run benchmark"}
+          </button>
+          {running && data && data.total > 0 && (
+            <span className="mono text-xs text-[var(--text-faint)]">
+              {data.completed} / {data.total} questions
+            </span>
+          )}
+        </div>
       </div>
       {error && <p className="mb-4 text-sm text-[var(--danger)]">{error}</p>}
 
@@ -144,12 +182,17 @@ export default function EvalPage() {
                       </span>
                       <span className="truncate">{r.question}</span>
                     </span>
-                    <span className="mono shrink-0 text-xs text-[var(--text-faint)]">
-                      Ge {r.generic_relevance}/{r.generic_faithfulness} · Gr {r.graph_relevance}/{r.graph_faithfulness}
-                    </span>
+                    {r.error ? (
+                      <span className="mono shrink-0 text-xs text-[var(--danger)]">failed</span>
+                    ) : (
+                      <span className="mono shrink-0 text-xs text-[var(--text-faint)]">
+                        Ge {r.generic_relevance}/{r.generic_faithfulness} · Gr {r.graph_relevance}/{r.graph_faithfulness}
+                      </span>
+                    )}
                   </button>
                   {expanded === r.id && (
                     <div className="space-y-2 px-4 pb-4 pl-10 text-sm">
+                      {r.error && <p className="text-[var(--danger)]">{r.error}</p>}
                       <p>
                         <span className="text-[var(--text-faint)]">Reference: </span>
                         {r.reference_answer}

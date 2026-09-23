@@ -46,6 +46,9 @@ def ingest_articles(articles: list[dict], build_graph: bool = True) -> dict:
                 failures += 1
                 logger.exception("extraction failed for chunk %s", chunk_id)
 
+        if entities_extracted:
+            graphdb.invalidate_entity_cache()
+
     return {
         "articles": len(articles),
         "chunks": len(texts),

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, Outlet, Route, Routes } from "react-router-dom";
 import { BarChart3, GitCompare, MessageSquare, Network, UploadCloud } from "lucide-react";
 import { apiGet } from "./lib/api";
+import ErrorBoundary from "./components/ErrorBoundary";
 import AdminPage from "./pages/AdminPage";
 import ChatPage from "./pages/ChatPage";
 import ComparePage from "./pages/ComparePage";
@@ -120,15 +121,17 @@ function AppShell() {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route element={<AppShell />}>
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/compare" element={<ComparePage />} />
-        <Route path="/explorer" element={<ExplorerPage />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/eval" element={<EvalPage />} />
-      </Route>
-    </Routes>
+    <ErrorBoundary>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route element={<AppShell />}>
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/explorer" element={<ExplorerPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/eval" element={<EvalPage />} />
+        </Route>
+      </Routes>
+    </ErrorBoundary>
   );
 }
