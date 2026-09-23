@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import ForceGraph3D from "3d-force-graph";
+import { Vector2 } from "three";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
 interface GraphNode {
   id: string;
@@ -23,6 +25,14 @@ const TYPE_COLORS: Record<string, string> = {
 // 3D + orbit controls handle far more nodes legibly than the old flat circle
 // ever could - this is just a sanity ceiling for pathological hub entities.
 const MAX_NODES = 300;
+
+// Bloom adds light, so it only reads as glow on the dark theme - on the light
+// one it washes the pale background out into haze. Checked once at mount: the
+// theme follows the OS / data-theme attribute and has no in-app toggle.
+function isDarkTheme(): boolean {
+  const attr = document.documentElement.dataset.theme;
+  return attr === "dark" || (attr !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+}
 
 function cssVar(name: string, fallback: string): string {
   if (typeof window === "undefined") return fallback;
@@ -71,6 +81,13 @@ export default function SubgraphView({
       .onNodeClick((n: Node3D) => onNodeClickRef.current?.(n.name))
       .height(420);
     graph.width(el.clientWidth);
+
+    // Same postprocessing bloom and values as CodeGraphHero: a hub entity's
+    // subgraph zooms-to-fit a few hundred nodes, leaving each only a few
+    // pixels across - the same case the hero's stronger values were tuned for.
+    if (isDarkTheme()) {
+      graph.postProcessingComposer().addPass(new UnrealBloomPass(new Vector2(el.clientWidth, 420), 2.4, 0.85, 0.04));
+    }
 
     graphRef.current = graph;
 
