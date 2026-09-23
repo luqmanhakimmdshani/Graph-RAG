@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, Outlet, Route, Routes } from "react-router-dom";
+import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
 import { BarChart3, GitCompare, MessageSquare, Network, UploadCloud } from "lucide-react";
 import { apiGet } from "./lib/api";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -40,7 +40,7 @@ function AppShell() {
   return (
     <div className="flex min-h-full">
       <aside className="glass-strong hidden lg:flex w-56 shrink-0 flex-col border-r px-3 py-5" style={{ borderColor: "var(--glass-border)" }}>
-        <div className="mb-8 flex items-center gap-2.5 px-2">
+        <Link to="/" aria-label="Graph RAG home" className="mb-8 flex items-center gap-2.5 rounded-md px-2">
           {/* Soft white glow to match the logo's white linework, not --accent green. */}
           <img
             src="/logo.svg"
@@ -52,7 +52,7 @@ function AppShell() {
             <div className="text-sm font-semibold leading-tight">Graph RAG</div>
             <div className="mono text-[10px] leading-tight tracking-wide text-[var(--text-faint)]">capstone</div>
           </div>
-        </div>
+        </Link>
         <nav className="space-y-0.5">
           {navItems.map((item) => (
             <NavLink
@@ -87,10 +87,10 @@ function AppShell() {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="scrim-header sticky top-0 z-10 flex h-14 items-center justify-between border-b border-[var(--border)] px-5 lg:hidden">
-          <div className="flex items-center gap-2.5">
+          <Link to="/" aria-label="Graph RAG home" className="flex items-center gap-2.5 rounded-md">
             <img src="/logo.svg" alt="" className="h-7 w-7 rounded-lg" />
             <span className="text-sm font-semibold">Graph RAG</span>
-          </div>
+          </Link>
           <BackendStatus />
         </header>
         <nav className="flex gap-1 overflow-x-auto border-b border-[var(--border)] px-3 py-2 lg:hidden">
