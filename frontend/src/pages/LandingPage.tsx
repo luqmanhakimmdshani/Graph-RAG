@@ -71,12 +71,6 @@ export default function LandingPage() {
           <span className="text-sm font-semibold">Graph RAG</span>
           <span className="mono text-[10px] text-[var(--text-faint)]">capstone</span>
         </div>
-        <Link
-          to="/chat"
-          className="flex items-center gap-1.5 rounded-md bg-[var(--accent)] px-3.5 py-1.5 text-sm font-medium text-[var(--accent-foreground)]"
-        >
-          Open app <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
       </header>
 
       {/* Hero - the 3D visual IS graphify's own reading of this repo's code graph */}
