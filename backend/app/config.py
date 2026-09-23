@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     neo4j_database: str = Field("neo4j", validation_alias=AliasChoices("NEO4J_DATABASE"))
     chroma_persist_dir: str = "./chroma_data"
     embedding_model: str = "all-MiniLM-L6-v2"
+    # A hung/slow Gemini call previously blocked a request indefinitely, with
+    # nothing enforcing the PRD's own "~8s acceptable" query latency budget.
+    # 20s gives real answers room to finish while still failing a stuck one.
+    gemini_timeout_ms: int = 20_000
 
 
 settings = Settings()

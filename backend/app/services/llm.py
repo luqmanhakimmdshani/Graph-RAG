@@ -8,7 +8,10 @@ from app.config import settings
 
 @lru_cache
 def _client() -> genai.Client:
-    return genai.Client(api_key=settings.gemini_api_key)
+    return genai.Client(
+        api_key=settings.gemini_api_key,
+        http_options=types.HttpOptions(timeout=settings.gemini_timeout_ms),
+    )
 
 
 def generate(prompt: str) -> str:

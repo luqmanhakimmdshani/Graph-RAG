@@ -197,6 +197,10 @@ def query_subgraph(entity_names: list[str], hops: int = 2) -> dict:
 
 
 def subgraph(entity_name: str, hops: int = 2) -> dict:
+    # Neo4j can't parameterize a variable-length relationship bound, so hops
+    # has to be f-string interpolated below - clamp it first (1..4) so an
+    # unvalidated caller can't trigger a very expensive/slow traversal.
+    hops = max(1, min(hops, 4))
     norm = normalize_name(entity_name)
     with _session() as session:
         result = session.run(

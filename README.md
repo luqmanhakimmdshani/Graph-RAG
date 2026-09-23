@@ -1,8 +1,9 @@
 # Graph RAG Capstone
 
 Knowledge-graph-augmented RAG over a tech-news corpus, with a generic-RAG
-baseline for side-by-side comparison. See `PRD.md` for full requirements
-(if present) — this repo currently implements **Phase 0: scaffolding**.
+baseline for side-by-side comparison. See `PRD.md` for full requirements —
+all 6 phases of the roadmap (ingestion, generic RAG, Graph RAG, comparison +
+explorer UI, community detection, evaluation harness) are implemented.
 
 ## Stack
 - Backend: FastAPI (`backend/`)
@@ -35,6 +36,13 @@ The Vite dev server proxies `/api/*` to `http://localhost:8000`, so the
 frontend never needs a hardcoded backend URL.
 
 ## Status
-Phase 0 done: FastAPI and React skeletons wired together (health check
-round-trips through the dev proxy). Endpoints under `backend/app/routers/`
-are stubs pending Phase 1 (generic RAG) onward.
+All 6 PRD phases are done: ingestion (chunking/embedding/extraction into
+Neo4j), generic-RAG baseline, Graph RAG traversal retrieval, comparison +
+graph explorer UI, community detection with global-question retrieval, and
+an evaluation harness (20 benchmark questions, LLM-as-judge scoring).
+
+A gap-analysis audit against the PRD found a number of rough edges beyond
+this point (see `docs/intent/project-audit.md`) — mainly around demo-day
+robustness (timeouts, error handling, ingestion progress) and a few
+functional gaps (query classification, the Compare page's benchmark
+dropdown) — that active development is now addressing.

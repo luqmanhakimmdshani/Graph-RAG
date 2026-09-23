@@ -95,30 +95,38 @@ def _build_graph_prompt(question: str, facts: list[str]) -> str:
 
 @router.post("")
 async def query_graph_rag(req: QueryRequest):
-    entities = graphdb.find_entities(req.question)
-    if not entities:
-        return {"answer": "No known entities from the graph were found in the question.",
-                 "citations": [], "subgraph": {"nodes": [], "edges": []}}
+    empty_subgraph = {"nodes": [], "edges": []}
+    try:
+        entities = graphdb.find_entities(req.question)
+        if not entities:
+            return {"answer": "No known entities from the graph were found in the question.",
+                     "citations": [], "subgraph": empty_subgraph}
 
-    data = graphdb.query_subgraph(entities)
-    nodes_by_id = {n["id"]: n for n in data["nodes"]}
-    facts = _graph_facts(nodes_by_id, data["edges"])
-    subgraph = {"nodes": data["nodes"], "edges": data["edges"]}
-    if not facts:
-        return {"answer": "No relationships found connecting these entities.", "citations": [], "subgraph": subgraph}
+        data = graphdb.query_subgraph(entities)
+        nodes_by_id = {n["id"]: n for n in data["nodes"]}
+        facts = _graph_facts(nodes_by_id, data["edges"])
+        subgraph = {"nodes": data["nodes"], "edges": data["edges"]}
+        if not facts:
+            return {"answer": "No relationships found connecting these entities.", "citations": [], "subgraph": subgraph}
 
-    answer = llm.generate(_build_graph_prompt(req.question, facts))
-    return {"answer": answer, "citations": _graph_citations(data["edges"]), "subgraph": subgraph}
+        answer = llm.generate(_build_graph_prompt(req.question, facts))
+        return {"answer": answer, "citations": _graph_citations(data["edges"]), "subgraph": subgraph}
+    except Exception:
+        return {"answer": "", "citations": [], "subgraph": empty_subgraph,
+                "error": "Graph RAG query failed - Neo4j or the LLM may be unreachable"}
 
 
 @router.post("/generic")
 async def query_generic_rag(req: QueryRequest):
-    query_vector = embeddings.embed([req.question])[0]
-    chunks = vectorstore.query(query_vector, top_k=req.top_k)
-    if not chunks:
-        return {"answer": "No documents have been ingested yet.", "citations": []}
-    answer = llm.generate(_build_prompt(req.question, chunks))
-    return {"answer": answer, "citations": _citations(chunks)}
+    try:
+        query_vector = embeddings.embed([req.question])[0]
+        chunks = vectorstore.query(query_vector, top_k=req.top_k)
+        if not chunks:
+            return {"answer": "No documents have been ingested yet.", "citations": []}
+        answer = llm.generate(_build_prompt(req.question, chunks))
+        return {"answer": answer, "citations": _citations(chunks)}
+    except Exception:
+        return {"answer": "", "citations": [], "error": "Generic RAG query failed - the vector store or LLM may be unreachable"}
 
 
 @router.post("/compare")
@@ -145,11 +153,14 @@ async def query_global(req: QueryRequest):
     """Corpus-wide synthesis questions (FR-8/Phase 5) - answered from Louvain community
     summaries instead of a subgraph, since no single traversal covers a "what are the
     main trends" question the way it covers a multi-hop one."""
-    summaries = graphdb.community_summaries()
-    if not summaries:
-        return {"answer": "No community summaries available yet - run scripts/detect_communities.py first.",
-                 "citations": []}
+    try:
+        summaries = graphdb.community_summaries()
+        if not summaries:
+            return {"answer": "No community summaries available yet - run scripts/detect_communities.py first.",
+                     "citations": []}
 
-    answer = llm.generate(_build_global_prompt(req.question, summaries))
-    citations = [{"community_id": s["id"], "size": s["size"], "summary": s["summary"]} for s in summaries]
-    return {"answer": answer, "citations": citations}
+        answer = llm.generate(_build_global_prompt(req.question, summaries))
+        citations = [{"community_id": s["id"], "size": s["size"], "summary": s["summary"]} for s in summaries]
+        return {"answer": answer, "citations": citations}
+    except Exception:
+        return {"answer": "", "citations": [], "error": "Global query failed - Neo4j or the LLM may be unreachable"}

@@ -343,14 +343,14 @@ Phases 1–3 are the critical path for a minimum viable demo; Phases 4–6 are w
 
 ## 14. Open Questions / Assumptions
 
-These need a team decision before or during the relevant phase — flagged here rather than silently assumed:
+Original open questions from the planning phase, with their actual resolution now that all 6 phases are built:
 
-1. **Corpus source not yet finalized.** The direction confirmed is a tech-industry news/company corpus, but the exact source is still open. Recommendation: use the **NewsAPI.org free developer tier** to pull ~300–500 recent articles on tech-industry M&A, funding rounds, partnerships, and executive moves — this is naturally entity/relationship-dense (people, companies, events) and produces good multi-hop questions ("which companies did this exec work at before this move," "which companies did this investor back that later got acquired by the same acquirer"). Alternative if API access is inconvenient: a static Kaggle business-news dataset filtered to tech-sector articles. **Needs team confirmation before Phase 0 closes.**
-2. **Query classification strategy (FR-10) is assumed, not confirmed.** The PRD assumes the router will attempt to classify a question as local/multi-hop/global, but this classification step is itself an open technical risk — it may be simpler and more robust to always run vector + graph traversal + relevant community summaries and let the LLM synthesize from whichever context is actually relevant, skipping explicit classification. Recommend deciding this in Phase 3 based on early results, not locking it in now.
-3. **Team role split not specified.** With 4 people, the natural split is: (a) ingestion/extraction pipeline, (b) graph retrieval + generic RAG baseline, (c) frontend (all 4 screens), (d) evaluation harness + entity resolution. Assumed here for planning purposes — confirm actual assignments with the team.
-4. **Deployment for the defense demo is assumed optional-cloud, fallback-local.** No hosting requirement was stated; the PRD assumes local-machine demo is acceptable with optional free-tier cloud deployment (Vercel + Render/Railway) as a stretch goal, not a requirement.
-5. **Benchmark question authorship**: FR-20 assumes the team hand-writes the 20-question benchmark set from the actual ingested corpus after Phase 2, since questions need to reference real entities/relationships that exist in the data. This can't be finalized until after ingestion.
-6. **Embedding model choice** (`all-MiniLM-L6-v2` vs `bge-small-en-v1.5`) is a minor assumption — either works for this scale; pick based on whichever benchmarks slightly better on retrieval quality during Phase 1, not a decision that needs to block progress.
+1. **Corpus source — resolved.** Not NewsAPI.org as recommended; the actual corpus (`backend/data/corpus.json`) is built from the **Kaggle Global News Dataset**, filtered to tech-sector articles by `backend/scripts/prepare_corpus.py` (commit `73c39f6`).
+2. **Query classification strategy (FR-10) — still open, not a resolved assumption.** No classification/routing was built. `backend/app/routers/query.py` exposes three separate fixed endpoints (`/query`, `/query/generic`, `/query/global`); nothing picks between them by question type, and the frontend never calls `/query/global` at all — only the eval harness does. This is tracked as an active gap in `docs/intent/project-audit.md`, not a decision to make later.
+3. **Team role split — no longer applicable.** This is a solo-developed project; the 4-person split originally assumed here never happened.
+4. **Deployment — still optional-cloud, fallback-local, unchanged.** No cloud deployment has been done; local-machine demo remains the plan, per the PRD's original stretch-goal framing.
+5. **Benchmark question authorship — resolved.** The 20-question set in `backend/data/benchmark.json` was authored against the real ingested corpus; spot-checked entities (e.g. "DeepMind") do appear in it.
+6. **Embedding model choice — resolved.** `all-MiniLM-L6-v2`, set in `backend/app/config.py`.
 
 ---
 
