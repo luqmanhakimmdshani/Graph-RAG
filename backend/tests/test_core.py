@@ -76,5 +76,5 @@ def test_retry_delay_honours_server_hint():
 def test_generate_strips_bold_but_keeps_words(monkeypatch):
     from app.services import llm
     monkeypatch.setattr(llm.settings, "llm_provider", "openai")
-    monkeypatch.setattr(llm, "_openai", lambda prompt: "It launched **Amazon Q** and **Bedrock**.")
-    assert llm.generate("x") == "It launched Amazon Q and Bedrock."
+    monkeypatch.setattr(llm, "_openai", lambda prompt: "It launched **Amazon Q** and **Bedrock**【13】【2†L4】.")
+    assert llm.generate("x") == "It launched Amazon Q and Bedrock[13][2]."

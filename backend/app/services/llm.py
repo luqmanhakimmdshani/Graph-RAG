@@ -72,7 +72,9 @@ def generate(prompt: str) -> str:
     else:
         text = _client().models.generate_content(model=settings.gemini_model, contents=prompt).text
     # Prompts ask for plain text, but some models still bold key terms and the
-    # UI renders answers as plain text - drop the literal ** markers.
+    # UI renders answers as plain text - drop the literal ** markers. gpt-oss
+    # also cites as 【13】 rather than the [13] the prompts ask for.
+    text = re.sub(r"【(\d+)(?:†[^】]*)?】", r"[\1]", text)
     return re.sub(r"\*\*(.+?)\*\*", r"\1", text).strip()
 
 
