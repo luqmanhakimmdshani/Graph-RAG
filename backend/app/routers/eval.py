@@ -134,3 +134,14 @@ async def eval_results():
     payload["completed"] = _state["completed"]
     payload["total"] = _state["total"]
     return payload
+
+
+@router.get("/questions")
+async def eval_questions():
+    """The curated benchmark set (FR-20), for the Compare page's preset-question
+    dropdown (FR-18) - id/category/question only, no reference_answer, since that's
+    for scoring, not for a user picking a question to ask."""
+    if not BENCHMARK_FILE.exists():
+        return []
+    questions = json.loads(BENCHMARK_FILE.read_text(encoding="utf-8"))
+    return [{"id": q["id"], "category": q["category"], "question": q["question"]} for q in questions]

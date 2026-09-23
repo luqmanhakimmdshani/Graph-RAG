@@ -9,13 +9,30 @@ interface IngestResult {
   extraction_failures: number;
 }
 
+interface IngestDocument {
+  id: string;
+  title: string;
+  status: "queued" | "processing" | "done" | "failed";
+  chunks?: number;
+  entities_extracted?: number;
+  extraction_failures?: number;
+}
+
 interface IngestStatus {
   chunks_indexed: number;
   graph: { entities: number | null; relationships: number | null; communities: number | null };
   ingesting: boolean;
   last_result: IngestResult | null;
   last_error: string | null;
+  documents: IngestDocument[];
 }
+
+const DOC_STATUS_COLOR: Record<IngestDocument["status"], string> = {
+  queued: "var(--text-faint)",
+  processing: "var(--accent)",
+  done: "#10b981",
+  failed: "var(--danger)",
+};
 
 function StatCard({ label, value, icon: Icon }: { label: string; value: string | number; icon: typeof Database }) {
   return (
@@ -63,7 +80,8 @@ export default function AdminPage() {
         }
         break;
       }
-      setResult("Processing in the background — this can take a while for a large batch…");
+      const done = s.documents.filter((d) => d.status === "done" || d.status === "failed").length;
+      setResult(`Processing in the background (${done}/${s.documents.length} documents) — this can take a while…`);
       await new Promise((r) => setTimeout(r, 2000));
     }
   }
@@ -102,6 +120,27 @@ export default function AdminPage() {
       </label>
 
       {result && <p className="mb-6 text-sm text-[var(--text-muted)]">{result}</p>}
+
+      {status && status.documents.length > 0 && (
+        <div className="card mb-6 divide-y divide-[var(--border)] overflow-hidden p-0">
+          {status.documents.map((d) => (
+            <div key={d.id} className="flex items-center justify-between gap-3 px-4 py-2 text-sm">
+              <span className="flex min-w-0 items-center gap-2">
+                <span
+                  className="h-1.5 w-1.5 shrink-0 rounded-full"
+                  style={{ backgroundColor: DOC_STATUS_COLOR[d.status] }}
+                />
+                <span className="truncate">{d.title}</span>
+              </span>
+              <span className="mono shrink-0 text-xs text-[var(--text-faint)]">
+                {d.status === "done" || d.status === "failed"
+                  ? `${d.chunks ?? 0} chunks, ${d.entities_extracted ?? 0} entities`
+                  : d.status}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="label mb-3">Corpus stats</div>
       {status ? (

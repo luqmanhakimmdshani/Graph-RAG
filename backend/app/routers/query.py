@@ -14,6 +14,7 @@ DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
 class QueryRequest(BaseModel):
     question: str
     top_k: int = 5
+    hops: int = 2
 
 
 def _build_prompt(question: str, chunks: list[dict]) -> str:
@@ -95,25 +96,29 @@ def _build_graph_prompt(question: str, facts: list[str]) -> str:
 
 @router.post("")
 async def query_graph_rag(req: QueryRequest):
+    """No explicit local/multi-hop/global classification (PRD's own open question,
+    FR-10) - instead this always tries the graph traversal first, and falls back to
+    the corpus-wide community-summary path (query_global) whenever no entities or no
+    connecting relationships were found, on the assumption that's a sign the question
+    doesn't name specific things covered by a subgraph (a "what are the main trends"
+    question rather than a "who did X" one)."""
     empty_subgraph = {"nodes": [], "edges": []}
     try:
         entities = graphdb.find_entities(req.question)
-        if not entities:
-            return {"answer": "No known entities from the graph were found in the question.",
-                     "citations": [], "subgraph": empty_subgraph}
-
-        data = graphdb.query_subgraph(entities)
+        data = graphdb.query_subgraph(entities, req.hops) if entities else {"nodes": [], "edges": []}
         nodes_by_id = {n["id"]: n for n in data["nodes"]}
         facts = _graph_facts(nodes_by_id, data["edges"])
         subgraph = {"nodes": data["nodes"], "edges": data["edges"]}
+
         if not facts:
-            return {"answer": "No relationships found connecting these entities.", "citations": [], "subgraph": subgraph}
+            global_result = await query_global(req)
+            return {**global_result, "subgraph": empty_subgraph, "mode": "global"}
 
         answer = llm.generate(_build_graph_prompt(req.question, facts))
-        return {"answer": answer, "citations": _graph_citations(data["edges"]), "subgraph": subgraph}
+        return {"answer": answer, "citations": _graph_citations(data["edges"]), "subgraph": subgraph, "mode": "graph"}
     except Exception:
         return {"answer": "", "citations": [], "subgraph": empty_subgraph,
-                "error": "Graph RAG query failed - Neo4j or the LLM may be unreachable"}
+                "error": "Graph RAG query failed - Neo4j or the LLM may be unreachable", "mode": "error"}
 
 
 @router.post("/generic")

@@ -13,17 +13,32 @@ logger = logging.getLogger(__name__)
 # batch can take minutes to tens of minutes - synchronously awaiting the
 # whole pipeline inside one HTTP request risked a browser/proxy timeout on
 # anything but a tiny upload. Running it as a background task instead means
-# the request returns immediately; /ingest/status's "ingesting" flag plus
-# the chunk/entity counts already exposed there is how the caller watches
-# progress, in place of full per-document status tracking (a separate,
-# larger gap).
-_state = {"ingesting": False, "last_result": None, "last_error": None}
+# the request returns immediately; /ingest/status's "ingesting" flag, the
+# chunk/entity counts, and now a per-document status list (FR-9) is how the
+# caller watches progress - queued/processing/done/failed per document,
+# rather than just an aggregate count with no visibility into which
+# document a slow or stuck batch is currently on.
+_state = {"ingesting": False, "last_result": None, "last_error": None, "documents": []}
 
 
 def _run_ingest(articles: list[dict]) -> None:
-    _state.update(ingesting=True, last_result=None, last_error=None)
+    documents = [{"id": str(a["id"]), "title": a.get("title", a["id"]), "status": "queued"} for a in articles]
+    by_id = {d["id"]: d for d in documents}
+    _state.update(ingesting=True, last_result=None, last_error=None, documents=documents)
+
+    def on_start(article: dict) -> None:
+        doc = by_id.get(str(article["id"]))
+        if doc:
+            doc["status"] = "processing"
+
+    def on_done(article: dict, stats: dict) -> None:
+        doc = by_id.get(str(article["id"]))
+        if doc:
+            doc["status"] = "failed" if stats["chunks"] and stats["extraction_failures"] == stats["chunks"] else "done"
+            doc.update(stats)
+
     try:
-        _state["last_result"] = ingest_articles(articles)
+        _state["last_result"] = ingest_articles(articles, on_article_start=on_start, on_article_done=on_done)
     except Exception as e:
         logger.exception("background ingestion failed")
         _state["last_error"] = str(e)
@@ -61,4 +76,5 @@ async def ingest_status():
         "ingesting": _state["ingesting"],
         "last_result": _state["last_result"],
         "last_error": _state["last_error"],
+        "documents": _state["documents"],
     }

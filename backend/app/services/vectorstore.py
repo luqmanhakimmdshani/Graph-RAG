@@ -12,7 +12,11 @@ def _collection():
 
 
 def add_chunks(ids: list[str], texts: list[str], embeddings: list[list[float]], metadatas: list[dict]) -> None:
-    _collection().add(ids=ids, documents=texts, embeddings=embeddings, metadatas=metadatas)
+    # upsert, not add: Neo4j's writes are already idempotent (graphdb.py MERGEs
+    # on norm_name/relationship type), but Chroma's .add() errors on a duplicate
+    # id - re-running ingestion on the same articles, or resuming a batch that
+    # partially failed, would throw here instead of just overwriting.
+    _collection().upsert(ids=ids, documents=texts, embeddings=embeddings, metadatas=metadatas)
 
 
 def query(embedding: list[float], top_k: int = 5) -> list[dict]:

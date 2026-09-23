@@ -1,13 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileText, RefreshCw, Send } from "lucide-react";
-import { apiPost } from "../lib/api";
+import { apiGet, apiPost } from "../lib/api";
 import SubgraphView from "../components/SubgraphView";
+
+interface BenchmarkQuestion {
+  id: string;
+  category: string;
+  question: string;
+}
+
+const CATEGORY_LABELS: Record<string, string> = { local: "Local", multi_hop: "Multi-hop", global: "Global" };
 
 interface Citation {
   article_id: string;
   title: string;
   source: string;
   url: string;
+}
+
+interface CommunityCitation {
+  community_id: number;
+  size: number;
+  summary: string;
 }
 
 interface GraphNode {
@@ -24,8 +38,9 @@ interface GraphEdge {
 
 interface GraphAnswer {
   answer: string;
-  citations: Citation[];
+  citations: Citation[] | CommunityCitation[];
   subgraph: { nodes: GraphNode[]; edges: GraphEdge[] };
+  mode?: "graph" | "global" | "error";
 }
 
 interface GenericAnswer {
@@ -59,25 +74,47 @@ function CitationList({ citations }: { citations: Citation[] }) {
   );
 }
 
+function CommunityCitationList({ citations }: { citations: CommunityCitation[] }) {
+  if (citations.length === 0) return null;
+  return (
+    <div className="mt-5 space-y-1.5 border-t border-[var(--border)] pt-4">
+      {citations.map((c) => (
+        <div key={c.community_id} className="rounded-md px-2 py-1.5 text-xs text-[var(--text-muted)]">
+          <span className="mono text-[var(--text-faint)]">[{c.size} entities]</span> {c.summary}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function ComparePage() {
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CompareResponse | null>(null);
   const [error, setError] = useState("");
+  const [presets, setPresets] = useState<BenchmarkQuestion[]>([]);
 
-  async function ask(e: React.FormEvent) {
-    e.preventDefault();
-    if (!question.trim() || loading) return;
+  useEffect(() => {
+    apiGet<BenchmarkQuestion[]>("/eval/questions").then(setPresets).catch(() => {});
+  }, []);
+
+  async function ask(q: string) {
+    if (!q.trim() || loading) return;
     setLoading(true);
     setError("");
     try {
-      const res = await apiPost<CompareResponse>("/query/compare", { question });
+      const res = await apiPost<CompareResponse>("/query/compare", { question: q });
       setResult(res);
     } catch {
       setError("Query failed — is the backend running and has the corpus been ingested?");
     } finally {
       setLoading(false);
     }
+  }
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    void ask(question);
   }
 
   return (
@@ -90,7 +127,30 @@ export default function ComparePage() {
         </p>
       </div>
 
-      <form onSubmit={ask} className="card flex items-center gap-2 p-2">
+      {presets.length > 0 && (
+        <select
+          className="mb-3 w-full rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text-muted)] outline-none"
+          value=""
+          disabled={loading}
+          onChange={(e) => {
+            const q = presets.find((p) => p.id === e.target.value)?.question;
+            if (!q) return;
+            setQuestion(q);
+            void ask(q);
+          }}
+        >
+          <option value="" disabled>
+            Or pick a benchmark question…
+          </option>
+          {presets.map((p) => (
+            <option key={p.id} value={p.id}>
+              [{CATEGORY_LABELS[p.category] ?? p.category}] {p.question}
+            </option>
+          ))}
+        </select>
+      )}
+
+      <form onSubmit={onSubmit} className="card flex items-center gap-2 p-2">
         <input
           className="flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-[var(--text-faint)]"
           placeholder="e.g. Which companies did Sam Altman work at before founding OpenAI?"
@@ -121,11 +181,15 @@ export default function ComparePage() {
           </div>
           <div className="card border-[var(--accent)]/25 p-5" style={{ borderColor: "color-mix(in srgb, var(--accent) 25%, var(--border))" }}>
             <div className="label mb-1" style={{ color: "var(--accent)" }}>
-              Hybrid · graph + vector
+              {result.graph_rag.mode === "global" ? "Corpus-wide summaries" : "Hybrid · graph + vector"}
             </div>
             <h2 className="text-base font-semibold">Graph RAG</h2>
             <p className="mt-3 whitespace-pre-wrap text-[15px] leading-7">{result.graph_rag.answer}</p>
-            <CitationList citations={result.graph_rag.citations} />
+            {result.graph_rag.mode === "global" ? (
+              <CommunityCitationList citations={result.graph_rag.citations as CommunityCitation[]} />
+            ) : (
+              <CitationList citations={result.graph_rag.citations as Citation[]} />
+            )}
             {result.graph_rag.subgraph.nodes.length > 0 && (
               <div className="mt-5 border-t border-[var(--border)] pt-4">
                 <div className="label mb-3" style={{ color: "var(--accent)" }}>
