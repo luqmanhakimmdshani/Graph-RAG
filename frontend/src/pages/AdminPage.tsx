@@ -50,6 +50,7 @@ export default function AdminPage() {
   const [status, setStatus] = useState<IngestStatus | null>(null);
   const [uploading, setUploading] = useState(false);
   const [result, setResult] = useState("");
+  const [skipped, setSkipped] = useState<{ file: string; reason: string }[]>([]);
 
   function refresh() {
     apiGet<IngestStatus>("/ingest/status").then(setStatus).catch(() => {});
@@ -91,11 +92,20 @@ export default function AdminPage() {
     if (!files || files.length === 0) return;
     setUploading(true);
     setResult("");
+    setSkipped([]);
     try {
-      await apiUpload<{ status: string; articles: number }>("/ingest", files);
+      const res = await apiUpload<{ status: string; articles: number; skipped: { file: string; reason: string }[] }>(
+        "/ingest",
+        files
+      );
+      setSkipped(res.skipped);
       await pollUntilDone();
-    } catch {
-      setResult("Upload failed — is the backend running?");
+    } catch (err) {
+      // fetch() itself throws a TypeError when the server can't be reached;
+      // anything else is the server rejecting the upload, with its reason.
+      setResult(
+        err instanceof TypeError ? "Upload failed — is the backend running?" : `Upload rejected: ${(err as Error).message}`
+      );
     } finally {
       setUploading(false);
       e.target.value = "";
@@ -108,18 +118,38 @@ export default function AdminPage() {
         <div className="label mb-2">Batch ingestion</div>
         <h1 className="text-2xl font-semibold tracking-tight">Admin</h1>
         <p className="mt-1.5 text-sm text-[var(--text-muted)]">
-          Upload .txt or .json (title/body/date/source) articles to chunk, embed, and extract into the knowledge
-          graph.
+          Upload .txt, .pdf, .docx, or .json (title/body/date/source) articles to chunk, embed, and extract into
+          the knowledge graph.
         </p>
       </div>
 
       <label className="card mb-6 flex cursor-pointer flex-col items-center gap-2 border-dashed p-8 text-center transition-colors hover:bg-[var(--surface-hover)]">
-        <input type="file" multiple accept=".txt,.json" className="hidden" onChange={onUpload} disabled={uploading} />
+        <input
+          type="file"
+          multiple
+          accept=".txt,.json,.pdf,.docx"
+          className="hidden"
+          onChange={onUpload}
+          disabled={uploading}
+        />
         <UploadCloud className="h-5 w-5 text-[var(--text-faint)]" />
         <span className="text-sm text-[var(--text-muted)]">{uploading ? "Processing…" : "Click to select files"}</span>
       </label>
 
       {result && <p className="mb-6 text-sm text-[var(--text-muted)]">{result}</p>}
+
+      {skipped.length > 0 && (
+        <div className="mb-6 text-sm">
+          <p className="mb-1.5 text-[var(--danger)]">Skipped {skipped.length} (not ingested):</p>
+          <ul className="mono space-y-0.5 text-[12px] text-[var(--text-muted)]">
+            {skipped.map((s) => (
+              <li key={s.file}>
+                {s.file} — {s.reason}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {status && status.documents.length > 0 && (
         <div className="card mb-6 divide-y divide-[var(--border)] overflow-hidden p-0">

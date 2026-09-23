@@ -14,7 +14,12 @@ function withTimeout(ms: number): { signal: AbortSignal; cancel: () => void } {
 }
 
 async function handle<T>(path: string, res: Response): Promise<T> {
-  if (!res.ok) throw new Error(`${path} -> ${res.status}`);
+  if (!res.ok) {
+    // Surface FastAPI's own `detail` (e.g. why an upload was rejected) instead
+    // of a bare status code the caller can only guess about.
+    const detail = await res.json().then((b) => b?.detail, () => undefined);
+    throw new Error(typeof detail === "string" ? detail : `${path} -> ${res.status}`);
+  }
   return res.json();
 }
 
