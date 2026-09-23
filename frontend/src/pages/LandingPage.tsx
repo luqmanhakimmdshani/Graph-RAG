@@ -91,7 +91,7 @@ export default function LandingPage() {
               A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal,
               and community summarization, benchmarked head-to-head against generic vector RAG.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div className="mt-7 flex flex-wrap items-center gap-3" style={{ textShadow: "none" }}>
               <Link
                 to="/chat"
                 className="pointer-events-auto flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)]"
