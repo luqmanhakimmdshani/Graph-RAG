@@ -57,7 +57,11 @@ export default function CodeGraphHero() {
     // Real glow, not a CSS filter - this is a WebGL scene, so bloom has to be
     // a postprocessing render pass over the composer 3d-force-graph already
     // sets up, not a drop-shadow (which only affects the flat DOM element).
-    const bloom = new UnrealBloomPass(new Vector2(el.clientWidth, el.clientHeight), 1.5, 0.6, 0.1);
+    // Stronger strength + lower threshold than before (1.5/0.1 -> 2.4/0.04) so
+    // the glow still reads once a node is only a few pixels across zoomed out,
+    // not just up close; wider radius (0.6 -> 0.85) spreads that into a softer
+    // halo instead of just a brighter point.
+    const bloom = new UnrealBloomPass(new Vector2(el.clientWidth, el.clientHeight), 2.4, 0.85, 0.04);
     graph.postProcessingComposer().addPass(bloom);
 
     // Hand full control to the user the moment they grab the camera.

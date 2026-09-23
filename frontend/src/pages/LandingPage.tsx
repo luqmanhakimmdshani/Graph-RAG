@@ -74,15 +74,15 @@ export default function LandingPage() {
         <div className="absolute inset-0">
           <CodeGraphHero />
         </div>
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{ background: "linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 42%, transparent 70%)" }}
-        />
         {/* pointer-events-none all the way down except the two links themselves -
             the graph underneath should be draggable from anywhere, including
             over the headline, not just the empty margins around this column. */}
         <div className="pointer-events-none relative mx-auto flex h-full max-w-6xl flex-col justify-center px-6 lg:px-10">
-          <div className="max-w-xl">
+          {/* No gradient behind this column anymore (the graph's glow reads better
+              unobscured), so legibility against whatever bright nodes happen to
+              settle behind the text this load comes from a text-shadow instead -
+              inherited by every child below rather than repeated per element. */}
+          <div className="max-w-xl" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.75)" }}>
             <div className="label mb-3">Knowledge-graph-augmented RAG</div>
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl">
               Ask questions your vector database can't answer.
