@@ -137,7 +137,7 @@ export default function LandingPage() {
                 to="/compare"
                 className="pointer-events-auto flex items-center gap-2 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
               >
-                Generic vs Graph RAG
+                See the difference
               </Link>
             </div>
           </div>
