@@ -84,51 +84,56 @@
   }
 }
 
-* {
-  border-color: var(--border);
-}
+/* Element-level base styles live in Tailwind's base layer. Unlayered, they
+   beat every utility class - e.g. `button { color: inherit }` overrode
+   text-[var(--accent-foreground)], so lime buttons got white text. */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
 
-html,
-body,
-#root {
-  height: 100%;
-}
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
-  position: relative;
-}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    position: relative;
+  }
 
-/* Ambient glow field - the "vibrant background" glass needs to actually refract.
-   Fixed, behind everything, never intercepts pointer events. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(600px circle at 8% 0%, color-mix(in srgb, var(--glow-a) 20%, transparent), transparent 60%),
-    radial-gradient(700px circle at 100% 20%, color-mix(in srgb, var(--glow-b) 16%, transparent), transparent 55%),
-    radial-gradient(900px circle at 50% 100%, color-mix(in srgb, var(--glow-a) 8%, transparent), transparent 60%);
-}
+  /* Ambient glow field - the "vibrant background" glass needs to actually refract.
+     Fixed, behind everything, never intercepts pointer events. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(600px circle at 8% 0%, color-mix(in srgb, var(--glow-a) 20%, transparent), transparent 60%),
+      radial-gradient(700px circle at 100% 20%, color-mix(in srgb, var(--glow-b) 16%, transparent), transparent 55%),
+      radial-gradient(900px circle at 50% 100%, color-mix(in srgb, var(--glow-a) 8%, transparent), transparent 60%);
+  }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-}
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
 
-button {
-  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease, border-color 140ms ease,
-    opacity 140ms ease;
-}
-button:active:not(:disabled) {
-  transform: scale(0.97);
+  button {
+    transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), background-color 140ms ease, border-color 140ms ease,
+      opacity 140ms ease;
+  }
+  button:active:not(:disabled) {
+    transform: scale(0.97);
+  }
 }
 
 .mono {
