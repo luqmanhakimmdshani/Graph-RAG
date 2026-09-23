@@ -41,12 +41,12 @@ function AppShell() {
     <div className="flex min-h-full">
       <aside className="glass-strong hidden lg:flex w-56 shrink-0 flex-col border-r px-3 py-5" style={{ borderColor: "var(--glass-border)" }}>
         <div className="mb-8 flex items-center gap-2.5 px-2">
-          {/* Glow uses the logo's own mid-gradient purple, not --accent green. */}
+          {/* Soft white glow to match the logo's white linework, not --accent green. */}
           <img
             src="/logo.svg"
             alt=""
             className="h-8 w-8 rounded-lg"
-            style={{ boxShadow: "0 0 20px color-mix(in srgb, #8a5cd6 45%, transparent)" }}
+            style={{ boxShadow: "0 0 18px rgba(255,255,255,0.14)" }}
           />
           <div>
             <div className="text-sm font-semibold leading-tight">Graph RAG</div>
