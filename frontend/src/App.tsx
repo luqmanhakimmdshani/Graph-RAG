@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
-import { BarChart3, GitCompare, MessageSquare, Network, UploadCloud } from "lucide-react";
+import { BarChart3, GitCompare, LayoutDashboard, MessageSquare, Network, UploadCloud } from "lucide-react";
 import { apiGet } from "./lib/api";
 import ErrorBoundary from "./components/ErrorBoundary";
 import AdminPage from "./pages/AdminPage";
 import ChatPage from "./pages/ChatPage";
 import ComparePage from "./pages/ComparePage";
+import DashboardPage from "./pages/DashboardPage";
 import EvalPage from "./pages/EvalPage";
 import ExplorerPage from "./pages/ExplorerPage";
 import LandingPage from "./pages/LandingPage";
 
 const navItems = [
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/chat", label: "Chat", end: true, icon: MessageSquare },
   { to: "/compare", label: "Compare", icon: GitCompare },
   { to: "/explorer", label: "Explorer", icon: Network },
@@ -124,6 +126,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route element={<AppShell />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/compare" element={<ComparePage />} />
           <Route path="/explorer" element={<ExplorerPage />} />

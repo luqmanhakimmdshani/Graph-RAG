@@ -233,6 +233,31 @@ def stats() -> dict:
     return {"entities": entities, "relationships": relationships, "communities": communities}
 
 
+def overview(top: int = 8) -> dict:
+    """Aggregate counts for the dashboard. Topics counts summarized :Community
+    nodes of 3+ members - the same set the global-question path uses - not raw
+    community ids, most of which are 1-2 node fragments."""
+    with _session() as session:
+        by_type = {r["t"]: r["n"] for r in session.run(
+            "MATCH (n) WHERE NOT n:Community RETURN labels(n)[0] AS t, count(*) AS n")}
+        rels = [{"type": r["t"], "count": r["n"]} for r in session.run(
+            "MATCH ()-[r]->() RETURN type(r) AS t, count(*) AS n ORDER BY n DESC")]
+        top_entities = [r.data() for r in session.run(
+            "MATCH (n) WHERE NOT n:Community "
+            "RETURN n.name AS name, labels(n)[0] AS type, COUNT { (n)--() } AS connections "
+            "ORDER BY connections DESC, name LIMIT $top", top=top)]
+        topics = session.run(
+            "MATCH (c:Community) WHERE c.summary IS NOT NULL AND c.size >= 3 RETURN count(c) AS n").single()["n"]
+    return {
+        "entities": sum(by_type.values()),
+        "entities_by_type": by_type,
+        "relationships": sum(r["count"] for r in rels),
+        "relationships_by_type": rels,
+        "top_entities": top_entities,
+        "topics": topics,
+    }
+
+
 @lru_cache
 def _entity_patterns() -> tuple[tuple[str, re.Pattern], ...]:
     """(name, compiled word-boundary pattern on norm_name) for every entity, cached -

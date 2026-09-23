@@ -38,6 +38,18 @@
   --danger-soft: rgba(201, 70, 58, 0.1);
   --glow-a: #c3ef61;
   --glow-b: #61c9ef;
+  /* Chart series colors - validated with the dataviz skill's palette checker
+     (lightness band, chroma, colour-blind separation) against each theme's
+     surface. Entity types are ordered person/org/product; lime vs orange
+     only separates for red-green colour blindness through lightness, so keep
+     org at the top of the band and person low. Single-series ranked bars
+     use --chart-neutral so colour only ever means an identity. */
+  --chart-person: #a5620b;
+  --chart-org: #7fa500;
+  --chart-product: #4d84cf;
+  --chart-graph: #5f8a17;
+  --chart-generic: #5072bb;
+  --chart-neutral: #8b9191;
 }
 
 :root[data-theme="dark"] {
@@ -59,6 +71,12 @@
   --danger-soft: rgba(255, 122, 107, 0.12);
   --glow-a: #c3ef61;
   --glow-b: #4f9fe0;
+  --chart-person: #a5620b;
+  --chart-org: #7fa500;
+  --chart-product: #4d84cf;
+  --chart-graph: #7fa500;
+  --chart-generic: #5072bb;
+  --chart-neutral: #6f7675;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -81,6 +99,12 @@
     --danger-soft: rgba(255, 122, 107, 0.12);
     --glow-a: #c3ef61;
     --glow-b: #4f9fe0;
+    --chart-person: #a5620b;
+    --chart-org: #7fa500;
+    --chart-product: #4d84cf;
+    --chart-graph: #7fa500;
+    --chart-generic: #5072bb;
+    --chart-neutral: #6f7675;
   }
 }
 
