@@ -40,7 +40,9 @@ def _ollama(prompt: str, schema=None) -> str:
 
 
 def _openai(prompt: str, schema=None) -> str:
-    body = {"model": settings.openai_model, "messages": [{"role": "user", "content": prompt}], "temperature": 0}
+    # stream must be explicit: OmniRoute defaults to SSE when it's omitted.
+    body = {"model": settings.openai_model, "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0, "stream": False}
     if schema:
         # Routers (OmniRoute) forward json_schema to some upstreams and downgrade it
         # to plain JSON mode for others - so the schema also goes in the prompt,
