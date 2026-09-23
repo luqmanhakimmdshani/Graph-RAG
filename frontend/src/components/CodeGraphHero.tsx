@@ -56,15 +56,10 @@ export default function CodeGraphHero() {
       .width(el.clientWidth)
       .graphData(codeGraph);
 
-    // Charge strength -90 matches graphify's own graph-3d.html viewer (its
-    // only override too). Unlike that page, the hero is a fixed 600px strip
-    // nobody pans or zooms out of, so left uncapped this flings low-degree
-    // nodes out past the frame into empty space - the same "void" problem
-    // fixed earlier. A distanceMax cap plus a stronger center pull (scaled up
-    // to counter the much stronger repulsion) keeps everything inside frame
-    // without weakening the -90 charge that was the point of the match.
-    graph.d3Force("charge")?.strength(-90).distanceMax(200);
-    graph.d3Force("center")?.strength(2.5);
+    // Same force setup as graphify's own graph-3d.html viewer - the only
+    // override there is charge strength, everything else (link distance,
+    // center, alpha/velocity decay) is left at the d3-force-3d defaults.
+    graph.d3Force("charge")?.strength(-90);
 
     const controls = graph.controls();
     controls.autoRotate = !reduceMotion;
