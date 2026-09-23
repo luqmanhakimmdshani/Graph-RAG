@@ -290,43 +290,69 @@
       "source_location": "L13"
     },
     {
-      "id": "frontend_src_pages_explorerpage_graphedge",
-      "label": "GraphEdge",
+      "id": "frontend_src_components_charts_baritem",
+      "label": "BarItem",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "ExplorerPage.tsx",
+      "community_name": "DashboardPage.tsx",
       "file_type": "code",
-      "norm_label": "graphedge",
-      "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L12"
+      "norm_label": "baritem",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L39"
     },
     {
-      "id": "frontend_src_pages_explorerpage_graphnode",
-      "label": "GraphNode",
+      "id": "frontend_src_components_charts_part",
+      "label": "Part",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "ExplorerPage.tsx",
+      "community_name": "DashboardPage.tsx",
       "file_type": "code",
-      "norm_label": "graphnode",
-      "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L6"
+      "norm_label": "part",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L85"
     },
     {
-      "id": "frontend_src_pages_explorerpage_subgraphresponse",
-      "label": "SubgraphResponse",
+      "id": "frontend_src_components_charts_series",
+      "label": "Series",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "ExplorerPage.tsx",
+      "community_name": "DashboardPage.tsx",
       "file_type": "code",
-      "norm_label": "subgraphresponse",
-      "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L18"
+      "norm_label": "series",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L125"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_evalgroup",
+      "label": "EvalGroup",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "evalgroup",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_overview",
+      "label": "Overview",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "overview",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L13"
     },
     {
       "id": "frontend_src_components_subgraphview_graphedge",
@@ -433,6 +459,58 @@
       "source_location": "L31"
     },
     {
+      "id": "frontend_src_pages_chatpage_turn",
+      "label": "Turn",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "turn",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L39"
+    },
+    {
+      "id": "frontend_src_pages_explorerpage_graphedge",
+      "label": "GraphEdge",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "graphedge",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "frontend_src_pages_explorerpage_graphnode",
+      "label": "GraphNode",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "graphnode",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "frontend_src_pages_explorerpage_subgraphresponse",
+      "label": "SubgraphResponse",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "subgraphresponse",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L18"
+    },
+    {
       "id": "backend_app_services_extraction_entity",
       "label": "Entity",
       "_callable": true,
@@ -520,6 +598,18 @@
       "source_location": "L128"
     },
     {
+      "id": "backend_app_services_graphdb_canonical_norms",
+      "label": "_canonical_norms()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "_canonical_norms()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L86"
+    },
+    {
       "id": "backend_app_services_graphdb_community_members",
       "label": "community_members()",
       "_callable": true,
@@ -601,7 +691,7 @@
       "file_type": "code",
       "norm_label": "_entity_patterns()",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L237"
+      "source_location": "L262"
     },
     {
       "id": "backend_app_services_graphdb_find_entities",
@@ -613,7 +703,7 @@
       "file_type": "code",
       "norm_label": "find_entities()",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L260"
+      "source_location": "L285"
     },
     {
       "id": "backend_app_services_graphdb_merge_entities",
@@ -628,6 +718,30 @@
       "source_location": "L107"
     },
     {
+      "id": "backend_app_services_graphdb_normalize_name",
+      "label": "normalize_name()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "normalize_name()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L21"
+    },
+    {
+      "id": "backend_app_services_graphdb_overview",
+      "label": "overview()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "overview()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L236"
+    },
+    {
       "id": "backend_app_services_graphdb_query_subgraph",
       "label": "query_subgraph()",
       "_callable": true,
@@ -637,7 +751,7 @@
       "file_type": "code",
       "norm_label": "query_subgraph()",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L270"
+      "source_location": "L295"
     },
     {
       "id": "backend_app_services_graphdb_resolution_candidates",
@@ -685,7 +799,7 @@
       "file_type": "code",
       "norm_label": "subgraph()",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L286"
+      "source_location": "L311"
     },
     {
       "id": "backend_app_services_graphdb_write_communities",
@@ -712,6 +826,18 @@
       "source_location": "L173"
     },
     {
+      "id": "backend_app_services_graphdb_write_extraction",
+      "label": "write_extraction()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "write_extraction()",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L37"
+    },
+    {
       "id": "backend_scripts_detect_communities_main",
       "label": "main()",
       "_callable": true,
@@ -724,6 +850,18 @@
       "source_location": "L67"
     },
     {
+      "id": "backend_scripts_resolve_entities_main",
+      "label": "main()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "main()",
+      "source_file": "backend/scripts/resolve_entities.py",
+      "source_location": "L19"
+    },
+    {
       "id": "backend_app_main_health",
       "label": "health()",
       "_callable": true,
@@ -733,7 +871,7 @@
       "file_type": "code",
       "norm_label": "health()",
       "source_file": "backend/app/main.py",
-      "source_location": "L22"
+      "source_location": "L23"
     },
     {
       "id": "backend_app_routers_eval_eval_questions",
@@ -988,6 +1126,30 @@
       "source_location": "L36"
     },
     {
+      "id": "backend_app_routers_stats_corpus",
+      "label": "_corpus()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "llm.py",
+      "file_type": "code",
+      "norm_label": "_corpus()",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L17"
+    },
+    {
+      "id": "backend_app_routers_stats_overview",
+      "label": "overview()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "llm.py",
+      "file_type": "code",
+      "norm_label": "overview()",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L33"
+    },
+    {
       "id": "backend_app_services_community_summarize",
       "label": "summarize()",
       "_callable": true,
@@ -1045,7 +1207,7 @@
       "file_type": "code",
       "norm_label": "generate_json()",
       "source_file": "backend/app/services/llm.py",
-      "source_location": "L81"
+      "source_location": "L89"
     },
     {
       "id": "backend_app_services_llm_ollama",
@@ -1070,6 +1232,18 @@
       "norm_label": "_openai()",
       "source_file": "backend/app/services/llm.py",
       "source_location": "L42"
+    },
+    {
+      "id": "backend_app_services_llm_plain",
+      "label": "_plain()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "llm.py",
+      "file_type": "code",
+      "norm_label": "_plain()",
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L77"
     },
     {
       "id": "backend_app_services_llm_strip_fences",
@@ -1144,6 +1318,18 @@
       "source_location": "L76"
     },
     {
+      "id": "backend_tests_test_core_test_plain_strips_markdown_but_keeps_content",
+      "label": "test_plain_strips_markdown_but_keeps_content()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "llm.py",
+      "file_type": "code",
+      "norm_label": "test_plain_strips_markdown_but_keeps_content()",
+      "source_file": "backend/tests/test_core.py",
+      "source_location": "L83"
+    },
+    {
       "id": "frontend_src_pages_comparepage_citationlist",
       "label": "CitationList()",
       "_callable": true,
@@ -1168,42 +1354,6 @@
       "source_location": "L77"
     },
     {
-      "id": "frontend_src_pages_comparepage_comparepage",
-      "label": "ComparePage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ComparePage.tsx",
-      "file_type": "code",
-      "norm_label": "comparepage()",
-      "source_file": "frontend/src/pages/ComparePage.tsx",
-      "source_location": "L90"
-    },
-    {
-      "id": "frontend_src_pages_comparepage_comparepage_ask",
-      "label": "ask()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ComparePage.tsx",
-      "file_type": "code",
-      "norm_label": "ask()",
-      "source_file": "frontend/src/pages/ComparePage.tsx",
-      "source_location": "L101"
-    },
-    {
-      "id": "frontend_src_pages_comparepage_comparepage_onsubmit",
-      "label": "onSubmit()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "ComparePage.tsx",
-      "file_type": "code",
-      "norm_label": "onsubmit()",
-      "source_file": "frontend/src/pages/ComparePage.tsx",
-      "source_location": "L116"
-    },
-    {
       "id": "frontend_src_app_app",
       "label": "App()",
       "_callable": true,
@@ -1213,7 +1363,7 @@
       "file_type": "code",
       "norm_label": "app()",
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L121"
+      "source_location": "L123"
     },
     {
       "id": "frontend_src_app_appshell",
@@ -1225,7 +1375,7 @@
       "file_type": "code",
       "norm_label": "appshell()",
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L39"
+      "source_location": "L41"
     },
     {
       "id": "frontend_src_components_errorboundary_errorboundary_componentdidcatch",
@@ -1273,7 +1423,7 @@
       "file_type": "code",
       "norm_label": "backendstatus()",
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L21"
+      "source_location": "L23"
     },
     {
       "id": "frontend_src_components_codegraphhero_codegraphhero",
@@ -1444,52 +1594,160 @@
       "source_location": "L93"
     },
     {
-      "id": "frontend_src_pages_explorerpage_explorerpage",
-      "label": "ExplorerPage()",
+      "id": "frontend_src_components_charts_barlist",
+      "label": "BarList()",
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "ExplorerPage.tsx",
+      "community_name": "DashboardPage.tsx",
       "file_type": "code",
-      "norm_label": "explorerpage()",
-      "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L34"
+      "norm_label": "barlist()",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L49"
     },
     {
-      "id": "frontend_src_pages_explorerpage_explorerpage_expand",
-      "label": "expand()",
+      "id": "frontend_src_components_charts_fmt",
+      "label": "fmt()",
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "ExplorerPage.tsx",
+      "community_name": "DashboardPage.tsx",
       "file_type": "code",
-      "norm_label": "expand()",
-      "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L69"
+      "norm_label": "fmt()",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L23"
     },
     {
-      "id": "frontend_src_pages_explorerpage_explorerpage_search",
-      "label": "search()",
+      "id": "frontend_src_components_charts_groupedbars",
+      "label": "GroupedBars()",
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "ExplorerPage.tsx",
+      "community_name": "DashboardPage.tsx",
       "file_type": "code",
-      "norm_label": "search()",
-      "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L41"
+      "norm_label": "groupedbars()",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L132"
     },
     {
-      "id": "frontend_src_pages_explorerpage_mergesubgraph",
-      "label": "mergeSubgraph()",
+      "id": "frontend_src_components_charts_partbar",
+      "label": "PartBar()",
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "ExplorerPage.tsx",
+      "community_name": "DashboardPage.tsx",
       "file_type": "code",
-      "norm_label": "mergesubgraph()",
-      "source_file": "frontend/src/pages/ExplorerPage.tsx",
-      "source_location": "L25"
+      "norm_label": "partbar()",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L93"
+    },
+    {
+      "id": "frontend_src_components_charts_usegrown",
+      "label": "useGrown()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "usegrown()",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_card",
+      "label": "Card()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "card()",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L209"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_dashboard",
+      "label": "Dashboard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "dashboard()",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L96"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_dashboardpage",
+      "label": "DashboardPage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "dashboardpage()",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L52"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_dashboardpage_load",
+      "label": "load()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "load()",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L56"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_dashboardskeleton",
+      "label": "DashboardSkeleton()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "dashboardskeleton()",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L242"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_fmt",
+      "label": "fmt()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "fmt()",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L49"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_fmtdate",
+      "label": "fmtDate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "fmtdate()",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L50"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_stat",
+      "label": "Stat()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "stat()",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L221"
     },
     {
       "id": "frontend_src_lib_api_apipost",
@@ -1552,6 +1810,42 @@
       "source_location": "L10"
     },
     {
+      "id": "frontend_src_pages_comparepage_comparepage",
+      "label": "ComparePage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 26,
+      "community_name": "ComparePage",
+      "file_type": "code",
+      "norm_label": "comparepage()",
+      "source_file": "frontend/src/pages/ComparePage.tsx",
+      "source_location": "L90"
+    },
+    {
+      "id": "frontend_src_pages_comparepage_comparepage_ask",
+      "label": "ask()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 26,
+      "community_name": "ComparePage",
+      "file_type": "code",
+      "norm_label": "ask()",
+      "source_file": "frontend/src/pages/ComparePage.tsx",
+      "source_location": "L101"
+    },
+    {
+      "id": "frontend_src_pages_comparepage_comparepage_onsubmit",
+      "label": "onSubmit()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 26,
+      "community_name": "ComparePage",
+      "file_type": "code",
+      "norm_label": "onsubmit()",
+      "source_file": "frontend/src/pages/ComparePage.tsx",
+      "source_location": "L116"
+    },
+    {
       "id": "frontend_src_components_subgraphview_cssvar",
       "label": "cssVar()",
       "_callable": true,
@@ -1588,6 +1882,18 @@
       "source_location": "L45"
     },
     {
+      "id": "frontend_src_pages_chatpage_answer",
+      "label": "Answer()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "answer()",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L240"
+    },
+    {
       "id": "frontend_src_pages_chatpage_chatpage",
       "label": "ChatPage()",
       "_callable": true,
@@ -1597,7 +1903,7 @@
       "file_type": "code",
       "norm_label": "chatpage()",
       "source_file": "frontend/src/pages/ChatPage.tsx",
-      "source_location": "L39"
+      "source_location": "L59"
     },
     {
       "id": "frontend_src_pages_chatpage_chatpage_ask",
@@ -1609,7 +1915,115 @@
       "file_type": "code",
       "norm_label": "ask()",
       "source_file": "frontend/src/pages/ChatPage.tsx",
-      "source_location": "L46"
+      "source_location": "L87"
+    },
+    {
+      "id": "frontend_src_pages_chatpage_chatpage_newchat",
+      "label": "newChat()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "newchat()",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L102"
+    },
+    {
+      "id": "frontend_src_pages_chatpage_chatpage_retry",
+      "label": "retry()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "retry()",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L96"
+    },
+    {
+      "id": "frontend_src_pages_chatpage_chatpage_run",
+      "label": "run()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "run()",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L76"
+    },
+    {
+      "id": "frontend_src_pages_chatpage_thinking",
+      "label": "Thinking()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "thinking()",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L207"
+    },
+    {
+      "id": "frontend_src_pages_chatpage_turnerror",
+      "label": "TurnError()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "turnerror()",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L225"
+    },
+    {
+      "id": "frontend_src_pages_explorerpage_explorerpage",
+      "label": "ExplorerPage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "explorerpage()",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L34"
+    },
+    {
+      "id": "frontend_src_pages_explorerpage_explorerpage_expand",
+      "label": "expand()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "expand()",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L69"
+    },
+    {
+      "id": "frontend_src_pages_explorerpage_explorerpage_search",
+      "label": "search()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "search()",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L41"
+    },
+    {
+      "id": "frontend_src_pages_explorerpage_mergesubgraph",
+      "label": "mergeSubgraph()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
+      "file_type": "code",
+      "norm_label": "mergesubgraph()",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "source_location": "L25"
     },
     {
       "id": "backend_app_routers_ingest_parse_upload",
@@ -1622,18 +2036,6 @@
       "norm_label": "parse_upload()",
       "source_file": "backend/app/routers/ingest.py",
       "source_location": "L56"
-    },
-    {
-      "id": "backend_app_services_graphdb_normalize_name",
-      "label": "normalize_name()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "test_core.py",
-      "file_type": "code",
-      "norm_label": "normalize_name()",
-      "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L21"
     },
     {
       "id": "backend_app_services_resolution_plan_merges",
@@ -1658,18 +2060,6 @@
       "norm_label": "resolution_key()",
       "source_file": "backend/app/services/resolution.py",
       "source_location": "L25"
-    },
-    {
-      "id": "backend_scripts_resolve_entities_main",
-      "label": "main()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "test_core.py",
-      "file_type": "code",
-      "norm_label": "main()",
-      "source_file": "backend/scripts/resolve_entities.py",
-      "source_location": "L19"
     },
     {
       "id": "backend_tests_test_core_merged",
@@ -1717,7 +2107,7 @@
       "file_type": "code",
       "norm_label": "test_parse_upload_formats()",
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L105"
+      "source_location": "L113"
     },
     {
       "id": "backend_tests_test_core_test_parse_upload_rejects_bad_input_per_item",
@@ -1729,7 +2119,7 @@
       "file_type": "code",
       "norm_label": "test_parse_upload_rejects_bad_input_per_item()",
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L125"
+      "source_location": "L133"
     },
     {
       "id": "backend_tests_test_core_test_plan_merges_never_crosses_types",
@@ -1789,19 +2179,7 @@
       "file_type": "code",
       "norm_label": "_text_pdf()",
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L83"
-    },
-    {
-      "id": "backend_app_services_chunking_chunk_text",
-      "label": "chunk_text()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "chunk_text()",
-      "source_file": "backend/app/services/chunking.py",
-      "source_location": "L11"
+      "source_location": "L91"
     },
     {
       "id": "backend_app_services_extraction_client",
@@ -1852,30 +2230,6 @@
       "source_location": "L75"
     },
     {
-      "id": "backend_app_services_graphdb_canonical_norms",
-      "label": "_canonical_norms()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "_canonical_norms()",
-      "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L86"
-    },
-    {
-      "id": "backend_app_services_graphdb_write_extraction",
-      "label": "write_extraction()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "write_extraction()",
-      "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L37"
-    },
-    {
       "id": "backend_scripts_build_graph_load_progress",
       "label": "load_progress()",
       "_callable": true,
@@ -1910,18 +2264,6 @@
       "norm_label": "save_progress()",
       "source_file": "backend/scripts/build_graph.py",
       "source_location": "L31"
-    },
-    {
-      "id": "backend_tests_test_core_test_chunk_text_overlap",
-      "label": "test_chunk_text_overlap()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "test_chunk_text_overlap()",
-      "source_file": "backend/tests/test_core.py",
-      "source_location": "L62"
     },
     {
       "id": "backend_tests_test_core_test_retry_delay_honours_server_hint",
@@ -1972,6 +2314,18 @@
       "source_location": "L28"
     },
     {
+      "id": "backend_app_services_chunking_chunk_text",
+      "label": "chunk_text()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "chunk_text()",
+      "source_file": "backend/app/services/chunking.py",
+      "source_location": "L11"
+    },
+    {
       "id": "backend_app_services_embeddings_embed",
       "label": "embed()",
       "_callable": true,
@@ -2005,7 +2359,7 @@
       "file_type": "code",
       "norm_label": "invalidate_entity_cache()",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L253"
+      "source_location": "L278"
     },
     {
       "id": "backend_app_services_ingestion_ingest_articles",
@@ -2078,6 +2432,18 @@
       "norm_label": "main()",
       "source_file": "backend/scripts/ingest_corpus.py",
       "source_location": "L13"
+    },
+    {
+      "id": "backend_tests_test_core_test_chunk_text_overlap",
+      "label": "test_chunk_text_overlap()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "test_chunk_text_overlap()",
+      "source_file": "backend/tests/test_core.py",
+      "source_location": "L62"
     },
     {
       "id": "prd",
@@ -2701,6 +3067,28 @@
       "source_location": "L1"
     },
     {
+      "id": "backend_app_services_resolution",
+      "label": "resolution.py",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "resolution.py",
+      "source_file": "backend/app/services/resolution.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_scripts_resolve_entities",
+      "label": "resolve_entities.py",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "code",
+      "norm_label": "resolve_entities.py",
+      "source_file": "backend/scripts/resolve_entities.py",
+      "source_location": "L1"
+    },
+    {
       "id": "pattern",
       "label": "Pattern",
       "_origin": "ast",
@@ -2767,7 +3155,18 @@
       "source_location": "L201"
     },
     {
-      "id": "backend_app_services_graphdb_rationale_238",
+      "id": "backend_app_services_graphdb_rationale_237",
+      "label": "Aggregate counts for the dashboard. Topics counts summarized :Community nodes\u2026",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "rationale",
+      "norm_label": "aggregate counts for the dashboard. topics counts summarized :community nodes...",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L237"
+    },
+    {
+      "id": "backend_app_services_graphdb_rationale_263",
       "label": "(name, compiled word-boundary pattern on norm_name) for every entity, cached -\u2026",
       "_origin": "ast",
       "community": 10,
@@ -2775,10 +3174,10 @@
       "file_type": "rationale",
       "norm_label": "(name, compiled word-boundary pattern on norm_name) for every entity, cached -...",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L238"
+      "source_location": "L263"
     },
     {
-      "id": "backend_app_services_graphdb_rationale_261",
+      "id": "backend_app_services_graphdb_rationale_286",
       "label": "Match known graph entity names in free text (query-time entity linking for\u2026",
       "_origin": "ast",
       "community": 10,
@@ -2786,10 +3185,10 @@
       "file_type": "rationale",
       "norm_label": "match known graph entity names in free text (query-time entity linking for...",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L261"
+      "source_location": "L286"
     },
     {
-      "id": "backend_app_services_graphdb_rationale_271",
+      "id": "backend_app_services_graphdb_rationale_296",
       "label": "Merge per-entity subgraphs into one - the graph traversal retriever for Phase 3.",
       "_origin": "ast",
       "community": 10,
@@ -2797,7 +3196,40 @@
       "file_type": "rationale",
       "norm_label": "merge per-entity subgraphs into one - the graph traversal retriever for phase 3.",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L271"
+      "source_location": "L296"
+    },
+    {
+      "id": "backend_app_services_graphdb_rationale_87",
+      "label": "(type, norm_name) -> the canonical node's norm_name, for names that\u2026",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "rationale",
+      "norm_label": "(type, norm_name) -> the canonical node's norm_name, for names that...",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L87"
+    },
+    {
+      "id": "backend_app_services_resolution_rationale_1",
+      "label": "Entity resolution beyond exact-match normalization (FR-5). Deliberately rule-\u2026",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "rationale",
+      "norm_label": "entity resolution beyond exact-match normalization (fr-5). deliberately rule-...",
+      "source_file": "backend/app/services/resolution.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_scripts_resolve_entities_rationale_1",
+      "label": "Merge duplicate entities in Neo4j (FR-5): spelling variants and bare surnames,\u2026",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "graphdb.py",
+      "file_type": "rationale",
+      "norm_label": "merge duplicate entities in neo4j (fr-5): spelling variants and bare surnames,...",
+      "source_file": "backend/scripts/resolve_entities.py",
+      "source_location": "L1"
     },
     {
       "id": "frontend_readme",
@@ -3090,6 +3522,28 @@
       "source_location": "L1"
     },
     {
+      "id": "backend_app_routers_stats",
+      "label": "stats.py",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "llm.py",
+      "file_type": "code",
+      "norm_label": "stats.py",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_routers_stats_py_get",
+      "label": "get",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "llm.py",
+      "file_type": "code",
+      "norm_label": "get",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "backend_app_services_community",
       "label": "community.py",
       "_origin": "ast",
@@ -3178,6 +3632,17 @@
       "source_location": ""
     },
     {
+      "id": "backend_app_routers_stats_rationale_34",
+      "label": "Everything the dashboard shows, in one call. Each section fails on its own\u2026",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "llm.py",
+      "file_type": "rationale",
+      "norm_label": "everything the dashboard shows, in one call. each section fails on its own...",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L34"
+    },
+    {
       "id": "backend_app_services_community_rationale_1",
       "label": "LLM community summarization (FR-8) - one summary per Louvain cluster, used by\u2026",
       "_origin": "ast",
@@ -3211,7 +3676,18 @@
       "source_location": "L1"
     },
     {
-      "id": "backend_app_services_llm_rationale_82",
+      "id": "backend_app_services_llm_rationale_78",
+      "label": "Prompts ask for plain text and the UI renders answers as plain text, but models\u2026",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "llm.py",
+      "file_type": "rationale",
+      "norm_label": "prompts ask for plain text and the ui renders answers as plain text, but models...",
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L78"
+    },
+    {
+      "id": "backend_app_services_llm_rationale_90",
       "label": "Structured output (JSON mode) for callers that need a typed result, e.g. the\u2026",
       "_origin": "ast",
       "community": 17,
@@ -3219,7 +3695,7 @@
       "file_type": "rationale",
       "norm_label": "structured output (json mode) for callers that need a typed result, e.g. the...",
       "source_file": "backend/app/services/llm.py",
-      "source_location": "L82"
+      "source_location": "L90"
     },
     {
       "id": "backend_scripts_detect_communities_rationale_1",
@@ -3274,7 +3750,7 @@
       "file_type": "code",
       "norm_label": "navitems",
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L13"
+      "source_location": "L14"
     },
     {
       "id": "frontend_src_components_errorboundary",
@@ -3979,15 +4455,59 @@
       "source_location": "L11"
     },
     {
-      "id": "frontend_src_pages_explorerpage",
-      "label": "ExplorerPage.tsx",
+      "id": "frontend_src_components_charts",
+      "label": "charts.tsx",
       "_origin": "ast",
       "community": 24,
-      "community_name": "ExplorerPage.tsx",
+      "community_name": "DashboardPage.tsx",
       "file_type": "code",
-      "norm_label": "explorerpage.tsx",
-      "source_file": "frontend/src/pages/ExplorerPage.tsx",
+      "norm_label": "charts.tsx",
+      "source_file": "frontend/src/components/charts.tsx",
       "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage",
+      "label": "DashboardPage.tsx",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "dashboardpage.tsx",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_eval_groups",
+      "label": "EVAL_GROUPS",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "eval_groups",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L42"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_rel_label",
+      "label": "REL_LABEL",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "rel_label",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L29"
+    },
+    {
+      "id": "frontend_src_pages_dashboardpage_type",
+      "label": "TYPE",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "DashboardPage.tsx",
+      "file_type": "code",
+      "norm_label": "type",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L37"
     },
     {
       "id": "frontend_src_lib_api",
@@ -4254,25 +4774,25 @@
       "source_location": "L1"
     },
     {
-      "id": "backend_app_services_resolution",
-      "label": "resolution.py",
+      "id": "frontend_src_pages_chatpage_suggestions",
+      "label": "SUGGESTIONS",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "test_core.py",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
       "file_type": "code",
-      "norm_label": "resolution.py",
-      "source_file": "backend/app/services/resolution.py",
-      "source_location": "L1"
+      "norm_label": "suggestions",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L50"
     },
     {
-      "id": "backend_scripts_resolve_entities",
-      "label": "resolve_entities.py",
+      "id": "frontend_src_pages_explorerpage",
+      "label": "ExplorerPage.tsx",
       "_origin": "ast",
-      "community": 5,
-      "community_name": "test_core.py",
+      "community": 4,
+      "community_name": "ChatPage.tsx",
       "file_type": "code",
-      "norm_label": "resolve_entities.py",
-      "source_file": "backend/scripts/resolve_entities.py",
+      "norm_label": "explorerpage.tsx",
+      "source_file": "frontend/src/pages/ExplorerPage.tsx",
       "source_location": "L1"
     },
     {
@@ -4298,17 +4818,6 @@
       "source_location": "L57"
     },
     {
-      "id": "backend_app_services_resolution_rationale_1",
-      "label": "Entity resolution beyond exact-match normalization (FR-5). Deliberately rule-\u2026",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "test_core.py",
-      "file_type": "rationale",
-      "norm_label": "entity resolution beyond exact-match normalization (fr-5). deliberately rule-...",
-      "source_file": "backend/app/services/resolution.py",
-      "source_location": "L1"
-    },
-    {
       "id": "backend_app_services_resolution_rationale_33",
       "label": "nodes: {id, type, name, norm_name, degree}. Returns [(keep, [duplicates])];\u2026",
       "_origin": "ast",
@@ -4318,17 +4827,6 @@
       "norm_label": "nodes: {id, type, name, norm_name, degree}. returns [(keep, [duplicates])];...",
       "source_file": "backend/app/services/resolution.py",
       "source_location": "L33"
-    },
-    {
-      "id": "backend_scripts_resolve_entities_rationale_1",
-      "label": "Merge duplicate entities in Neo4j (FR-5): spelling variants and bare surnames,\u2026",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "test_core.py",
-      "file_type": "rationale",
-      "norm_label": "merge duplicate entities in neo4j (fr-5): spelling variants and bare surnames,...",
-      "source_file": "backend/scripts/resolve_entities.py",
-      "source_location": "L1"
     },
     {
       "id": "backend_tests_test_core_rationale_1",
@@ -4342,7 +4840,7 @@
       "source_location": "L1"
     },
     {
-      "id": "backend_tests_test_core_rationale_84",
+      "id": "backend_tests_test_core_rationale_92",
       "label": "Smallest valid one-page PDF with a real text layer (pypdf can't author text).",
       "_origin": "ast",
       "community": 5,
@@ -4350,18 +4848,7 @@
       "file_type": "rationale",
       "norm_label": "smallest valid one-page pdf with a real text layer (pypdf can't author text).",
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L84"
-    },
-    {
-      "id": "backend_app_services_chunking",
-      "label": "chunking.py",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "extraction.py",
-      "file_type": "code",
-      "norm_label": "chunking.py",
-      "source_file": "backend/app/services/chunking.py",
-      "source_location": "L1"
+      "source_location": "L92"
     },
     {
       "id": "backend_app_services_extraction",
@@ -4408,17 +4895,6 @@
       "source_location": "L1"
     },
     {
-      "id": "backend_app_services_chunking_rationale_1",
-      "label": "Splits article bodies into overlapping word-count chunks. Token counts aren't\u2026",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "extraction.py",
-      "file_type": "rationale",
-      "norm_label": "splits article bodies into overlapping word-count chunks. token counts aren't...",
-      "source_file": "backend/app/services/chunking.py",
-      "source_location": "L1"
-    },
-    {
       "id": "backend_app_services_extraction_rationale_1",
       "label": "LLM entity/relationship extraction per chunk (FR-4). Gemini's free tier is\u2026",
       "_origin": "ast",
@@ -4428,17 +4904,6 @@
       "norm_label": "llm entity/relationship extraction per chunk (fr-4). gemini's free tier is...",
       "source_file": "backend/app/services/extraction.py",
       "source_location": "L1"
-    },
-    {
-      "id": "backend_app_services_graphdb_rationale_87",
-      "label": "(type, norm_name) -> the canonical node's norm_name, for names that\u2026",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "extraction.py",
-      "file_type": "rationale",
-      "norm_label": "(type, norm_name) -> the canonical node's norm_name, for names that...",
-      "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L87"
     },
     {
       "id": "backend_scripts_build_graph_rationale_1",
@@ -4595,6 +5060,17 @@
       "source_location": ""
     },
     {
+      "id": "backend_app_services_chunking",
+      "label": "chunking.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "code",
+      "norm_label": "chunking.py",
+      "source_file": "backend/app/services/chunking.py",
+      "source_location": "L1"
+    },
+    {
       "id": "backend_app_services_embeddings",
       "label": "embeddings.py",
       "_origin": "ast",
@@ -4661,7 +5137,18 @@
       "source_location": ""
     },
     {
-      "id": "backend_app_services_graphdb_rationale_254",
+      "id": "backend_app_services_chunking_rationale_1",
+      "label": "Splits article bodies into overlapping word-count chunks. Token counts aren't\u2026",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "ingest_articles",
+      "file_type": "rationale",
+      "norm_label": "splits article bodies into overlapping word-count chunks. token counts aren't...",
+      "source_file": "backend/app/services/chunking.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_app_services_graphdb_rationale_279",
       "label": "Call after ingestion writes new entities - otherwise find_entities() keeps\u2026",
       "_origin": "ast",
       "community": 8,
@@ -4669,7 +5156,7 @@
       "file_type": "rationale",
       "norm_label": "call after ingestion writes new entities - otherwise find_entities() keeps...",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L254"
+      "source_location": "L279"
     },
     {
       "id": "backend_app_services_ingestion_rationale_16",
@@ -5352,7 +5839,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L240",
+      "source_location": "L265",
       "weight": 1.0
     },
     {
@@ -5364,7 +5851,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L265",
+      "source_location": "L290",
       "weight": 1.0
     },
     {
@@ -5376,7 +5863,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L266",
+      "source_location": "L291",
       "weight": 1.0
     },
     {
@@ -5392,6 +5879,18 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_services_graphdb_overview",
+      "target": "backend_app_services_graphdb_session",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_services_graphdb_query_subgraph",
       "target": "backend_app_services_graphdb_subgraph",
       "relation": "calls",
@@ -5400,7 +5899,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L274",
+      "source_location": "L299",
       "weight": 1.0
     },
     {
@@ -5448,7 +5947,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L291",
+      "source_location": "L316",
       "weight": 1.0
     },
     {
@@ -5460,7 +5959,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L292",
+      "source_location": "L317",
       "weight": 1.0
     },
     {
@@ -5632,6 +6131,18 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_services_llm_generate",
+      "target": "backend_app_services_llm_plain",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_services_llm_generate_json",
       "target": "backend_app_services_llm_ollama",
       "relation": "calls",
@@ -5640,7 +6151,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/llm.py",
-      "source_location": "L85",
+      "source_location": "L93",
       "weight": 1.0
     },
     {
@@ -5652,7 +6163,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/llm.py",
-      "source_location": "L87",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -5664,7 +6175,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/llm.py",
-      "source_location": "L87",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -5676,7 +6187,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/app/services/llm.py",
-      "source_location": "L88",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -6096,7 +6607,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L111",
+      "source_location": "L119",
       "weight": 1.0
     },
     {
@@ -6108,7 +6619,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L114",
+      "source_location": "L122",
       "weight": 1.0
     },
     {
@@ -6120,7 +6631,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L130",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_test_core_test_plain_strips_markdown_but_keeps_content",
+      "target": "backend_app_services_llm_plain",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/tests/test_core.py",
+      "source_location": "L86",
       "weight": 1.0
     },
     {
@@ -6252,7 +6775,67 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L25",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts_barlist",
+      "target": "frontend_src_components_charts_usegrown",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts_barlist",
+      "target": "frontend_src_components_charts_fmt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts_groupedbars",
+      "target": "frontend_src_components_charts_usegrown",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts_partbar",
+      "target": "frontend_src_components_charts_fmt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts_partbar",
+      "target": "frontend_src_components_charts_usegrown",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -6388,6 +6971,30 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_pages_chatpage_chatpage_ask",
+      "target": "frontend_src_pages_chatpage_chatpage_run",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage_chatpage_retry",
+      "target": "frontend_src_pages_chatpage_chatpage_run",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_pages_comparepage_comparepage",
       "target": "frontend_src_lib_api_apiget",
       "relation": "calls",
@@ -6409,6 +7016,66 @@
       "context": "call",
       "source_file": "frontend/src/pages/ComparePage.tsx",
       "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage_dashboard",
+      "target": "frontend_src_pages_dashboardpage_fmt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L201",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_fmt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_fmtdate",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage_dashboardpage_load",
+      "target": "frontend_src_lib_api_apiget",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage_stat",
+      "target": "frontend_src_pages_dashboardpage_fmt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L235",
       "weight": 1.0
     },
     {
@@ -6457,6 +7124,30 @@
       "context": "call",
       "source_file": "frontend/src/pages/LandingPage.tsx",
       "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage_chatpage",
+      "target": "frontend_src_pages_chatpage_chatpage_ask",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage_chatpage",
+      "target": "frontend_src_pages_chatpage_chatpage_retry",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -6516,7 +7207,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "backend/app/main.py",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -6652,6 +7343,18 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_routers_stats_overview",
+      "target": "backend_app_routers_stats_py_get",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "decorator",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_routers_ingest_ingest_documents",
       "target": "uploadfile",
       "relation": "references",
@@ -6672,7 +7375,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L237",
+      "source_location": "L262",
       "weight": 1.0
     },
     {
@@ -6972,7 +7675,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L109",
+      "source_location": "L117",
       "weight": 1.0
     },
     {
@@ -7057,6 +7760,18 @@
       "context": "import",
       "source_file": "backend/tests/test_core.py",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_test_core",
+      "target": "backend_app_services_llm_plain",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/tests/test_core.py",
+      "source_location": "L84",
       "weight": 1.0
     },
     {
@@ -7241,7 +7956,7 @@
     },
     {
       "source": "frontend_src_app",
-      "target": "frontend_src_pages_explorerpage_explorerpage",
+      "target": "frontend_src_pages_evalpage_evalpage",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7253,7 +7968,7 @@
     },
     {
       "source": "frontend_src_app",
-      "target": "frontend_src_pages_landingpage_landingpage",
+      "target": "frontend_src_pages_explorerpage_explorerpage",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7261,6 +7976,18 @@
       "context": "import",
       "source_file": "frontend/src/App.tsx",
       "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app",
+      "target": "frontend_src_pages_landingpage_landingpage",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/App.tsx",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -7325,7 +8052,7 @@
     },
     {
       "source": "frontend_src_app",
-      "target": "frontend_src_pages_evalpage_evalpage",
+      "target": "frontend_src_pages_dashboardpage_dashboardpage",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7429,6 +8156,54 @@
       "context": "import",
       "source_file": "frontend/src/pages/ComparePage.tsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_lib_api_apiget",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_components_charts_barlist",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_components_charts_groupedbars",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_components_charts_partbar",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -7597,6 +8372,18 @@
       "context": "import",
       "source_file": "backend/app/routers/query.py",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_stats",
+      "target": "backend_app_services_init",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -7925,7 +8712,7 @@
     },
     {
       "source": "frontend_src_app",
-      "target": "frontend_src_pages_explorerpage",
+      "target": "frontend_src_pages_evalpage",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7937,7 +8724,7 @@
     },
     {
       "source": "frontend_src_app",
-      "target": "frontend_src_pages_landingpage",
+      "target": "frontend_src_pages_explorerpage",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7945,6 +8732,18 @@
       "context": "import",
       "source_file": "frontend/src/App.tsx",
       "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app",
+      "target": "frontend_src_pages_landingpage",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/App.tsx",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -8009,7 +8808,7 @@
     },
     {
       "source": "frontend_src_app",
-      "target": "frontend_src_pages_evalpage",
+      "target": "frontend_src_pages_dashboardpage",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8017,6 +8816,18 @@
       "context": "import",
       "source_file": "frontend/src/App.tsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L1",
       "weight": 1.0
     },
     {
@@ -8173,6 +8984,42 @@
       "context": "import",
       "source_file": "frontend/src/pages/ComparePage.tsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_lib_api",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_components_charts",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -8440,6 +9287,18 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_main",
+      "target": "backend_app_routers_stats",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/main.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_routers_eval",
       "target": "backend_app_services_eval",
       "relation": "imports_from",
@@ -8533,6 +9392,30 @@
       "context": "submodule_import",
       "source_file": "backend/app/routers/query.py",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_stats",
+      "target": "backend_app_services_graphdb",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_stats",
+      "target": "backend_app_services_vectorstore",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "submodule_import",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -8698,7 +9581,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/main.py",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -8988,6 +9871,28 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_routers_stats",
+      "target": "backend_app_routers_stats_corpus",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_stats",
+      "target": "backend_app_routers_stats_overview",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_services_chunking",
       "target": "backend_app_services_chunking_chunk_text",
       "relation": "contains",
@@ -9264,13 +10169,24 @@
     },
     {
       "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_graphdb_overview",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L236",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
       "target": "backend_app_services_graphdb_entity_patterns",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L237",
+      "source_location": "L262",
       "weight": 1.0
     },
     {
@@ -9281,7 +10197,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L253",
+      "source_location": "L278",
       "weight": 1.0
     },
     {
@@ -9292,29 +10208,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L260",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_services_graphdb",
-      "target": "backend_app_services_graphdb_query_subgraph",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L270",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_app_services_graphdb",
-      "target": "backend_app_services_graphdb_subgraph",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L286",
+      "source_location": "L285",
       "weight": 1.0
     },
     {
@@ -9326,6 +10220,28 @@
       "confidence_score": 1.0,
       "source_file": "backend/app/services/graphdb.py",
       "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_graphdb_query_subgraph",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L295",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb",
+      "target": "backend_app_services_graphdb_subgraph",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L311",
       "weight": 1.0
     },
     {
@@ -9440,13 +10356,24 @@
     },
     {
       "source": "backend_app_services_llm",
+      "target": "backend_app_services_llm_plain",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_llm",
       "target": "backend_app_services_llm_generate_json",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/llm.py",
-      "source_location": "L81",
+      "source_location": "L89",
       "weight": 1.0
     },
     {
@@ -9638,17 +10565,6 @@
     },
     {
       "source": "backend_tests_test_core",
-      "target": "backend_tests_test_core_test_parse_upload_formats",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "backend/tests/test_core.py",
-      "source_location": "L105",
-      "weight": 1.0
-    },
-    {
-      "source": "backend_tests_test_core",
       "target": "backend_tests_test_core_node",
       "relation": "contains",
       "_origin": "ast",
@@ -9660,13 +10576,24 @@
     },
     {
       "source": "backend_tests_test_core",
+      "target": "backend_tests_test_core_test_parse_upload_formats",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/test_core.py",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_test_core",
       "target": "backend_tests_test_core_test_parse_upload_rejects_bad_input_per_item",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L125",
+      "source_location": "L133",
       "weight": 1.0
     },
     {
@@ -9781,13 +10708,24 @@
     },
     {
       "source": "backend_tests_test_core",
-      "target": "backend_tests_test_core_text_pdf",
+      "target": "backend_tests_test_core_test_plain_strips_markdown_but_keeps_content",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/tests/test_core.py",
       "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_test_core",
+      "target": "backend_tests_test_core_text_pdf",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/test_core.py",
+      "source_location": "L91",
       "weight": 1.0
     },
     {
@@ -10260,7 +11198,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L121",
+      "source_location": "L123",
       "weight": 1.0
     },
     {
@@ -10271,7 +11209,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -10282,7 +11220,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/App.tsx",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -10293,7 +11231,95 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/App.tsx",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts",
+      "target": "frontend_src_components_charts_series",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts",
+      "target": "frontend_src_components_charts_groupedbars",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts",
+      "target": "frontend_src_components_charts_usegrown",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts",
+      "target": "frontend_src_components_charts_fmt",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts",
+      "target": "frontend_src_components_charts_baritem",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/charts.tsx",
       "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts",
+      "target": "frontend_src_components_charts_barlist",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts",
+      "target": "frontend_src_components_charts_part",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_charts",
+      "target": "frontend_src_components_charts_partbar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/charts.tsx",
+      "source_location": "L93",
       "weight": 1.0
     },
     {
@@ -10617,6 +11643,39 @@
     },
     {
       "source": "frontend_src_pages_chatpage",
+      "target": "frontend_src_pages_chatpage_thinking",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L207",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage",
+      "target": "frontend_src_pages_chatpage_turnerror",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L225",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage",
+      "target": "frontend_src_pages_chatpage_answer",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage",
       "target": "frontend_src_pages_chatpage_graphedge",
       "relation": "contains",
       "_origin": "ast",
@@ -10639,13 +11698,35 @@
     },
     {
       "source": "frontend_src_pages_chatpage",
-      "target": "frontend_src_pages_chatpage_chatpage",
+      "target": "frontend_src_pages_chatpage_turn",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/ChatPage.tsx",
       "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage",
+      "target": "frontend_src_pages_chatpage_suggestions",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage",
+      "target": "frontend_src_pages_chatpage_chatpage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -10661,13 +11742,24 @@
     },
     {
       "source": "frontend_src_pages_chatpage_chatpage",
-      "target": "frontend_src_pages_chatpage_chatpage_ask",
+      "target": "frontend_src_pages_chatpage_chatpage_newchat",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/ChatPage.tsx",
-      "source_location": "L46",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_chatpage_chatpage",
+      "target": "frontend_src_pages_chatpage_chatpage_run",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/ChatPage.tsx",
+      "source_location": "L76",
       "weight": 1.0
     },
     {
@@ -10811,6 +11903,138 @@
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/ComparePage.tsx",
       "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_overview",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_card",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L209",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_stat",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L221",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_dashboardskeleton",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L242",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_rel_label",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_type",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_eval_groups",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_fmt",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_fmtdate",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_dashboardpage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_evalgroup",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_dashboard",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -11903,6 +13127,17 @@
       "weight": 1.0
     },
     {
+      "source": "backend_app_routers_stats_rationale_34",
+      "target": "backend_app_routers_stats_overview",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_services_chunking_rationale_1",
       "target": "backend_app_services_chunking",
       "relation": "rationale_for",
@@ -12002,47 +13237,58 @@
       "weight": 1.0
     },
     {
-      "source": "backend_app_services_graphdb_rationale_238",
+      "source": "backend_app_services_graphdb_rationale_237",
+      "target": "backend_app_services_graphdb_overview",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/graphdb.py",
+      "source_location": "L237",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_graphdb_rationale_263",
       "target": "backend_app_services_graphdb_entity_patterns",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L238",
+      "source_location": "L263",
       "weight": 1.0
     },
     {
-      "source": "backend_app_services_graphdb_rationale_254",
+      "source": "backend_app_services_graphdb_rationale_279",
       "target": "backend_app_services_graphdb_invalidate_entity_cache",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L254",
+      "source_location": "L279",
       "weight": 1.0
     },
     {
-      "source": "backend_app_services_graphdb_rationale_261",
+      "source": "backend_app_services_graphdb_rationale_286",
       "target": "backend_app_services_graphdb_find_entities",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L261",
+      "source_location": "L286",
       "weight": 1.0
     },
     {
-      "source": "backend_app_services_graphdb_rationale_271",
+      "source": "backend_app_services_graphdb_rationale_296",
       "target": "backend_app_services_graphdb_query_subgraph",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/graphdb.py",
-      "source_location": "L271",
+      "source_location": "L296",
       "weight": 1.0
     },
     {
@@ -12079,14 +13325,25 @@
       "weight": 1.0
     },
     {
-      "source": "backend_app_services_llm_rationale_82",
+      "source": "backend_app_services_llm_rationale_78",
+      "target": "backend_app_services_llm_plain",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app/services/llm.py",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_services_llm_rationale_90",
       "target": "backend_app_services_llm_generate_json",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app/services/llm.py",
-      "source_location": "L82",
+      "source_location": "L90",
       "weight": 1.0
     },
     {
@@ -12178,14 +13435,14 @@
       "weight": 1.0
     },
     {
-      "source": "backend_tests_test_core_rationale_84",
+      "source": "backend_tests_test_core_rationale_92",
       "target": "backend_tests_test_core_text_pdf",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/tests/test_core.py",
-      "source_location": "L84",
+      "source_location": "L92",
       "weight": 1.0
     },
     {
@@ -12225,6 +13482,30 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_pages_dashboardpage_dashboardpage",
+      "target": "frontend_src_pages_dashboardpage_dashboardpage_load",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "argument",
+      "source_file": "frontend/src/pages/DashboardPage.tsx",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app_routers_stats_overview",
+      "target": "backend_app_routers_stats_corpus",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
       "source": "backend_app_services_graphdb_write_extraction",
       "target": "backend_app_services_extraction_entity",
       "relation": "uses",
@@ -12250,5 +13531,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "824480b2cf618285e0eac0bd563e0a6bc256d903"
+  "built_at_commit": "2b70507078c437279414b6b49b9849ba3c0d8fda"
 }

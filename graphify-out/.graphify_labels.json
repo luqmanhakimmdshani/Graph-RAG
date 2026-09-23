@@ -23,6 +23,7 @@
   "21": "AdminPage.tsx",
   "22": "EvalPage.tsx",
   "23": "Intent: Project Audit & Next-Phase Build-Out",
-  "24": "ExplorerPage.tsx",
-  "25": "api.ts"
+  "24": "DashboardPage.tsx",
+  "25": "api.ts",
+  "26": "ComparePage"
 }
