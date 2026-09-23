@@ -24,10 +24,15 @@ class Settings(BaseSettings):
     # nothing enforcing the PRD's own "~8s acceptable" query latency budget.
     # 20s gives real answers room to finish while still failing a stuck one.
     gemini_timeout_ms: int = 20_000
-    # "gemini" or "ollama" - Ollama is the local fallback when Gemini's quota is
-    # spent. Default model fits a 4 GB GPU; bigger models answer better but
-    # spill to CPU there.
+    # "gemini", "ollama" or "openai" - Ollama is the local fallback when Gemini's
+    # quota is spent (default model fits a 4 GB GPU; bigger ones spill to CPU).
+    # "openai" is any OpenAI-compatible endpoint: OmniRoute, Groq, OpenRouter...
     llm_provider: str = "gemini"
+    openai_base_url: str = "http://localhost:20128/v1"
+    openai_api_key: str = ""
+    openai_model: str = "auto/best-free"
+    # Routers like OmniRoute fall back across providers inside one request.
+    openai_timeout_s: float = 60.0
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "llama3.2:3b"
     ollama_timeout_s: float = 20.0

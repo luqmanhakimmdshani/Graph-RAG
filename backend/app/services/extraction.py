@@ -89,8 +89,8 @@ def _retry_delay_s(error: Exception, default: float) -> float:
 
 
 def extract(text: str, model: str | None = None) -> ExtractionResult:
-    if settings.llm_provider == "ollama":
-        # Local model: no quota, so no throttle/429 handling needed.
+    if settings.llm_provider != "gemini":
+        # Ollama/OpenAI-compatible: no Gemini quota, so none of the 429 handling below.
         return llm.generate_json(PROMPT.format(text=text), ExtractionResult)
     for attempt in range(_MAX_RETRIES):
         _throttle()
