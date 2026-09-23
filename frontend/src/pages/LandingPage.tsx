@@ -172,7 +172,7 @@ export default function LandingPage() {
       {/* Live stats - pulled from the running graph, not fabricated */}
       <section className="border-b border-[var(--border)] px-6 py-6 lg:px-10">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-10 gap-y-3">
-          <span className="flex items-center gap-1.5 text-xs text-[var(--text-faint)]">
+          <span className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[var(--text-faint)]">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" style={{ boxShadow: "0 0 6px #10b981" }} />
             live from the graph
           </span>

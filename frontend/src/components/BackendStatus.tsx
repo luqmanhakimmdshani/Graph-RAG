@@ -29,7 +29,7 @@ export default function BackendStatus({ pill = false }: { pill?: boolean }) {
   if (pill) {
     return (
       <span
-        className="flex h-9 items-center gap-2 text-xs text-[var(--text-muted)]"
+        className="flex h-9 items-center gap-2 text-xs uppercase tracking-wider text-[var(--text-muted)]"
         title={status === "ok" ? "The server is running" : status === "down" ? "The server isn't reachable" : "Checking the server"}
       >
         {dot}
