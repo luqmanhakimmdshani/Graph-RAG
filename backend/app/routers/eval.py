@@ -84,12 +84,21 @@ def _run_eval_job(questions: list[dict]) -> None:
             _throttle()
             graph = asyncio.run(query_global(req) if q["category"] == "global" else query_graph_rag(req))
 
-            _throttle()
-            generic_score = judge.score(q["question"], q["reference_answer"], generic["answer"])
-            _throttle()
-            graph_score = judge.score(q["question"], q["reference_answer"], graph["answer"])
+            # A pipeline that errored returns answer "" - judging that let a small
+            # judge model score an empty answer 4-5. Score it 0 and say why.
+            pipeline_errors = {}
+            scores = {}
+            for name, res in (("generic", generic), ("graph", graph)):
+                if res.get("error") or not res["answer"].strip():
+                    pipeline_errors[name] = res.get("error") or "empty answer"
+                    scores[name] = judge.JudgeScore(relevance=0, faithfulness=0, reasoning="")
+                else:
+                    _throttle()
+                    scores[name] = judge.score(q["question"], q["reference_answer"], res["answer"])
+            generic_score, graph_score = scores["generic"], scores["graph"]
 
             results.append({
+                **({"error": "; ".join(f"{k}: {v}" for k, v in pipeline_errors.items())} if pipeline_errors else {}),
                 "id": q["id"],
                 "category": q["category"],
                 "question": q["question"],
