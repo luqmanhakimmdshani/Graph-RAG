@@ -56,8 +56,29 @@ functional/defense-readiness/quality, tiered by cost and blast radius.
   duplicate edges combined); merged names live on as `alias_norms`, honoured
   by ingestion, entity linking and Explorer lookup. Confidence now ranks edges
   within each hop tier and Graph RAG drops facts under 0.5. `backend/tests/`
-  covers the pure logic (8 tests, no services needed). Community summaries
-  predate the merge — re-run `detect_communities.py` when quota allows.
+  covers the pure logic (9 tests, no services needed).
+- **Follow-ups found while finishing Tier 4** (branch `tier4-entity-resolution`):
+  - Community summaries were keyed on Louvain id, which renumbers whenever
+    the graph changes — re-running after the merge would have pinned old
+    summaries onto different clusters. Now keyed on a member-set fingerprint:
+    140/150 summaries reused, 10 regenerated.
+  - Eval judged empty answers from errored pipelines (a small judge scored
+    one 4/5); failed pipelines now score 0 and record the error.
+  - Gemini free quota ran out, so the LLM layer is now provider-switchable
+    (`LLM_PROVIDER`): `gemini`, `ollama` (local), or `openai` (any OpenAI-
+    compatible endpoint). Current config: OmniRoute combo `rag-free` (Groq
+    gpt-oss-120b, OpenRouter fallback for long prompts) with the eval judge
+    pinned to NVIDIA nemotron-3-super-120b (`JUDGE_MODEL`), so one run is
+    scored by one judge from a different model family than the answers.
+  - Local Ollama (llama3.2:3b, 4 GB GPU) was tried and rejected: its 2048-
+    token default context silently truncated global (~12k tokens) and
+    generic (~3.5k) prompts, and a larger context spilled to CPU past the
+    20s budget. Its eval numbers are not a valid comparison.
+  - Compare's frontend timeout raised 25s → 45s (two sequential LLM calls).
+  - Eval results on `rag-free` + pinned judge: pending (run in progress).
+  - Not done: graph not re-extracted with the new model (1248 calls vs
+    Groq's 8k tokens/min — would mostly land on fallback models); the
+    "Who" → `WHO` case-insensitive entity-linking false positive.
 
 Every backend change in Tiers 2-3 was tested live against the real Neo4j/
 Chroma stores (not just import/build checks), with test writes fully cleaned
