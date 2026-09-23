@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -46,9 +46,21 @@ function StatReadout({ label, value, icon: Icon }: { label: string; value: numbe
 
 export default function LandingPage() {
   const [stats, setStats] = useState<GraphStats | null>(null);
+  // The hero logo matches the wording block's height, which changes whenever
+  // the headline re-wraps (viewport width, font load) - so observe it.
+  const wordingRef = useRef<HTMLDivElement>(null);
+  const [wordingHeight, setWordingHeight] = useState(0);
 
   useEffect(() => {
     apiGet<GraphStats>("/graph/stats").then(setStats).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const el = wordingRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setWordingHeight(el.offsetHeight));
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   return (
@@ -78,40 +90,57 @@ export default function LandingPage() {
         <div className="pointer-events-none relative mx-auto flex h-full max-w-6xl flex-col justify-center px-6 lg:px-10">
           {/* No gradient behind this column anymore (the graph's glow reads better
               unobscured), so legibility against whatever bright nodes happen to
-              settle behind the text this load comes from a text-shadow instead -
-              inherited by every child below rather than repeated per element. */}
-          {/* Logo sits beside the text column (stacked above it on narrow screens);
-              its own dark tile keeps the white linework legible over bright nodes. */}
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
-            <img
-              src="/logo.svg"
-              alt="Graph RAG logo"
-              className="h-20 w-20 shrink-0 rounded-2xl lg:h-24 lg:w-24"
-              style={{ boxShadow: "0 0 32px rgba(255,255,255,0.16), 0 8px 30px rgba(0,0,0,0.6)" }}
-            />
-            <div className="max-w-xl" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.75)" }}>
-              <div className="label mb-3">Knowledge-graph-augmented RAG</div>
-              <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl">
-                Ask questions your vector database can't answer.
-              </h1>
-              <p className="mt-4 text-[15px] leading-7 text-[var(--text-muted)]">
-                A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal,
-                and community summarization, benchmarked head-to-head against generic vector RAG.
-              </p>
-              <div className="mt-7 flex flex-wrap items-center gap-3" style={{ textShadow: "none" }}>
-                <Link
-                  to="/chat"
-                  className="pointer-events-auto flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)]"
-                >
-                  Open Chat <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  to="/compare"
-                  className="pointer-events-auto flex items-center gap-2 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
-                >
-                  Generic vs Graph RAG
-                </Link>
+              settle behind it comes from a shadow instead: text-shadow on the
+              wording, and the same shadow as a drop-shadow filter on the logo,
+              which has no background tile here - just its white linework. */}
+          <div>
+            {/* Logo beside the wording at the wording block's full height
+                (logo-mark.svg is cropped to the network with no padding, so it
+                fills that height); stacked above it on narrow screens. */}
+            <div className="flex flex-col gap-5 sm:flex-row sm:gap-8">
+              {/* Height is measured from the wording block (see wordingHeight) -
+                  CSS can't do it: a flex item's width is resolved before its
+                  stretched height, so aspect-ratio + stretch gave a 0-wide logo,
+                  and a bare stretched SVG img (no intrinsic width) blew up instead. */}
+              <img
+                src="/logo-mark.svg"
+                alt="Graph RAG logo"
+                className="h-16 w-auto shrink-0 self-start sm:h-[var(--wording-h)]"
+                style={{
+                  aspectRatio: "468 / 432",
+                  ["--wording-h" as string]: wordingHeight ? `${wordingHeight}px` : "10rem",
+                  filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.9)) drop-shadow(0 4px 20px rgba(0,0,0,0.75))",
+                }}
+              />
+              <div
+                ref={wordingRef}
+                className="max-w-xl"
+                style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.75)" }}
+              >
+                <div className="label mb-3">Knowledge-graph-augmented RAG</div>
+                <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl">
+                  Ask questions your vector database can't answer.
+                </h1>
+                <p className="mt-4 text-[15px] leading-7 text-[var(--text-muted)]">
+                  A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal,
+                  and community summarization, benchmarked head-to-head against generic vector RAG.
+                </p>
               </div>
+            </div>
+            {/* Buttons sit under the whole logo + wording row, not just the wording. */}
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <Link
+                to="/chat"
+                className="pointer-events-auto flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)]"
+              >
+                Open Chat <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                to="/compare"
+                className="pointer-events-auto flex items-center gap-2 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
+              >
+                Generic vs Graph RAG
+              </Link>
             </div>
           </div>
         </div>
