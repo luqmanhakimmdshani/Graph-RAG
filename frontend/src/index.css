@@ -156,6 +156,30 @@ button:active:not(:disabled) {
   border-radius: var(--radius-lg);
 }
 
+/* Hover/focus for clickable cards. Lives here, not as Tailwind hover:
+   utilities: .card is unlayered CSS, which beats Tailwind v4's layered
+   utilities, so hover:bg-* on a .card silently never applied. Hover styles
+   only on real pointers, so touch screens don't get a stuck hover state. */
+.card-hover {
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+@media (hover: hover) {
+  .card-hover:hover {
+    background: var(--surface-hover);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    color: var(--text);
+    transform: translateY(-1px);
+  }
+}
+.card-hover:active {
+  transform: translateY(0);
+}
+.card-hover:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .glass-strong {
   background: var(--glass-strong);
   backdrop-filter: blur(24px) saturate(160%);

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUp, ChevronDown, ChevronUp, FileText, Layers3, Network, RotateCcw, SquarePen } from "lucide-react";
+import { ArrowUp, ArrowUpRight, ChevronDown, ChevronUp, FileText, Layers3, Network, RotateCcw, SquarePen } from "lucide-react";
 import { apiPost } from "../lib/api";
 import SubgraphView from "../components/SubgraphView";
 
@@ -136,9 +136,14 @@ export default function ChatPage() {
                 <button
                   key={s}
                   onClick={() => ask(s)}
-                  className="card min-h-11 px-4 py-3 text-left text-sm leading-5 text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
+                  className="card card-hover group flex min-h-11 items-center justify-between gap-3 px-4 py-3 text-left text-sm leading-5 text-[var(--text-muted)]"
                 >
                   {s}
+                  {/* Fades in on hover: "click to ask this". */}
+                  <ArrowUpRight
+                    className="h-4 w-4 shrink-0 text-[var(--accent)] opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+                    aria-hidden
+                  />
                 </button>
               ))}
             </div>

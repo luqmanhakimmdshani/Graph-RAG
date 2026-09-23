@@ -123,7 +123,7 @@ export default function AdminPage() {
         </p>
       </div>
 
-      <label className="card mb-6 flex cursor-pointer flex-col items-center gap-2 border-dashed p-8 text-center transition-colors hover:bg-[var(--surface-hover)]">
+      <label className="card card-hover mb-6 flex flex-col items-center gap-2 border-dashed p-8 text-center">
         <input
           type="file"
           multiple
