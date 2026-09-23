@@ -56,35 +56,22 @@ export default function CodeGraphHero() {
       .width(el.clientWidth)
       .graphData(codeGraph);
 
-    // Tighter than the d3-force-3d defaults (link distance ~30, charge ~-30),
-    // then scaled 1.5x (link 14->21, charge -14->-21, distanceMax 160->240)
-    // for the extra breathing room requested later - keeps the same density
-    // ratio that avoided both an overly sparse haze and a clumped-up core.
-    //
-    // Uncapped repulsion (the default) flings low-degree/leaf nodes - the
-    // ones with nothing but the link force to pull them back - out into
-    // empty space once they clear the dense core, so the result reads as one
-    // cluster plus stray outliers "in the void" instead of one consistent
-    // shape. Capping distanceMax stops charge from acting past local range,
-    // and a slightly stronger center pull reins in anything still drifting.
-    graph.d3Force("link")?.distance(21);
-    graph.d3Force("charge")?.strength(-21).distanceMax(240);
-    graph.d3Force("center")?.strength(1.2);
-
-    // Ticks to settle = ln(alphaMin)/ln(1-decay), so 0.008 (an earlier pass at
-    // this) ran ~860 ticks - a floaty ~14s drift that never felt like it
-    // finished. 0.035 settles in ~190 ticks (~3s at 60fps): still a visible
-    // unfold, not an overstayed one. Velocity decay (d3's per-tick friction,
-    // default 0.6) raised to 0.85 kills the momentum/overshoot that made the
-    // motion read as loose and fluid instead of a direct settle.
-    graph.d3AlphaDecay(0.035);
-    graph.d3VelocityDecay(0.85);
+    // Charge strength -90 matches graphify's own graph-3d.html viewer (its
+    // only override too). Unlike that page, the hero is a fixed 600px strip
+    // nobody pans or zooms out of, so left uncapped this flings low-degree
+    // nodes out past the frame into empty space - the same "void" problem
+    // fixed earlier. A distanceMax cap plus a stronger center pull (scaled up
+    // to counter the much stronger repulsion) keeps everything inside frame
+    // without weakening the -90 charge that was the point of the match.
+    graph.d3Force("charge")?.strength(-90).distanceMax(200);
+    graph.d3Force("center")?.strength(2.5);
 
     const controls = graph.controls();
     controls.autoRotate = !reduceMotion;
     controls.autoRotateSpeed = 0.6;
-    // Pulled back to match the 1.5x-wider force layout above.
-    graph.cameraPosition({ z: 480 });
+    // Pulled back further than before - charge -90 (vs. the -21 this used to
+    // run) spreads the graph much wider, so it needs more room to stay in frame.
+    graph.cameraPosition({ z: 900 });
 
     // Real glow, not a CSS filter - this is a WebGL scene, so bloom has to be
     // a postprocessing render pass over the composer 3d-force-graph already
