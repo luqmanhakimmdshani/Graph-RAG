@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
 import { BarChart3, GitCompare, LayoutDashboard, MessageSquare, Network, UploadCloud } from "lucide-react";
-import { apiGet } from "./lib/api";
+import BackendStatus from "./components/BackendStatus";
 import ErrorBoundary from "./components/ErrorBoundary";
 import AdminPage from "./pages/AdminPage";
 import ChatPage from "./pages/ChatPage";
@@ -19,24 +18,6 @@ const navItems = [
   { to: "/admin", label: "Admin", icon: UploadCloud },
   { to: "/eval", label: "Eval", icon: BarChart3 },
 ];
-
-function BackendStatus() {
-  const [status, setStatus] = useState<"checking" | "ok" | "down">("checking");
-
-  useEffect(() => {
-    apiGet<{ status: string }>("/health")
-      .then(() => setStatus("ok"))
-      .catch(() => setStatus("down"));
-  }, []);
-
-  const color = status === "ok" ? "bg-emerald-500" : status === "down" ? "bg-[var(--danger)]" : "bg-[var(--text-faint)]";
-  return (
-    <span className="mono flex items-center gap-2 text-[11px] text-[var(--text-muted)]">
-      <span className={`inline-block h-1.5 w-1.5 rounded-full ${color}`} style={status === "ok" ? { boxShadow: "0 0 6px #10b981" } : undefined} />
-      backend:{status}
-    </span>
-  );
-}
 
 function AppShell() {
   return (
