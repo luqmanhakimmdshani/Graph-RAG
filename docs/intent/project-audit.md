@@ -75,7 +75,21 @@ functional/defense-readiness/quality, tiered by cost and blast radius.
     generic (~3.5k) prompts, and a larger context spilled to CPU past the
     20s budget. Its eval numbers are not a valid comparison.
   - Compare's frontend timeout raised 25s → 45s (two sequential LLM calls).
-  - Eval results on `rag-free` + pinned judge: pending (run in progress).
+  - Eval on `rag-free` + pinned judge (20 questions, 0 errors after one
+    judge 503 on G4 was re-run), vs the Gemini baseline:
+
+    | Group (n) | Graph rel | Graph faith | Generic rel | Generic faith |
+    |---|---|---|---|---|
+    | overall (20) | 4.90 → 4.95 | 4.80 → 4.80 | 1.65 → 2.40 | 4.75 → 4.80 |
+    | local (8) | 4.88 → 5.00 | 4.88 → 5.00 | 1.25 → 2.50 | 4.88 → 5.00 |
+    | multi_hop (8) | 4.88 → 5.00 | 4.62 → 4.50 | 1.88 → 2.38 | 5.00 → 5.00 |
+    | global (4) | 5.00 → 4.75 | 5.00 → 5.00 | 2.00 → 2.25 | 4.00 → 4.00 |
+
+    Graph RAG holds its lead over generic RAG across every category. The
+    judge changed (Gemini → nemotron), so small deltas are not meaningful;
+    the Gemini-judged baseline stays in git history (`ef64e2e`).
+  - Explorer/Chat/Compare subgraph now has the hero's bloom glow (dark
+    theme only), toned down so node-type colours stay distinguishable.
   - Not done: graph not re-extracted with the new model (1248 calls vs
     Groq's 8k tokens/min — would mostly land on fallback models); the
     "Who" → `WHO` case-insensitive entity-linking false positive.
