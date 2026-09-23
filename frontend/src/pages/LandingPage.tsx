@@ -46,19 +46,19 @@ function StatReadout({ label, value, icon: Icon }: { label: string; value: numbe
 
 export default function LandingPage() {
   const [stats, setStats] = useState<GraphStats | null>(null);
-  // The hero logo matches the wording block's height, which changes whenever
-  // the headline re-wraps (viewport width, font load) - so observe it.
-  const wordingRef = useRef<HTMLDivElement>(null);
-  const [wordingHeight, setWordingHeight] = useState(0);
+  // The hero logo matches the headline's height, which changes whenever it
+  // re-wraps (viewport width, font load) - so observe it.
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const [headlineHeight, setHeadlineHeight] = useState(0);
 
   useEffect(() => {
     apiGet<GraphStats>("/graph/stats").then(setStats).catch(() => {});
   }, []);
 
   useEffect(() => {
-    const el = wordingRef.current;
+    const el = headlineRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => setWordingHeight(el.offsetHeight));
+    const ro = new ResizeObserver(() => setHeadlineHeight(el.offsetHeight));
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
@@ -91,44 +91,42 @@ export default function LandingPage() {
           {/* No gradient behind this column anymore (the graph's glow reads better
               unobscured), so legibility against whatever bright nodes happen to
               settle behind it comes from a shadow instead: text-shadow on the
-              wording, and the same shadow as a drop-shadow filter on the logo,
-              which has no background tile here - just its white linework. */}
-          <div>
-            {/* Logo beside the wording at the wording block's full height
-                (logo-mark.svg is cropped to the network with no padding, so it
-                fills that height); stacked above it on narrow screens. */}
-            <div className="flex flex-col gap-5 sm:flex-row sm:gap-8">
-              {/* Height is measured from the wording block (see wordingHeight) -
-                  CSS can't do it: a flex item's width is resolved before its
-                  stretched height, so aspect-ratio + stretch gave a 0-wide logo,
-                  and a bare stretched SVG img (no intrinsic width) blew up instead. */}
-              <img
-                src="/logo-mark.svg"
-                alt="Graph RAG logo"
-                className="h-16 w-auto shrink-0 self-start sm:h-[var(--wording-h)]"
-                style={{
-                  aspectRatio: "468 / 432",
-                  ["--wording-h" as string]: wordingHeight ? `${wordingHeight}px` : "10rem",
-                  filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.9)) drop-shadow(0 4px 20px rgba(0,0,0,0.75))",
-                }}
-              />
-              <div
-                ref={wordingRef}
-                className="max-w-xl"
-                style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.75)" }}
-              >
-                <div className="label mb-3">Knowledge-graph-augmented RAG</div>
-                <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl">
-                  Ask questions your vector database can't answer.
-                </h1>
-                <p className="mt-4 text-[15px] leading-7 text-[var(--text-muted)]">
-                  A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal,
-                  and community summarization, benchmarked head-to-head against generic vector RAG.
-                </p>
-              </div>
-            </div>
-            {/* Buttons sit under the whole logo + wording row, not just the wording. */}
-            <div className="mt-7 flex flex-wrap items-center gap-3">
+              wording (inherited from the grid), and the same shadow as a
+              drop-shadow filter on the logo, which has no background tile here. */}
+          {/* Two-column grid: the logo sits in column 1 on the headline's row only;
+              label, headline, paragraph and buttons all share column 2, so they
+              line up with the headline rather than with the logo. */}
+          <div
+            className="grid grid-cols-[auto_minmax(0,36rem)] justify-start gap-x-6 lg:gap-x-8"
+            style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.75)" }}
+          >
+            <div className="label col-start-2 mb-3">Knowledge-graph-augmented RAG</div>
+            {/* Height is measured from the headline (see headlineHeight) - CSS
+                can't size an image from a sibling: aspect-ratio + stretch gave a
+                0-wide logo, and a bare stretched SVG img blew up instead.
+                logo-mark.svg is cropped to the network with no padding, so the
+                mark fills exactly the headline's height. */}
+            <img
+              src="/logo-mark.svg"
+              alt="Graph RAG logo"
+              className="col-start-1 row-start-2 self-center"
+              style={{
+                height: headlineHeight ? `${headlineHeight}px` : "6rem",
+                aspectRatio: "468 / 432",
+                filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.9)) drop-shadow(0 4px 20px rgba(0,0,0,0.75))",
+              }}
+            />
+            <h1
+              ref={headlineRef}
+              className="col-start-2 row-start-2 text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl"
+            >
+              Ask questions your vector database can't answer.
+            </h1>
+            <p className="col-start-2 mt-4 text-[15px] leading-7 text-[var(--text-muted)]">
+              A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal, and
+              community summarization, benchmarked head-to-head against generic vector RAG.
+            </p>
+            <div className="col-start-2 mt-7 flex flex-wrap items-center gap-3" style={{ textShadow: "none" }}>
               <Link
                 to="/chat"
                 className="pointer-events-auto flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)]"
