@@ -25,13 +25,6 @@ function communityColor(community: number): string {
 // scrolled offscreen, and skips auto-rotate under prefers-reduced-motion -
 // direct manipulation stays available either way, only the ambient motion
 // is gated.
-//
-// Runs a fresh live force simulation on every load, same as graphify's own
-// graph.html viewer (vis-network: physics on until stabilized, then off) -
-// no saved/pinned coordinates. The tuned forces below always converge to the
-// same overall shape, so it still reads as consistent across loads even
-// though the settle-in animation - and the exact final coordinates - differ
-// each time.
 export default function CodeGraphHero() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -56,17 +49,10 @@ export default function CodeGraphHero() {
       .width(el.clientWidth)
       .graphData(codeGraph);
 
-    // Same force setup as graphify's own graph-3d.html viewer - the only
-    // override there is charge strength, everything else (link distance,
-    // center, alpha/velocity decay) is left at the d3-force-3d defaults.
-    graph.d3Force("charge")?.strength(-90);
-
     const controls = graph.controls();
     controls.autoRotate = !reduceMotion;
     controls.autoRotateSpeed = 0.6;
-    // Pulled back further than before - charge -90 (vs. the -21 this used to
-    // run) spreads the graph much wider, so it needs more room to stay in frame.
-    graph.cameraPosition({ z: 900 });
+    graph.cameraPosition({ z: 420 });
 
     // Real glow, not a CSS filter - this is a WebGL scene, so bloom has to be
     // a postprocessing render pass over the composer 3d-force-graph already
