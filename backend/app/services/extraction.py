@@ -20,6 +20,7 @@ from google.genai import errors, types
 from pydantic import BaseModel
 
 from app.config import settings
+from app.services import llm
 
 _MIN_INTERVAL_S = 4.5  # ~13 req/min - headroom under the 20 RPM cap for retries/jitter
 _MAX_RETRIES = 8
@@ -88,6 +89,9 @@ def _retry_delay_s(error: Exception, default: float) -> float:
 
 
 def extract(text: str, model: str | None = None) -> ExtractionResult:
+    if settings.llm_provider == "ollama":
+        # Local model: no quota, so no throttle/429 handling needed.
+        return llm.generate_json(PROMPT.format(text=text), ExtractionResult)
     for attempt in range(_MAX_RETRIES):
         _throttle()
         try:

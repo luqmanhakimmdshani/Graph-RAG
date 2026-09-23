@@ -24,6 +24,13 @@ class Settings(BaseSettings):
     # nothing enforcing the PRD's own "~8s acceptable" query latency budget.
     # 20s gives real answers room to finish while still failing a stuck one.
     gemini_timeout_ms: int = 20_000
+    # "gemini" or "ollama" - Ollama is the local fallback when Gemini's quota is
+    # spent. Default model fits a 4 GB GPU; bigger models answer better but
+    # spill to CPU there.
+    llm_provider: str = "gemini"
+    ollama_base_url: str = "http://localhost:11434"
+    ollama_model: str = "llama3.2:3b"
+    ollama_timeout_s: float = 20.0
 
 
 settings = Settings()

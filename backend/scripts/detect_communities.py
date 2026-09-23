@@ -17,6 +17,7 @@ import networkx as nx  # noqa: E402
 from google.genai import errors  # noqa: E402
 from networkx.algorithms.community import louvain_communities  # noqa: E402
 
+from app.config import settings  # noqa: E402
 from app.services import community, graphdb  # noqa: E402
 
 _MIN_INTERVAL_S = 4.5  # ~13 req/min - headroom under Gemini free tier's 15 RPM cap
@@ -30,6 +31,8 @@ MIN_SIZE = 3
 
 def _throttle() -> None:
     global _last_call_at
+    if settings.llm_provider == "ollama":
+        return  # local model, no rate limit
     wait = _last_call_at + _MIN_INTERVAL_S - time.monotonic()
     if wait > 0:
         time.sleep(wait)
