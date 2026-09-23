@@ -120,7 +120,7 @@ export default function LandingPage() {
               ref={headlineRef}
               className="col-start-2 row-start-2 text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl"
             >
-              Ask questions your vector database can't answer.
+              Multi-vector retrieval across a knowledge graph.
             </h1>
             <p className="col-start-2 mt-4 text-[15px] leading-7 text-[var(--text-muted)]">
               A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal, and
