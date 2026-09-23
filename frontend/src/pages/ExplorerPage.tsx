@@ -68,6 +68,9 @@ export default function ExplorerPage() {
   // makes the space "expandable": click a node, its neighborhood merges in.
   async function expand(entity: string) {
     if (loading) return;
+    // Mirror the clicked entity into the search bar, so pressing Search starts
+    // a fresh graph from it instead of retyping the name.
+    setQuery(entity);
     setLoading(true);
     try {
       const res = await apiGet<SubgraphResponse>(
