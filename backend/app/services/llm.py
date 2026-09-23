@@ -71,11 +71,19 @@ def generate(prompt: str) -> str:
         text = _openai(prompt)
     else:
         text = _client().models.generate_content(model=settings.gemini_model, contents=prompt).text
-    # Prompts ask for plain text, but some models still bold key terms and the
-    # UI renders answers as plain text - drop the literal ** markers. gpt-oss
-    # also cites as 【13】 rather than the [13] the prompts ask for.
+    return _plain(text)
+
+
+def _plain(text: str) -> str:
+    """Prompts ask for plain text and the UI renders answers as plain text, but
+    models still emit markdown (bold, * bullets, *italics*, # headings) that
+    shows up as literal symbols. gpt-oss also cites as 【13】, not [13]."""
     text = re.sub(r"【(\d+)(?:†[^】]*)?】", r"[\1]", text)
-    return re.sub(r"\*\*(.+?)\*\*", r"\1", text).strip()
+    text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)
+    text = re.sub(r"^[ \t]*[*-][ \t]+", "• ", text, flags=re.MULTILINE)  # "* item" / "- item"
+    text = re.sub(r"^#{1,6}[ \t]+", "", text, flags=re.MULTILINE)
+    text = re.sub(r"\*([^*\n]+?)\*", r"\1", text)  # *italic* - after bullets, so "* " is gone
+    return text.strip()
 
 
 def generate_json(prompt: str, schema, model: str | None = None):

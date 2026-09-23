@@ -80,6 +80,14 @@ def test_generate_strips_bold_but_keeps_words(monkeypatch):
     assert llm.generate("x") == "It launched Amazon Q and Bedrock[13][2]."
 
 
+def test_plain_strips_markdown_but_keeps_content():
+    from app.services.llm import _plain
+    raw = "## Trends\n* Streaming: Netflix's *Scoop* [4].\n- Animation: *Gabby's Dollhouse* [18]\nSales rose 5*2 times."
+    assert _plain(raw) == (
+        "Trends\n• Streaming: Netflix's Scoop [4].\n• Animation: Gabby's Dollhouse [18]\nSales rose 5*2 times."
+    )
+
+
 def _text_pdf(text: str) -> bytes:
     """Smallest valid one-page PDF with a real text layer (pypdf can't author text)."""
     stream = f"BT /F1 12 Tf 72 720 Td ({text}) Tj ET".encode()
