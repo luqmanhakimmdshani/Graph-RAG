@@ -7,6 +7,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, BackgroundTasks
 
+from app.config import settings
 from app.routers.query import QueryRequest, query_generic_rag, query_global, query_graph_rag
 from app.services import eval as judge
 
@@ -30,6 +31,8 @@ _state = {"running": False, "completed": 0, "total": 0}
 
 def _throttle() -> None:
     global _last_call_at
+    if settings.llm_provider == "ollama":
+        return  # local model, no rate limit
     wait = _last_call_at + _MIN_INTERVAL_S - time.monotonic()
     if wait > 0:
         time.sleep(wait)

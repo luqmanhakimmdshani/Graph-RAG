@@ -170,13 +170,43 @@ def community_relationships(community_id: int, limit: int = 40) -> list[dict]:
         return [{"source": r["src"], "type": r["type"], "target": r["tgt"]} for r in result]
 
 
-def write_community_summary(community_id: int, summary: str, size: int) -> None:
+def write_community_summary(community_id: int, summary: str, size: int, fingerprint: str) -> None:
     with _session() as session:
         session.run(
-            "MERGE (c:Community {id: $id}) SET c.summary = $summary, c.size = $size",
+            "MERGE (c:Community {id: $id}) SET c.summary = $summary, c.size = $size, c.fingerprint = $fp",
             id=community_id,
             summary=summary,
             size=size,
+            fp=fingerprint,
+        )
+
+
+def current_community_members() -> dict[int, list[str]]:
+    """community_id -> member element ids, as currently written on the nodes."""
+    with _session() as session:
+        result = session.run(
+            "MATCH (n) WHERE n.community_id IS NOT NULL AND NOT n:Community "
+            "RETURN n.community_id AS cid, collect(elementId(n)) AS ids"
+        )
+        return {r["cid"]: r["ids"] for r in result}
+
+
+def all_community_nodes() -> list[dict]:
+    with _session() as session:
+        result = session.run("MATCH (c:Community) RETURN c.id AS id, c.summary AS summary, c.fingerprint AS fp")
+        return [r.data() for r in result]
+
+
+def delete_communities_except(keep: list[tuple[int, str]]) -> None:
+    """Drop every :Community whose (id, fingerprint) isn't in keep - its id now
+    points at a different member set, or no longer exists."""
+    with _session() as session:
+        session.run(
+            # IS NULL first: [id, null] IN list is null (not false), which would
+            # silently keep every pre-fingerprint summary.
+            "MATCH (c:Community) WHERE c.fingerprint IS NULL OR NOT [c.id, c.fingerprint] IN $keep "
+            "DETACH DELETE c",
+            keep=[list(k) for k in keep],
         )
 
 
