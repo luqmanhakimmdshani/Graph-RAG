@@ -123,7 +123,7 @@ export default function LandingPage() {
             <div className="col-start-2 mt-7 flex flex-wrap items-center gap-3" style={{ textShadow: "none" }}>
               <Link
                 to="/chat"
-                className="pointer-events-auto flex items-center gap-2 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
+                className="pointer-events-auto flex items-center gap-2 rounded-md border border-[color-mix(in_srgb,var(--accent)_40%,transparent)] bg-[var(--accent-soft)] px-4 py-2.5 text-sm font-medium text-[var(--accent)] transition-colors hover:bg-[color-mix(in_srgb,var(--accent)_20%,transparent)]"
               >
                 Open Chat <ArrowRight className="h-4 w-4" />
               </Link>
