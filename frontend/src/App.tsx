@@ -41,12 +41,13 @@ function AppShell() {
     <div className="flex min-h-full">
       <aside className="glass-strong hidden lg:flex w-56 shrink-0 flex-col border-r px-3 py-5" style={{ borderColor: "var(--glass-border)" }}>
         <div className="mb-8 flex items-center gap-2.5 px-2">
-          <div
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-foreground)]"
-            style={{ boxShadow: "0 0 20px color-mix(in srgb, var(--accent) 45%, transparent)" }}
-          >
-            <Network className="h-4 w-4" strokeWidth={2.25} />
-          </div>
+          {/* Glow uses the logo's own mid-gradient purple, not --accent green. */}
+          <img
+            src="/logo.svg"
+            alt=""
+            className="h-8 w-8 rounded-lg"
+            style={{ boxShadow: "0 0 20px color-mix(in srgb, #8a5cd6 45%, transparent)" }}
+          />
           <div>
             <div className="text-sm font-semibold leading-tight">Graph RAG</div>
             <div className="mono text-[10px] leading-tight tracking-wide text-[var(--text-faint)]">capstone</div>
@@ -87,9 +88,7 @@ function AppShell() {
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="scrim-header sticky top-0 z-10 flex h-14 items-center justify-between border-b border-[var(--border)] px-5 lg:hidden">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-foreground)]">
-              <Network className="h-3.5 w-3.5" strokeWidth={2.25} />
-            </div>
+            <img src="/logo.svg" alt="" className="h-7 w-7 rounded-lg" />
             <span className="text-sm font-semibold">Graph RAG</span>
           </div>
           <BackendStatus />

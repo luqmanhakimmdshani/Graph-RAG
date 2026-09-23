@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="430 142 540 540">
+  <defs>
+    <linearGradient id="bgGradient" x1="430" y1="142" x2="970" y2="682" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1869cf" />
+      <stop offset="50%" stop-color="#8a5cd6" />
+      <stop offset="100%" stop-color="#f49a83" />
+    </linearGradient>
+  </defs>
+  <rect x="430" y="142" width="540" height="540" rx="120" fill="url(#bgGradient)" />
+  <g id="network-icon">
+    <g stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="700" y1="220" x2="550" y2="270" />
+      <line x1="700" y1="220" x2="820" y2="280" />
+      <line x1="700" y1="220" x2="630" y2="340" />
+      <line x1="550" y1="270" x2="490" y2="412" />
+      <line x1="550" y1="270" x2="630" y2="340" />
+      <line x1="820" y1="280" x2="910" y2="412" />
+      <line x1="820" y1="280" x2="740" y2="412" />
+      <line x1="490" y1="412" x2="550" y2="560" />
+      <line x1="490" y1="412" x2="620" y2="480" />
+      <line x1="910" y1="412" x2="810" y2="540" />
+      <line x1="910" y1="412" x2="740" y2="412" />
+      <line x1="550" y1="560" x2="700" y2="604" />
+      <line x1="550" y1="560" x2="620" y2="480" />
+      <line x1="550" y1="560" x2="700" y2="520" />
+      <line x1="810" y1="540" x2="700" y2="604" />
+      <line x1="810" y1="540" x2="740" y2="412" />
+      <line x1="810" y1="540" x2="700" y2="520" />
+      <line x1="700" y1="604" x2="700" y2="520" />
+      <line x1="630" y1="340" x2="740" y2="412" />
+      <line x1="630" y1="340" x2="620" y2="480" />
+      <line x1="740" y1="412" x2="620" y2="480" />
+      <line x1="740" y1="412" x2="700" y2="520" />
+      <line x1="620" y1="480" x2="700" y2="520" />
+    </g>
+    <g stroke="#ffffff" stroke-width="12" fill="url(#bgGradient)">
+      <circle cx="700" cy="220" r="18" />
+      <circle cx="820" cy="280" r="18" />
+      <circle cx="490" cy="412" r="18" />
+      <circle cx="910" cy="412" r="18" />
+      <circle cx="550" cy="560" r="18" />
+      <circle cx="700" cy="604" r="18" />
+      <circle cx="630" cy="340" r="18" />
+      <circle cx="620" cy="480" r="18" />
+      <circle cx="700" cy="520" r="18" />
+      <circle cx="550" cy="270" r="36" />
+      <circle cx="740" cy="412" r="36" />
+      <circle cx="810" cy="540" r="36" />
+      
+    </g>
+  </g>
+</svg>

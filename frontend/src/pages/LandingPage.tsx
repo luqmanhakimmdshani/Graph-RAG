@@ -55,9 +55,7 @@ export default function LandingPage() {
     <div>
       <header className="scrim-header sticky top-0 z-20 flex h-14 items-center justify-between border-b border-[var(--border)] px-5 lg:px-8">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--accent-foreground)]">
-            <Network className="h-3.5 w-3.5" strokeWidth={2.25} />
-          </div>
+          <img src="/logo.svg" alt="" className="h-7 w-7 rounded-lg" />
           <span className="text-sm font-semibold">Graph RAG</span>
           <span className="mono text-[10px] text-[var(--text-faint)]">capstone</span>
         </div>
