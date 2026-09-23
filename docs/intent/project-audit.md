@@ -47,11 +47,17 @@ functional/defense-readiness/quality, tiered by cost and blast radius.
   dropdown, configurable hop depth) — done, commit `808d31e`. Two items
   (Chat's RAG mode, where global questions surface) resolved via an explicit
   product decision rather than guessed at.
-- **Tier 4** (deeper investment: real entity resolution beyond exact-match
-  normalization, using the confidence scores that are written but never
-  read, an automated test suite) — not started. These are bigger asks than
-  Tiers 1-3, not quick fixes; worth scoping as their own follow-up rather
-  than folded into this pass.
+- **Tier 4** (entity resolution, confidence scores, test suite) — done.
+  Resolution is rule-based (`services/resolution.py`, applied by
+  `scripts/resolve_entities.py`): a probe of the live graph showed naive
+  token-subset merging is mostly wrong (Google vs Google DeepMind, BBC vs BBC
+  News), so only spelling variants and unambiguous bare surnames merge. 80
+  nodes folded in (4083 -> 4003 entities, 1622 -> 1599 relationships after
+  duplicate edges combined); merged names live on as `alias_norms`, honoured
+  by ingestion, entity linking and Explorer lookup. Confidence now ranks edges
+  within each hop tier and Graph RAG drops facts under 0.5. `backend/tests/`
+  covers the pure logic (8 tests, no services needed). Community summaries
+  predate the merge — re-run `detect_communities.py` when quota allows.
 
 Every backend change in Tiers 2-3 was tested live against the real Neo4j/
 Chroma stores (not just import/build checks), with test writes fully cleaned

@@ -1,11 +1,11 @@
 """Neo4j writer + reader (FR-5, FR-6, graph stats/subgraph endpoints).
 
-Entity resolution (FR-5) is name-normalization only: lowercase, strip
-punctuation/legal suffixes, collapse whitespace, then MERGE on that key.
-This catches "OpenAI" vs "OpenAI." but not "Altman" vs "Sam Altman" —
-that needs the LLM-assisted alias merge the PRD flags as a known hard
-problem. ponytail: normalization-only resolution; add alias merging if
-the demo corpus shows enough fragmentation to matter.
+Entity resolution (FR-5) has two layers. At write time: name normalization
+(lowercase, strip punctuation/legal suffixes, collapse whitespace), MERGE on
+that key, plus a lookup of alias_norms so a name already merged away by
+scripts/resolve_entities.py ("Space X") lands on its canonical node
+("SpaceX") instead of being recreated. The alias merging itself (spelling
+variants, bare surnames) is rule-based and lives in services/resolution.py.
 """
 import re
 from functools import lru_cache
@@ -45,11 +45,17 @@ def write_extraction(
     name_to_type = {e.name: e.type for e in entities}
 
     with _session() as session:
+        canonical = _canonical_norms(session, [(e.type, normalize_name(e.name)) for e in entities])
+
+        def norm(name: str) -> str:
+            n = normalize_name(name)
+            return canonical.get((name_to_type.get(name), n), n)
+
         for e in entities:
             session.run(
                 f"MERGE (n:{e.type} {{norm_name: $norm_name}}) "
                 "ON CREATE SET n.name = $name",
-                norm_name=normalize_name(e.name),
+                norm_name=norm(e.name),
                 name=e.name,
             )
 
@@ -66,15 +72,57 @@ def write_extraction(
                 "  rel.date = $date, rel.confidence = $confidence "
                 "ON MATCH SET rel.source_chunk_ids = CASE WHEN NOT $chunk_id IN rel.source_chunk_ids "
                 "  THEN rel.source_chunk_ids + $chunk_id ELSE rel.source_chunk_ids END",
-                src_norm=normalize_name(r.source),
+                src_norm=norm(r.source),
                 src_name=r.source,
-                tgt_norm=normalize_name(r.target),
+                tgt_norm=norm(r.target),
                 tgt_name=r.target,
                 chunk_id=chunk_id,
                 article_title=article_title,
                 date=date,
                 confidence=r.confidence,
             )
+
+
+def _canonical_norms(session, keys: list[tuple[str, str]]) -> dict[tuple[str, str], str]:
+    """(type, norm_name) -> the canonical node's norm_name, for names that
+    resolve_entities.py previously merged into another node as an alias."""
+    result = session.run(
+        "UNWIND $rows AS row MATCH (c) WHERE row.type IN labels(c) AND row.norm IN c.alias_norms "
+        "RETURN row.type AS type, row.norm AS norm, c.norm_name AS canonical",
+        rows=[{"type": t, "norm": n} for t, n in keys],
+    )
+    return {(r["type"], r["norm"]): r["canonical"] for r in result}
+
+
+def resolution_candidates() -> list[dict]:
+    with _session() as session:
+        result = session.run(
+            "MATCH (n) WHERE NOT n:Community RETURN elementId(n) AS id, labels(n)[0] AS type, "
+            "n.name AS name, n.norm_name AS norm_name, coalesce(n.alias_norms, []) AS alias_norms, "
+            "COUNT { (n)--() } AS degree"
+        )
+        return [r.data() for r in result]
+
+
+def merge_entities(keep_id: str, dup_ids: list[str], alias_norms: list[str]) -> None:
+    """Fold dup nodes into keep (APOC, available on Aura). The keep node's
+    properties win; relationships to the same neighbor/type are merged, and
+    the dups' names are kept as alias_norms for write-time/query-time lookup."""
+    with _session() as session:
+        session.run(
+            "MATCH (k) WHERE elementId(k) = $keep "
+            "SET k.alias_norms = [a IN apoc.coll.toSet(coalesce(k.alias_norms, []) + $aliases) "
+            "  WHERE a <> k.norm_name] "
+            "WITH k MATCH (d) WHERE elementId(d) IN $dups "
+            "WITH k, collect(d) AS ds "
+            "CALL apoc.refactor.mergeNodes([k] + ds, {properties: 'discard', mergeRels: true}) "
+            "YIELD node "
+            # A keep<->dup edge becomes a self-loop after the merge - meaningless here.
+            "OPTIONAL MATCH (node)-[loop]->(node) DELETE loop",
+            keep=keep_id,
+            dups=dup_ids,
+            aliases=alias_norms,
+        )
 
 
 def all_nodes_and_edges() -> tuple[list[dict], list[dict]]:
@@ -161,12 +209,14 @@ def _entity_patterns() -> tuple[tuple[str, re.Pattern], ...]:
     restart the app to pick up entities from newly ingested articles."""
     with _session() as session:
         result = session.run(
-            "MATCH (n) WHERE n.name IS NOT NULL RETURN DISTINCT n.name AS name, n.norm_name AS norm_name"
+            "MATCH (n) WHERE n.name IS NOT NULL RETURN DISTINCT n.name AS name, "
+            "[n.norm_name] + coalesce(n.alias_norms, []) AS norms"
         )
         return tuple(
-            (r["name"], re.compile(rf"\b{re.escape(r['norm_name'])}\b"))
+            (r["name"], re.compile(rf"\b{re.escape(norm)}\b"))
             for r in result
-            if r["norm_name"]
+            for norm in r["norms"]
+            if norm
         )
 
 
@@ -211,7 +261,8 @@ def subgraph(entity_name: str, hops: int = 2) -> dict:
     norm = normalize_name(entity_name)
     with _session() as session:
         result = session.run(
-            f"MATCH (start {{norm_name: $norm}}) "
+            "MATCH (start) WHERE start.norm_name = $norm OR $norm IN start.alias_norms "
+            "WITH start LIMIT 1 "
             f"OPTIONAL MATCH path = (start)-[*1..{hops}]-(other) "
             "RETURN start, collect(path) AS paths",
             norm=norm,
@@ -237,6 +288,7 @@ def subgraph(entity_name: str, hops: int = 2) -> dict:
                         "target": rel.end_node.element_id,
                         "type": rel.type,
                         "source_article": rel.get("source_article"),
+                        "confidence": rel.get("confidence"),
                     }
                 )
 
@@ -244,7 +296,9 @@ def subgraph(entity_name: str, hops: int = 2) -> dict:
         # entity's subgraph can be large enough that callers truncate it (query-time
         # fact cap, UI node cap); truncating should drop distant edges, not arbitrary
         # ones that might include the entity's own direct relationships.
-        edges.sort(key=lambda e: 0 if start_id in (e["source"], e["target"]) else 1)
+        # Within each tier, highest extraction confidence first.
+        edges.sort(key=lambda e: (0 if start_id in (e["source"], e["target"]) else 1,
+                                  -(e["confidence"] if e["confidence"] is not None else 1.0)))
         direct_ids = {start_id} | {n for e in edges if start_id in (e["source"], e["target"])
                                     for n in (e["source"], e["target"])}
         ordered_nodes = [nodes[i] for i in nodes if i in direct_ids] + [nodes[i] for i in nodes if i not in direct_ids]

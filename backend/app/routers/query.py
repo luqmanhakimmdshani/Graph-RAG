@@ -54,6 +54,13 @@ def _articles_by_title() -> dict[str, dict]:
 # hundred distinct source articles don't turn "Sources" into a wall of links.
 MAX_FACTS = 60
 MAX_CITATIONS = 10
+# Extraction confidence is mostly high (avg ~0.93); the few edges under 0.5
+# are the LLM hedging on a relationship it wasn't sure the text states.
+MIN_CONFIDENCE = 0.5
+
+
+def _confident(edges: list[dict]) -> list[dict]:
+    return [e for e in edges if e.get("confidence") is None or e["confidence"] >= MIN_CONFIDENCE]
 
 
 def _graph_facts(nodes_by_id: dict[str, dict], edges: list[dict]) -> list[str]:
@@ -106,16 +113,18 @@ async def query_graph_rag(req: QueryRequest):
     try:
         entities = graphdb.find_entities(req.question)
         data = graphdb.query_subgraph(entities, req.hops) if entities else {"nodes": [], "edges": []}
-        nodes_by_id = {n["id"]: n for n in data["nodes"]}
-        facts = _graph_facts(nodes_by_id, data["edges"])
-        subgraph = {"nodes": data["nodes"], "edges": data["edges"]}
+        edges = _confident(data["edges"])
+        linked = {n for e in edges for n in (e["source"], e["target"])}
+        nodes = [n for n in data["nodes"] if n["id"] in linked]
+        facts = _graph_facts({n["id"]: n for n in nodes}, edges)
+        subgraph = {"nodes": nodes, "edges": edges}
 
         if not facts:
             global_result = await query_global(req)
             return {**global_result, "subgraph": empty_subgraph, "mode": "global"}
 
         answer = llm.generate(_build_graph_prompt(req.question, facts))
-        return {"answer": answer, "citations": _graph_citations(data["edges"]), "subgraph": subgraph, "mode": "graph"}
+        return {"answer": answer, "citations": _graph_citations(edges), "subgraph": subgraph, "mode": "graph"}
     except Exception:
         return {"answer": "", "citations": [], "subgraph": empty_subgraph,
                 "error": "Graph RAG query failed - Neo4j or the LLM may be unreachable", "mode": "error"}
