@@ -80,28 +80,38 @@ export default function LandingPage() {
               unobscured), so legibility against whatever bright nodes happen to
               settle behind the text this load comes from a text-shadow instead -
               inherited by every child below rather than repeated per element. */}
-          <div className="max-w-xl" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.75)" }}>
-            <div className="label mb-3">Knowledge-graph-augmented RAG</div>
-            <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl">
-              Ask questions your vector database can't answer.
-            </h1>
-            <p className="mt-4 text-[15px] leading-7 text-[var(--text-muted)]">
-              A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal,
-              and community summarization, benchmarked head-to-head against generic vector RAG.
-            </p>
-            <div className="mt-7 flex flex-wrap items-center gap-3" style={{ textShadow: "none" }}>
-              <Link
-                to="/chat"
-                className="pointer-events-auto flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)]"
-              >
-                Open Chat <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                to="/compare"
-                className="pointer-events-auto flex items-center gap-2 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
-              >
-                Generic vs Graph RAG
-              </Link>
+          {/* Logo sits beside the text column (stacked above it on narrow screens);
+              its own dark tile keeps the white linework legible over bright nodes. */}
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
+            <img
+              src="/logo.svg"
+              alt="Graph RAG logo"
+              className="h-20 w-20 shrink-0 rounded-2xl lg:h-24 lg:w-24"
+              style={{ boxShadow: "0 0 32px rgba(255,255,255,0.16), 0 8px 30px rgba(0,0,0,0.6)" }}
+            />
+            <div className="max-w-xl" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.75)" }}>
+              <div className="label mb-3">Knowledge-graph-augmented RAG</div>
+              <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl">
+                Ask questions your vector database can't answer.
+              </h1>
+              <p className="mt-4 text-[15px] leading-7 text-[var(--text-muted)]">
+                A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal,
+                and community summarization, benchmarked head-to-head against generic vector RAG.
+              </p>
+              <div className="mt-7 flex flex-wrap items-center gap-3" style={{ textShadow: "none" }}>
+                <Link
+                  to="/chat"
+                  className="pointer-events-auto flex items-center gap-2 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--accent-foreground)]"
+                >
+                  Open Chat <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  to="/compare"
+                  className="pointer-events-auto flex items-center gap-2 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
+                >
+                  Generic vs Graph RAG
+                </Link>
+              </div>
             </div>
           </div>
         </div>

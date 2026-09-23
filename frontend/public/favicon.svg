@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="455 167 490 490">
+  <defs>
+    <mask id="circle-mask">
+      <rect width="1400" height="788" fill="white" />
+      <g fill="black">
+        <circle cx="700" cy="220" r="18" />
+        <circle cx="820" cy="280" r="18" />
+        <circle cx="490" cy="412" r="18" />
+        <circle cx="910" cy="412" r="18" />
+        <circle cx="550" cy="560" r="18" />
+        <circle cx="700" cy="604" r="18" />
+        <circle cx="630" cy="340" r="18" />
+        <circle cx="620" cy="480" r="18" />
+        <circle cx="700" cy="520" r="18" />
+        <circle cx="550" cy="270" r="36" />
+        <circle cx="740" cy="412" r="36" />
+        <circle cx="810" cy="540" r="36" />
+      </g>
+    </mask>
+  </defs>
+  <rect x="455" y="167" width="490" height="490" rx="96" fill="#101216" />
+
+  <g id="network-icon">
+    <g stroke="#ffffff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" mask="url(#circle-mask)">
+      <line x1="700" y1="220" x2="550" y2="270" />
+      <line x1="700" y1="220" x2="820" y2="280" />
+      <line x1="700" y1="220" x2="630" y2="340" />
+      <line x1="550" y1="270" x2="490" y2="412" />
+      <line x1="550" y1="270" x2="630" y2="340" />
+      <line x1="820" y1="280" x2="910" y2="412" />
+      <line x1="820" y1="280" x2="740" y2="412" />
+      <line x1="490" y1="412" x2="550" y2="560" />
+      <line x1="490" y1="412" x2="620" y2="480" />
+      <line x1="910" y1="412" x2="810" y2="540" />
+      <line x1="910" y1="412" x2="740" y2="412" />
+      <line x1="550" y1="560" x2="700" y2="604" />
+      <line x1="550" y1="560" x2="620" y2="480" />
+      <line x1="550" y1="560" x2="700" y2="520" />
+      <line x1="810" y1="540" x2="700" y2="604" />
+      <line x1="810" y1="540" x2="740" y2="412" />
+      <line x1="810" y1="540" x2="700" y2="520" />
+      <line x1="700" y1="604" x2="700" y2="520" />
+      <line x1="630" y1="340" x2="740" y2="412" />
+      <line x1="630" y1="340" x2="620" y2="480" />
+      <line x1="740" y1="412" x2="620" y2="480" />
+      <line x1="740" y1="412" x2="700" y2="520" />
+      <line x1="620" y1="480" x2="700" y2="520" />
+    </g>
+    <g stroke="#ffffff" stroke-width="24" fill="none">
+      <circle cx="700" cy="220" r="18" />
+      <circle cx="820" cy="280" r="18" />
+      <circle cx="490" cy="412" r="18" />
+      <circle cx="910" cy="412" r="18" />
+      <circle cx="550" cy="560" r="18" />
+      <circle cx="700" cy="604" r="18" />
+      <circle cx="630" cy="340" r="18" />
+      <circle cx="620" cy="480" r="18" />
+      <circle cx="700" cy="520" r="18" />
+      <circle cx="550" cy="270" r="36" />
+      <circle cx="740" cy="412" r="36" />
+      <circle cx="810" cy="540" r="36" />
+    </g>
+  </g>
+</svg>
