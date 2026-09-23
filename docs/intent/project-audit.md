@@ -31,5 +31,28 @@ No hard timeline — this can be real multi-session work, not a rushed patch job
 - Anything not surfaced by the actual audit — no inventing work
 
 ## Status
-Confirmed 2026-09-23. Audit in progress — see gap-analysis findings once
-delivered for the prioritized list this intent produces.
+Confirmed 2026-09-23. Audit delivered the same day: 23 gaps across
+functional/defense-readiness/quality, tiered by cost and blast radius.
+
+- **Tier 1** (docs staleness, safety clamps, error handling, timeouts) — done,
+  commit `0408d92`.
+- **Tier 2** (async ingestion/eval, entity-cache invalidation, frontend
+  timeouts, error boundary) — done, commit `fc6856d`. Caught and fixed a real
+  bug mid-implementation: the first async-eval-job pass froze the entire
+  server during a run (blocking `time.sleep()` inside an `async def` blocks
+  the whole event loop, not just that task), found via a live concurrent-
+  request test, not by inspection.
+- **Tier 3** (query routing/global fallback, Chat switched to Graph RAG per
+  FR-17, idempotent ingestion, per-document status, Compare's benchmark
+  dropdown, configurable hop depth) — done, commit `808d31e`. Two items
+  (Chat's RAG mode, where global questions surface) resolved via an explicit
+  product decision rather than guessed at.
+- **Tier 4** (deeper investment: real entity resolution beyond exact-match
+  normalization, using the confidence scores that are written but never
+  read, an automated test suite) — not started. These are bigger asks than
+  Tiers 1-3, not quick fixes; worth scoping as their own follow-up rather
+  than folded into this pass.
+
+Every backend change in Tiers 2-3 was tested live against the real Neo4j/
+Chroma stores (not just import/build checks), with test writes fully cleaned
+up afterward each time.
