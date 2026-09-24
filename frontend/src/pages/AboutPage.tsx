@@ -12,6 +12,7 @@ import {
   Network,
 } from "lucide-react";
 import { apiGet } from "../lib/api";
+import { useReadOnly } from "../lib/readOnly";
 import CodeGraphHero from "../components/CodeGraphHero";
 import codeGraph from "../data/codeGraph.json";
 
@@ -123,6 +124,7 @@ function ScoreBar({ name, score, color }: { name: string; score: number; color: 
 
 export default function AboutPage() {
   const [data, setData] = useState<Overview | null>(null);
+  const readOnly = useReadOnly();
   useEffect(() => {
     apiGet<Overview>("/stats/overview")
       .then(setData)
@@ -138,9 +140,10 @@ export default function AboutPage() {
       <section
         className="relative min-h-[620px] select-none overflow-hidden border-b border-[var(--border)]"
       >
-        <div className="absolute inset-0">
+        <div className="hero-graph absolute inset-0">
           <CodeGraphHero />
         </div>
+        <div className="hero-scrim pointer-events-none absolute inset-0" />
         <div className="pointer-events-none relative mx-auto grid min-h-[620px] max-w-5xl items-center gap-10 px-6 py-14 lg:grid-cols-[1fr_22rem]">
           <div style={{ textShadow: "var(--hero-text-shadow)" }}>
             <div className="mb-6 flex items-center gap-3">
@@ -162,7 +165,7 @@ export default function AboutPage() {
           </div>
           <CreatorCard />
         </div>
-        <p className="mono pointer-events-none absolute bottom-4 right-6 text-[11px] text-[var(--text-faint)]">
+        <p className="mono pointer-events-none absolute bottom-4 right-6 hidden text-[11px] text-[var(--text-faint)] sm:block">
           Behind: this project's own code, mapped by graphify · {codeGraph.nodes.length} parts, {codeGraph.links.length}{" "}
           links · drag to rotate
         </p>
@@ -256,9 +259,11 @@ export default function AboutPage() {
               />
               <p className="text-xs leading-5 text-[var(--text-faint)]">
                 Average relevance over {overall.n} test questions, each answered both ways and scored by an AI judge.{" "}
-                <Link to="/eval" className="underline underline-offset-2 hover:text-[var(--text)]">
-                  See every question
-                </Link>
+                {readOnly === false && (
+                  <Link to="/eval" className="underline underline-offset-2 hover:text-[var(--text)]">
+                    See every question
+                  </Link>
+                )}
               </p>
             </div>
           </Section>

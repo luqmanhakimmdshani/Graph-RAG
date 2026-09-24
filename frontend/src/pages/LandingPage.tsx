@@ -6,6 +6,7 @@ import {
   Database,
   GitBranch,
   GitCompare,
+  Info,
   Layers3,
   MessageSquare,
   Network,
@@ -15,6 +16,7 @@ import { apiGet } from "../lib/api";
 import BackendStatus from "../components/BackendStatus";
 import CodeGraphHero from "../components/CodeGraphHero";
 import ThemeToggle from "../components/ThemeToggle";
+import { useReadOnly } from "../lib/readOnly";
 import type { Theme } from "../lib/theme";
 
 interface GraphStats {
@@ -44,6 +46,8 @@ const FEATURES = [
   { to: "/explorer", icon: Network, title: "Explorer", body: "Fly through the knowledge graph in 3D and expand any node." },
   { to: "/eval", icon: BarChart3, title: "Evaluation", body: "20 benchmark questions, scored for relevance and faithfulness." },
 ];
+// The read-only public demo hides Evaluation, so About fills its slot.
+const ABOUT_FEATURE = { to: "/about", icon: Info, title: "About", body: "What Graph RAG is, how it works, and who built it." };
 
 function StatReadout({ label, value, icon: Icon }: { label: string; value: number | null; icon: typeof Database }) {
   return (
@@ -57,6 +61,8 @@ function StatReadout({ label, value, icon: Icon }: { label: string; value: numbe
 
 export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void }) {
   const [stats, setStats] = useState<GraphStats | null>(null);
+  const readOnly = useReadOnly();
+  const features = readOnly === false ? FEATURES : FEATURES.map((f) => (f.to === "/eval" ? ABOUT_FEATURE : f));
   // The hero logo matches the headline's height, which changes whenever it
   // re-wraps (viewport width, font load) - so observe it.
   const headlineRef = useRef<HTMLHeadingElement>(null);
@@ -84,7 +90,7 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
           to="/"
           reloadDocument
           aria-label="Graph RAG home"
-          className="flex items-center gap-2.5 justify-self-start rounded-md"
+          className="flex min-h-11 items-center gap-2.5 justify-self-start rounded-md"
         >
           <img src="/logo.svg" alt="" className="h-7 w-7 rounded-lg" />
           <span className="text-sm font-semibold">Graph RAG</span>
@@ -111,14 +117,15 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
       </header>
 
       {/* Hero - the 3D visual IS graphify's own reading of this repo's code graph */}
-      <section className="relative h-[600px] select-none overflow-hidden border-b border-[var(--border)]">
-        <div className="absolute inset-0">
+      <section className="relative select-none overflow-hidden border-b border-[var(--border)] sm:h-[600px]">
+        <div className="hero-graph absolute inset-0">
           <CodeGraphHero />
         </div>
+        <div className="hero-scrim pointer-events-none absolute inset-0" />
         {/* pointer-events-none all the way down except the two links themselves -
             the graph underneath should be draggable from anywhere, including
             over the headline, not just the empty margins around this column. */}
-        <div className="pointer-events-none relative mx-auto flex h-full max-w-6xl flex-col justify-center px-6 lg:px-10">
+        <div className="pointer-events-none relative mx-auto flex max-w-6xl flex-col justify-center px-6 py-16 sm:h-full sm:py-0 lg:px-10">
           {/* No gradient behind this column anymore (the graph's glow reads better
               unobscured), so legibility against whatever bright nodes happen to
               settle behind it comes from a shadow instead: text-shadow on the
@@ -128,10 +135,10 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
               label, headline, paragraph and buttons all share column 2, so they
               line up with the headline rather than with the logo. */}
           <div
-            className="grid grid-cols-[auto_minmax(0,36rem)] justify-start gap-x-6 lg:gap-x-8"
+            className="grid grid-cols-1 justify-start gap-x-6 sm:grid-cols-[auto_minmax(0,36rem)] lg:gap-x-8"
             style={{ textShadow: "var(--hero-text-shadow)" }}
           >
-            <div className="label col-start-2 mb-3">Knowledge-graph-augmented RAG</div>
+            <div className="label mb-3 sm:col-start-2">Knowledge-graph-augmented RAG</div>
             {/* Height is measured from the headline (see headlineHeight) - CSS
                 can't size an image from a sibling: aspect-ratio + stretch gave a
                 0-wide logo, and a bare stretched SVG img blew up instead.
@@ -140,7 +147,7 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
             <img
               src="/logo-mark.svg"
               alt="Graph RAG logo"
-              className="col-start-1 row-start-2 self-center"
+              className="self-center max-sm:order-first max-sm:mb-6 max-sm:!h-16 max-sm:justify-self-start sm:col-start-1 sm:row-start-2"
               style={{
                 height: headlineHeight ? `${headlineHeight}px` : "6rem",
                 aspectRatio: "468 / 432",
@@ -149,15 +156,15 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
             />
             <h1
               ref={headlineRef}
-              className="col-start-2 row-start-2 text-4xl font-semibold leading-[1.05] tracking-tight lg:text-5xl"
+              className="text-balance text-[2.1rem] font-semibold leading-[1.08] tracking-tight sm:col-start-2 sm:row-start-2 sm:text-4xl lg:text-5xl"
             >
               Multi-vector retrieval across a knowledge graph.
             </h1>
-            <p className="col-start-2 mt-4 text-[15px] leading-7 text-[var(--text-muted)]">
+            <p className="mt-4 text-[15px] leading-7 text-[var(--text-muted)] sm:col-start-2">
               A knowledge graph built from a real news corpus — LLM entity extraction, multi-hop graph traversal, and
               community summarization, benchmarked head-to-head against generic vector RAG.
             </p>
-            <div className="col-start-2 mt-7 flex flex-wrap items-center gap-3" style={{ textShadow: "none" }}>
+            <div className="mt-7 flex flex-wrap items-center gap-3 sm:col-start-2" style={{ textShadow: "none" }}>
               <Link
                 to="/chat"
                 className="pointer-events-auto flex items-center gap-2 rounded-md border border-[color-mix(in_srgb,var(--accent)_40%,transparent)] bg-[var(--accent-soft)] px-4 py-2.5 text-sm font-medium text-[var(--accent)] transition-colors hover:bg-[color-mix(in_srgb,var(--accent)_20%,transparent)]"
@@ -173,7 +180,7 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
             </div>
           </div>
         </div>
-        <p className="mono pointer-events-none absolute bottom-4 right-5 text-[10px] text-[var(--text-faint)]">
+        <p className="mono pointer-events-none absolute bottom-4 right-5 hidden text-[10px] text-[var(--text-faint)] sm:block">
           this repo's own code graph, via graphify — drag to orbit · scroll to zoom
         </p>
       </section>
@@ -214,7 +221,7 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
           <div className="label mb-2">Explore</div>
           <h2 className="text-2xl font-semibold tracking-tight">Four ways to look at the same graph</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {FEATURES.map((f) => (
+            {features.map((f) => (
               <Link key={f.to} to={f.to} className="card group p-5 transition-transform hover:-translate-y-0.5">
                 <f.icon className="h-5 w-5 text-[var(--accent)]" />
                 <div className="mt-4 text-sm font-semibold">{f.title}</div>
@@ -233,9 +240,11 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
           <span className="mono text-[11px] text-[var(--text-faint)]">
             Graph RAG Capstone — Neo4j · ChromaDB · Gemini
           </span>
-          <Link to="/admin" className="flex items-center gap-1.5 text-xs text-[var(--text-faint)] hover:text-[var(--text)]">
-            <UploadCloud className="h-3.5 w-3.5" /> Add articles
-          </Link>
+          {readOnly === false && (
+            <Link to="/admin" className="flex items-center gap-1.5 text-xs text-[var(--text-faint)] hover:text-[var(--text)]">
+              <UploadCloud className="h-3.5 w-3.5" /> Add articles
+            </Link>
+          )}
         </div>
       </footer>
     </div>

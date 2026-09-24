@@ -257,3 +257,33 @@
     transform: translateY(24px);
   }
 }
+
+/* Phones. Unlayered, so they win over the Tailwind utilities they adjust. */
+@media (max-width: 639px) {
+  /* iOS Safari zooms the whole page into any field under 16px when tapped. */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+  /* The 3D hero graphs are busiest right behind the text on a narrow screen;
+     a veil in the page colour keeps the words readable over them. */
+  .hero-scrim {
+    background: color-mix(in srgb, var(--bg) 62%, transparent);
+  }
+}
+
+/* Touch screens: a finger drag on the hero graph should scroll the page, not
+   spin the graph (it fills most of the first screen). It keeps auto-rotating. */
+@media (pointer: coarse) {
+  .hero-graph {
+    pointer-events: none;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

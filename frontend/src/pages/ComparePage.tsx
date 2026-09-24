@@ -153,7 +153,7 @@ export default function ComparePage() {
 
       <form onSubmit={onSubmit} className="card flex items-center gap-2 p-2">
         <input
-          className="flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-[var(--text-faint)]"
+          className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-[var(--text-faint)]"
           placeholder="e.g. Which companies did Sam Altman work at before founding OpenAI?"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}

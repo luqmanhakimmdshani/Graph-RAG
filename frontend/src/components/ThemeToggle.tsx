@@ -9,7 +9,7 @@ export default function ThemeToggle({ theme, onToggle }: { theme: Theme; onToggl
       onClick={onToggle}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-      className="rounded-md p-2 text-[var(--text-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
+      className="rounded-md p-2 text-[var(--text-muted)] pointer-coarse:p-3 hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
     >
       <Icon className="h-4 w-4" strokeWidth={2} aria-hidden />
     </button>

@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { Link, NavLink, Outlet, Route, Routes } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, Route, Routes } from "react-router-dom";
 import { BarChart3, GitCompare, Info, LayoutDashboard, MessageSquare, Network, UploadCloud, type LucideIcon } from "lucide-react";
 import BackendStatus from "./components/BackendStatus";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ThemeToggle from "./components/ThemeToggle";
 import { apiGet } from "./lib/api";
+import { useReadOnly } from "./lib/readOnly";
 import { savedTheme, saveTheme, type Theme } from "./lib/theme";
 import AboutPage from "./pages/AboutPage";
 import AdminPage from "./pages/AdminPage";
@@ -45,7 +46,9 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     items: [{ to: "/about", label: "About", icon: Info, reload: true }],
   },
 ];
-const navItems = navGroups.flatMap((g) => g.items);
+// The public demo's backend is read-only, so its Build pages (uploads, eval
+// runs) are hidden and redirected there; everything else is the same.
+const BUILD_GROUP = "Build";
 
 /** Live size of the graph: what every answer is drawn from. Hidden until it loads. */
 function GraphStats() {
@@ -65,6 +68,9 @@ function GraphStats() {
 }
 
 function AppShell({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void }) {
+  const readOnly = useReadOnly();
+  const groups = readOnly === false ? navGroups : navGroups.filter((g) => g.label !== BUILD_GROUP);
+  const navItems = groups.flatMap((g) => g.items);
   return (
     <div className="flex min-h-full">
       <aside className="glass-strong hidden lg:flex w-56 shrink-0 flex-col border-r px-3 py-5" style={{ borderColor: "var(--glass-border)" }}>
@@ -82,7 +88,7 @@ function AppShell({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () =>
           </div>
         </Link>
         <nav className="space-y-6">
-          {navGroups.map((group) => (
+          {groups.map((group) => (
             <div key={group.label}>
               <div className="mb-1.5 px-3 text-[11px] font-medium uppercase tracking-wider text-[var(--text-faint)]">
                 {group.label}
@@ -136,7 +142,7 @@ function AppShell({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () =>
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="scrim-header sticky top-0 z-10 flex h-14 items-center justify-between border-b border-[var(--border)] px-5 lg:hidden">
-          <Link to="/" reloadDocument aria-label="Graph RAG home" className="flex items-center gap-2.5 rounded-md">
+          <Link to="/" reloadDocument aria-label="Graph RAG home" className="flex min-h-11 items-center gap-2.5 rounded-md">
             <img src="/logo.svg" alt="" className="h-7 w-7 rounded-lg" />
             <span className="text-sm font-semibold">Graph RAG</span>
           </Link>
@@ -145,7 +151,7 @@ function AppShell({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () =>
             <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           </div>
         </header>
-        <nav className="flex gap-1 overflow-x-auto border-b border-[var(--border)] px-3 py-2 lg:hidden">
+        <nav className="no-scrollbar flex gap-1 overflow-x-auto border-b border-[var(--border)] px-3 py-2 lg:hidden">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
@@ -153,7 +159,7 @@ function AppShell({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () =>
               end={item.end}
               reloadDocument={item.reload}
               className={({ isActive }) =>
-                `flex shrink-0 items-center gap-1.5 rounded-md px-3 py-1.5 text-sm ${
+                `flex min-h-10 shrink-0 items-center gap-1.5 rounded-md px-3 py-1.5 text-sm ${
                   isActive ? "bg-[var(--accent-soft)] text-[var(--text)]" : "text-[var(--text-muted)]"
                 }`
               }
@@ -169,6 +175,14 @@ function AppShell({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () =>
       </div>
     </div>
   );
+}
+
+/** A Build page: shown on a writable backend, sent to the Dashboard on a
+ *  read-only one, blank for the moment it takes to find out. */
+function BuildOnly({ page }: { page: React.ReactElement }) {
+  const readOnly = useReadOnly();
+  if (readOnly === false) return page;
+  return readOnly ? <Navigate to="/dashboard" replace /> : null;
 }
 
 export default function App() {
@@ -191,8 +205,8 @@ export default function App() {
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/compare" element={<ComparePage />} />
           <Route path="/explorer" element={<ExplorerPage />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/eval" element={<EvalPage />} />
+          <Route path="/admin" element={<BuildOnly page={<AdminPage />} />} />
+          <Route path="/eval" element={<BuildOnly page={<EvalPage />} />} />
           <Route path="/about" element={<AboutPage />} />
         </Route>
       </Routes>
