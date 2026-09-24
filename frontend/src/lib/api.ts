@@ -1,4 +1,8 @@
 const BASE = "/api";
+// The hosted site reaches the backend through ngrok's free tier, which answers
+// browser requests with an HTML warning page unless this header is present.
+// Harmless locally, where the Vite proxy ignores it.
+const HEADERS = { "ngrok-skip-browser-warning": "1" };
 
 // Backend query endpoints now enforce a ~20s Gemini timeout (see
 // gemini_timeout_ms), but before this the frontend had no ceiling of its
@@ -30,7 +34,7 @@ function timeoutError(path: string): Error {
 export async function apiGet<T>(path: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<T> {
   const { signal, cancel } = withTimeout(timeoutMs);
   try {
-    const res = await fetch(`${BASE}${path}`, { signal });
+    const res = await fetch(`${BASE}${path}`, { headers: HEADERS, signal });
     return await handle<T>(path, res);
   } catch (e) {
     throw e instanceof DOMException && e.name === "AbortError" ? timeoutError(path) : e;
@@ -44,7 +48,7 @@ export async function apiPost<T>(path: string, body: unknown, timeoutMs = DEFAUL
   try {
     const res = await fetch(`${BASE}${path}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { ...HEADERS, "Content-Type": "application/json" },
       body: JSON.stringify(body),
       signal,
     });
@@ -61,7 +65,7 @@ export async function apiUpload<T>(path: string, files: FileList, timeoutMs = DE
   for (const file of files) form.append("files", file);
   const { signal, cancel } = withTimeout(timeoutMs);
   try {
-    const res = await fetch(`${BASE}${path}`, { method: "POST", body: form, signal });
+    const res = await fetch(`${BASE}${path}`, { method: "POST", headers: HEADERS, body: form, signal });
     return await handle<T>(path, res);
   } catch (e) {
     throw e instanceof DOMException && e.name === "AbortError" ? timeoutError(path) : e;
