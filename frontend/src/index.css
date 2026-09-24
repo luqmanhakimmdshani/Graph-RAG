@@ -266,6 +266,22 @@
   select {
     font-size: 16px;
   }
+  /* The 3D hero graphs are busiest right behind the text on a narrow screen;
+     a veil in the page colour keeps the words readable over them. */
+  .hero-scrim {
+    background: color-mix(in srgb, var(--bg) 62%, transparent);
+  }
+}
+
+/* Touch screens: the hero graph fills the first screen, so a finger on it
+   could never scroll the page. The hero's text blocks take touches instead
+   (a drag on them scrolls), while the open graph around and between them
+   keeps full desktop control: drag to orbit, pinch to zoom. With a mouse the
+   text stays click-through, so the graph can be dragged from anywhere. */
+@media (pointer: coarse) {
+  .hero-copy > * {
+    pointer-events: auto;
+  }
 }
 
 .no-scrollbar {

@@ -137,14 +137,14 @@ export default function AboutPage() {
     <div>
       {/* Hero - the moving graph is graphify's map of this project's own code.
           Overlay is pointer-events-none so the graph can be dragged from anywhere. */}
-      <section className="relative flex select-none flex-col overflow-hidden border-b border-[var(--border)] sm:block sm:min-h-[620px]">
-        <div className="relative order-last h-[22rem] border-t border-[var(--border)] sm:absolute sm:inset-0 sm:order-none sm:h-auto sm:border-t-0">
+      <section
+        className="relative min-h-[620px] select-none overflow-hidden border-b border-[var(--border)]"
+      >
+        <div className="absolute inset-0">
           <CodeGraphHero />
-          <p className="mono pointer-events-none absolute inset-x-0 bottom-3 text-center text-[10px] text-[var(--text-faint)] sm:hidden">
-            drag to rotate · pinch to zoom
-          </p>
         </div>
-        <div className="pointer-events-none relative mx-auto grid w-full max-w-5xl items-center gap-10 px-6 py-14 sm:min-h-[620px] lg:grid-cols-[1fr_22rem]">
+        <div className="hero-scrim pointer-events-none absolute inset-0" />
+        <div className="hero-copy pointer-events-none relative mx-auto grid min-h-[620px] max-w-5xl items-center gap-10 px-6 pb-40 pt-14 sm:py-14 lg:grid-cols-[1fr_22rem]">
           <div style={{ textShadow: "var(--hero-text-shadow)" }}>
             <div className="mb-6 flex items-center gap-3">
               <img
@@ -165,6 +165,9 @@ export default function AboutPage() {
           </div>
           <CreatorCard />
         </div>
+        <p className="mono pointer-events-none absolute inset-x-0 bottom-5 text-center text-[10px] text-[var(--text-faint)] sm:hidden">
+          drag the graph to rotate · pinch to zoom
+        </p>
         <p className="mono pointer-events-none absolute bottom-4 right-6 hidden text-[11px] text-[var(--text-faint)] sm:block">
           Behind: this project's own code, mapped by graphify · {codeGraph.nodes.length} parts, {codeGraph.links.length}{" "}
           links · drag to rotate
