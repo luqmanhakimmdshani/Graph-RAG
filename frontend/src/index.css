@@ -266,21 +266,6 @@
   select {
     font-size: 16px;
   }
-  /* The 3D hero graphs are busiest right behind the text on a narrow screen;
-     a veil in the page colour keeps the words readable over them. */
-  .hero-scrim {
-    background: color-mix(in srgb, var(--bg) 62%, transparent);
-  }
-}
-
-/* Touch screens: the hero graph fills most of the first screen, so vertical
-   swipes must still scroll the page. pan-y hands those to the browser and
-   leaves sideways drags (spin) and pinches (zoom) to the graph. !important
-   beats the touch-action: none that OrbitControls sets inline on the canvas. */
-@media (pointer: coarse) {
-  .hero-graph canvas {
-    touch-action: pan-y !important;
-  }
 }
 
 .no-scrollbar {

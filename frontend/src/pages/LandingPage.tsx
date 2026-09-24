@@ -117,11 +117,15 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
       </header>
 
       {/* Hero - the 3D visual IS graphify's own reading of this repo's code graph */}
-      <section className="relative select-none overflow-hidden border-b border-[var(--border)] sm:h-[600px]">
-        <div className="hero-graph absolute inset-0">
+      {/* Phones: text first, then the graph as its own interactive panel, so the
+          page scrolls anywhere outside it. From sm up it fills the background. */}
+      <section className="relative flex select-none flex-col overflow-hidden border-b border-[var(--border)] sm:block sm:h-[600px]">
+        <div className="relative order-last h-[22rem] border-t border-[var(--border)] sm:absolute sm:inset-0 sm:order-none sm:h-auto sm:border-t-0">
           <CodeGraphHero />
+          <p className="mono pointer-events-none absolute inset-x-0 bottom-3 text-center text-[10px] text-[var(--text-faint)] sm:hidden">
+            drag to rotate · pinch to zoom
+          </p>
         </div>
-        <div className="hero-scrim pointer-events-none absolute inset-0" />
         {/* pointer-events-none all the way down except the two links themselves -
             the graph underneath should be draggable from anywhere, including
             over the headline, not just the empty margins around this column. */}
