@@ -135,7 +135,7 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
               label, headline, paragraph and buttons all share column 2, so they
               line up with the headline rather than with the logo. */}
           <div
-            className="hero-copy grid grid-cols-1 justify-start gap-x-6 sm:grid-cols-[auto_minmax(0,36rem)] lg:gap-x-8"
+            className="grid grid-cols-1 justify-start gap-x-6 sm:grid-cols-[auto_minmax(0,36rem)] lg:gap-x-8"
             style={{ textShadow: "var(--hero-text-shadow)" }}
           >
             <div className="label mb-3 sm:col-start-2">Knowledge-graph-augmented RAG</div>

@@ -144,7 +144,7 @@ export default function AboutPage() {
           <CodeGraphHero />
         </div>
         <div className="hero-scrim pointer-events-none absolute inset-0" />
-        <div className="hero-copy pointer-events-none relative mx-auto grid max-w-5xl items-center gap-8 px-6 pb-14 pt-10 sm:min-h-[620px] sm:gap-10 sm:py-14 lg:grid-cols-[1fr_22rem]">
+        <div className="pointer-events-none relative mx-auto grid max-w-5xl items-center gap-8 px-6 pb-14 pt-10 sm:min-h-[620px] sm:gap-10 sm:py-14 lg:grid-cols-[1fr_22rem]">
           <div style={{ textShadow: "var(--hero-text-shadow)" }}>
             <div className="mb-6 flex items-center gap-3">
               <img
