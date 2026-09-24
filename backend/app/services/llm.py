@@ -4,11 +4,13 @@ Ollama's /api/chat takes a JSON schema in `format`, so structured output works
 the same way on both."""
 import json
 import re
+import time
 from functools import lru_cache
 
 import httpx
 from google import genai
 from google.genai import types
+from pydantic import ValidationError
 
 from app.config import settings
 
@@ -49,12 +51,22 @@ def _openai(prompt: str, schema=None, model: str | None = None) -> str:
         # and generate_json() validates whatever comes back.
         body["response_format"] = {"type": "json_schema", "json_schema": {"name": schema.__name__, "schema": schema.model_json_schema()}}
         body["messages"][0]["content"] += f"\n\nRespond with only JSON matching this schema:\n{json.dumps(schema.model_json_schema())}"
-    resp = httpx.post(
-        f"{settings.openai_base_url}/chat/completions",
-        json=body,
-        headers={"Authorization": f"Bearer {settings.openai_api_key}"} if settings.openai_api_key else {},
-        timeout=settings.openai_timeout_s,
-    )
+    # Free tiers cap tokens per minute (Groq: 8k), which one big graph prompt can
+    # hit on its own - so a 429 waits out the window instead of failing the answer.
+    for attempt in range(3):
+        resp = httpx.post(
+            f"{settings.openai_base_url}/chat/completions",
+            json=body,
+            headers={"Authorization": f"Bearer {settings.openai_api_key}"} if settings.openai_api_key else {},
+            timeout=settings.openai_timeout_s,
+        )
+        if resp.status_code != 429 or attempt == 2:
+            break
+        try:
+            wait = min(float(resp.headers.get("retry-after", 30)), 60)
+        except ValueError:
+            wait = 30
+        time.sleep(wait)
     resp.raise_for_status()
     return resp.json()["choices"][0]["message"]["content"]
 
@@ -92,7 +104,13 @@ def generate_json(prompt: str, schema, model: str | None = None):
     if settings.llm_provider == "ollama":
         return schema.model_validate_json(_ollama(prompt, schema))
     if settings.llm_provider == "openai":
-        return schema.model_validate_json(_strip_fences(_openai(prompt, schema, model)))
+        text = _strip_fences(_openai(prompt, schema, model))
+        try:
+            return schema.model_validate_json(text)
+        except ValidationError:
+            # Some router upstreams drop the final "}" - same output every time at
+            # temperature 0, so retrying can't fix it; closing the object can.
+            return schema.model_validate_json(text + "}")
     resp = _client().models.generate_content(
         model=settings.gemini_model,
         contents=prompt,

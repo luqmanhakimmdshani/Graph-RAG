@@ -10,6 +10,7 @@ retryDelay on 429s, and a short backoff on 503s/network blips) rather than
 treating them as failures.
 """
 import re
+import threading
 import time
 from functools import lru_cache
 from typing import Literal
@@ -25,10 +26,13 @@ from app.services import llm
 _MIN_INTERVAL_S = 4.5  # ~13 req/min - headroom under the 20 RPM cap for retries/jitter
 _MAX_RETRIES = 8
 _last_call_at = 0.0
+_throttle_lock = threading.Lock()
 
 ENTITY_TYPES = ("PERSON", "ORG", "PRODUCT")
 RELATION_TYPES = (
     "ACQUIRED", "INVESTED_IN", "PARTNERED_WITH", "FOUNDED", "EMPLOYED_BY", "COMPETES_WITH",
+    # Events, not just standing links - the six above can't express "X was fired".
+    "LEFT", "REMOVED_FROM", "APPOINTED_TO", "SUED",
 )
 
 
@@ -42,8 +46,11 @@ class Relationship(BaseModel):
     target: str
     type: Literal[
         "ACQUIRED", "INVESTED_IN", "PARTNERED_WITH", "FOUNDED", "EMPLOYED_BY", "COMPETES_WITH",
+        "LEFT", "REMOVED_FROM", "APPOINTED_TO", "SUED",
     ]
     confidence: float
+    # The why/how/when the text gives, e.g. "board said he was not consistently candid".
+    detail: str = ""
 
 
 class ExtractionResult(BaseModel):
@@ -57,8 +64,17 @@ Entities: only PERSON, ORG, or PRODUCT. Use the canonical/full name where the te
 supports it (e.g. "Sam Altman" not "he", "OpenAI" not "the company").
 
 Relationships: only these types, and only when explicitly stated or clearly implied
-in the text: ACQUIRED, INVESTED_IN, PARTNERED_WITH, FOUNDED, EMPLOYED_BY, COMPETES_WITH.
+in the text: ACQUIRED, INVESTED_IN, PARTNERED_WITH, FOUNDED, EMPLOYED_BY, COMPETES_WITH,
+LEFT (resigned or departed), REMOVED_FROM (fired or ousted), APPOINTED_TO (named to a
+role, e.g. CEO or board), SUED. Source is the actor, target the object: for LEFT,
+REMOVED_FROM and APPOINTED_TO the source is the person and the target the organization
+("Sam Altman REMOVED_FROM OpenAI"); for SUED the source is the one suing.
 Both source and target must be entities you extracted. Give a confidence 0-1.
+Only extract a relationship stated for that specific pair. A loose group statement
+("tech giants like Microsoft, Amazon and Google have invested in AI firms like OpenAI
+and Anthropic") does not say which company invested in which - skip it.
+For each relationship, "detail" is a short phrase (under 20 words) with the reason, role,
+amount or date the text gives for it; leave it empty if the text gives none.
 
 If nothing qualifies, return empty lists. Do not invent facts not in the text.
 
@@ -73,11 +89,13 @@ def _client() -> genai.Client:
 
 
 def _throttle() -> None:
+    # Locked: build_graph.py's worker threads can all fall back to Gemini at once.
     global _last_call_at
-    wait = _last_call_at + _MIN_INTERVAL_S - time.monotonic()
-    if wait > 0:
-        time.sleep(wait)
-    _last_call_at = time.monotonic()
+    with _throttle_lock:
+        wait = _last_call_at + _MIN_INTERVAL_S - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        _last_call_at = time.monotonic()
 
 
 def _retry_delay_s(error: Exception, default: float) -> float:
@@ -89,9 +107,19 @@ def _retry_delay_s(error: Exception, default: float) -> float:
 
 
 def extract(text: str, model: str | None = None) -> ExtractionResult:
-    if settings.llm_provider != "gemini":
-        # Ollama/OpenAI-compatible: no Gemini quota, so none of the 429 handling below.
-        return llm.generate_json(PROMPT.format(text=text), ExtractionResult)
+    if settings.llm_provider == "gemini":
+        return _extract_gemini(text, model)
+    try:
+        return llm.generate_json(PROMPT.format(text=text), ExtractionResult, model)
+    except Exception:
+        # The free router's upstreams cool down under bulk load; Gemini (configured
+        # directly, not through the router) takes over while its own quota lasts.
+        if not settings.gemini_api_key:
+            raise
+        return _extract_gemini(text)
+
+
+def _extract_gemini(text: str, model: str | None = None) -> ExtractionResult:
     for attempt in range(_MAX_RETRIES):
         _throttle()
         try:
@@ -105,7 +133,9 @@ def extract(text: str, model: str | None = None) -> ExtractionResult:
             )
             return resp.parsed
         except errors.ClientError as e:
-            if e.code != 429 or attempt == _MAX_RETRIES - 1:
+            # A per-DAY cap won't lift in the ~1 min retryDelay it suggests; waiting it
+            # out 8 times just stalls the caller (build_graph.py's workers) silently.
+            if e.code != 429 or attempt == _MAX_RETRIES - 1 or "PerDay" in str(e):
                 raise
             time.sleep(_retry_delay_s(e, default=2**attempt * 5))
         except errors.ServerError:

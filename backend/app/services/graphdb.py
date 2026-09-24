@@ -69,9 +69,10 @@ def write_extraction(
                 f"MERGE (b:{tgt_type} {{norm_name: $tgt_norm}}) ON CREATE SET b.name = $tgt_name "
                 f"MERGE (a)-[rel:{r.type}]->(b) "
                 "ON CREATE SET rel.source_chunk_ids = [$chunk_id], rel.source_article = $article_title, "
-                "  rel.date = $date, rel.confidence = $confidence "
+                "  rel.date = $date, rel.confidence = $confidence, rel.detail = $detail "
                 "ON MATCH SET rel.source_chunk_ids = CASE WHEN NOT $chunk_id IN rel.source_chunk_ids "
-                "  THEN rel.source_chunk_ids + $chunk_id ELSE rel.source_chunk_ids END",
+                "  THEN rel.source_chunk_ids + $chunk_id ELSE rel.source_chunk_ids END, "
+                "  rel.detail = CASE WHEN coalesce(rel.detail, '') = '' THEN $detail ELSE rel.detail END",
                 src_norm=norm(r.source),
                 src_name=r.source,
                 tgt_norm=norm(r.target),
@@ -80,6 +81,7 @@ def write_extraction(
                 article_title=article_title,
                 date=date,
                 confidence=r.confidence,
+                detail=r.detail,
             )
 
 
@@ -344,6 +346,7 @@ def subgraph(entity_name: str, hops: int = 2) -> dict:
                         "type": rel.type,
                         "source_article": rel.get("source_article"),
                         "confidence": rel.get("confidence"),
+                        "detail": rel.get("detail") or "",
                     }
                 )
 

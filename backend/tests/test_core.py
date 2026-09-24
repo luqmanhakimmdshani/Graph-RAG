@@ -80,6 +80,14 @@ def test_generate_strips_bold_but_keeps_words(monkeypatch):
     assert llm.generate("x") == "It launched Amazon Q and Bedrock[13][2]."
 
 
+def test_generate_json_closes_truncated_object(monkeypatch):
+    from app.services import llm
+    from app.services.eval import JudgeScore
+    monkeypatch.setattr(llm.settings, "llm_provider", "openai")
+    monkeypatch.setattr(llm, "_openai", lambda *a: '{"relevance": 3, "faithfulness": 5, "reasoning": "ok"')
+    assert llm.generate_json("x", JudgeScore).relevance == 3
+
+
 def test_plain_strips_markdown_but_keeps_content():
     from app.services.llm import _plain
     raw = "## Trends\n* Streaming: Netflix's *Scoop* [4].\n- Animation: *Gabby's Dollhouse* [18]\nSales rose 5*2 times."
