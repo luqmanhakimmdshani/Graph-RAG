@@ -1,3 +1,4 @@
+import logging
 import json
 from functools import lru_cache
 from pathlib import Path
@@ -6,6 +7,8 @@ from pydantic import BaseModel
 from fastapi import APIRouter
 
 from app.services import embeddings, graphdb, llm, vectorstore
+
+log = logging.getLogger("uvicorn.error")
 
 router = APIRouter(prefix="/query", tags=["query"])
 DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
@@ -69,7 +72,8 @@ def _graph_facts(nodes_by_id: dict[str, dict], edges: list[dict]) -> list[str]:
         src = nodes_by_id.get(e["source"], {}).get("name", "?")
         tgt = nodes_by_id.get(e["target"], {}).get("name", "?")
         rel = e["type"].replace("_", " ").lower()
-        facts.append(f"[{len(facts)+1}] {src} {rel} {tgt} (source: {e.get('source_article') or 'unknown'})")
+        detail = f" - {e['detail']}" if e.get("detail") else ""
+        facts.append(f"[{len(facts)+1}] {src} {rel} {tgt}{detail} (source: {e.get('source_article') or 'unknown'})")
     return facts
 
 
@@ -90,14 +94,29 @@ def _graph_citations(edges: list[dict]) -> list[dict]:
     return citations
 
 
-def _build_graph_prompt(question: str, facts: list[str]) -> str:
+def _passages(question: str, top_k: int) -> list[dict]:
+    """The article text behind the facts: a fact says who is linked, a passage says
+    why - "Why was Sam Altman fired?" needs the second. Best-effort: a vector store
+    outage still leaves a facts-only answer."""
+    try:
+        return vectorstore.query(embeddings.embed([question])[0], top_k=top_k)
+    except Exception:
+        return []
+
+
+def _build_graph_prompt(question: str, facts: list[str], passages: list[dict]) -> str:
     context = "\n".join(facts)
+    text = "\n\n".join(
+        f"[{len(facts)+i+1}] ({c['article_title']}, {c['source']}, {c['date']})\n{c['text']}"
+        for i, c in enumerate(passages)
+    )
     return (
-        "Answer the question using ONLY the graph facts below. Each fact is a "
-        "relationship extracted from a news article. If the facts don't contain "
-        "the answer, say so. Cite facts inline using [1], [2], etc. "
+        "Answer the question using ONLY the graph facts and article passages below. "
+        "Each fact is a relationship extracted from a news article; use the facts to "
+        "connect names and the passages for reasons and details. If neither contains "
+        "the answer, say so. Cite inline using [1], [2], etc. "
         "Respond in plain text (no markdown formatting).\n\n"
-        f"Facts:\n{context}\n\nQuestion: {question}\n\nAnswer:"
+        f"Facts:\n{context}\n\nPassages:\n{text}\n\nQuestion: {question}\n\nAnswer:"
     )
 
 
@@ -123,9 +142,14 @@ async def query_graph_rag(req: QueryRequest):
             global_result = await query_global(req)
             return {**global_result, "subgraph": empty_subgraph, "mode": "global"}
 
-        answer = llm.generate(_build_graph_prompt(req.question, facts))
-        return {"answer": answer, "citations": _graph_citations(edges), "subgraph": subgraph, "mode": "graph"}
+        passages = _passages(req.question, req.top_k)
+        answer = llm.generate(_build_graph_prompt(req.question, facts, passages))
+        citations = _graph_citations(edges)
+        cited = {c["title"] for c in citations}
+        citations += [c for c in _citations(passages) if c["title"] not in cited]
+        return {"answer": answer, "citations": citations, "subgraph": subgraph, "mode": "graph"}
     except Exception:
+        log.exception("query failed")
         return {"answer": "", "citations": [], "subgraph": empty_subgraph,
                 "error": "Graph RAG query failed - Neo4j or the LLM may be unreachable", "mode": "error"}
 
@@ -140,6 +164,7 @@ async def query_generic_rag(req: QueryRequest):
         answer = llm.generate(_build_prompt(req.question, chunks))
         return {"answer": answer, "citations": _citations(chunks)}
     except Exception:
+        log.exception("query failed")
         return {"answer": "", "citations": [], "error": "Generic RAG query failed - the vector store or LLM may be unreachable"}
 
 
@@ -177,4 +202,5 @@ async def query_global(req: QueryRequest):
         citations = [{"community_id": s["id"], "size": s["size"], "summary": s["summary"]} for s in summaries]
         return {"answer": answer, "citations": citations}
     except Exception:
+        log.exception("query failed")
         return {"answer": "", "citations": [], "error": "Global query failed - Neo4j or the LLM may be unreachable"}

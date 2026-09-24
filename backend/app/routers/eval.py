@@ -5,9 +5,9 @@ import time
 from collections import defaultdict
 from pathlib import Path
 
-from fastapi import APIRouter, BackgroundTasks
+from fastapi import APIRouter, BackgroundTasks, Depends
 
-from app.config import settings
+from app.config import ensure_writable, settings
 from app.routers.query import QueryRequest, query_generic_rag, query_global, query_graph_rag
 from app.services import eval as judge
 
@@ -125,7 +125,7 @@ def _run_eval_job(questions: list[dict]) -> None:
     _state["running"] = False
 
 
-@router.post("/run")
+@router.post("/run", dependencies=[Depends(ensure_writable)])
 async def run_eval(background_tasks: BackgroundTasks):
     """Runs the curated benchmark (FR-20) through both pipelines and scores each
     answer with an LLM judge (FR-21), as a background task - see _run_eval_job."""

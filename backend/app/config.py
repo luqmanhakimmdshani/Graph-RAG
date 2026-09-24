@@ -1,9 +1,18 @@
+from fastapi import HTTPException
 from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    # The project's .env beats OS environment variables: a machine-wide
+    # OPENAI_API_KEY (a real OpenAI key for other tools) silently replaced the
+    # OmniRoute key here, and OmniRoute answered 401. Hosts with no .env file
+    # (the HF Space's secrets) still configure everything through env vars.
+    @classmethod
+    def settings_customise_sources(cls, settings_cls, init_settings, env_settings, dotenv_settings, file_secret_settings):
+        return init_settings, dotenv_settings, env_settings, file_secret_settings
 
     gemini_api_key: str = ""
     # gemini-3.6-flash's free tier is 20 requests/DAY (found the hard way, mid
@@ -19,6 +28,9 @@ class Settings(BaseSettings):
     neo4j_password: str = ""
     neo4j_database: str = Field("neo4j", validation_alias=AliasChoices("NEO4J_DATABASE"))
     chroma_persist_dir: str = "./chroma_data"
+    # Public hosted demo: refuse uploads and new eval runs, so visitors can't
+    # change the graph or spend the LLM quota on benchmarks. Off locally.
+    read_only: bool = False
     embedding_model: str = "all-MiniLM-L6-v2"
     # A hung/slow Gemini call previously blocked a request indefinitely, with
     # nothing enforcing the PRD's own "~8s acceptable" query latency budget.
@@ -43,3 +55,9 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+
+def ensure_writable() -> None:
+    """Route dependency for the endpoints a read-only deployment turns off."""
+    if settings.read_only:
+        raise HTTPException(403, "This hosted demo is read-only: adding articles and running evaluations are turned off.")

@@ -4,9 +4,10 @@ import logging
 from pathlib import Path
 
 from docx import Document
-from fastapi import APIRouter, BackgroundTasks, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, UploadFile
 from pypdf import PdfReader
 
+from app.config import ensure_writable
 from app.services import graphdb, vectorstore
 from app.services.ingestion import ingest_articles
 
@@ -96,7 +97,7 @@ def parse_upload(filename: str, raw: bytes) -> tuple[list[dict], list[dict]]:
     return [{"id": filename, "title": Path(filename).stem, "body": text}], []
 
 
-@router.post("")
+@router.post("", dependencies=[Depends(ensure_writable)])
 async def ingest_documents(files: list[UploadFile], background_tasks: BackgroundTasks):
     articles, skipped = [], []
     for f in files:
