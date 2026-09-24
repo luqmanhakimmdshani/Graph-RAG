@@ -42,9 +42,9 @@
     "semantic_hash": ""
   },
   "backend/app/routers/query.py": {
-    "mtime": 1790135591.2847154,
-    "seen": 1790144494.11949,
-    "ast_hash": "0ed91db1b45ecff0963d253a654f8a4e",
+    "mtime": 1790247294.1502244,
+    "seen": 1790252485.8239088,
+    "ast_hash": "2a5ee29d6ab90f6338cb931057f41457",
     "semantic_hash": ""
   },
   "backend/scripts/prepare_corpus.py": {
@@ -66,9 +66,9 @@
     "semantic_hash": ""
   },
   "frontend/src/App.tsx": {
-    "mtime": 1790153372.237508,
-    "seen": 1790159306.522086,
-    "ast_hash": "0dd117f989356e5d2d04f37b49992f7d",
+    "mtime": 1790252184.610939,
+    "seen": 1790252485.868757,
+    "ast_hash": "eda2872c4d9fb67dbb5183502fa0922a",
     "semantic_hash": ""
   },
   "frontend/src/lib/api.ts": {
@@ -108,9 +108,9 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/ExplorerPage.tsx": {
-    "mtime": 1790076949.6268568,
-    "seen": 1790077427.6802838,
-    "ast_hash": "ef371f0f0443d3853be3e8ace7549e60",
+    "mtime": 1790160511.306034,
+    "seen": 1790240822.3516853,
+    "ast_hash": "33fdf352f46456b28524966e495012f1",
     "semantic_hash": ""
   },
   "frontend/tsconfig.app.json": {
@@ -162,9 +162,9 @@
     "semantic_hash": ""
   },
   "frontend/index.html": {
-    "mtime": 1790143785.0569596,
-    "seen": 1790144494.1219614,
-    "ast_hash": "7734c2624309a2be92bb1d8b299a1376",
+    "mtime": 1790234638.0726683,
+    "seen": 1790240822.354602,
+    "ast_hash": "5d2c531ec1b34cbe6d371a07982fa25b",
     "semantic_hash": ""
   },
   "frontend/public/favicon.svg": {
@@ -222,9 +222,9 @@
     "semantic_hash": ""
   },
   "backend/app/services/llm.py": {
-    "mtime": 1790150532.1127388,
-    "seen": 1790159306.5202422,
-    "ast_hash": "a836887249f3208f3bf7c2749daaf60a",
+    "mtime": 1790248781.0618494,
+    "seen": 1790252485.862196,
+    "ast_hash": "e0ad856ff900a06566bc38f81917256c",
     "semantic_hash": ""
   },
   "backend/app/services/vectorstore.py": {
@@ -240,27 +240,27 @@
     "semantic_hash": ""
   },
   "backend/app/services/extraction.py": {
-    "mtime": 1790136663.4973705,
-    "seen": 1790144494.1200864,
-    "ast_hash": "0e53f9ca180790bfeda675d98a501060",
+    "mtime": 1790238260.3648362,
+    "seen": 1790240822.3441772,
+    "ast_hash": "eb92ed279fce3e41c3eac589c6777036",
     "semantic_hash": ""
   },
   "backend/app/services/graphdb.py": {
-    "mtime": 1790153233.4878151,
-    "seen": 1790159306.5200593,
-    "ast_hash": "e6da24fe0725d946f5c175a35783c1a8",
+    "mtime": 1790217537.7317712,
+    "seen": 1790240822.3441794,
+    "ast_hash": "69ad79cacc9254cc09c9b7d209e80602",
     "semantic_hash": ""
   },
   "backend/scripts/build_graph.py": {
-    "mtime": 1790057721.3538082,
-    "seen": 1790065314.6694305,
-    "ast_hash": "f5b9cc70d1e4e8213e6b294a0e9555c4",
+    "mtime": 1790231056.2806115,
+    "seen": 1790240822.3466187,
+    "ast_hash": "5b92824f0d7a52f3c17d3b3f1dcfbaf1",
     "semantic_hash": ""
   },
   "frontend/src/components/SubgraphView.tsx": {
-    "mtime": 1790139687.0736437,
-    "seen": 1790144494.1208513,
-    "ast_hash": "9d4dffec55405e7aad469456c66d7105",
+    "mtime": 1790251973.821242,
+    "seen": 1790252485.8701622,
+    "ast_hash": "89a31e6f9db7cadc95f5b4795f0271f5",
     "semantic_hash": ""
   },
   "backend/app/services/community.py": {
@@ -276,8 +276,8 @@
     "semantic_hash": ""
   },
   "backend/app/services/eval.py": {
-    "mtime": 1790138906.493386,
-    "seen": 1790144494.1200848,
+    "mtime": 1790237932.4619339,
+    "seen": 1790240822.3441732,
     "ast_hash": "fa5c6bc0be9ba4d3d1c1233cf02b88d9",
     "semantic_hash": ""
   },
@@ -288,33 +288,27 @@
     "semantic_hash": ""
   },
   "backend/data/eval_results.json": {
-    "mtime": 1790139780.0574296,
-    "seen": 1790144494.1202402,
-    "ast_hash": "4c0e89f2cd2586fb202df5712d17bacf",
+    "mtime": 1790250237.7865825,
+    "seen": 1790252485.8633256,
+    "ast_hash": "529d6661673292aa70a24dd751a29480",
     "semantic_hash": ""
   },
   "frontend/src/components/CodeGraphHero.tsx": {
-    "mtime": 1790128609.125625,
-    "seen": 1790144494.1208482,
-    "ast_hash": "0e44ad0ed317382a9897dc81f7393dfc",
+    "mtime": 1790251705.4681077,
+    "seen": 1790252485.8691428,
+    "ast_hash": "8b3aab3af9f9dbd84c9c4d15835dd857",
     "semantic_hash": ""
   },
   "frontend/src/data/codeGraph.json": {
-    "mtime": 1790145049.5080109,
-    "seen": 1790159306.5225058,
-    "ast_hash": "db533e7b29cae64eeb8e82d4f585871d",
+    "mtime": 1790240838.2541392,
+    "seen": 1790252485.870564,
+    "ast_hash": "57bf280e1bada7972075c3c351f7794e",
     "semantic_hash": ""
   },
   "frontend/src/pages/LandingPage.tsx": {
-    "mtime": 1790152461.3001883,
-    "seen": 1790159306.5231853,
-    "ast_hash": "49d91e37d81defa65184eb3c74925042",
-    "semantic_hash": ""
-  },
-  ".claude/settings.json": {
-    "mtime": 1790135280.7256825,
-    "seen": 1790144494.1187866,
-    "ast_hash": "14724beeccbd841a816a1010cf64ea45",
+    "mtime": 1790252170.4549644,
+    "seen": 1790252485.8783433,
+    "ast_hash": "0ce610d0843d70e7d028a2df886536de",
     "semantic_hash": ""
   },
   "backend/app/services/resolution.py": {
@@ -330,9 +324,9 @@
     "semantic_hash": ""
   },
   "backend/tests/test_core.py": {
-    "mtime": 1790150532.2053733,
-    "seen": 1790159306.521816,
-    "ast_hash": "6fa19dc11672f18c95d5e90ded7fbbc6",
+    "mtime": 1790237947.4369512,
+    "seen": 1790240822.347662,
+    "ast_hash": "35b1d9b13b3b0d302c14bff51a10cd02",
     "semantic_hash": ""
   },
   "frontend/src/components/ErrorBoundary.tsx": {
@@ -372,9 +366,159 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/DashboardPage.tsx": {
-    "mtime": 1790153420.1372938,
-    "seen": 1790159306.5229151,
-    "ast_hash": "abff69753aba049c8640909ba8664cf0",
+    "mtime": 1790217537.8192198,
+    "seen": 1790240822.3513908,
+    "ast_hash": "46d60a54e9d99cb3012c5770f56e0334",
+    "semantic_hash": ""
+  },
+  "backend/data/eval_results_before_v2.json": {
+    "mtime": 1790235513.822273,
+    "seen": 1790240822.3466125,
+    "ast_hash": "4c0e89f2cd2586fb202df5712d17bacf",
+    "semantic_hash": ""
+  },
+  "backend/data/graph_progress_v2.json": {
+    "mtime": 1790238786.7646406,
+    "seen": 1790240822.3466153,
+    "ast_hash": "1fe210c0611d5c40ac3f34fcf08b0310",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/BackendStatus.tsx": {
+    "mtime": 1790167415.611051,
+    "seen": 1790240822.3491962,
+    "ast_hash": "20b0de687b73a08bc4094989b40e56db",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/theme.ts": {
+    "mtime": 1790234637.9708743,
+    "seen": 1790240822.3503246,
+    "ast_hash": "e81aa5dc20bc4782a02ea6eed2bf96c7",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/brag-plan.md": {
+    "mtime": 1790177483.6655698,
+    "seen": 1790240822.3536623,
+    "ast_hash": "a4c1ae10d6bdc96c4f2ede1c792fc121",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition-brief.md": {
+    "mtime": 1790177510.0813408,
+    "seen": 1790240822.3536658,
+    "ast_hash": "167c342c09c3e24c807899e70e228f5f",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/index.html": {
+    "mtime": 1790177740.6844554,
+    "seen": 1790240822.3536687,
+    "ast_hash": "aa574404ab9100c4a95592ed45de071b",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/share-copy.txt": {
+    "mtime": 1790177936.5799856,
+    "seen": 1790240822.3536706,
+    "ast_hash": "ec08c986d3bb92fef5936e370024a975",
+    "semantic_hash": ""
+  },
+  "docs/notebooklm/graph-rag-project-context.md": {
+    "mtime": 1790163593.376468,
+    "seen": 1790240822.354244,
+    "ast_hash": "30ded468efa7f075a3891a08823bbf37",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/brag.jpg": {
+    "mtime": 1790177925.3057907,
+    "seen": 1790240822.3546064,
+    "ast_hash": "5be80c5354d2294e3e273f4281dbb865",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/logo-mark.svg": {
+    "mtime": 1790177495.7868114,
+    "seen": 1790240822.3546097,
+    "ast_hash": "9ee1e4fb0e19fc8c6c38275a8e6306cf",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/brag.mp4": {
+    "mtime": 1790177931.4232066,
+    "seen": 1790240822.3570356,
+    "ast_hash": "5bdc591ed1d274b299a681a7ad6784e8",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/music/happy-beats-business-moves-vol-12-by-ende-dot-app.mp3": {
+    "mtime": 1790177495.5093923,
+    "seen": 1790240822.3570395,
+    "ast_hash": "8161d01395fe356fb0795e803dece7c8",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/sfx/impact/impactBell_heavy_000.ogg": {
+    "mtime": 1790177495.5531633,
+    "seen": 1790240822.3570433,
+    "ast_hash": "59698e3609b413aedcd7d96c27badd4d",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/sfx/impact/impactSoft_medium_001.ogg": {
+    "mtime": 1790177495.5381107,
+    "seen": 1790240822.3570461,
+    "ast_hash": "daf869c83db8d9799689a01836439d2c",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/sfx/impact/impactSoft_medium_004.ogg": {
+    "mtime": 1790177495.5451577,
+    "seen": 1790240822.3570485,
+    "ast_hash": "5119c34ade28df3f040667f3597e7396",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/sfx/interface/click_003.ogg": {
+    "mtime": 1790177495.5834951,
+    "seen": 1790240822.357051,
+    "ast_hash": "4ca9982997589cb0f2f823741545ef4f",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/sfx/keyboard/keypress-003.wav": {
+    "mtime": 1790177495.609104,
+    "seen": 1790240822.3570538,
+    "ast_hash": "dc505cace4a40069f49015774f521c5e",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/sfx/keyboard/keypress-007.wav": {
+    "mtime": 1790177495.6741517,
+    "seen": 1790240822.3570557,
+    "ast_hash": "5965e256b4303e1ce8cecab16ccd0762",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/sfx/keyboard/keypress-012.wav": {
+    "mtime": 1790177495.7043495,
+    "seen": 1790240822.357058,
+    "ast_hash": "87220d7286ef3f67817f7bce6a299587",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/sfx/keyboard/keypress-018.wav": {
+    "mtime": 1790177495.7334964,
+    "seen": 1790240822.3570607,
+    "ast_hash": "107b90c1b8ca01a88e5126f941319b1c",
+    "semantic_hash": ""
+  },
+  "backend/brag-output/composition/assets/sfx/keyboard/keypress-025.wav": {
+    "mtime": 1790177495.760541,
+    "seen": 1790240822.3570635,
+    "ast_hash": "3d1c754d234e28fe9a83e7f89729c64d",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/ThemeToggle.tsx": {
+    "mtime": 1790251536.7448392,
+    "seen": 1790252485.8701668,
+    "ast_hash": "8e6d3caaf85dd2fe4bb28569631058c6",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/graphTheme.ts": {
+    "mtime": 1790251704.4323127,
+    "seen": 1790252485.8711102,
+    "ast_hash": "dbbc9ccd8d2a9b85fff60bb3dd950d4e",
+    "semantic_hash": ""
+  },
+  "frontend/src/pages/AboutPage.tsx": {
+    "mtime": 1790251536.8279767,
+    "seen": 1790252485.8732955,
+    "ast_hash": "229b06744e79d81bfddf736714d6b8e9",
     "semantic_hash": ""
   }
 }
