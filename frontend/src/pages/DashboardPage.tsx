@@ -33,6 +33,10 @@ const REL_LABEL: Record<string, string> = {
   PARTNERED_WITH: "partnered with",
   INVESTED_IN: "invested in",
   ACQUIRED: "acquired",
+  LEFT: "left",
+  REMOVED_FROM: "was removed from",
+  APPOINTED_TO: "was appointed to",
+  SUED: "sued",
 };
 const TYPE = {
   PERSON: { label: "People", color: "var(--chart-person)" },

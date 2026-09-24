@@ -14,6 +14,8 @@ import {
 import { apiGet } from "../lib/api";
 import BackendStatus from "../components/BackendStatus";
 import CodeGraphHero from "../components/CodeGraphHero";
+import ThemeToggle from "../components/ThemeToggle";
+import type { Theme } from "../lib/theme";
 
 interface GraphStats {
   entities: number | null;
@@ -53,7 +55,7 @@ function StatReadout({ label, value, icon: Icon }: { label: string; value: numbe
   );
 }
 
-export default function LandingPage() {
+export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void }) {
   const [stats, setStats] = useState<GraphStats | null>(null);
   // The hero logo matches the headline's height, which changes whenever it
   // re-wraps (viewport width, font load) - so observe it.
@@ -77,11 +79,17 @@ export default function LandingPage() {
       {/* Three columns - brand | links | status - so the links sit at the true
           centre of the bar whatever the widths of the two sides. */}
       <header className="scrim-header sticky top-0 z-20 grid h-14 grid-cols-[1fr_auto_1fr] items-center border-b border-[var(--border)] px-5 lg:px-8">
-        <div className="flex items-center gap-2.5">
+        {/* Full reload, so the graph hero replays its intro. */}
+        <Link
+          to="/"
+          reloadDocument
+          aria-label="Graph RAG home"
+          className="flex items-center gap-2.5 justify-self-start rounded-md"
+        >
           <img src="/logo.svg" alt="" className="h-7 w-7 rounded-lg" />
           <span className="text-sm font-semibold">Graph RAG</span>
           <span className="mono text-[10px] text-[var(--text-faint)]">capstone</span>
-        </div>
+        </Link>
         {/* Plain text links, no container or fill: grey, brightening on hover.
             Keyboard focus still gets a visible ring. Hidden on phones, where
             the header keeps logo + status. */}
@@ -96,8 +104,9 @@ export default function LandingPage() {
             </Link>
           ))}
         </nav>
-        <div className="col-start-3 justify-self-end">
+        <div className="col-start-3 flex items-center gap-2 justify-self-end">
           <BackendStatus pill />
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         </div>
       </header>
 
@@ -120,7 +129,7 @@ export default function LandingPage() {
               line up with the headline rather than with the logo. */}
           <div
             className="grid grid-cols-[auto_minmax(0,36rem)] justify-start gap-x-6 lg:gap-x-8"
-            style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.75)" }}
+            style={{ textShadow: "var(--hero-text-shadow)" }}
           >
             <div className="label col-start-2 mb-3">Knowledge-graph-augmented RAG</div>
             {/* Height is measured from the headline (see headlineHeight) - CSS
@@ -135,7 +144,7 @@ export default function LandingPage() {
               style={{
                 height: headlineHeight ? `${headlineHeight}px` : "6rem",
                 aspectRatio: "468 / 432",
-                filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.9)) drop-shadow(0 4px 20px rgba(0,0,0,0.75))",
+                filter: "var(--hero-logo-filter)",
               }}
             />
             <h1
@@ -225,7 +234,7 @@ export default function LandingPage() {
             Graph RAG Capstone — Neo4j · ChromaDB · Gemini
           </span>
           <Link to="/admin" className="flex items-center gap-1.5 text-xs text-[var(--text-faint)] hover:text-[var(--text)]">
-            <UploadCloud className="h-3.5 w-3.5" /> Admin
+            <UploadCloud className="h-3.5 w-3.5" /> Add articles
           </Link>
         </div>
       </footer>

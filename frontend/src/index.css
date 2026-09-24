@@ -20,6 +20,7 @@
 }
 
 :root {
+  color-scheme: light;
   --bg: #f5f6f4;
   --surface: #ffffff;
   --surface-hover: #f0f0ee;
@@ -36,7 +37,6 @@
   --accent-soft: rgba(95, 138, 23, 0.1);
   --danger: #c9463a;
   --danger-soft: rgba(201, 70, 58, 0.1);
-  --glow-b: #61c9ef;
   /* Chart series colors - validated with the dataviz skill's palette checker
      (lightness band, chroma, colour-blind separation) against each theme's
      surface. Entity types are ordered person/org/product; lime vs orange
@@ -49,9 +49,13 @@
   --chart-graph: #5f8a17;
   --chart-generic: #5072bb;
   --chart-neutral: #8b9191;
+  /* Legibility for text and the logo floating over the 3D code graph. */
+  --hero-text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95), 0 2px 18px rgba(255, 255, 255, 0.9);
+  --hero-logo-filter: invert(1) drop-shadow(0 1px 3px rgba(255, 255, 255, 0.95));
 }
 
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --bg: #08090a;
   --surface: #16191b;
   --surface-hover: #1d2123;
@@ -68,17 +72,19 @@
   --accent-soft: rgba(195, 239, 97, 0.12);
   --danger: #ff7a6b;
   --danger-soft: rgba(255, 122, 107, 0.12);
-  --glow-b: #4f9fe0;
   --chart-person: #a5620b;
   --chart-org: #7fa500;
   --chart-product: #4d84cf;
   --chart-graph: #7fa500;
   --chart-generic: #5072bb;
   --chart-neutral: #6f7675;
+  --hero-text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 4px 20px rgba(0, 0, 0, 0.75);
+  --hero-logo-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.9)) drop-shadow(0 4px 20px rgba(0, 0, 0, 0.75));
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --bg: #08090a;
     --surface: #16191b;
     --surface-hover: #1d2123;
@@ -95,13 +101,14 @@
     --accent-soft: rgba(195, 239, 97, 0.12);
     --danger: #ff7a6b;
     --danger-soft: rgba(255, 122, 107, 0.12);
-    --glow-b: #4f9fe0;
     --chart-person: #a5620b;
     --chart-org: #7fa500;
     --chart-product: #4d84cf;
     --chart-graph: #7fa500;
     --chart-generic: #5072bb;
     --chart-neutral: #6f7675;
+  --hero-text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 4px 20px rgba(0, 0, 0, 0.75);
+  --hero-logo-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.9)) drop-shadow(0 4px 20px rgba(0, 0, 0, 0.75));
   }
 }
 
@@ -125,19 +132,6 @@
     -webkit-font-smoothing: antialiased;
     font: 15px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
     position: relative;
-  }
-
-  /* Ambient glow field - gives the glass cards something to refract. Only the
-     one soft blue glow: the two lime glows (top-left, bottom) were removed as
-     too much green wash. Fixed, behind everything, never intercepts pointer
-     events. */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: radial-gradient(700px circle at 100% 20%, color-mix(in srgb, var(--glow-b) 16%, transparent), transparent 55%);
   }
 
   button,
@@ -244,7 +238,22 @@
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
-  body::before {
-    display: none;
+}
+
+/* About page: sections rise in as they scroll into view, like slides.
+   Scroll-driven, so no JS; browsers without it just show the content. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
   }
 }

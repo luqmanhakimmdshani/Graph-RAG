@@ -1,8 +1,10 @@
 import { useEffect, useRef } from "react";
 import ForceGraph3D from "3d-force-graph";
-import { Vector2 } from "three";
+import { Vector2, type Light } from "three";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import codeGraph from "../data/codeGraph.json";
+import { applyGraphTheme } from "../lib/graphTheme";
+import { useAppliedTheme, type Theme } from "../lib/theme";
 
 interface CodeNode {
   id: string;
@@ -12,9 +14,10 @@ interface CodeNode {
 
 // Deterministic hue per community, cycling the accent's hue family so the
 // hero reads as "one system, many parts" rather than a random rainbow.
-function communityColor(community: number): string {
+// Light theme drops lightness so nodes hold contrast on the pale background.
+function communityColor(community: number, theme: Theme): string {
   const hue = (140 + community * 47) % 360;
-  return `hsl(${hue} 70% 62%)`;
+  return theme === "dark" ? `hsl(${hue} 70% 62%)` : `hsl(${hue} 65% 44%)`;
 }
 
 // Fully interactive, like SubgraphView (orbit, zoom, hover) - it just also
@@ -27,7 +30,14 @@ function communityColor(community: number): string {
 // is gated.
 export default function CodeGraphHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const theme = useAppliedTheme();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const graphRef = useRef<any>(null);
+  const bloomRef = useRef<UnrealBloomPass | null>(null);
+  const darkLightsRef = useRef<Light[]>([]);
 
+  // Built once: a theme switch restyles the live graph (effect below) instead
+  // of rebuilding it, which reran the random layout and reset the camera.
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -41,8 +51,6 @@ export default function CodeGraphHero() {
       .showNavInfo(false)
       .nodeRelSize(2.6)
       .nodeLabel((n: CodeNode) => n.label)
-      .nodeColor((n: CodeNode) => communityColor(n.community))
-      .linkColor(() => "rgba(255,255,255,0.12)")
       .linkOpacity(0.4)
       .linkWidth(0.4)
       .height(el.clientHeight)
@@ -61,8 +69,11 @@ export default function CodeGraphHero() {
     // the glow still reads once a node is only a few pixels across zoomed out,
     // not just up close; wider radius (0.6 -> 0.85) spreads that into a softer
     // halo instead of just a brighter point.
+    // Added to the composer by applyGraphTheme on dark only.
     const bloom = new UnrealBloomPass(new Vector2(el.clientWidth, el.clientHeight), 2.4, 0.85, 0.04);
-    graph.postProcessingComposer().addPass(bloom);
+    graphRef.current = graph;
+    bloomRef.current = bloom;
+    darkLightsRef.current = graph.lights();
 
     // Hand full control to the user the moment they grab the camera.
     const stopAutoRotate = () => {
@@ -89,8 +100,18 @@ export default function CodeGraphHero() {
       observer.disconnect();
       graph._destructor();
       el.replaceChildren();
+      graphRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    const graph = graphRef.current;
+    if (!graph || !bloomRef.current) return;
+    graph
+      .nodeColor((n: CodeNode) => communityColor(n.community, theme))
+      .linkColor(() => (theme === "dark" ? "rgba(255,255,255,0.12)" : "rgba(20,24,20,0.3)"));
+    applyGraphTheme(graph, bloomRef.current, darkLightsRef.current, theme, { ambient: 0.45, resolution: 12 });
+  }, [theme]);
 
   return <div ref={containerRef} className="h-full w-full cursor-grab active:cursor-grabbing" />;
 }
