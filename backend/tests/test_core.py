@@ -151,3 +151,14 @@ def test_parse_upload_rejects_bad_input_per_item():
     assert "UTF-8" in parse_upload("x.txt", b"\xff\xfe\xfa")[1][0]["reason"]
     assert "unsupported" in parse_upload("x.pptx", b"...")[1][0]["reason"]
     assert "corrupt" in parse_upload("x.pdf", b"not a pdf")[1][0]["reason"]
+
+
+def test_relevant_summaries_keeps_the_closest_topics(monkeypatch):
+    from app.routers import query
+
+    vecs = {"q": [1.0, 0.0], "near": [0.9, 0.1], "mid": [0.5, 0.5], "far": [0.0, 1.0]}
+    monkeypatch.setattr(query.embeddings, "embed", lambda texts: [vecs[t] for t in texts])
+    query._summary_vectors.cache_clear()
+    summaries = [{"summary": t} for t in ("far", "mid", "near")]
+    assert [s["summary"] for s in query._relevant_summaries("q", summaries, k=2)] == ["near", "mid"]
+    assert query._relevant_summaries("q", summaries, k=5) == summaries

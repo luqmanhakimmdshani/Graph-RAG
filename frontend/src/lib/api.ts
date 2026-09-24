@@ -4,12 +4,10 @@ const BASE = "/api";
 // Harmless locally, where the Vite proxy ignores it.
 const HEADERS = { "ngrok-skip-browser-warning": "1" };
 
-// Backend query endpoints now enforce a ~20s Gemini timeout (see
-// gemini_timeout_ms), but before this the frontend had no ceiling of its
-// own - a slow/hung backend just left the UI waiting forever with no way
-// out but a manual reload. 25s gives the backend's own timeout room to fire
-// and surface as a normal error response first.
-const DEFAULT_TIMEOUT_MS = 25_000;
+// A ceiling so a hung backend can't leave the UI waiting forever. Free-tier
+// models behind OmniRoute routinely take 15-25s per answer (and 60s is the
+// backend's own openai_timeout_s), so 25s cut off answers already on the way.
+const DEFAULT_TIMEOUT_MS = 60_000;
 
 function withTimeout(ms: number): { signal: AbortSignal; cancel: () => void } {
   const controller = new AbortController();

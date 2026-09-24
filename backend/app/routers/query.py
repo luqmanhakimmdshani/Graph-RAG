@@ -3,6 +3,7 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
+import numpy as np
 from pydantic import BaseModel
 from fastapi import APIRouter
 
@@ -175,6 +176,27 @@ async def query_compare(req: QueryRequest):
     return {"graph_rag": graph, "generic_rag": generic}
 
 
+# All 177 topic summaries made a ~18k-token prompt: over free tiers' per-request
+# budgets (Groq's daily quota, OmniRoute's 15s queue deadline) and slow on the
+# rest. The question only needs the topics it is about.
+GLOBAL_TOP_K = 20
+
+
+@lru_cache(maxsize=1)
+def _summary_vectors(texts: tuple[str, ...]) -> np.ndarray:
+    v = np.asarray(embeddings.embed(list(texts)))
+    return v / np.linalg.norm(v, axis=1, keepdims=True)
+
+
+def _relevant_summaries(question: str, summaries: list[dict], k: int = GLOBAL_TOP_K) -> list[dict]:
+    """The k summaries closest in meaning to the question, best first."""
+    if len(summaries) <= k:
+        return summaries
+    q = np.asarray(embeddings.embed([question])[0])
+    sims = _summary_vectors(tuple(s["summary"] for s in summaries)) @ (q / np.linalg.norm(q))
+    return [summaries[i] for i in np.argsort(-sims)[:k]]
+
+
 def _build_global_prompt(question: str, summaries: list[dict]) -> str:
     context = "\n\n".join(f"[{i+1}] ({s['size']} entities) {s['summary']}" for i, s in enumerate(summaries))
     return (
@@ -198,6 +220,7 @@ async def query_global(req: QueryRequest):
             return {"answer": "No community summaries available yet - run scripts/detect_communities.py first.",
                      "citations": []}
 
+        summaries = _relevant_summaries(req.question, summaries)
         answer = llm.generate(_build_global_prompt(req.question, summaries))
         citations = [{"community_id": s["id"], "size": s["size"], "summary": s["summary"]} for s in summaries]
         return {"answer": answer, "citations": citations}

@@ -104,7 +104,7 @@ export default function ComparePage() {
     setError("");
     try {
       // Two sequential LLM calls (graph + generic), each allowed ~20s server-side.
-      const res = await apiPost<CompareResponse>("/query/compare", { question: q }, 45_000);
+      const res = await apiPost<CompareResponse>("/query/compare", { question: q }, 90_000);
       setResult(res);
     } catch {
       setError("Query failed — is the backend running and has the corpus been ingested?");
