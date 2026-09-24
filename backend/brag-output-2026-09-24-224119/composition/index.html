@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Graph RAG — follow the connections</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=block"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #08090a;
+        --surface: #16191b;
+        --glass: rgba(24, 28, 27, 0.72);
+        --glass-border: rgba(255, 255, 255, 0.09);
+        --glass-top: rgba(255, 255, 255, 0.16);
+        --text: #f1f3f1;
+        --muted: #979d9c;
+        --faint: #676c6b;
+        --accent: #c3ef61;
+        --accent-soft: rgba(195, 239, 97, 0.12);
+        --person: #d08a2e;
+        --org: #9cc41f;
+        --product: #6aa0e6;
+        --bar-graph: #7fa500;
+        --bar-plain: #5072bb;
+        --mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: radial-gradient(1400px 900px at 50% 45%, #111414 0%, var(--bg) 70%);
+      }
+      .clip { position: absolute; inset: 0; }
+      .scene { position: absolute; inset: 0; opacity: 0; }
+      .label {
+        font-family: var(--mono);
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #8a908e;
+      }
+      .card {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-top-color: var(--glass-top);
+        border-radius: 18px;
+      }
+      svg { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; }
+      .nlabel {
+        font-family: Inter, sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+        fill: var(--text);
+        paint-order: stroke;
+        stroke: #08090a;
+        stroke-width: 6px;
+      }
+
+      /* Scene 1-2: the question and plain search */
+      #s1 .column {
+        position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+      }
+      #q-head { text-align: center; margin-bottom: 36px; }
+      #q-head h1 { margin: 12px 0 0; font-size: 64px; font-weight: 600; letter-spacing: -0.02em; }
+      #askbar {
+        width: 1180px; height: 108px; box-sizing: border-box;
+        display: flex; align-items: center; gap: 22px; padding: 0 18px 0 34px;
+      }
+      #qtext { flex: 1; font-size: 38px; font-weight: 500; white-space: nowrap; overflow: hidden; }
+      #qtext .ch { display: none; }
+      #caret { display: inline-block; width: 3px; height: 40px; background: var(--accent); vertical-align: -6px; margin-left: 3px; }
+      #askbtn {
+        position: relative; width: 170px; height: 72px; border-radius: 12px;
+        background: var(--accent); color: #10140d; font-size: 28px; font-weight: 600;
+      }
+      #askbtn span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+      #ask-2 { opacity: 0; }
+      #plain {
+        position: absolute; left: 370px; right: 370px; top: 560px;
+        padding: 40px 48px; opacity: 0; box-sizing: border-box;
+      }
+      #plain .label { color: #8fa9e0; }
+      #plain p.ans { margin: 22px 0 0; font-size: 40px; line-height: 1.35; color: #c4cac6; }
+      #plain p.note { margin: 26px 0 0; font-size: 26px; color: var(--faint); opacity: 0; }
+
+      /* Scene 3: follow the connections */
+      #s3 .top { position: absolute; top: 88px; left: 0; right: 0; text-align: center; }
+      #s3 .top .label { color: var(--accent); }
+      #s3 .top h2 { margin: 10px 0 0; font-size: 50px; font-weight: 600; letter-spacing: -0.02em; }
+      #walk-answer {
+        position: absolute; left: 420px; right: 420px; top: 790px;
+        padding: 30px 40px; text-align: center; opacity: 0; box-sizing: border-box;
+        border-color: rgba(195, 239, 97, 0.35);
+      }
+      #walk-answer p { margin: 0; font-size: 42px; font-weight: 600; }
+      #walk-answer div { margin-top: 14px; font-family: var(--mono); font-size: 22px; color: var(--accent); letter-spacing: 0.04em; }
+
+      /* Scene 4: the map */
+      #s4 .side { position: absolute; left: 1190px; right: 110px; top: 190px; }
+      #s4 h2 { margin: 12px 0 10px; font-size: 60px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.08; }
+      #s4 .sub { font-size: 26px; color: var(--muted); line-height: 1.45; }
+      .stats { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 34px 30px; }
+      .stat { opacity: 0; }
+      .stat b { display: block; font-size: 64px; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+      .stat span { font-size: 22px; color: var(--muted); line-height: 1.3; display: block; margin-top: 4px; }
+      .legend { margin-top: 40px; display: flex; gap: 30px; font-family: var(--mono); font-size: 20px; color: var(--muted); opacity: 0; }
+      .legend i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 10px; vertical-align: -1px; }
+
+      /* Scene 5: receipts */
+      #s5 .head { position: absolute; left: 140px; top: 110px; width: 1100px; }
+      #s5 h2 { margin: 12px 0 0; font-size: 50px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+      #chart { position: absolute; left: 150px; top: 330px; width: 1000px; height: 600px; }
+      .axis { position: absolute; left: 0; right: 0; top: 480px; height: 2px; background: rgba(255,255,255,0.14); }
+      .grp { position: absolute; top: 0; width: 280px; height: 600px; }
+      .bar { position: absolute; bottom: 120px; width: 104px; border-radius: 10px 10px 0 0; transform-origin: 50% 100%; }
+      .bar.g { left: 26px; background: var(--bar-graph); }
+      .bar.p { left: 148px; background: var(--bar-plain); }
+      .val { position: absolute; width: 104px; text-align: center; font-family: var(--mono); font-size: 26px; font-weight: 600; opacity: 0; }
+      .val.g { left: 26px; color: #c9e886; }
+      .val.p { left: 148px; color: #a9bde6; }
+      .gname { position: absolute; top: 500px; left: 0; right: 0; text-align: center; font-size: 26px; color: var(--muted); opacity: 0; }
+      .clegend { position: absolute; left: 150px; top: 290px; display: flex; gap: 34px; font-size: 22px; color: var(--muted); opacity: 0; }
+      .clegend i { display: inline-block; width: 16px; height: 16px; border-radius: 4px; margin-right: 10px; vertical-align: -2px; }
+      #headline { position: absolute; left: 1270px; right: 110px; top: 380px; opacity: 0; }
+      #headline .big { font-size: 190px; font-weight: 700; line-height: 1; letter-spacing: -0.05em; color: var(--accent); }
+      #headline .as { font-size: 52px; font-weight: 600; margin-top: 8px; }
+      #headline .ov { font-size: 28px; color: var(--muted); margin-top: 20px; line-height: 1.4; }
+
+      /* Scene 6: under the hood */
+      #s6 .side { position: absolute; left: 1210px; right: 110px; top: 300px; }
+      #s6 h2 { margin: 12px 0 14px; font-size: 58px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+      #s6 .mono { font-family: var(--mono); font-size: 22px; color: var(--muted); line-height: 1.6; }
+      .chips { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; opacity: 0; }
+      .chips span { padding: 10px 18px; border-radius: 999px; border: 1px solid var(--glass-border); background: var(--glass); font-size: 22px; color: var(--text); }
+
+      /* Scene 7: outro */
+      #s7 .column {
+        position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      }
+      #logo { width: 170px; height: 170px; opacity: 0; filter: drop-shadow(0 0 28px rgba(255,255,255,0.18)); }
+      #brand { margin-top: 26px; font-size: 92px; font-weight: 700; letter-spacing: -0.03em; opacity: 0; }
+      #tagline { margin-top: 10px; font-size: 46px; font-weight: 500; color: var(--muted); opacity: 0; }
+      #tagline em { font-style: normal; color: var(--accent); }
+      #url { margin-top: 40px; font-family: var(--mono); font-size: 30px; color: var(--accent); opacity: 0; }
+      #who { margin-top: 18px; font-size: 26px; color: var(--muted); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="46.5" data-width="1920" data-height="1080">
+      <!-- 1-2: the question, then plain search's answer -->
+      <div id="s1" class="clip" data-start="0" data-duration="10.9" data-track-index="0">
+        <div class="scene" id="s1-in">
+          <div class="column">
+            <div id="qgroup">
+              <div id="q-head"><div class="label">A / B retrieval</div><h1>Comparison</h1></div>
+              <div id="askbar" class="card">
+                <div id="qtext"></div>
+                <div id="askbtn"><span id="ask-1">Ask</span><span id="ask-2">Asking…</span></div>
+              </div>
+            </div>
+          </div>
+          <div id="plain" class="card">
+            <div class="label">Plain text search · 5 closest passages</div>
+            <p class="ans">“The provided context does not contain information about which two companies invested in Anthropic.”</p>
+            <p class="note">No single passage holds both facts.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3: follow the connections -->
+      <div id="s3" class="clip" data-start="10.54" data-duration="9.31" data-track-index="1">
+        <div class="scene" id="s3-in">
+          <div class="top"><div class="label">Graph RAG</div><h2>Follow the connections</h2></div>
+          <svg id="walk" viewBox="0 0 1920 1080"></svg>
+          <div id="walk-answer" class="card">
+            <p>Amazon and Google invested in Anthropic.</p>
+            <div>Two facts · two articles · one node</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4: the map -->
+      <div id="s4" class="clip" data-start="19.49" data-duration="8.26" data-track-index="2">
+        <div class="scene" id="s4-in">
+          <svg id="map" viewBox="0 0 1920 1080"></svg>
+          <div class="side">
+            <div class="label">The map</div>
+            <h2>Two weeks of news, mapped</h2>
+            <div class="sub">OpenAI’s neighbourhood alone: 76 names and 130 connections, each from a real article.</div>
+            <div class="stats">
+              <div class="stat"><b data-to="500">0</b><span>news articles</span></div>
+              <div class="stat"><b data-to="5091">0</b><span>people, companies and products</span></div>
+              <div class="stat"><b data-to="2130">0</b><span>connections between them</span></div>
+              <div class="stat"><b data-to="177">0</b><span>topic groups</span></div>
+            </div>
+            <div class="legend">
+              <span><i style="background: var(--person)"></i>person</span>
+              <span><i style="background: var(--org)"></i>organisation</span>
+              <span><i style="background: var(--product)"></i>product</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5: the receipts -->
+      <div id="s5" class="clip" data-start="27.39" data-duration="8.25" data-track-index="3">
+        <div class="scene" id="s5-in">
+          <div class="head">
+            <div class="label">20 test questions · scored 0–5 by an AI judge</div>
+            <h2>Following the connections wins every kind of question</h2>
+          </div>
+          <div class="clegend">
+            <span><i style="background: var(--bar-graph)"></i>Graph RAG</span>
+            <span><i style="background: var(--bar-plain)"></i>Plain text search</span>
+          </div>
+          <div id="chart">
+            <div class="axis"></div>
+          </div>
+          <div id="headline">
+            <div class="big">1.8×</div>
+            <div class="as">as relevant</div>
+            <div class="ov">4.50 against 2.55 overall, out of 5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6: under the hood -->
+      <div id="s6" class="clip" data-start="35.28" data-duration="5.12" data-track-index="4">
+        <div class="scene" id="s6-in">
+          <svg id="code" viewBox="0 0 1920 1080"></svg>
+          <div class="side">
+            <div class="label">Under the hood</div>
+            <h2>Built from 559 parts of its own code</h2>
+            <div class="mono">mapped by graphify · 898 links · 33 communities</div>
+            <div class="chips"><span>React</span><span>FastAPI</span><span>Neo4j</span><span>ChromaDB</span><span>sentence-transformers</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7: outro -->
+      <div id="s7" class="clip" data-start="40.02" data-duration="6.48" data-track-index="5">
+        <div class="scene" id="s7-in">
+          <div class="column">
+            <img id="logo" src="assets/logo-mark.svg" alt="Graph RAG logo" />
+            <div id="brand">Graph RAG</div>
+            <div id="tagline">Answers that follow <em>the connections</em></div>
+            <div id="url">graph-rag-virid.vercel.app</div>
+            <div id="who">Luqman Hakim bin Md Shani · AI Engineer @ Pepper Labs · Universiti Malaya</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- audio -->
+      <audio id="music" data-start="0" data-duration="46.5" data-track-index="10" data-volume="0.3" data-fade-in="0.5" data-fade-out="2.2" src="assets/music/happy-beats-business-moves-vol-11-by-ende-dot-app.mp3"></audio>
+      <audio id="k1" data-start="0.72" data-duration="0.3" data-track-index="11" data-volume="0.28" src="assets/sfx/keyboard/keypress-003.wav"></audio>
+      <audio id="k2" data-start="1.13" data-duration="0.3" data-track-index="12" data-volume="0.28" src="assets/sfx/keyboard/keypress-012.wav"></audio>
+      <audio id="k3" data-start="1.56" data-duration="0.3" data-track-index="13" data-volume="0.28" src="assets/sfx/keyboard/keypress-007.wav"></audio>
+      <audio id="k4" data-start="1.99" data-duration="0.3" data-track-index="11" data-volume="0.28" src="assets/sfx/keyboard/keypress-018.wav"></audio>
+      <audio id="k5" data-start="2.42" data-duration="0.3" data-track-index="12" data-volume="0.28" src="assets/sfx/keyboard/keypress-025.wav"></audio>
+      <audio id="k6" data-start="2.85" data-duration="0.3" data-track-index="13" data-volume="0.28" src="assets/sfx/keyboard/keypress-029.wav"></audio>
+      <audio id="click" data-start="3.70" data-duration="0.05" data-track-index="14" data-volume="0.6" src="assets/sfx/interface/click_003.ogg"></audio>
+      <audio id="hitPlain" data-start="5.28" data-duration="0.18" data-track-index="15" data-volume="0.5" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
+      <audio id="tapAmazon" data-start="12.65" data-duration="0.27" data-track-index="16" data-volume="0.55" src="assets/sfx/impact/impactWood_light_002.ogg"></audio>
+      <audio id="tapGoogle" data-start="14.22" data-duration="0.21" data-track-index="17" data-volume="0.5" src="assets/sfx/impact/impactGlass_light_002.ogg"></audio>
+      <audio id="bellAnswer" data-start="16.86" data-duration="1.48" data-track-index="18" data-volume="0.45" src="assets/sfx/impact/impactBell_heavy_000.ogg"></audio>
+      <audio id="hitMap" data-start="19.49" data-duration="0.15" data-track-index="15" data-volume="0.5" src="assets/sfx/impact/impactSoft_medium_004.ogg"></audio>
+      <audio id="chips" data-start="22.65" data-duration="0.17" data-track-index="19" data-volume="0.4" src="assets/sfx/casino/chips-stack-2.ogg"></audio>
+      <audio id="hitChart" data-start="27.39" data-duration="0.18" data-track-index="15" data-volume="0.5" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
+      <audio id="hitHead" data-start="32.12" data-duration="0.15" data-track-index="16" data-volume="0.6" src="assets/sfx/impact/impactSoft_medium_004.ogg"></audio>
+      <audio id="hitCode" data-start="35.28" data-duration="0.18" data-track-index="15" data-volume="0.5" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
+      <audio id="bellLogo" data-start="40.02" data-duration="1.48" data-track-index="18" data-volume="0.5" src="assets/sfx/impact/impactBell_heavy_000.ogg"></audio>
+    </div>
+
+    <script>
+      const DATA = {"anthropic":{"nodes":[{"name":"Anthropic","type":"ORG"},{"name":"Dario Amodei","type":"PERSON"},{"name":"Google","type":"ORG"},{"name":"Amazon","type":"ORG"},{"name":"OpenAI","type":"ORG"}],"edges":[{"from":"Dario Amodei","to":"Anthropic","type":"FOUNDED"},{"from":"OpenAI","to":"Anthropic","type":"COMPETES_WITH"},{"from":"Amazon","to":"Anthropic","type":"PARTNERED_WITH"},{"from":"Amazon","to":"Anthropic","type":"INVESTED_IN"},{"from":"Anthropic","to":"OpenAI","type":"COMPETES_WITH"},{"from":"Google","to":"Anthropic","type":"INVESTED_IN"},{"from":"OpenAI","to":"Anthropic","type":"PARTNERED_WITH"}]},"openai":{"nodes":[{"id":"4:08236080-8aa9-4078-b304-63177990f15a:73","name":"OpenAI","type":"ORG","x":0.0062,"y":-0.0011,"d":75,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:1","name":"ChatGPT","type":"PRODUCT","x":0.0206,"y":0.6251,"d":1,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:81","name":"Microsoft","type":"ORG","x":-0.3509,"y":-0.1718,"d":1,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:84","name":"X","type":"ORG","x":-0.9988,"y":0.0776,"d":1,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:277","name":"Anthropic","type":"ORG","x":0.9953,"y":0.1622,"d":1,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:1770","name":"Associated Press","type":"ORG","x":0.4529,"y":-0.8671,"d":1,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2761","name":"Jony Ive","type":"PERSON","x":0.9316,"y":0.3484,"d":1,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3357","name":"Canva","type":"ORG","x":-0.7985,"y":0.0808,"d":1,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:279","name":"Sarah Silverman","type":"PERSON","x":-0.6726,"y":-0.7189,"d":1,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:499","name":"Sam Altman","type":"PERSON","x":-0.3667,"y":-0.7907,"d":1,"label":true},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:585","name":"Mira Murati","type":"PERSON","x":0.6859,"y":0.3858,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:587","name":"Helen Toner","type":"PERSON","x":-0.6434,"y":-0.4822,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:588","name":"Tasha McCauley","type":"PERSON","x":-0.5335,"y":-0.8531,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2470","name":"Greg Brockman","type":"PERSON","x":0.3777,"y":0.0827,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2640","name":"Ilya Setskover","type":"PERSON","x":-0.9451,"y":-0.0912,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:4542","name":"Altman","type":"PERSON","x":-0.4544,"y":0.687,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:82","name":"Elon Musk","type":"PERSON","x":0.6136,"y":0.145,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:586","name":"Emmett Shear","type":"PERSON","x":-0.1479,"y":1.0,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:590","name":"Larry Summers","type":"PERSON","x":0.9667,"y":-0.2021,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:592","name":"Adam D'Angelo","type":"PERSON","x":-0.6014,"y":0.523,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:781","name":"Rob Enderle","type":"PERSON","x":-0.967,"y":-0.2693,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2756","name":"Ilya Sutskever","type":"PERSON","x":-0.8629,"y":-0.4138,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2770","name":"Brockman","type":"PERSON","x":-0.8098,"y":-0.5856,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2793","name":"Evan Morikawa","type":"PERSON","x":0.6332,"y":0.7877,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3200","name":"Anna Makanju","type":"PERSON","x":0.8017,"y":-0.0519,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3393","name":"Emmet Shear","type":"PERSON","x":0.3185,"y":-0.508,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3502","name":"Aleksander Madry","type":"PERSON","x":-0.7677,"y":-0.2066,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3503","name":"Jakub Pachocki","type":"PERSON","x":0.2965,"y":-0.9497,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3504","name":"Szymon Sidor","type":"PERSON","x":-0.9008,"y":0.4426,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3624","name":"Brad Lightcap","type":"PERSON","x":-0.7394,"y":0.3613,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3625","name":"Tao Xu","type":"PERSON","x":0.3591,"y":0.9289,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3672","name":"Noam Brown","type":"PERSON","x":-0.3162,"y":-0.4323,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3715","name":"Jason Kwon","type":"PERSON","x":0.8086,"y":0.1821,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3717","name":"Helen Turner","type":"PERSON","x":0.3404,"y":0.6302,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3807","name":"Dario Amodei","type":"PERSON","x":0.1895,"y":0.9834,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:4947","name":"Shear","type":"PERSON","x":-0.2564,"y":0.6528,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:5086","name":"Greg Brockman","type":"ORG","x":0.9315,"y":-0.3767,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:5201","name":"Ilya Setskever","type":"PERSON","x":0.0675,"y":-0.3727,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:339","name":"GPT4","type":"PRODUCT","x":0.1155,"y":-0.9923,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3202","name":"ChatGPT Plus","type":"PRODUCT","x":-0.9361,"y":0.2532,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3358","name":"GPT-4 Turbo","type":"PRODUCT","x":-0.1319,"y":0.4081,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3359","name":"DALL-E 3","type":"PRODUCT","x":0.608,"y":-0.4487,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:4986","name":"OpenAI LP","type":"ORG","x":-0.139,"y":-0.825,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:78","name":"Amazon Web Services","type":"ORG","x":0.5537,"y":0.573,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:338","name":"Infosys","type":"ORG","x":0.4669,"y":0.8069,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:595","name":"Steve Jobs","type":"PERSON","x":0.4415,"y":0.3704,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:1575","name":"Peter Thiel","type":"PERSON","x":-0.783,"y":0.6066,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2767","name":"Reid Hoffman","type":"PERSON","x":-0.5702,"y":-0.2983,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3687","name":"Pamela Vagata","type":"PERSON","x":-0.6101,"y":-0.0371,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3688","name":"Wojciech Zaremba","type":"PERSON","x":0.4079,"y":-0.2758,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:469","name":"SoftBank","type":"ORG","x":-0.4847,"y":-0.6146,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:503","name":"Satya Nadella","type":"PERSON","x":0.5033,"y":-0.633,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:872","name":"Sequoia Capital","type":"ORG","x":-0.081,"y":-1.0,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2759","name":"Vinod Khosla","type":"PERSON","x":-0.2996,"y":-0.9638,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3043","name":"Khosla Ventures","type":"ORG","x":-0.4036,"y":0.4359,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3125","name":"Air Street Capital","type":"ORG","x":0.9988,"y":-0.0231,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3201","name":"Thrive Capital","type":"ORG","x":-0.6123,"y":0.2177,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:5059","name":"Kholsa Ventures","type":"ORG","x":0.1813,"y":0.7696,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:39","name":"Google","type":"ORG","x":-0.1158,"y":0.7994,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:76","name":"Amazon","type":"ORG","x":-0.2147,"y":-0.6247,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:220","name":"Meta","type":"ORG","x":-0.3123,"y":0.9117,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:85","name":"xAI","type":"ORG","x":0.7469,"y":-0.2917,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:881","name":"Google Deep Mind","type":"ORG","x":0.1855,"y":0.423,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2370","name":"Google Bard","type":"PRODUCT","x":-0.3765,"y":0.1657,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2976","name":"Inflection AI","type":"ORG","x":0.8556,"y":0.5084,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3379","name":"Claude","type":"PRODUCT","x":0.6181,"y":-0.7968,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3626","name":"Cohere","type":"ORG","x":0.0256,"y":-0.6046,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3627","name":"Adept","type":"ORG","x":0.8333,"y":-0.5218,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3629","name":"Stability AI","type":"ORG","x":0.7328,"y":-0.6572,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:589","name":"Bret Taylor","type":"PERSON","x":-0.486,"y":0.8745,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:1623","name":"Lawrence Summers","type":"PERSON","x":0.0263,"y":0.9469,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:5126","name":"Mira Murati","type":"ORG","x":0.2834,"y":-0.7293,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2768","name":"Will Hurd","type":"PERSON","x":0.596,"y":-0.1259,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:2769","name":"Shivon Zilis","type":"PERSON","x":0.0853,"y":-0.8058,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:3565","name":"Aleksander Mądry","type":"PERSON","x":-0.6502,"y":0.7493,"d":1,"label":false},{"id":"4:08236080-8aa9-4078-b304-63177990f15a:4732","name":"Musk","type":"PERSON","x":0.7466,"y":0.6434,"d":1,"label":false}],"edges":[["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:81","PARTNERED_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:1770","PARTNERED_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:81","4:08236080-8aa9-4078-b304-63177990f15a:73","PARTNERED_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:1770","4:08236080-8aa9-4078-b304-63177990f15a:73","PARTNERED_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:499","4:08236080-8aa9-4078-b304-63177990f15a:73","REMOVED_FROM"],["4:08236080-8aa9-4078-b304-63177990f15a:587","4:08236080-8aa9-4078-b304-63177990f15a:73","REMOVED_FROM"],["4:08236080-8aa9-4078-b304-63177990f15a:588","4:08236080-8aa9-4078-b304-63177990f15a:73","REMOVED_FROM"],["4:08236080-8aa9-4078-b304-63177990f15a:4542","4:08236080-8aa9-4078-b304-63177990f15a:73","REMOVED_FROM"],["4:08236080-8aa9-4078-b304-63177990f15a:499","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:586","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:590","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:592","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:2470","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:2640","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:2756","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:2793","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3200","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3393","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3502","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3503","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3504","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3625","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3672","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3715","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3717","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3807","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:339","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:3202","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:3358","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:3359","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:78","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:82","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:338","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:499","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:1575","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:2470","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:2756","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:2767","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:3687","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:3688","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:81","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:82","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:872","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:2759","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:3043","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:3201","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:5059","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:277","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:85","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:2976","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:499","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:585","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:586","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:589","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:590","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:1623","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:4542","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:82","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:2470","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:5086","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:5126","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:279","4:08236080-8aa9-4078-b304-63177990f15a:73","SUED"],["4:08236080-8aa9-4078-b304-63177990f15a:585","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:1","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:277","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:2470","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:2770","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:3504","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:3807","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:5086","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:585","4:08236080-8aa9-4078-b304-63177990f15a:73","REMOVED_FROM"],["4:08236080-8aa9-4078-b304-63177990f15a:2470","4:08236080-8aa9-4078-b304-63177990f15a:73","REMOVED_FROM"],["4:08236080-8aa9-4078-b304-63177990f15a:81","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:82","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:587","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:588","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:2770","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:3624","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:4542","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:5086","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:5201","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:4986","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:1","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:81","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:82","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:2370","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:3379","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:82","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:592","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:2756","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:3393","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:4947","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:2767","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:2768","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:2769","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:3502","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:3503","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:3565","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:4732","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:4947","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:587","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:588","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:5201","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:1","PARTNERED_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:84","PARTNERED_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:2761","PARTNERED_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:3357","PARTNERED_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:469","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:39","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:76","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:220","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:39","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:76","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:220","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:881","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:3626","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:3627","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:3629","4:08236080-8aa9-4078-b304-63177990f15a:73","COMPETES_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:503","4:08236080-8aa9-4078-b304-63177990f15a:73","APPOINTED_TO"],["4:08236080-8aa9-4078-b304-63177990f15a:499","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:585","4:08236080-8aa9-4078-b304-63177990f15a:73","LEFT"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:277","PARTNERED_WITH"],["4:08236080-8aa9-4078-b304-63177990f15a:81","4:08236080-8aa9-4078-b304-63177990f15a:73","ACQUIRED"],["4:08236080-8aa9-4078-b304-63177990f15a:2640","4:08236080-8aa9-4078-b304-63177990f15a:73","REMOVED_FROM"],["4:08236080-8aa9-4078-b304-63177990f15a:503","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:3125","4:08236080-8aa9-4078-b304-63177990f15a:73","INVESTED_IN"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:1","ACQUIRED"],["4:08236080-8aa9-4078-b304-63177990f15a:781","4:08236080-8aa9-4078-b304-63177990f15a:73","EMPLOYED_BY"],["4:08236080-8aa9-4078-b304-63177990f15a:595","4:08236080-8aa9-4078-b304-63177990f15a:73","FOUNDED"],["4:08236080-8aa9-4078-b304-63177990f15a:73","4:08236080-8aa9-4078-b304-63177990f15a:1","APPOINTED_TO"]]},"code":{"nodes":[[0.092,0.576,12],[0.446,0.258,17],[0.268,0.348,18],[0.661,0.221,18],[0.646,0.336,18],[-0.585,0.16,19],[0.178,0.19,20],[-0.443,-0.182,21],[0.573,0.396,22],[0.585,0.309,22],[0.5,0.447,22],[0.261,0.772,24],[0.18,0.806,24],[0.107,0.83,24],[-0.304,0.662,24],[-0.358,0.63,24],[-0.593,-0.229,27],[-0.134,-0.057,27],[-0.475,-0.086,27],[0.314,-0.367,30],[0.407,-0.305,30],[0.473,-0.216,30],[0.491,0.511,32],[0.411,0.57,32],[0.333,0.612,32],[0.186,-0.596,4],[0.241,-0.568,4],[0.297,-0.548,4],[-0.225,-0.475,4],[-0.163,-0.496,4],[-0.075,-0.455,4],[-0.01,-0.487,4],[0.055,-0.463,4],[0.134,-0.448,4],[0.262,-0.373,4],[0.475,-0.295,4],[0.526,-0.23,4],[0.568,-0.07,4],[0.408,-0.246,4],[0.48,-0.147,4],[0.538,-0.018,4],[0.544,0.038,4],[-0.196,0.43,5],[-0.008,-0.258,8],[-0.283,-0.277,8],[0.024,-0.235,8],[0.519,-0.382,10],[0.627,-0.223,10],[0.405,0.49,10],[0.288,-0.212,10],[0.28,-0.314,10],[0.321,-0.08,10],[0.306,-0.139,10],[0.185,0.117,10],[0.311,-0.291,10],[0.343,-0.26,10],[0.22,-0.12,10],[0.38,-0.156,10],[0.233,0.111,10],[0.079,-0.374,10],[0.212,-0.359,10],[0.277,0.145,10],[0.06,-0.32,10],[0.176,-0.191,10],[0.145,-0.306,10],[0.254,-0.042,10],[0.336,-0.19,10],[0.364,-0.097,10],[0.653,-0.123,10],[0.545,-0.181,10],[0.706,0.042,10],[0.573,0.136,10],[0.684,0.104,10],[0.497,0.634,12],[0.433,0.67,12],[0.256,0.78,12],[0.058,0.661,12],[0.468,0.588,12],[0.332,0.685,12],[0.293,0.709,12],[0.025,0.568,12],[0.289,0.389,12],[0.286,0.436,12],[-0.051,0.543,12],[0.176,0.405,12],[-0.114,0.287,12],[0.23,0.493,12],[-0.139,0.345,12],[-0.101,0.499,12],[0.177,0.53,12],[0.011,0.489,12],[0.126,0.518,12],[0.098,0.443,12],[-0.302,0.426,12],[-0.365,0.676,12],[-0.345,0.269,12],[0.202,0.254,17],[0.767,0.436,17],[0.606,0.332,17],[-0.352,-0.344,17],[-0.081,-0.431,17],[-0.409,-0.062,17],[-0.221,-0.312,17],[0.674,-0.063,17],[0.679,-0.195,17],[-0.478,0.183,17],[-0.358,-0.117,17],[-0.425,0.377,17],[-0.193,0.609,17],[-0.471,0.103,17],[0.786,0.323,17],[-1.039,-0.05,17],[0.582,0.553,18],[0.486,0.646,18],[0.353,0.72,18],[-0.201,0.209,19],[-0.561,0.28,19],[-0.453,0.334,19],[-0.539,0.339,19],[-0.577,0.221,19],[-0.583,0.099,19],[0.14,0.03,20],[0.076,0.283,20],[0.012,0.283,20],[-0.056,0.467,20],[-0.18,0.291,20],[0.064,-0.094,20],[0.029,-0.061,20],[-0.117,0.146,20],[0.198,0.135,21],[-0.164,0.159,21],[0.034,0.191,21],[0.128,-0.02,21],[0.177,0.41,21],[-0.253,0.32,21],[0.162,0.256,21],[0.023,0.343,21],[0.44,0.512,22],[0.201,0.35,22],[0.41,0.675,22],[0.27,0.722,22],[-0.053,0.685,24],[-0.005,0.845,24],[-0.104,0.677,24],[0.001,0.681,24],[-0.12,0.833,24],[-0.18,0.715,24],[-0.351,0.471,24],[-0.061,0.378,24],[0.128,0.497,24],[-0.248,0.693,24],[-0.252,0.588,24],[-0.175,0.634,24],[-0.417,0.566,24],[-0.365,-0.159,27],[-0.511,-0.329,27],[-0.138,0.07,27],[-0.182,-0.417,27],[-0.312,-0.391,27],[-0.155,-0.33,27],[-0.507,0.198,27],[0.302,0.047,30],[0.681,-0.016,30],[0.683,0.111,30],[0.522,-0.101,30],[0.107,0.397,32],[0.202,0.766,32],[0.054,0.789,32],[0.054,0.523,32],[0.545,0.437,32],[0.07,-0.597,4],[0.13,-0.583,4],[0.111,-0.347,4],[-0.097,-0.516,4],[-0.188,-0.13,4],[-0.547,-0.232,4],[-0.521,-0.286,4],[-0.47,-0.365,4],[-0.404,-0.441,4],[-0.285,-0.352,4],[-0.268,-0.429,4],[0.557,-0.154,4],[0.391,-0.364,4],[0.175,-0.096,4],[0.343,-0.46,4],[0.494,-0.374,4],[-0.152,0.669,5],[-0.025,0.035,5],[-0.254,0.646,5],[-0.081,0.58,5],[-0.396,0.451,5],[-0.283,0.617,5],[-0.315,0.592,5],[-0.293,0.365,5],[-0.474,0.53,5],[-0.329,-0.152,5],[-0.258,0.025,5],[-0.193,-0.452,5],[-0.518,0.186,5],[-0.319,0.133,5],[-0.37,0.334,5],[-0.26,0.321,5],[-0.25,0.192,5],[-0.528,0.065,5],[-0.446,0.305,5],[-0.436,0.043,5],[-0.487,0.013,5],[-0.487,-0.027,5],[-0.42,0.205,5],[-0.539,0.245,5],[-0.229,-0.081,8],[-0.345,-0.311,8],[-0.27,-0.023,8],[-0.409,-0.208,8],[-0.383,-0.018,8],[-0.286,-0.357,8],[0.127,-0.351,8],[-0.06,-0.274,8],[-0.042,-0.176,8],[-0.305,-0.08,8],[0.024,-0.519,8],[-0.138,-0.33,8],[0.105,-0.507,8],[-0.622,-0.302,8],[-0.454,-0.088,8],[-0.533,0.134,8],[-0.012,0.22,0],[-0.029,0.344,0],[-0.303,0.343,0],[-0.413,0.194,0],[-0.398,-0.09,0],[-0.014,0.059,0],[-0.207,-0.222,0],[-0.418,0.322,0],[-0.415,0.033,0],[-0.009,-0.069,0],[-0.22,0.475,0],[-0.151,0.337,0],[-0.276,-0.083,0],[-0.124,-0.09,0],[0.137,0.134,0],[-0.564,0.119,0],[-0.755,-0.104,0],[0.399,0.14,0],[-0.344,-0.465,0],[-0.082,0.718,0],[-0.213,0.127,0],[-0.825,0.114,0],[-0.765,0.334,0],[-0.368,0.712,0],[0.338,-0.081,0],[-0.059,-0.459,0],[0.328,0.358,0],[0.072,0.13,1],[-0.262,0.072,1],[-0.039,0.014,1],[-0.064,0.295,1],[-0.165,0.373,1],[-0.247,0.272,1],[-0.315,-0.271,1],[-0.065,0.168,1],[-0.454,0.136,1],[-0.313,0.386,1],[-0.41,0.304,1],[-0.565,0.076,1],[-0.538,-0.034,1],[-0.202,-0.149,1],[-0.092,-0.172,1],[-0.474,-0.125,1],[-0.004,-0.09,1],[-0.542,0.257,1],[-0.352,-0.116,1],[0.334,0.192,1],[-0.196,-0.527,1],[-0.514,-0.473,1],[0.572,0.255,1],[-0.759,0.419,1],[0.375,-0.018,10],[0.777,-0.507,10],[0.233,0.28,10],[0.109,-0.056,10],[0.368,0.062,10],[1.008,0.005,10],[0.628,-0.393,10],[0.579,0.5,10],[0.2,-0.268,10],[0.131,-0.719,10],[0.396,-0.627,10],[0.447,-0.597,10],[0.498,-0.561,10],[0.313,-0.677,10],[0.544,-0.489,10],[0.632,0.156,10],[0.657,0.206,10],[0.681,-0.025,10],[-0.022,0.112,11],[-0.457,0.076,11],[-0.208,-0.283,11],[-0.229,-0.032,11],[0.228,0.426,12],[0.433,0.946,12],[0.587,0.858,12],[0.172,1.026,12],[0.043,0.268,12],[-0.031,0.919,12],[0.114,0.771,12],[-0.051,0.323,12],[-0.518,0.902,12],[0.307,0.994,12],[0.703,0.766,12],[0.203,0.828,12],[0.083,0.903,12],[-0.222,0.884,12],[0.098,0.152,17],[0.252,0.211,17],[0.902,0.505,17],[-0.03,-0.036,17],[-0.619,-0.523,17],[-0.108,-0.799,17],[-0.502,-0.621,17],[0.548,0.386,17],[0.306,0.031,17],[0.913,-0.391,17],[-0.058,0.177,17],[0.41,0.224,17],[0.831,0.234,17],[-1.039,-0.043,17],[-0.788,-0.073,17],[-0.404,-0.679,17],[0.617,0.424,17],[-0.781,0.022,17],[0.983,-0.217,17],[-1.039,-0.045,17],[0.295,0.163,18],[-0.262,0.122,19],[-0.497,0.392,19],[-0.577,0.037,19],[-0.544,-0.014,19],[-0.224,-0.127,2],[-0.222,0.227,2],[-0.514,0.31,2],[-0.404,0.422,2],[-0.236,0.48,2],[-0.066,0.446,2],[0.053,0.356,2],[-0.01,-0.373,2],[-0.238,-0.469,2],[-0.209,-0.568,2],[0.131,-0.17,2],[-0.111,-0.621,2],[0.251,-0.435,2],[0.222,-0.219,2],[0.254,-0.324,2],[0.199,-0.537,2],[0.11,-0.61,2],[-0.001,-0.641,2],[-0.39,-0.224,2],[-0.081,0.014,2],[-0.575,-0.194,2],[-0.743,-0.428,2],[-0.79,-0.015,2],[-0.846,-0.156,2],[-0.827,-0.31,2],[-0.287,0.021,2],[-0.418,-0.057,2],[-0.766,0.461,2],[-0.568,0.66,2],[-0.464,-0.722,2],[-0.256,0.765,2],[0.056,0.712,2],[0.264,0.565,2],[-0.356,-0.854,2],[0.431,-0.016,2],[-0.177,-0.934,2],[0.548,-0.541,2],[0.538,-0.149,2],[0.576,-0.336,2],[0.438,-0.738,2],[0.257,-0.884,2],[0.037,-0.952,2],[0.037,0.119,20],[-0.052,0.286,20],[-0.119,0.229,20],[0.21,0.071,20],[-0.126,0.023,21],[-0.54,-0.066,21],[-0.01,0.125,21],[-0.306,0.186,21],[0.282,0.213,22],[0.593,0.173,22],[0.587,0.244,22],[-0.233,-0.411,23],[-0.038,0.062,23],[-0.037,-0.215,23],[-0.314,-0.215,23],[-0.233,-0.019,23],[0.158,-0.019,23],[-0.037,-0.491,23],[0.159,-0.41,23],[0.239,-0.214,23],[0.037,0.482,24],[-0.133,0.401,24],[-0.359,0.57,24],[-0.444,0.514,24],[-0.453,0.464,24],[-0.078,0.022,25],[-0.178,-0.403,25],[0.24,-0.277,25],[-0.005,-0.219,25],[-0.214,-0.188,26],[-0.339,-0.217,26],[-0.03,-0.284,26],[-0.253,-0.058,26],[-0.312,-0.353,26],[-0.257,-0.457,26],[-0.169,-0.534,26],[-0.048,-0.593,26],[0.025,-0.481,26],[0.092,0.262,26],[0.287,0.23,26],[0.5,-0.103,26],[0.446,0.087,26],[0.13,-0.558,26],[0.202,-0.025,26],[0.219,-0.455,26],[0.002,-0.07,26],[-0.123,-0.011,26],[0.249,-0.337,26],[0.172,-0.225,26],[-0.234,-0.095,27],[-0.059,-0.019,27],[-0.102,-0.332,27],[-0.06,-0.116,27],[-0.218,0.064,27],[-0.485,0.263,27],[-0.517,0.13,27],[-0.518,0.062,27],[-0.492,-0.009,27],[-0.141,-0.353,28],[0.01,-0.47,28],[-0.091,0.002,28],[0.096,-0.205,28],[-0.18,-0.167,28],[0.086,0.073,28],[0.2,-0.464,28],[0.342,-0.336,28],[0.368,-0.147,28],[0.267,0.015,28],[0.114,-0.198,29],[-0.096,-0.337,29],[0.34,-0.31,29],[0.099,0.053,29],[-0.021,0.063,3],[0.153,-0.216,3],[-0.132,-0.278,3],[-0.092,-0.386,3],[0.469,-0.115,3],[-0.021,-0.094,3],[0.137,-0.415,3],[0.328,-0.428,3],[0.001,-0.466,3],[-0.136,-0.156,3],[0.337,-0.031,3],[0.142,0.025,3],[0.26,0.066,3],[0.425,-0.344,3],[0.196,-0.541,3],[0.372,-0.222,3],[-0.17,0.284,3],[0.726,-0.04,3],[0.21,-0.807,3],[-0.317,0.481,3],[0.185,-0.064,30],[0.046,0.073,30],[0.243,0.273,32],[0.549,0.345,32],[0.09,-0.255,4],[-0.002,-0.614,4],[-0.035,-0.186,4],[-0.337,-0.31,4],[0.249,-0.074,4],[0.329,-0.318,4],[0.052,0.378,5],[-0.486,0.704,5],[-0.143,0.313,5],[-0.121,-0.115,5],[0.047,-0.164,5],[-0.197,0.117,5],[0.014,0.798,5],[-0.416,0.597,5],[-0.684,0.654,5],[-0.668,0.525,5],[-0.317,-0.501,5],[-0.686,-0.309,5],[0.182,-0.6,5],[-0.486,0.274,5],[-0.828,0.328,5],[0.043,-0.151,6],[0.043,-0.278,6],[0.258,-0.284,6],[0.519,-0.123,6],[0.421,0.06,6],[0.414,-0.194,6],[0.17,0.214,6],[-0.109,-0.058,6],[0.065,0.154,6],[0.418,0.226,6],[0.145,-0.341,6],[0.048,0.03,6],[0.273,0.147,6],[0.413,-0.373,6],[0.526,-0.002,6],[0.4,0.505,6],[0.672,0.342,6],[0.24,-0.07,6],[-0.287,0.178,6],[0.706,-0.42,6],[0.31,-0.651,6],[0.544,-0.599,6],[-0.307,-0.279,6],[-0.37,-0.048,6],[0.794,-0.092,7],[0.401,0.014,7],[0.998,-0.294,7],[1.018,-0.213,7],[0.932,-0.462,7],[1.039,0.051,7],[0.686,-0.262,7],[0.775,0.114,7],[1.022,-0.192,7],[-0.32,0.043,8],[-0.103,-0.026,8],[-0.141,-0.596,8],[-0.766,-0.138,8],[-0.078,0.021,8],[0.115,0.106,8],[0.011,-0.094,8],[-0.42,-0.296,8],[-0.773,0.098,8],[-0.216,-0.381,8],[-0.06,-0.68,8],[0.203,-0.699,8],[-0.679,-0.193,8],[-0.055,-0.525,8],[-0.587,-0.6,8],[0.314,-0.235,9],[0.261,0.02,9],[0.005,-0.033,9],[0.516,0.074,9],[0.207,0.276,9]],"edges":[[0,76],[0,299],[0,89],[0,90],[0,91],[0,92],[0,303],[0,304],[1,313],[1,325],[1,97],[2,380],[2,333],[2,113],[2,112],[2,114],[3,333],[4,333],[5,334],[6,380],[7,384],[8,388],[9,388],[10,388],[11,400],[12,400],[13,400],[14,401],[15,401],[16,429],[17,380],[17,429],[17,430],[17,431],[17,433],[17,432],[18,433],[19,472],[20,472],[21,472],[22,474],[23,474],[24,474],[25,476],[26,476],[27,476],[28,478],[29,478],[30,478],[31,478],[32,478],[33,478],[34,480],[35,480],[36,480],[37,480],[38,480],[39,480],[40,480],[41,480],[42,76],[42,487],[42,186],[42,482],[42,483],[42,200],[43,280],[43,531],[43,532],[43,218],[44,212],[44,213],[44,531],[44,532],[45,280],[45,531],[45,532],[45,218],[46,64],[46,278],[46,277],[47,65],[47,278],[47,277],[48,189],[48,71],[48,279],[49,63],[49,69],[49,280],[50,63],[50,69],[50,280],[50,287],[51,63],[51,69],[51,280],[52,63],[52,69],[52,280],[53,91],[53,63],[53,280],[54,63],[54,69],[54,280],[54,288],[55,63],[55,69],[55,280],[55,289],[56,63],[56,280],[57,63],[57,58],[57,283],[57,280],[57,291],[58,92],[58,187],[58,280],[58,292],[59,63],[59,197],[59,280],[59,286],[60,63],[60,280],[60,290],[61,92],[61,65],[61,280],[61,293],[62,63],[62,197],[62,280],[63,64],[63,65],[63,66],[63,67],[63,218],[63,280],[64,100],[64,221],[64,280],[65,187],[65,280],[66,69],[66,280],[67,69],[67,280],[68,69],[68,281],[69,71],[69,281],[70,71],[70,282],[70,281],[71,72],[71,281],[72,281],[73,301],[73,299],[73,309],[74,301],[74,299],[75,302],[75,300],[75,299],[75,308],[75,76],[76,79],[76,78],[76,90],[76,91],[76,92],[76,186],[76,299],[77,79],[77,299],[78,299],[79,299],[80,86],[80,303],[81,91],[81,303],[82,92],[82,303],[83,90],[83,303],[84,90],[84,92],[84,303],[85,92],[85,95],[85,487],[85,303],[86,92],[86,303],[87,92],[87,95],[87,487],[87,303],[88,93],[88,108],[88,92],[88,303],[88,312],[89,92],[89,90],[89,305],[89,303],[90,93],[90,108],[90,189],[90,305],[90,299],[90,303],[91,189],[91,92],[91,305],[91,299],[91,303],[91,311],[92,189],[92,305],[92,299],[92,303],[92,310],[93,94],[93,219],[93,306],[94,307],[94,306],[95,487],[96,299],[96,316],[96,313],[96,329],[98,315],[98,314],[99,101],[99,319],[99,328],[99,317],[99,316],[99,102],[100,106],[100,318],[100,316],[101,203],[101,109],[101,487],[101,316],[101,330],[101,327],[102,219],[102,316],[103,321],[103,104],[104,322],[104,321],[104,331],[105,219],[105,107],[105,323],[106,107],[106,323],[107,108],[107,323],[108,323],[109,487],[110,324],[111,327],[111,326],[115,125],[115,131],[115,117],[115,380],[115,334],[116,334],[117,334],[118,334],[119,334],[120,334],[121,127],[121,383],[121,380],[121,126],[122,125],[122,380],[123,125],[123,380],[124,131],[124,125],[124,382],[125,147],[125,128],[125,380],[125,334],[125,401],[125,433],[125,382],[126,380],[126,432],[127,380],[127,432],[128,131],[128,380],[128,433],[129,131],[129,380],[130,131],[130,380],[130,433],[130,384],[131,136],[131,135],[131,168],[131,183],[131,149],[131,138],[131,380],[131,384],[131,382],[131,334],[131,474],[131,480],[131,401],[131,388],[131,472],[131,433],[131,386],[132,136],[132,135],[132,478],[132,480],[132,388],[132,386],[133,136],[133,135],[133,474],[133,386],[134,386],[135,386],[136,386],[137,388],[138,139],[138,380],[138,388],[138,140],[139,140],[141,145],[141,142],[141,401],[141,400],[142,144],[142,400],[143,145],[143,401],[143,400],[144,145],[144,401],[144,400],[145,400],[146,401],[147,151],[147,401],[148,151],[148,152],[148,380],[148,401],[148,149],[150,401],[151,153],[151,401],[152,401],[153,401],[154,155],[154,157],[154,159],[154,334],[154,433],[154,429],[155,429],[156,380],[156,433],[156,430],[157,172],[157,429],[157,476],[157,431],[158,432],[158,159],[159,172],[159,429],[159,476],[159,432],[160,433],[161,163],[161,162],[161,380],[161,472],[162,164],[164,472],[165,380],[165,474],[165,167],[165,166],[165,168],[166,167],[169,474],[170,172],[170,476],[171,172],[171,476],[172,478],[172,480],[172,472],[172,476],[173,478],[174,175],[174,177],[174,380],[174,478],[174,176],[174,178],[175,178],[177,178],[179,478],[180,478],[181,480],[182,480],[183,184],[183,380],[183,480],[183,185],[184,185],[186,190],[186,482],[187,218],[187,196],[187,199],[187,202],[187,485],[187,487],[187,280],[188,189],[188,190],[188,484],[189,191],[189,192],[189,193],[189,201],[189,484],[190,212],[190,191],[190,192],[190,194],[190,200],[190,484],[190,490],[191,484],[192,484],[193,204],[193,487],[193,484],[193,491],[194,484],[195,196],[195,197],[195,205],[195,206],[195,207],[195,486],[195,487],[195,485],[195,493],[196,208],[196,487],[196,485],[197,486],[198,206],[198,207],[198,487],[199,205],[199,206],[199,207],[199,487],[200,487],[201,487],[202,487],[203,209],[203,487],[204,487],[205,487],[206,487],[207,487],[208,487],[209,487],[209,496],[210,219],[210,221],[210,224],[210,534],[210,536],[210,487],[210,530],[211,213],[211,531],[212,213],[212,219],[212,536],[212,531],[212,221],[213,215],[213,214],[213,531],[214,225],[214,487],[214,533],[214,531],[215,531],[216,218],[216,280],[216,541],[217,219],[217,280],[217,540],[218,219],[218,221],[218,280],[219,223],[219,316],[219,537],[219,534],[219,542],[220,221],[220,536],[221,222],[221,536],[222,536],[223,537],[224,487],[225,487],[226,246],[227,246],[228,246],[229,246],[230,246],[231,246],[232,244],[232,251],[232,246],[233,246],[234,246],[235,246],[236,245],[236,249],[236,246],[237,246],[238,246],[239,246],[240,243],[240,252],[240,250],[240,246],[241,247],[241,242],[241,248],[241,246],[253,254],[253,272],[254,262],[254,256],[254,271],[254,261],[254,263],[254,258],[254,265],[254,266],[254,257],[254,264],[254,269],[254,268],[254,259],[254,260],[254,270],[254,255],[254,267],[259,273],[259,274],[270,276],[272,275],[277,535],[277,314],[277,280],[279,535],[279,484],[279,281],[279,284],[280,313],[280,531],[280,485],[280,487],[280,316],[280,303],[280,321],[280,534],[280,536],[280,281],[280,486],[280,285],[281,313],[281,535],[281,294],[295,298],[296,298],[297,298],[299,313],[299,303],[299,535],[299,314],[299,482],[303,535],[303,487],[303,314],[303,306],[303,484],[303,323],[306,313],[306,534],[313,314],[313,316],[313,482],[313,531],[313,484],[313,323],[313,536],[313,324],[314,320],[314,324],[314,316],[314,321],[316,535],[316,534],[316,323],[321,535],[321,323],[323,534],[326,332],[333,380],[333,473],[334,380],[334,473],[334,386],[334,382],[334,429],[334,336],[334,335],[334,337],[338,339],[338,345],[338,356],[338,357],[338,364],[338,363],[338,358],[339,340],[339,341],[339,342],[339,343],[339,344],[340,365],[341,366],[342,368],[343,369],[344,370],[345,348],[345,349],[345,350],[345,351],[345,352],[345,355],[345,346],[345,347],[345,353],[345,354],[346,367],[347,371],[348,372],[349,373],[350,374],[351,375],[352,376],[353,377],[354,378],[355,379],[358,362],[358,360],[358,359],[358,361],[380,473],[380,474],[380,478],[380,480],[380,401],[380,388],[380,472],[380,433],[380,384],[380,430],[380,386],[380,382],[380,432],[380,383],[380,381],[382,473],[382,386],[382,401],[382,433],[383,473],[384,473],[384,386],[384,433],[384,385],[386,474],[386,478],[386,480],[386,401],[386,388],[386,472],[386,433],[386,387],[388,473],[388,389],[388,390],[391,393],[392,393],[393,399],[393,397],[393,394],[393,395],[393,396],[393,398],[400,473],[400,401],[401,473],[401,403],[401,404],[401,402],[405,408],[406,408],[407,408],[409,411],[410,411],[411,415],[411,417],[411,426],[411,425],[411,413],[411,412],[411,428],[411,427],[411,422],[411,423],[411,424],[411,416],[411,414],[418,423],[419,423],[420,423],[421,423],[429,473],[429,431],[429,432],[429,433],[430,432],[430,433],[431,476],[431,432],[432,476],[432,473],[432,433],[433,473],[433,436],[433,437],[433,435],[433,434],[438,441],[439,441],[440,441],[441,445],[441,443],[441,447],[441,446],[441,444],[441,442],[448,451],[448,449],[448,450],[452,453],[452,468],[453,457],[453,454],[453,467],[453,458],[453,459],[453,461],[453,462],[453,455],[453,460],[453,465],[453,464],[453,456],[453,466],[453,463],[456,469],[466,470],[468,471],[472,473],[472,476],[473,522],[473,476],[473,474],[473,478],[473,480],[474,475],[476,478],[476,480],[476,477],[478,479],[480,481],[482,535],[482,484],[482,488],[484,531],[484,487],[484,489],[485,486],[485,487],[485,492],[486,535],[486,494],[487,530],[487,531],[487,495],[497,514],[498,514],[499,514],[500,514],[501,514],[502,514],[503,514],[504,515],[504,519],[504,520],[504,514],[505,514],[506,513],[506,512],[506,514],[507,514],[508,514],[509,514],[510,518],[510,516],[510,517],[510,514],[511,514],[521,526],[521,522],[521,523],[522,527],[522,528],[523,525],[523,524],[524,529],[530,534],[530,536],[530,538],[531,535],[531,536],[531,534],[531,539],[534,535],[534,537],[535,536],[536,543],[537,544],[545,546],[546,547],[546,549],[546,548]]}};
+      const NS = "http://www.w3.org/2000/svg";
+      const COLORS = { PERSON: "#d08a2e", ORG: "#9cc41f", PRODUCT: "#6aa0e6" };
+      const el = (tag, attrs, parent) => {
+        const n = document.createElementNS(NS, tag);
+        for (const k in attrs) n.setAttribute(k, attrs[k]);
+        parent && parent.appendChild(n);
+        return n;
+      };
+
+      // ---- Scene 1: typed question -------------------------------------------
+      const QUESTION = "Which two companies invested in Anthropic?";
+      const qtext = document.getElementById("qtext");
+      const chars = [...QUESTION].map((c) => {
+        const s = document.createElement("span");
+        s.className = "ch";
+        s.textContent = c;
+        qtext.appendChild(s);
+        return s;
+      });
+      const caret = document.createElement("span");
+      caret.id = "caret";
+      qtext.appendChild(caret);
+
+      // ---- Scene 3: the walk (real Anthropic neighbourhood, fixed positions) ---
+      const walk = document.getElementById("walk");
+      const P = {
+        Anthropic: [960, 440], Amazon: [470, 330], Google: [1450, 330],
+        "Dario Amodei": [640, 640], OpenAI: [1280, 640],
+      };
+      const REL = { FOUNDED: "founded", COMPETES_WITH: "competes with", INVESTED_IN: "invested in" };
+      const typeOf = Object.fromEntries(DATA.anthropic.nodes.map((n) => [n.name, n.type]));
+      const shown = new Set();
+      const walkEdges = {};
+      for (const e of DATA.anthropic.edges) {
+        const other = e.from === "Anthropic" ? e.to : e.from;
+        if (!REL[e.type] || !P[other] || shown.has(other)) continue;
+        if (e.type === "INVESTED_IN" && e.to !== "Anthropic") continue;
+        shown.add(other);
+        const [x1, y1] = P[other], [x2, y2] = P.Anthropic;
+        const len = Math.hypot(x2 - x1, y2 - y1);
+        const strong = e.type === "INVESTED_IN";
+        const g = el("g", { opacity: 0 }, walk);
+        const line = el("line", {
+          x1, y1, x2, y2, stroke: strong ? "#c3ef61" : "rgba(255,255,255,0.22)",
+          "stroke-width": strong ? 5 : 2.5, "stroke-dasharray": len, "stroke-dashoffset": len,
+        }, g);
+        const t = el("text", {
+          x: x1 + (x2 - x1) * 0.38, y: y1 + (y2 - y1) * 0.38 - 18, "text-anchor": "middle", class: "nlabel",
+          style: `font-family: var(--mono); font-size: 22px; font-weight: 500; fill: ${strong ? "#c3ef61" : "#979d9c"}`,
+        }, g);
+        t.textContent = REL[e.type];
+        walkEdges[other] = { g, line, len, strong };
+      }
+      const walkNodes = {};
+      for (const name of Object.keys(P)) {
+        const [x, y] = P[name];
+        const main = name === "Anthropic";
+        const r = main ? 38 : name === "Amazon" || name === "Google" ? 28 : 20;
+        const g = el("g", { opacity: 0 }, walk);
+        const inner = el("g", { transform: `translate(${x} ${y})` }, g);
+        const pop = el("g", {}, inner);
+        if (main) el("circle", { r: r + 14, fill: "none", stroke: "rgba(195,239,97,0.45)", "stroke-width": 3 }, pop);
+        el("circle", { r, fill: COLORS[typeOf[name]] || COLORS.ORG }, pop);
+        const label = el("text", { y: r + 40, "text-anchor": "middle", class: "nlabel", style: main ? "font-size: 30px" : "" }, pop);
+        label.textContent = name;
+        if (name === "Amazon" || name === "Google") {
+          const src = el("text", {
+            y: -r - 22, "text-anchor": "middle", class: "nlabel",
+            style: "font-family: var(--mono); font-size: 20px; font-weight: 500; fill: #979d9c",
+          }, pop);
+          src.textContent = name === "Amazon" ? "from article 1" : "from article 2";
+        }
+        walkNodes[name] = { g, pop };
+      }
+
+      // ---- Graph helper: bloom rings from a centre ----------------------------
+      function drawGraph(svg, nodes, edges, cx, cy, R, opts) {
+        const rings = opts.rings;
+        const ringNodes = [...Array(rings)].map(() => el("g", { opacity: 0 }, null));
+        const ringEdges = [...Array(rings)].map(() => el("g", { opacity: 0 }, null));
+        const ringOf = (x, y) => Math.min(rings - 1, Math.floor(Math.hypot(x - opts.ox, y - opts.oy) / opts.span * rings));
+        edges.forEach(([a, b]) => {
+          const na = nodes[a], nb = nodes[b];
+          if (!na || !nb) return;
+          el("line", {
+            x1: cx + na.x * R, y1: cy + na.y * R, x2: cx + nb.x * R, y2: cy + nb.y * R,
+            stroke: opts.edge, "stroke-width": opts.edgeW,
+          }, ringEdges[Math.max(ringOf(na.x, na.y), ringOf(nb.x, nb.y))]);
+        });
+        ringEdges.forEach((g) => svg.appendChild(g));
+        Object.values(nodes).forEach((n) => {
+          el("circle", { cx: cx + n.x * R, cy: cy + n.y * R, r: n.r, fill: n.c }, ringNodes[ringOf(n.x, n.y)]);
+        });
+        ringNodes.forEach((g) => svg.appendChild(g));
+        return { ringNodes, ringEdges };
+      }
+
+      // ---- Scene 4: OpenAI's real neighbourhood --------------------------------
+      const O = DATA.openai;
+      const hub = O.nodes.find((n) => n.name === "OpenAI");
+      const oNodes = Object.fromEntries(O.nodes.map((n) => [n.id, {
+        x: n.x, y: n.y,
+        r: n === hub ? 20 : 6 + Math.min(n.d, 10) * 0.9,
+        c: COLORS[n.type] || COLORS.ORG,
+      }]));
+      const mapSvg = document.getElementById("map");
+      const MAP_CX = 620, MAP_CY = 560, MAP_R = 400;
+      const HUB_X = MAP_CX + hub.x * MAP_R, HUB_Y = MAP_CY + hub.y * MAP_R;
+      const map = drawGraph(mapSvg, oNodes, O.edges, MAP_CX, MAP_CY, MAP_R, {
+        rings: 5, ox: hub.x, oy: hub.y, span: 1.7, edge: "rgba(255,255,255,0.13)", edgeW: 1.4,
+      });
+      const mapLabels = el("g", { opacity: 0 }, mapSvg);
+      O.nodes.filter((n) => n.label).forEach((n) => {
+        const p = oNodes[n.id];
+        const t = el("text", {
+          x: MAP_CX + p.x * MAP_R, y: MAP_CY + p.y * MAP_R - p.r - 10, "text-anchor": "middle", class: "nlabel",
+          style: n === hub ? "font-size: 30px; fill: #c3ef61" : "",
+        }, mapLabels);
+        t.textContent = n.name;
+      });
+
+      // ---- Scene 5: grouped bars -----------------------------------------------
+      const GROUPS = [["Simple facts", 4.75, 2.5], ["Connected facts", 4.62, 2.5], ["Big-picture questions", 3.75, 2.75]];
+      const chart = document.getElementById("chart");
+      const H = 360;
+      const groups = GROUPS.map(([name, g, p], i) => {
+        const d = document.createElement("div");
+        d.className = "grp";
+        d.style.left = `${40 + i * 320}px`;
+        d.innerHTML =
+          `<div class="bar g" style="height:${(g / 5) * H}px"></div>` +
+          `<div class="bar p" style="height:${(p / 5) * H}px"></div>` +
+          `<div class="val g" style="bottom:${(g / 5) * H + 132}px">${g.toFixed(2)}</div>` +
+          `<div class="val p" style="bottom:${(p / 5) * H + 132}px">${p.toFixed(2)}</div>` +
+          `<div class="gname">${name}</div>`;
+        chart.appendChild(d);
+        return d;
+      });
+
+      // ---- Scene 6: graphify's map of the code ---------------------------------
+      const cNodes = Object.fromEntries(DATA.code.nodes.map(([x, y, c], i) => [i, {
+        x, y, r: 4.2, c: `hsl(${(140 + c * 47) % 360} 70% 62%)`,
+      }]));
+      const code = drawGraph(document.getElementById("code"), cNodes, DATA.code.edges, 640, 540, 440, {
+        rings: 6, ox: 0, oy: 0, span: 1.05, edge: "rgba(255,255,255,0.085)", edgeW: 1,
+      });
+
+      // ---- Timeline -------------------------------------------------------------
+      const tl = gsap.timeline({ paused: true });
+      const sceneIn = (id, t) => tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, t);
+      const sceneOut = (id, t) => tl.to(id, { opacity: 0, duration: 0.4, ease: "power2.in" }, t);
+
+      // 1. The question
+      sceneIn("#s1-in", 0);
+      tl.fromTo("#qgroup", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.05);
+      chars.forEach((c, i) => tl.set(c, { display: "inline" }, 0.62 + i * 0.056));
+      tl.fromTo("#caret", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "steps(1)", repeat: 7, yoyo: true }, 3.1);
+      tl.fromTo("#askbtn", { scale: 1 }, { scale: 0.93, duration: 0.09, ease: "power2.out", yoyo: true, repeat: 1 }, 3.70); // beat-locked: 3.70s
+      tl.to("#ask-1", { opacity: 0, duration: 0.15 }, 3.78);
+      tl.to("#ask-2", { opacity: 1, duration: 0.15 }, 3.78);
+
+      // 2. Plain search's answer
+      tl.to("#qgroup", { y: -250, duration: 0.7, ease: "power3.inOut" }, 4.62);
+      tl.fromTo("#plain", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 5.28); // beat-locked: 5.28s
+      tl.to("#plain .note", { opacity: 1, duration: 0.5 }, 7.9);
+      sceneOut("#s1-in", 10.45);
+
+      // 3. Follow the connections
+      sceneIn("#s3-in", 10.54);
+      tl.to(walkNodes.Anthropic.g, { opacity: 1, duration: 0.3 }, 11.6);
+      tl.fromTo(walkNodes.Anthropic.pop, { scale: 0.4, svgOrigin: "960 440" }, { scale: 1, svgOrigin: "960 440", duration: 0.6, ease: "back.out(2)" }, 11.6);
+      ["Dario Amodei", "OpenAI"].forEach((n, i) => {
+        if (!walkEdges[n]) return;
+        tl.to(walkEdges[n].g, { opacity: 1, duration: 0.3 }, 11.95 + i * 0.2);
+        tl.to(walkEdges[n].line, { attr: { "stroke-dashoffset": 0 }, duration: 0.5, ease: "power2.out" }, 11.95 + i * 0.2);
+        tl.to(walkNodes[n].g, { opacity: 0.55, duration: 0.4 }, 12.2 + i * 0.2);
+      });
+      [["Amazon", 12.65], ["Google", 14.22]].forEach(([n, t]) => { // beat-locked: 12.65s, 14.22s
+        tl.to(walkEdges[n].g, { opacity: 1, duration: 0.2 }, t);
+        tl.to(walkEdges[n].line, { attr: { "stroke-dashoffset": 0 }, duration: 0.55, ease: "power2.inOut" }, t);
+        tl.to(walkNodes[n].g, { opacity: 1, duration: 0.3 }, t + 0.45);
+        const [x, y] = P[n];
+        tl.fromTo(walkNodes[n].pop, { scale: 0.4, svgOrigin: `${x} ${y}` }, { scale: 1, svgOrigin: `${x} ${y}`, duration: 0.55, ease: "back.out(2)" }, t + 0.45);
+      });
+      tl.fromTo("#walk-answer", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 16.86); // beat-locked: 16.86s
+      sceneOut("#s3-in", 19.4);
+
+      // 4. The map
+      sceneIn("#s4-in", 19.49);
+      map.ringEdges.forEach((g, i) => tl.to(g, { opacity: 1, duration: 0.5 }, 19.6 + i * 0.32)); // beat-locked start: 19.49s
+      map.ringNodes.forEach((g, i) => {
+        tl.to(g, { opacity: 1, duration: 0.35 }, 19.55 + i * 0.32);
+        tl.fromTo(g, { scale: 0.6, svgOrigin: `${HUB_X} ${HUB_Y}` }, { scale: 1, svgOrigin: `${HUB_X} ${HUB_Y}`, duration: 0.7, ease: "power3.out" }, 19.55 + i * 0.32);
+      });
+      tl.to(mapLabels, { opacity: 1, duration: 0.5 }, 21.4);
+      document.querySelectorAll("#s4 .stat").forEach((s, i) => {
+        const b = s.querySelector("b");
+        const counter = { v: 0 };
+        tl.to(s, { opacity: 1, duration: 0.35 }, 22.65); // beat-locked: 22.65s
+        tl.to(counter, {
+          v: Number(b.dataset.to), duration: 1.3, ease: "power2.out",
+          onUpdate: () => { b.textContent = Math.round(counter.v).toLocaleString("en-US"); },
+        }, 22.65);
+      });
+      tl.to("#s4 .legend", { opacity: 1, duration: 0.4 }, 24.2);
+      sceneOut("#s4-in", 27.3);
+
+      // 5. The receipts
+      sceneIn("#s5-in", 27.39); // beat-locked: 27.39s
+      tl.to("#s5 .clegend", { opacity: 1, duration: 0.4 }, 27.8);
+      groups.forEach((g, i) => { // beat-grid: every other beat, 28.43 / 29.49 / 30.55
+        const t = 28.43 + i * 1.06;
+        tl.fromTo(g.querySelectorAll(".bar"), { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "power3.out", stagger: 0.08 }, t);
+        tl.to(g.querySelectorAll(".val, .gname"), { opacity: 1, duration: 0.35 }, t + 0.45);
+      });
+      tl.fromTo("#headline", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 32.12); // beat-locked: 32.12s
+      sceneOut("#s5-in", 35.2);
+
+      // 6. Under the hood
+      sceneIn("#s6-in", 35.28); // beat-locked: 35.28s
+      code.ringEdges.forEach((g, i) => tl.to(g, { opacity: 1, duration: 0.45 }, 35.4 + i * 0.2));
+      code.ringNodes.forEach((g, i) => {
+        tl.to(g, { opacity: 1, duration: 0.3 }, 35.35 + i * 0.2);
+        tl.fromTo(g, { scale: 0.7, svgOrigin: "640 540" }, { scale: 1, svgOrigin: "640 540", duration: 0.6, ease: "power3.out" }, 35.35 + i * 0.2);
+      });
+      tl.fromTo("#s6 .chips", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 37.38);
+      sceneOut("#s6-in", 39.95);
+
+      // 7. Outro
+      sceneIn("#s7-in", 40.02);
+      tl.fromTo("#logo", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.6)" }, 40.02); // beat-locked: 40.02s
+      tl.fromTo("#brand", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 40.4);
+      tl.fromTo("#tagline", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 40.9);
+      tl.to("#url", { opacity: 1, duration: 0.5 }, 41.8);
+      tl.to("#who", { opacity: 1, duration: 0.5 }, 42.4);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

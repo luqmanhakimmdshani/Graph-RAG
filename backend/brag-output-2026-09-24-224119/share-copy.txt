@@ -1,0 +1,1 @@
+Plain vector search couldn't say which two companies invested in Anthropic: the answer was split across two articles. Graph RAG maps who is connected to whom in 500 news articles and walks the links: Amazon and Google, 1.8× more relevant across 20 benchmark questions. Try it: graph-rag-virid.vercel.app

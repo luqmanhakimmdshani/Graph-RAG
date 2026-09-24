@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Graph RAG — follow the connections</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=block"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #08090a;
+        --surface: #16191b;
+        --glass: rgba(24, 28, 27, 0.72);
+        --glass-border: rgba(255, 255, 255, 0.09);
+        --glass-top: rgba(255, 255, 255, 0.16);
+        --text: #f1f3f1;
+        --muted: #979d9c;
+        --faint: #676c6b;
+        --accent: #c3ef61;
+        --accent-soft: rgba(195, 239, 97, 0.12);
+        --person: #d08a2e;
+        --org: #9cc41f;
+        --product: #6aa0e6;
+        --bar-graph: #7fa500;
+        --bar-plain: #5072bb;
+        --mono: "JetBrains Mono", ui-monospace, monospace;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: radial-gradient(1400px 900px at 50% 45%, #111414 0%, var(--bg) 70%);
+      }
+      .clip { position: absolute; inset: 0; }
+      .scene { position: absolute; inset: 0; opacity: 0; }
+      .label {
+        font-family: var(--mono);
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #8a908e;
+      }
+      .card {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-top-color: var(--glass-top);
+        border-radius: 18px;
+      }
+      svg { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; }
+      .nlabel {
+        font-family: Inter, sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+        fill: var(--text);
+        paint-order: stroke;
+        stroke: #08090a;
+        stroke-width: 6px;
+      }
+
+      /* Scene 1-2: the question and plain search */
+      #s1 .column {
+        position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+      }
+      #q-head { text-align: center; margin-bottom: 36px; }
+      #q-head h1 { margin: 12px 0 0; font-size: 64px; font-weight: 600; letter-spacing: -0.02em; }
+      #askbar {
+        width: 1180px; height: 108px; box-sizing: border-box;
+        display: flex; align-items: center; gap: 22px; padding: 0 18px 0 34px;
+      }
+      #qtext { flex: 1; font-size: 38px; font-weight: 500; white-space: nowrap; overflow: hidden; }
+      #qtext .ch { display: none; }
+      #caret { display: inline-block; width: 3px; height: 40px; background: var(--accent); vertical-align: -6px; margin-left: 3px; }
+      #askbtn {
+        position: relative; width: 170px; height: 72px; border-radius: 12px;
+        background: var(--accent); color: #10140d; font-size: 28px; font-weight: 600;
+      }
+      #askbtn span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+      #ask-2 { opacity: 0; }
+      #plain {
+        position: absolute; left: 370px; right: 370px; top: 560px;
+        padding: 40px 48px; opacity: 0; box-sizing: border-box;
+      }
+      #plain .label { color: #8fa9e0; }
+      #plain p.ans { margin: 22px 0 0; font-size: 40px; line-height: 1.35; color: #c4cac6; }
+      #plain p.note { margin: 26px 0 0; font-size: 26px; color: var(--faint); opacity: 0; }
+
+      /* Scene 3: follow the connections */
+      #s3 .top { position: absolute; top: 88px; left: 0; right: 0; text-align: center; }
+      #s3 .top .label { color: var(--accent); }
+      #s3 .top h2 { margin: 10px 0 0; font-size: 50px; font-weight: 600; letter-spacing: -0.02em; }
+      #walk-answer {
+        position: absolute; left: 420px; right: 420px; top: 790px;
+        padding: 30px 40px; text-align: center; opacity: 0; box-sizing: border-box;
+        border-color: rgba(195, 239, 97, 0.35);
+      }
+      #walk-answer p { margin: 0; font-size: 42px; font-weight: 600; }
+      #walk-answer div { margin-top: 14px; font-family: var(--mono); font-size: 22px; color: var(--accent); letter-spacing: 0.04em; }
+
+      /* Scene 4: the map */
+      #s4 .side { position: absolute; left: 1190px; right: 110px; top: 190px; }
+      #s4 h2 { margin: 12px 0 10px; font-size: 60px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.08; }
+      #s4 .sub { font-size: 26px; color: var(--muted); line-height: 1.45; }
+      .stats { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 34px 30px; }
+      .stat { opacity: 0; }
+      .stat b { display: block; font-size: 64px; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+      .stat span { font-size: 22px; color: var(--muted); line-height: 1.3; display: block; margin-top: 4px; }
+      .legend { margin-top: 40px; display: flex; gap: 30px; font-family: var(--mono); font-size: 20px; color: var(--muted); opacity: 0; }
+      .legend i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 10px; vertical-align: -1px; }
+
+      /* Scene 5: receipts */
+      #s5 .head { position: absolute; left: 140px; top: 110px; width: 1100px; }
+      #s5 h2 { margin: 12px 0 0; font-size: 50px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+      #chart { position: absolute; left: 150px; top: 330px; width: 1000px; height: 600px; }
+      .axis { position: absolute; left: 0; right: 0; top: 480px; height: 2px; background: rgba(255,255,255,0.14); }
+      .grp { position: absolute; top: 0; width: 280px; height: 600px; }
+      .bar { position: absolute; bottom: 120px; width: 104px; border-radius: 10px 10px 0 0; transform-origin: 50% 100%; }
+      .bar.g { left: 26px; background: var(--bar-graph); }
+      .bar.p { left: 148px; background: var(--bar-plain); }
+      .val { position: absolute; width: 104px; text-align: center; font-family: var(--mono); font-size: 26px; font-weight: 600; opacity: 0; }
+      .val.g { left: 26px; color: #c9e886; }
+      .val.p { left: 148px; color: #a9bde6; }
+      .gname { position: absolute; top: 500px; left: 0; right: 0; text-align: center; font-size: 26px; color: var(--muted); opacity: 0; }
+      .clegend { position: absolute; left: 150px; top: 290px; display: flex; gap: 34px; font-size: 22px; color: var(--muted); opacity: 0; }
+      .clegend i { display: inline-block; width: 16px; height: 16px; border-radius: 4px; margin-right: 10px; vertical-align: -2px; }
+      #headline { position: absolute; left: 1270px; right: 110px; top: 380px; opacity: 0; }
+      #headline .big { font-size: 190px; font-weight: 700; line-height: 1; letter-spacing: -0.05em; color: var(--accent); }
+      #headline .as { font-size: 52px; font-weight: 600; margin-top: 8px; }
+      #headline .ov { font-size: 28px; color: var(--muted); margin-top: 20px; line-height: 1.4; }
+
+      /* Scene 6: under the hood */
+      #s6 .side { position: absolute; left: 1210px; right: 110px; top: 300px; }
+      #s6 h2 { margin: 12px 0 14px; font-size: 58px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+      #s6 .mono { font-family: var(--mono); font-size: 22px; color: var(--muted); line-height: 1.6; }
+      .chips { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; opacity: 0; }
+      .chips span { padding: 10px 18px; border-radius: 999px; border: 1px solid var(--glass-border); background: var(--glass); font-size: 22px; color: var(--text); }
+
+      /* Scene 7: outro */
+      #s7 .column {
+        position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      }
+      #logo { width: 170px; height: 170px; opacity: 0; filter: drop-shadow(0 0 28px rgba(255,255,255,0.18)); }
+      #brand { margin-top: 26px; font-size: 92px; font-weight: 700; letter-spacing: -0.03em; opacity: 0; }
+      #tagline { margin-top: 10px; font-size: 46px; font-weight: 500; color: var(--muted); opacity: 0; }
+      #tagline em { font-style: normal; color: var(--accent); }
+      #url { margin-top: 40px; font-family: var(--mono); font-size: 30px; color: var(--accent); opacity: 0; }
+      #who { margin-top: 18px; font-size: 26px; color: var(--muted); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="46.5" data-width="1920" data-height="1080">
+      <!-- 1-2: the question, then plain search's answer -->
+      <div id="s1" class="clip" data-start="0" data-duration="10.9" data-track-index="0">
+        <div class="scene" id="s1-in">
+          <div class="column">
+            <div id="qgroup">
+              <div id="q-head"><div class="label">A / B retrieval</div><h1>Comparison</h1></div>
+              <div id="askbar" class="card">
+                <div id="qtext"></div>
+                <div id="askbtn"><span id="ask-1">Ask</span><span id="ask-2">Asking…</span></div>
+              </div>
+            </div>
+          </div>
+          <div id="plain" class="card">
+            <div class="label">Plain text search · 5 closest passages</div>
+            <p class="ans">“The provided context does not contain information about which two companies invested in Anthropic.”</p>
+            <p class="note">No single passage holds both facts.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3: follow the connections -->
+      <div id="s3" class="clip" data-start="10.54" data-duration="9.31" data-track-index="1">
+        <div class="scene" id="s3-in">
+          <div class="top"><div class="label">Graph RAG</div><h2>Follow the connections</h2></div>
+          <svg id="walk" viewBox="0 0 1920 1080"></svg>
+          <div id="walk-answer" class="card">
+            <p>Amazon and Google invested in Anthropic.</p>
+            <div>Two facts · two articles · one node</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4: the map -->
+      <div id="s4" class="clip" data-start="19.49" data-duration="8.26" data-track-index="2">
+        <div class="scene" id="s4-in">
+          <svg id="map" viewBox="0 0 1920 1080"></svg>
+          <div class="side">
+            <div class="label">The map</div>
+            <h2>Two weeks of news, mapped</h2>
+            <div class="sub">OpenAI’s neighbourhood alone: 76 names and 130 connections, each from a real article.</div>
+            <div class="stats">
+              <div class="stat"><b data-to="500">0</b><span>news articles</span></div>
+              <div class="stat"><b data-to="5091">0</b><span>people, companies and products</span></div>
+              <div class="stat"><b data-to="2130">0</b><span>connections between them</span></div>
+              <div class="stat"><b data-to="177">0</b><span>topic groups</span></div>
+            </div>
+            <div class="legend">
+              <span><i style="background: var(--person)"></i>person</span>
+              <span><i style="background: var(--org)"></i>organisation</span>
+              <span><i style="background: var(--product)"></i>product</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5: the receipts -->
+      <div id="s5" class="clip" data-start="27.39" data-duration="8.25" data-track-index="3">
+        <div class="scene" id="s5-in">
+          <div class="head">
+            <div class="label">20 test questions · scored 0–5 by an AI judge</div>
+            <h2>Following the connections wins every kind of question</h2>
+          </div>
+          <div class="clegend">
+            <span><i style="background: var(--bar-graph)"></i>Graph RAG</span>
+            <span><i style="background: var(--bar-plain)"></i>Plain text search</span>
+          </div>
+          <div id="chart">
+            <div class="axis"></div>
+          </div>
+          <div id="headline">
+            <div class="big">1.8×</div>
+            <div class="as">as relevant</div>
+            <div class="ov">4.50 against 2.55 overall, out of 5</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6: under the hood -->
+      <div id="s6" class="clip" data-start="35.28" data-duration="5.12" data-track-index="4">
+        <div class="scene" id="s6-in">
+          <svg id="code" viewBox="0 0 1920 1080"></svg>
+          <div class="side">
+            <div class="label">Under the hood</div>
+            <h2>Built from 559 parts of its own code</h2>
+            <div class="mono">mapped by graphify · 898 links · 33 communities</div>
+            <div class="chips"><span>React</span><span>FastAPI</span><span>Neo4j</span><span>ChromaDB</span><span>sentence-transformers</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7: outro -->
+      <div id="s7" class="clip" data-start="40.02" data-duration="6.48" data-track-index="5">
+        <div class="scene" id="s7-in">
+          <div class="column">
+            <img id="logo" src="assets/logo-mark.svg" alt="Graph RAG logo" />
+            <div id="brand">Graph RAG</div>
+            <div id="tagline">Answers that follow <em>the connections</em></div>
+            <div id="url">graph-rag-virid.vercel.app</div>
+            <div id="who">Luqman Hakim bin Md Shani · AI Engineer @ Pepper Labs · Universiti Malaya</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- audio -->
+      <audio id="music" data-start="0" data-duration="46.5" data-track-index="10" data-volume="0.3" data-fade-in="0.5" data-fade-out="2.2" src="assets/music/happy-beats-business-moves-vol-11-by-ende-dot-app.mp3"></audio>
+      <audio id="k1" data-start="0.72" data-duration="0.3" data-track-index="11" data-volume="0.28" src="assets/sfx/keyboard/keypress-003.wav"></audio>
+      <audio id="k2" data-start="1.13" data-duration="0.3" data-track-index="12" data-volume="0.28" src="assets/sfx/keyboard/keypress-012.wav"></audio>
+      <audio id="k3" data-start="1.56" data-duration="0.3" data-track-index="13" data-volume="0.28" src="assets/sfx/keyboard/keypress-007.wav"></audio>
+      <audio id="k4" data-start="1.99" data-duration="0.3" data-track-index="11" data-volume="0.28" src="assets/sfx/keyboard/keypress-018.wav"></audio>
+      <audio id="k5" data-start="2.42" data-duration="0.3" data-track-index="12" data-volume="0.28" src="assets/sfx/keyboard/keypress-025.wav"></audio>
+      <audio id="k6" data-start="2.85" data-duration="0.3" data-track-index="13" data-volume="0.28" src="assets/sfx/keyboard/keypress-029.wav"></audio>
+      <audio id="click" data-start="3.70" data-duration="0.05" data-track-index="14" data-volume="0.6" src="assets/sfx/interface/click_003.ogg"></audio>
+      <audio id="hitPlain" data-start="5.28" data-duration="0.18" data-track-index="15" data-volume="0.5" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
+      <audio id="tapAmazon" data-start="12.65" data-duration="0.27" data-track-index="16" data-volume="0.55" src="assets/sfx/impact/impactWood_light_002.ogg"></audio>
+      <audio id="tapGoogle" data-start="14.22" data-duration="0.21" data-track-index="17" data-volume="0.5" src="assets/sfx/impact/impactGlass_light_002.ogg"></audio>
+      <audio id="bellAnswer" data-start="16.86" data-duration="1.48" data-track-index="18" data-volume="0.45" src="assets/sfx/impact/impactBell_heavy_000.ogg"></audio>
+      <audio id="hitMap" data-start="19.49" data-duration="0.15" data-track-index="15" data-volume="0.5" src="assets/sfx/impact/impactSoft_medium_004.ogg"></audio>
+      <audio id="chips" data-start="22.65" data-duration="0.17" data-track-index="19" data-volume="0.4" src="assets/sfx/casino/chips-stack-2.ogg"></audio>
+      <audio id="hitChart" data-start="27.39" data-duration="0.18" data-track-index="15" data-volume="0.5" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
+      <audio id="hitHead" data-start="32.12" data-duration="0.15" data-track-index="16" data-volume="0.6" src="assets/sfx/impact/impactSoft_medium_004.ogg"></audio>
+      <audio id="hitCode" data-start="35.28" data-duration="0.18" data-track-index="15" data-volume="0.5" src="assets/sfx/impact/impactSoft_medium_001.ogg"></audio>
+      <audio id="bellLogo" data-start="40.02" data-duration="1.48" data-track-index="18" data-volume="0.5" src="assets/sfx/impact/impactBell_heavy_000.ogg"></audio>
+    </div>
+
+    <script>
+      const DATA = /*__DATA__*/null;
+      const NS = "http://www.w3.org/2000/svg";
+      const COLORS = { PERSON: "#d08a2e", ORG: "#9cc41f", PRODUCT: "#6aa0e6" };
+      const el = (tag, attrs, parent) => {
+        const n = document.createElementNS(NS, tag);
+        for (const k in attrs) n.setAttribute(k, attrs[k]);
+        parent && parent.appendChild(n);
+        return n;
+      };
+
+      // ---- Scene 1: typed question -------------------------------------------
+      const QUESTION = "Which two companies invested in Anthropic?";
+      const qtext = document.getElementById("qtext");
+      const chars = [...QUESTION].map((c) => {
+        const s = document.createElement("span");
+        s.className = "ch";
+        s.textContent = c;
+        qtext.appendChild(s);
+        return s;
+      });
+      const caret = document.createElement("span");
+      caret.id = "caret";
+      qtext.appendChild(caret);
+
+      // ---- Scene 3: the walk (real Anthropic neighbourhood, fixed positions) ---
+      const walk = document.getElementById("walk");
+      const P = {
+        Anthropic: [960, 440], Amazon: [470, 330], Google: [1450, 330],
+        "Dario Amodei": [640, 640], OpenAI: [1280, 640],
+      };
+      const REL = { FOUNDED: "founded", COMPETES_WITH: "competes with", INVESTED_IN: "invested in" };
+      const typeOf = Object.fromEntries(DATA.anthropic.nodes.map((n) => [n.name, n.type]));
+      const shown = new Set();
+      const walkEdges = {};
+      for (const e of DATA.anthropic.edges) {
+        const other = e.from === "Anthropic" ? e.to : e.from;
+        if (!REL[e.type] || !P[other] || shown.has(other)) continue;
+        if (e.type === "INVESTED_IN" && e.to !== "Anthropic") continue;
+        shown.add(other);
+        const [x1, y1] = P[other], [x2, y2] = P.Anthropic;
+        const len = Math.hypot(x2 - x1, y2 - y1);
+        const strong = e.type === "INVESTED_IN";
+        const g = el("g", { opacity: 0 }, walk);
+        const line = el("line", {
+          x1, y1, x2, y2, stroke: strong ? "#c3ef61" : "rgba(255,255,255,0.22)",
+          "stroke-width": strong ? 5 : 2.5, "stroke-dasharray": len, "stroke-dashoffset": len,
+        }, g);
+        const t = el("text", {
+          x: x1 + (x2 - x1) * 0.38, y: y1 + (y2 - y1) * 0.38 - 18, "text-anchor": "middle", class: "nlabel",
+          style: `font-family: var(--mono); font-size: 22px; font-weight: 500; fill: ${strong ? "#c3ef61" : "#979d9c"}`,
+        }, g);
+        t.textContent = REL[e.type];
+        walkEdges[other] = { g, line, len, strong };
+      }
+      const walkNodes = {};
+      for (const name of Object.keys(P)) {
+        const [x, y] = P[name];
+        const main = name === "Anthropic";
+        const r = main ? 38 : name === "Amazon" || name === "Google" ? 28 : 20;
+        const g = el("g", { opacity: 0 }, walk);
+        const inner = el("g", { transform: `translate(${x} ${y})` }, g);
+        const pop = el("g", {}, inner);
+        if (main) el("circle", { r: r + 14, fill: "none", stroke: "rgba(195,239,97,0.45)", "stroke-width": 3 }, pop);
+        el("circle", { r, fill: COLORS[typeOf[name]] || COLORS.ORG }, pop);
+        const label = el("text", { y: r + 40, "text-anchor": "middle", class: "nlabel", style: main ? "font-size: 30px" : "" }, pop);
+        label.textContent = name;
+        if (name === "Amazon" || name === "Google") {
+          const src = el("text", {
+            y: -r - 22, "text-anchor": "middle", class: "nlabel",
+            style: "font-family: var(--mono); font-size: 20px; font-weight: 500; fill: #979d9c",
+          }, pop);
+          src.textContent = name === "Amazon" ? "from article 1" : "from article 2";
+        }
+        walkNodes[name] = { g, pop };
+      }
+
+      // ---- Graph helper: bloom rings from a centre ----------------------------
+      function drawGraph(svg, nodes, edges, cx, cy, R, opts) {
+        const rings = opts.rings;
+        const ringNodes = [...Array(rings)].map(() => el("g", { opacity: 0 }, null));
+        const ringEdges = [...Array(rings)].map(() => el("g", { opacity: 0 }, null));
+        const ringOf = (x, y) => Math.min(rings - 1, Math.floor(Math.hypot(x - opts.ox, y - opts.oy) / opts.span * rings));
+        edges.forEach(([a, b]) => {
+          const na = nodes[a], nb = nodes[b];
+          if (!na || !nb) return;
+          el("line", {
+            x1: cx + na.x * R, y1: cy + na.y * R, x2: cx + nb.x * R, y2: cy + nb.y * R,
+            stroke: opts.edge, "stroke-width": opts.edgeW,
+          }, ringEdges[Math.max(ringOf(na.x, na.y), ringOf(nb.x, nb.y))]);
+        });
+        ringEdges.forEach((g) => svg.appendChild(g));
+        Object.values(nodes).forEach((n) => {
+          el("circle", { cx: cx + n.x * R, cy: cy + n.y * R, r: n.r, fill: n.c }, ringNodes[ringOf(n.x, n.y)]);
+        });
+        ringNodes.forEach((g) => svg.appendChild(g));
+        return { ringNodes, ringEdges };
+      }
+
+      // ---- Scene 4: OpenAI's real neighbourhood --------------------------------
+      const O = DATA.openai;
+      const hub = O.nodes.find((n) => n.name === "OpenAI");
+      const oNodes = Object.fromEntries(O.nodes.map((n) => [n.id, {
+        x: n.x, y: n.y,
+        r: n === hub ? 20 : 6 + Math.min(n.d, 10) * 0.9,
+        c: COLORS[n.type] || COLORS.ORG,
+      }]));
+      const mapSvg = document.getElementById("map");
+      const MAP_CX = 620, MAP_CY = 560, MAP_R = 400;
+      const HUB_X = MAP_CX + hub.x * MAP_R, HUB_Y = MAP_CY + hub.y * MAP_R;
+      const map = drawGraph(mapSvg, oNodes, O.edges, MAP_CX, MAP_CY, MAP_R, {
+        rings: 5, ox: hub.x, oy: hub.y, span: 1.7, edge: "rgba(255,255,255,0.13)", edgeW: 1.4,
+      });
+      const mapLabels = el("g", { opacity: 0 }, mapSvg);
+      O.nodes.filter((n) => n.label).forEach((n) => {
+        const p = oNodes[n.id];
+        const t = el("text", {
+          x: MAP_CX + p.x * MAP_R, y: MAP_CY + p.y * MAP_R - p.r - 10, "text-anchor": "middle", class: "nlabel",
+          style: n === hub ? "font-size: 30px; fill: #c3ef61" : "",
+        }, mapLabels);
+        t.textContent = n.name;
+      });
+
+      // ---- Scene 5: grouped bars -----------------------------------------------
+      const GROUPS = [["Simple facts", 4.75, 2.5], ["Connected facts", 4.62, 2.5], ["Big-picture questions", 3.75, 2.75]];
+      const chart = document.getElementById("chart");
+      const H = 360;
+      const groups = GROUPS.map(([name, g, p], i) => {
+        const d = document.createElement("div");
+        d.className = "grp";
+        d.style.left = `${40 + i * 320}px`;
+        d.innerHTML =
+          `<div class="bar g" style="height:${(g / 5) * H}px"></div>` +
+          `<div class="bar p" style="height:${(p / 5) * H}px"></div>` +
+          `<div class="val g" style="bottom:${(g / 5) * H + 132}px">${g.toFixed(2)}</div>` +
+          `<div class="val p" style="bottom:${(p / 5) * H + 132}px">${p.toFixed(2)}</div>` +
+          `<div class="gname">${name}</div>`;
+        chart.appendChild(d);
+        return d;
+      });
+
+      // ---- Scene 6: graphify's map of the code ---------------------------------
+      const cNodes = Object.fromEntries(DATA.code.nodes.map(([x, y, c], i) => [i, {
+        x, y, r: 4.2, c: `hsl(${(140 + c * 47) % 360} 70% 62%)`,
+      }]));
+      const code = drawGraph(document.getElementById("code"), cNodes, DATA.code.edges, 640, 540, 440, {
+        rings: 6, ox: 0, oy: 0, span: 1.05, edge: "rgba(255,255,255,0.085)", edgeW: 1,
+      });
+
+      // ---- Timeline -------------------------------------------------------------
+      const tl = gsap.timeline({ paused: true });
+      const sceneIn = (id, t) => tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, t);
+      const sceneOut = (id, t) => tl.to(id, { opacity: 0, duration: 0.4, ease: "power2.in" }, t);
+
+      // 1. The question
+      sceneIn("#s1-in", 0);
+      tl.fromTo("#qgroup", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.05);
+      chars.forEach((c, i) => tl.set(c, { display: "inline" }, 0.62 + i * 0.056));
+      tl.fromTo("#caret", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "steps(1)", repeat: 7, yoyo: true }, 3.1);
+      tl.fromTo("#askbtn", { scale: 1 }, { scale: 0.93, duration: 0.09, ease: "power2.out", yoyo: true, repeat: 1 }, 3.70); // beat-locked: 3.70s
+      tl.to("#ask-1", { opacity: 0, duration: 0.15 }, 3.78);
+      tl.to("#ask-2", { opacity: 1, duration: 0.15 }, 3.78);
+
+      // 2. Plain search's answer
+      tl.to("#qgroup", { y: -250, duration: 0.7, ease: "power3.inOut" }, 4.62);
+      tl.fromTo("#plain", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 5.28); // beat-locked: 5.28s
+      tl.to("#plain .note", { opacity: 1, duration: 0.5 }, 7.9);
+      sceneOut("#s1-in", 10.45);
+
+      // 3. Follow the connections
+      sceneIn("#s3-in", 10.54);
+      tl.to(walkNodes.Anthropic.g, { opacity: 1, duration: 0.3 }, 11.6);
+      tl.fromTo(walkNodes.Anthropic.pop, { scale: 0.4, svgOrigin: "960 440" }, { scale: 1, svgOrigin: "960 440", duration: 0.6, ease: "back.out(2)" }, 11.6);
+      ["Dario Amodei", "OpenAI"].forEach((n, i) => {
+        if (!walkEdges[n]) return;
+        tl.to(walkEdges[n].g, { opacity: 1, duration: 0.3 }, 11.95 + i * 0.2);
+        tl.to(walkEdges[n].line, { attr: { "stroke-dashoffset": 0 }, duration: 0.5, ease: "power2.out" }, 11.95 + i * 0.2);
+        tl.to(walkNodes[n].g, { opacity: 0.55, duration: 0.4 }, 12.2 + i * 0.2);
+      });
+      [["Amazon", 12.65], ["Google", 14.22]].forEach(([n, t]) => { // beat-locked: 12.65s, 14.22s
+        tl.to(walkEdges[n].g, { opacity: 1, duration: 0.2 }, t);
+        tl.to(walkEdges[n].line, { attr: { "stroke-dashoffset": 0 }, duration: 0.55, ease: "power2.inOut" }, t);
+        tl.to(walkNodes[n].g, { opacity: 1, duration: 0.3 }, t + 0.45);
+        const [x, y] = P[n];
+        tl.fromTo(walkNodes[n].pop, { scale: 0.4, svgOrigin: `${x} ${y}` }, { scale: 1, svgOrigin: `${x} ${y}`, duration: 0.55, ease: "back.out(2)" }, t + 0.45);
+      });
+      tl.fromTo("#walk-answer", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, 16.86); // beat-locked: 16.86s
+      sceneOut("#s3-in", 19.4);
+
+      // 4. The map
+      sceneIn("#s4-in", 19.49);
+      map.ringEdges.forEach((g, i) => tl.to(g, { opacity: 1, duration: 0.5 }, 19.6 + i * 0.32)); // beat-locked start: 19.49s
+      map.ringNodes.forEach((g, i) => {
+        tl.to(g, { opacity: 1, duration: 0.35 }, 19.55 + i * 0.32);
+        tl.fromTo(g, { scale: 0.6, svgOrigin: `${HUB_X} ${HUB_Y}` }, { scale: 1, svgOrigin: `${HUB_X} ${HUB_Y}`, duration: 0.7, ease: "power3.out" }, 19.55 + i * 0.32);
+      });
+      tl.to(mapLabels, { opacity: 1, duration: 0.5 }, 21.4);
+      document.querySelectorAll("#s4 .stat").forEach((s, i) => {
+        const b = s.querySelector("b");
+        const counter = { v: 0 };
+        tl.to(s, { opacity: 1, duration: 0.35 }, 22.65); // beat-locked: 22.65s
+        tl.to(counter, {
+          v: Number(b.dataset.to), duration: 1.3, ease: "power2.out",
+          onUpdate: () => { b.textContent = Math.round(counter.v).toLocaleString("en-US"); },
+        }, 22.65);
+      });
+      tl.to("#s4 .legend", { opacity: 1, duration: 0.4 }, 24.2);
+      sceneOut("#s4-in", 27.3);
+
+      // 5. The receipts
+      sceneIn("#s5-in", 27.39); // beat-locked: 27.39s
+      tl.to("#s5 .clegend", { opacity: 1, duration: 0.4 }, 27.8);
+      groups.forEach((g, i) => { // beat-grid: every other beat, 28.43 / 29.49 / 30.55
+        const t = 28.43 + i * 1.06;
+        tl.fromTo(g.querySelectorAll(".bar"), { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "power3.out", stagger: 0.08 }, t);
+        tl.to(g.querySelectorAll(".val, .gname"), { opacity: 1, duration: 0.35 }, t + 0.45);
+      });
+      tl.fromTo("#headline", { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 32.12); // beat-locked: 32.12s
+      sceneOut("#s5-in", 35.2);
+
+      // 6. Under the hood
+      sceneIn("#s6-in", 35.28); // beat-locked: 35.28s
+      code.ringEdges.forEach((g, i) => tl.to(g, { opacity: 1, duration: 0.45 }, 35.4 + i * 0.2));
+      code.ringNodes.forEach((g, i) => {
+        tl.to(g, { opacity: 1, duration: 0.3 }, 35.35 + i * 0.2);
+        tl.fromTo(g, { scale: 0.7, svgOrigin: "640 540" }, { scale: 1, svgOrigin: "640 540", duration: 0.6, ease: "power3.out" }, 35.35 + i * 0.2);
+      });
+      tl.fromTo("#s6 .chips", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 37.38);
+      sceneOut("#s6-in", 39.95);
+
+      // 7. Outro
+      sceneIn("#s7-in", 40.02);
+      tl.fromTo("#logo", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.6)" }, 40.02); // beat-locked: 40.02s
+      tl.fromTo("#brand", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 40.4);
+      tl.fromTo("#tagline", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 40.9);
+      tl.to("#url", { opacity: 1, duration: 0.5 }, 41.8);
+      tl.to("#who", { opacity: 1, duration: 0.5 }, 42.4);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
