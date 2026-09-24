@@ -273,11 +273,13 @@
   }
 }
 
-/* Touch screens: a finger drag on the hero graph should scroll the page, not
-   spin the graph (it fills most of the first screen). It keeps auto-rotating. */
+/* Touch screens: the hero graph fills most of the first screen, so vertical
+   swipes must still scroll the page. pan-y hands those to the browser and
+   leaves sideways drags (spin) and pinches (zoom) to the graph. !important
+   beats the touch-action: none that OrbitControls sets inline on the canvas. */
 @media (pointer: coarse) {
-  .hero-graph {
-    pointer-events: none;
+  .hero-graph canvas {
+    touch-action: pan-y !important;
   }
 }
 
