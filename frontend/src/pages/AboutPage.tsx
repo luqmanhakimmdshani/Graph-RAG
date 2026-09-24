@@ -138,13 +138,13 @@ export default function AboutPage() {
       {/* Hero - the moving graph is graphify's map of this project's own code.
           Overlay is pointer-events-none so the graph can be dragged from anywhere. */}
       <section
-        className="relative min-h-[620px] select-none overflow-hidden border-b border-[var(--border)]"
+        className="relative select-none overflow-hidden border-b border-[var(--border)] sm:min-h-[620px]"
       >
         <div className="absolute inset-0">
           <CodeGraphHero />
         </div>
         <div className="hero-scrim pointer-events-none absolute inset-0" />
-        <div className="hero-copy pointer-events-none relative mx-auto grid min-h-[620px] max-w-5xl items-center gap-10 px-6 pb-40 pt-14 sm:py-14 lg:grid-cols-[1fr_22rem]">
+        <div className="hero-copy pointer-events-none relative mx-auto grid max-w-5xl items-center gap-8 px-6 pb-14 pt-10 sm:min-h-[620px] sm:gap-10 sm:py-14 lg:grid-cols-[1fr_22rem]">
           <div style={{ textShadow: "var(--hero-text-shadow)" }}>
             <div className="mb-6 flex items-center gap-3">
               <img
@@ -165,7 +165,7 @@ export default function AboutPage() {
           </div>
           <CreatorCard />
         </div>
-        <p className="mono pointer-events-none absolute inset-x-0 bottom-5 text-center text-[10px] text-[var(--text-faint)] sm:hidden">
+        <p className="mono pointer-events-none absolute inset-x-0 bottom-4 text-center text-[10px] text-[var(--text-faint)] sm:hidden">
           drag the graph to rotate · pinch to zoom
         </p>
         <p className="mono pointer-events-none absolute bottom-4 right-6 hidden text-[11px] text-[var(--text-faint)] sm:block">

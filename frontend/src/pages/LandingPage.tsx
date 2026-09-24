@@ -125,7 +125,7 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
         {/* pointer-events-none all the way down except the two links themselves -
             the graph underneath should be draggable from anywhere, including
             over the headline, not just the empty margins around this column. */}
-        <div className="pointer-events-none relative mx-auto flex max-w-6xl flex-col justify-center px-6 pb-44 pt-16 sm:h-full sm:py-0 lg:px-10">
+        <div className="pointer-events-none relative mx-auto flex max-w-6xl flex-col justify-center px-6 pb-14 pt-10 sm:h-full sm:py-0 lg:px-10">
           {/* No gradient behind this column anymore (the graph's glow reads better
               unobscured), so legibility against whatever bright nodes happen to
               settle behind it comes from a shadow instead: text-shadow on the
@@ -180,7 +180,7 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
             </div>
           </div>
         </div>
-        <p className="mono pointer-events-none absolute inset-x-0 bottom-5 text-center text-[10px] text-[var(--text-faint)] sm:hidden">
+        <p className="mono pointer-events-none absolute inset-x-0 bottom-4 text-center text-[10px] text-[var(--text-faint)] sm:hidden">
           drag the graph to rotate · pinch to zoom
         </p>
         <p className="mono pointer-events-none absolute bottom-4 right-5 hidden text-[10px] text-[var(--text-faint)] sm:block">
