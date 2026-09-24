@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Layers3, Network, RotateCcw, Users } from "lucide-react";
 import { apiGet } from "../lib/api";
+import { useReadOnly } from "../lib/readOnly";
 import { BarList, GroupedBars, PartBar } from "../components/charts";
 
 interface EvalGroup {
@@ -98,6 +99,7 @@ export default function DashboardPage() {
 }
 
 function Dashboard({ data }: { data: Overview }) {
+  const readOnly = useReadOnly();
   const { corpus, graph, eval: ev } = data;
   const overall = ev?.overall;
 
@@ -120,9 +122,11 @@ function Dashboard({ data }: { data: Overview }) {
         <Card
           title="How well it answers"
           aside={
-            <Link to="/eval" className="flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text)]">
-              Full results <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
+            readOnly === false && (
+              <Link to="/eval" className="flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text)]">
+                Full results <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            )
           }
         >
           <p className="mb-5 text-sm leading-6 text-[var(--text-muted)]">

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.config import settings
 from app.routers import eval, graph, ingest, query, stats
 
 app = FastAPI(title="Graph RAG Capstone API")
@@ -21,4 +22,5 @@ app.include_router(stats.router)
 
 @app.get("/health")
 async def health():
-    return {"status": "ok"}
+    # read_only lets the web app hide the pages a read-only deployment turns off.
+    return {"status": "ok", "read_only": settings.read_only}
