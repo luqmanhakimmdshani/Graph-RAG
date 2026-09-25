@@ -93,7 +93,7 @@ export default function ExplorerPage() {
     <div className="mx-auto max-w-3xl px-6 py-10">
       <div className="mb-6">
         <div className="label mb-2">Knowledge graph</div>
-        <h1 className="text-2xl font-semibold tracking-tight">Explorer</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Graph tree</h1>
         <p className="mt-1.5 text-sm text-[var(--text-muted)]">
           Search an entity, then click any node in the 3D graph (or a neighbor pill) to expand it in place.
         </p>

@@ -52,7 +52,7 @@ const TRY = [
     title: "Compare",
     text: "The same question answered by plain RAG and Graph RAG, side by side.",
   },
-  { to: "/explorer", icon: Network, title: "Explorer", text: "Fly through the map of names and links in 3D." },
+  { to: "/graph-tree", icon: Network, title: "Graph tree", text: "Fly through the map of names and links in 3D." },
 ];
 
 function Section({ label, title, children }: { label: string; title: string; children: React.ReactNode }) {

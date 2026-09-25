@@ -30,7 +30,7 @@ const HEADER_LINKS = [
   { to: "/dashboard", label: "Dashboard" },
   { to: "/chat", label: "Chat" },
   { to: "/compare", label: "Compare" },
-  { to: "/explorer", label: "Explorer" },
+  { to: "/graph-tree", label: "Graph tree" },
 ];
 
 const STEPS = [
@@ -43,7 +43,7 @@ const STEPS = [
 const FEATURES = [
   { to: "/chat", icon: MessageSquare, title: "Chat", body: "Ask a question, get an answer grounded in the graph." },
   { to: "/compare", icon: GitCompare, title: "Compare", body: "The same question through generic RAG and Graph RAG, side by side." },
-  { to: "/explorer", icon: Network, title: "Explorer", body: "Fly through the knowledge graph in 3D and expand any node." },
+  { to: "/graph-tree", icon: Network, title: "Graph tree", body: "Fly through the knowledge graph in 3D and expand any node." },
   { to: "/eval", icon: BarChart3, title: "Evaluation", body: "20 benchmark questions, scored for relevance and faithfulness." },
 ];
 // The read-only public demo hides Evaluation, so About fills its slot.

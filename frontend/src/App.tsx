@@ -23,7 +23,7 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     label: "Explore",
     items: [
       { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-      { to: "/explorer", label: "Explorer", icon: Network },
+      { to: "/graph-tree", label: "Graph tree", icon: Network },
     ],
   },
   {
@@ -204,7 +204,9 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/compare" element={<ComparePage />} />
-          <Route path="/explorer" element={<ExplorerPage />} />
+          <Route path="/graph-tree" element={<ExplorerPage />} />
+          {/* The page's old address, so earlier links still land on it. */}
+          <Route path="/explorer" element={<Navigate to="/graph-tree" replace />} />
           <Route path="/admin" element={<BuildOnly page={<AdminPage />} />} />
           <Route path="/eval" element={<BuildOnly page={<EvalPage />} />} />
           <Route path="/about" element={<AboutPage />} />
