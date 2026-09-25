@@ -150,8 +150,7 @@ export default function AboutPage() {
               <img
                 src="/logo.svg"
                 alt=""
-                className="h-10 w-10 rounded-xl"
-                style={{ boxShadow: "0 0 24px rgba(255,255,255,0.12)" }}
+                className="h-10 w-10 rounded-xl sm:shadow-[0_0_24px_rgba(255,255,255,0.12)]"
               />
               <span className="label">Capstone project</span>
             </div>
