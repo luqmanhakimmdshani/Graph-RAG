@@ -121,7 +121,6 @@ export default function LandingPage({ theme, onToggleTheme }: { theme: Theme; on
         <div className="absolute inset-0">
           <CodeGraphHero />
         </div>
-        <div className="hero-scrim pointer-events-none absolute inset-0" />
         {/* pointer-events-none all the way down except the two links themselves -
             the graph underneath should be draggable from anywhere, including
             over the headline, not just the empty margins around this column. */}

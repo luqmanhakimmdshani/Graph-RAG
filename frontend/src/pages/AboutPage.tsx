@@ -143,14 +143,14 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <CodeGraphHero />
         </div>
-        <div className="hero-scrim pointer-events-none absolute inset-0" />
         <div className="pointer-events-none relative mx-auto grid max-w-5xl items-center gap-8 px-6 pb-14 pt-10 sm:min-h-[620px] sm:gap-10 sm:py-14 lg:grid-cols-[1fr_22rem]">
           <div style={{ textShadow: "var(--hero-text-shadow)" }}>
             <div className="mb-6 flex items-center gap-3">
               <img
                 src="/logo.svg"
                 alt=""
-                className="h-10 w-10 rounded-xl sm:shadow-[0_0_24px_rgba(255,255,255,0.12)]"
+                className="h-10 w-10 rounded-xl"
+                style={{ boxShadow: "0 0 24px rgba(255,255,255,0.12)" }}
               />
               <span className="label">Capstone project</span>
             </div>

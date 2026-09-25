@@ -266,21 +266,6 @@
   select {
     font-size: 16px;
   }
-  /* The 3D hero graphs are busiest right behind the text on a narrow screen;
-     a veil in the page colour keeps the words readable over them. */
-  .hero-scrim {
-    background: color-mix(in srgb, var(--bg) 62%, transparent);
-  }
-  /* That veil already carries legibility, so the hero shadows come off:
-     on a phone they just smudge the text and logo. The light theme keeps
-     its invert so the logo stays dark on the pale page. */
-  :root[data-theme] {
-    --hero-text-shadow: none;
-    --hero-logo-filter: none;
-  }
-  :root[data-theme="light"] {
-    --hero-logo-filter: invert(1);
-  }
 }
 
 .no-scrollbar {
